@@ -1,0 +1,12 @@
+.comments {
+    &>span {
+        position: sticky;
+        left: 100%;
+        top: 0;
+        cursor: pointer;
+    }
+    &>h3 {
+        margin: -36px 0 1rem 0;
+        line-height: 36px;
+    }
+}

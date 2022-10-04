@@ -1,0 +1,83 @@
+/* filters in header */
+
+.timeline__header {
+    &>.filters {
+        margin-top: 0.5rem;
+        justify-content: flex-start;
+        &>span.fa-stack {
+            display: none;
+        }
+        &>h3 {
+            font-weight: 400;
+            font-size: 0.938rem;
+            margin-right: 0.75rem;
+        }
+        &>ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            &>li {
+                margin-right: 1rem;
+                font-size: 0.938rem;
+                &.dropdown-toggle {
+                    padding: 0.375rem 0 0.375rem 0.625rem;
+                    white-space: nowrap;
+                    line-height: 0.938rem;
+                    cursor: pointer;
+                    background: var(--greyVeryLight);
+                    border-radius: 0.5rem;
+                    height: 31px;
+                    display: flex;
+                    align-items: center;
+                    &:hover {
+                        &>i {
+                            background: var(--grey);
+                        }
+                    }
+                    &>span {
+                        display: none;
+                        background: var(--primary);
+                        margin-left: 0.375rem;
+                        padding: 0.25rem 0.375rem;
+                        color: #fff;
+                        font-size: 0.688rem;
+                        line-height: 0.688rem;
+                        border-radius: 0.25rem;
+                    }
+                    &>i {
+                        margin-left: 0.625rem;
+                        font-size: 0.813rem;
+                        background: var(--greyLight);
+                        padding: 0 0.625rem;
+                        height: 31px;
+                        line-height: 31px;
+                        border-radius: 0 0.5rem 0.5rem 0;
+                    }
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+
+/* filters in mobile reveal section */
+
+#filters {
+    &>.filters {
+        &>span.fa-stack {
+            position: sticky;
+            left: 100%;
+            top: 0;
+            cursor: pointer;
+        }
+        &>h3 {
+            margin: -36px 0 1rem 0;
+            line-height: 36px;
+        }
+    }
+}
