@@ -11,8 +11,7 @@ Licensed under MIT License
         define(['jquery'], factory);
     } else if (typeof module === 'object' && typeof module.exports === 'object') {
         // CommonJS
-        module.exports = factory(
-            import ('jquery'));
+        module.exports = factory(require('jquery'));
     } else {
         // Global jQuery
         factory(jQuery);
