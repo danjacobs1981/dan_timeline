@@ -32,7 +32,7 @@
                 <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i>Saved
             </li>-->
             <li class="header__options-comments">
-                <i class="fa-solid fa-comment"></i>6 comments
+                <i class="fa-solid fa-comment"></i>8 comments
             </li>
             <li class="header__options-share">
                 <i class="fa-solid fa-share-nodes"></i>Share
