@@ -1,4 +1,5 @@
-import './plugins/jquery-resizable.min.js';
+//import './plugins/jquery-resizable.min.js';
+import '../../node_modules/jquery-resizable-dom/dist/jquery-resizable.min.js';
 
 /* map */
 let map;
