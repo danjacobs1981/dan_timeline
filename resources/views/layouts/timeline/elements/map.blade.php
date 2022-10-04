@@ -2,6 +2,7 @@
     @vite('resources/css/map.scss')
 @endpush
 @push('scripts')
+    <script src="https://rawgit.com/RickStrahl/jquery-resizable/master/src/jquery-resizable.js"></script>
     @vite('resources/js/map.js')
     <script src="https://maps.googleapis.com/maps/api/js?key={{ App::environment() == 'local' ? config('constants.map.key.local') : config('constants.map.key.production') }}&callback=initMap&v=weekly" defer></script>
 @endpush

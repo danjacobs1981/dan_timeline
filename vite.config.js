@@ -19,7 +19,7 @@ export default defineConfig({
                 'resources/js/comments.js',
                 'resources/js/filters.js',
                 'resources/js/portal.js',
-                'resources/js/modal.js'
+                //'resources/js/modal.js'
             ],
             refresh: true,
         }),
