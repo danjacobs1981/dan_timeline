@@ -426,42 +426,14 @@
     @media (min-width: 992px) {
         &__header {
             padding: 1rem 1.25rem;
-            & .header__options {
-                &-share {
-                    background: none!important;
-                    &>i {
-                        display: none;
-                    }
-                    &>ul {
-                        display: flex!important;
-                        margin: 0 0 0 0.5rem;
-                        &>li {
-                            margin-right: 0.25rem;
-                            &:nth-child(1n+5) {
-                                display: none;
-                            }
-                            &:last-child {
-                                margin-right: 0;
-                                display: block;
-                            }
-                            &>a {
-                                &>i {
-                                    width: 31px;
-                                    height: 31px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    font-size: 19px;
-                                    margin-right: 0;
-                                    border-radius: 100%;
-                                }
-                                &>span {
-                                    display: none;
-                                }
-                            }
-                        }
+            &>div {
+                &>div {
+                    &>h1 {
+                        font-size: 1.75rem;
                     }
                 }
+            }
+            & .header__options {
                 &-filters {
                     display: none!important;
                 }
@@ -491,6 +463,50 @@
         }
     }
     @media (min-width: 1200px) {
+        &__header {
+            & .header__options {
+                &-share {
+                    background: none!important;
+                    &>i {
+                        display: none;
+                    }
+                    &>ul {
+                        display: flex!important;
+                        margin: 0 0 0 0.5rem;
+                        &>li {
+                            margin-right: 0.25rem;
+                            &:nth-child(1n+5) {
+                                display: none;
+                            }
+                            &:last-child {
+                                margin-right: 0;
+                                display: block;
+                            }
+                            &>a {
+                                transition: transform 0.25s ease;
+                                display: block;
+                                &:hover {
+                                    transform: translateY(-0.25rem);
+                                }
+                                &>i {
+                                    width: 31px;
+                                    height: 31px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 19px;
+                                    margin-right: 0;
+                                    border-radius: 100%;
+                                }
+                                &>span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         &__body {
             #{$map} & {
                 &>article {

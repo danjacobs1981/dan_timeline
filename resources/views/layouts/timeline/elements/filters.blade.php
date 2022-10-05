@@ -11,24 +11,36 @@
     </span>
     <h3>Filters</h3>
     <ul>
-        <li class="dropdown-toggle filter">
-            Vehicles <span></span><i class="fa-solid fa-chevron-down dropdown-close"></i>
+        <li class="dropdown-toggle filter-checkboxes">
+            Vehicles<i class="fa-solid fa-chevron-down dropdown-close"></i>
             <div class="dropdown">
                 <ul>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square"></i>Car
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_Car" />
+                        <label for="f_Car">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>Car
+                        </label>
                     </li>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square"></i>Van
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_Van" />
+                        <label for="f_Van">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>Van
+                        </label>
                     </li>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square"></i>4x4
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
                     </li>
                     <span></span>
                     <li>
@@ -37,24 +49,45 @@
                 </ul>
             </div>
         </li>
-        <li class="dropdown-toggle filter">
-            Places <span>3</span><i class="fa-solid fa-chevron-down dropdown-close"></i>
+        <li class="filter filter-checkbox">
+            <input type="checkbox" id="f_VerifiedSources" />
+            <label for="f_VerifiedSources">
+                <span class="fa-stack">
+                    <i class="fa-regular fa-square fa-stack-1x"></i>
+                    <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                </span>Verified Sources
+            </label>
+        </li>
+        <li class="dropdown-toggle filter filter-checkboxes">
+            Places<i class="fa-solid fa-chevron-down dropdown-close"></i>
             <div class="dropdown">
                 <ul>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square"></i>Car
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_Car1" />
+                        <label for="f_Car1">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>Car1
+                        </label>
                     </li>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square-check"></i>Van
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_Van1" />
+                        <label for="f_Van1">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>Van1
+                        </label>
                     </li>
-                    <li>
-                        <span class="checkbox">
-                            <i class="fa-regular fa-square"></i>4x4
-                        </span>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x41" />
+                        <label for="f_4x41">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x41
+                        </label>
                     </li>
                     <span></span>
                     <li>
@@ -63,11 +96,71 @@
                 </ul>
             </div>
         </li>
-        <li class="filter">
+        <li class="filter filter-images">
             People
             <ul>
-                <li>
-                    <img src="{{ Vite::asset('resources/images/test/person.jpg') }}" alt="" />
+                <li class="filter filter-image">
+                    <input type="checkbox" id="f_p1" />
+                    <label for="f_p1">
+                        <img src="{{ Vite::asset('resources/images/test/person1.jpg') }}" alt="" />
+                    </label>
+                </li>
+                <li class="filter filter-image">
+                    <input type="checkbox" id="f_p2" />
+                    <label for="f_p2">
+                        <span>
+                            DJ
+                        </span>
+                    </label>
+                </li>
+                <li class="filter filter-image">
+                    <input type="checkbox" id="f_p3" />
+                    <label for="f_p3">
+                        <img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />
+                    </label>
+                </li>
+                <li class="dropdown-toggle filter filter-image">
+                    <input type="checkbox" class="more" />
+                    <label>
+                        <span>
+                            +6
+                        </span>
+                    </label>
+                    <div class="dropdown">
+                        <ul>
+                            <li class="filter filter-checkbox">
+                                <input type="checkbox" id="f_p4" />
+                                <label for="f_p4">
+                                    <span class="fa-stack">
+                                        <i class="fa-regular fa-square fa-stack-1x"></i>
+                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                    </span><img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />Bill Spoon
+                                </label>
+                            </li>
+                            <li class="filter filter-checkbox">
+                                <input type="checkbox" id="f_p5" />
+                                <label for="f_p5">
+                                    <span class="fa-stack">
+                                        <i class="fa-regular fa-square fa-stack-1x"></i>
+                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                    </span><img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />Fred Marshall
+                                </label>
+                            </li>
+                            <li class="filter filter-checkbox">
+                                <input type="checkbox" id="f_p6" />
+                                <label for="f_p6">
+                                    <span class="fa-stack">
+                                        <i class="fa-regular fa-square fa-stack-1x"></i>
+                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                    </span><span>DJ</span>Don Jude
+                                </label>
+                            </li>
+                            <span></span>
+                            <li>
+                                <a href="#"><i class="fa-solid fa-check"></i>Done</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </li>
