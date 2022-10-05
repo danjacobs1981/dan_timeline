@@ -328,12 +328,6 @@
                         margin-right: 0;
                     }
                 }
-                &-filters {
-                    display: none!important;
-                }
-            }
-            &>.filters {
-                display: flex!important;
             }
         }
         &__body {
@@ -427,9 +421,6 @@
                     }
                 }
             }
-            &>#filters {
-                display: none;
-            }
         }
     }
     @media (min-width: 992px) {
@@ -471,6 +462,12 @@
                         }
                     }
                 }
+                &-filters {
+                    display: none!important;
+                }
+            }
+            &>div.filters {
+                display: flex!important;
             }
         }
         &__body {
@@ -487,6 +484,9 @@
                 &>div {
                     padding: 15px 1.25rem;
                 }
+            }
+            &>#filters {
+                display: none;
             }
         }
     }

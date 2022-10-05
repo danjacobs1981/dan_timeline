@@ -42,23 +42,34 @@
             <div class="dropdown">
                 <ul>
                     <li>
-                        <a href="#"><i class="fa-regular fa-user"></i>See more by <strong>username</strong></a>
+                        <span class="checkbox">
+                            <i class="fa-regular fa-square"></i>Car
+                        </span>
                     </li>
                     <li>
-                        <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                        <span class="checkbox">
+                            <i class="fa-regular fa-square-check"></i>Van
+                        </span>
                     </li>
                     <li>
-                        <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                        <span class="checkbox">
+                            <i class="fa-regular fa-square"></i>4x4
+                        </span>
                     </li>
                     <span></span>
                     <li>
-                        <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                        <a href="#"><i class="fa-solid fa-check"></i>Done</a>
                     </li>
                 </ul>
             </div>
         </li>
         <li class="filter">
             People
+            <ul>
+                <li>
+                    <img src="{{ Vite::asset('resources/images/test/person.jpg') }}" alt="" />
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
