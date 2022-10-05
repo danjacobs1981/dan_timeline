@@ -12,14 +12,13 @@ export default defineConfig({
                 'resources/css/comments.scss',
                 'resources/css/filters.scss',
                 'resources/css/portal.scss',
-                'resources/js/global.js',
+                'resources/js/global.js', /* imports jquery & jquery-modal */
                 'resources/js/web.js',
                 'resources/js/timeline.js',
-                'resources/js/map.js',
+                'resources/js/map.js', /* imports jquery-resizable-dom */
                 'resources/js/comments.js',
                 'resources/js/filters.js',
-                'resources/js/portal.js',
-                //'resources/js/modal.js'
+                'resources/js/portal.js'
             ],
             refresh: true,
         }),

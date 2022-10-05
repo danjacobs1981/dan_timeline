@@ -1,5 +1,10 @@
 import './bootstrap';
 
+import $ from 'jquery';
+window.$ = $;
+
+import * as modal from 'jquery-modal'
+
 window.isMobile = false;
 
 testMobile();
@@ -12,10 +17,23 @@ function testMobile() {
     if (window.matchMedia("(max-width: 767px)").matches) {
         isMobile = true;
         return true;
+    } else {
+        return false;
     }
 }
 
 /* modals */
+
+$.modal.defaults = {
+    blockerClass: 'modal-blocker',
+    closeText: '<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-2x"></i><i class="fa-solid fa-xmark fa-stack-1x"></i></span>',
+    spinnerHtml: '<div class="dots"><div></div><div></div><div></div><div></div></div>',
+    showSpinner: true,
+    showClose: true,
+    escapeClose: true,
+    clickClose: true
+};
+
 $('[data-modal]').on('click', function() {
     var modalExtraClass = '';
     if (typeof $(this).data('modal_class') !== 'undefined') {

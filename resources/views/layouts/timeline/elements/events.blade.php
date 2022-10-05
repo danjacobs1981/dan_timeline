@@ -79,7 +79,7 @@
                             <input type="checkbox">
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-user"></i>bg plz</a>
+                            <a href="#"><i class="fa-regular fa-user"></i>bg plz1</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
