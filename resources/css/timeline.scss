@@ -295,7 +295,7 @@
         flex-direction: column;
         width: 100%;
         &__header {
-            padding: 0.75rem 1rem;
+            padding: 0.75rem 1rem 0.25rem;
             box-shadow: none;
             &>div {
                 flex-direction: row;
@@ -425,8 +425,9 @@
     }
     @media (min-width: 992px) {
         &__header {
-            padding: 1rem 1.25rem;
+            padding: 1rem 0 0.5rem;
             &>div {
+                padding: 0 1.25rem 0;
                 &>div {
                     &>h1 {
                         font-size: 1.75rem;
@@ -440,6 +441,8 @@
             }
             &>div.filters {
                 display: flex!important;
+                border-top: 1px solid var(--grey);
+                padding-top: 0.5rem;
             }
         }
         &__body {

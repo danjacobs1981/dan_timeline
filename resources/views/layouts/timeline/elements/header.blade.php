@@ -16,9 +16,11 @@
                 <i class="fa-solid fa-pencil"></i>Edit
             </li>
             @endauth
+            @if($temp_filters)
             <li class="header__options-filters">
                 <i class="fa-solid fa-filter"></i>Filter
             </li>
+            @endif
             <li class="header__options-like colour-like">
                 <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i>Like
             </li>
@@ -61,4 +63,6 @@
         </ul>
     </div>
 </div>
+@if($temp_filters)
 @include('layouts.timeline.elements.filters')
+@endif
