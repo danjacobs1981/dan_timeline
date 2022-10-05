@@ -106,7 +106,7 @@
             &>figure {
                 margin: 0;
                 height: 32vh;
-                max-height: calc(100vh - 96px);
+                max-height: calc(100% - 96px);
                 position: fixed;
                 bottom: 2.5rem;
                 left: 0;
