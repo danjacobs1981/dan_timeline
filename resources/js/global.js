@@ -3,7 +3,11 @@ import './bootstrap';
 import $ from 'jquery';
 window.$ = $;
 
-import * as modal from 'jquery-modal'
+import * as modal from 'jquery-modal';
+
+import.meta.glob([
+    '../images/**'
+]);
 
 window.isMobile = false;
 
