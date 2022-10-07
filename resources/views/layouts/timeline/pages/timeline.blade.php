@@ -3,11 +3,16 @@
 @section('content')
 
     <main>
-        <section class="timeline {{ $temp_map ? 'timeline--map' : '' }}">
+        <section class="timeline {{ $temp_map ? 'timeline--map' : '' }} {{ $temp_filters ? 'timeline--filters' : '' }}">
             <header class="timeline__header">
                 @include('layouts.timeline.elements.header')
             </header>
             <div class="timeline__body">
+                @if($temp_filters)
+                <div id="filters">
+                    @include('layouts.timeline.elements.filters')
+                </div>
+                @endif
                 <article>
                     @include('layouts.timeline.elements.events')
                 </article>
@@ -24,7 +29,6 @@
                     @include('layouts.timeline.elements.comments')
                 </div>
                 @endif
-                <div id="filters"></div>
             </div>
         </section>
     </main>

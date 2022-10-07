@@ -1,4 +1,4 @@
-$('#filters').html($('.filters').clone());
+/*$('#filters').html($('.filters').clone());*/
 
 /* header buttons */
 $('.header__options-share').on('click', function() {

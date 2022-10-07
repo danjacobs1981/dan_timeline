@@ -4,44 +4,78 @@
         <em>
             by <strong><a href="#">username</a></strong>
         </em>
-        <span class="fa-stack">
-            <i class="fa-solid fa-circle fa-stack-2x"></i>
-            <i class="fa-solid fa-xmark fa-stack-1x"></i>
-        </span>
     </div>
     <div>
         <ul class="header__options">
             @auth
             <li class="header__options-edit colour-edit">
-                <i class="fa-solid fa-pencil"></i>Edit
+                <i class="fa-solid fa-pencil"></i><span>Edit</span>
             </li>
             @endauth
             @if($temp_filters)
             <li class="header__options-filters">
-                <i class="fa-solid fa-filter"></i>Filter
+                <i class="fa-solid fa-filter"></i><span>Filter</span>
+            </li>
+            @elseif(!$temp_filters && $temp_tags)
+            <li class="header__options-tags dropdown-toggle dropdown-toggle-arrow" data-popover="Filter" data-popover-position="bottom">
+                <i class="fa-solid fa-filter dropdown-close"></i>
+                <span>Filter</span>
+                <i class="fa-solid fa-chevron-down dropdown-close"></i>
+                <!-- tag list -->
+                <div class="dropdown filter-checkboxes" data-backdrop data-position="right">
+                    <ul>
+                        <li class="filter filter-checkbox">
+                            <input type="checkbox" id="f_Car" />
+                            <label for="f_Car">
+                                <span class="fa-stack">
+                                    <i class="fa-regular fa-square fa-stack-1x"></i>
+                                    <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                </span>Car
+                            </label>
+                        </li>
+                        <li class="filter filter-checkbox">
+                            <input type="checkbox" id="f_Van" />
+                            <label for="f_Van">
+                                <span class="fa-stack">
+                                    <i class="fa-regular fa-square fa-stack-1x"></i>
+                                    <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                </span>Van
+                            </label>
+                        </li>
+                        <li class="filter filter-checkbox">
+                            <input type="checkbox" id="f_4x4" />
+                            <label for="f_4x4">
+                                <span class="fa-stack">
+                                    <i class="fa-regular fa-square fa-stack-1x"></i>
+                                    <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                </span>4x4
+                            </label>
+                        </li>
+                    </ul>
+                </div>
             </li>
             @endif
-            <li class="header__options-like colour-like">
-                <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i>Like
+            <li class="header__options-like colour-like" data-popover="Like" data-popover-position="bottom">
+                <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Like</span>
             </li>
             <!--<li class="header__options-like colour-liked">
-                <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i>21
+                <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>21</span>
             </li>-->
-            <li class="header__options-save colour-save">
-                <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i>Save
+            <li class="header__options-save colour-save" data-popover="Save" data-popover-position="bottom">
+                <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Save</span>
             </li>
             <!--<li class="header__options-save colour-saved">
-                <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i>Saved
+                <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
             </li>-->
-            <li class="header__options-comments">
-                <i class="fa-solid fa-comment"></i>8 comments
+            <li class="header__options-comments" data-popover="Comments" data-popover-position="bottom">
+                <i class="fa-solid fa-comment"></i><span>8 comments</span>
             </li>
-            <li class="header__options-share">
-                <i class="fa-solid fa-share-nodes"></i>Share
+            <li class="header__options-share" data-popover="Share" data-popover-position="bottom">
+                <i class="fa-solid fa-share-nodes"></i><span>Share</span>
                 @include('layouts.timeline.elements.social',['more'=>true])
             </li>
-            <li class="header__options-info dropdown-toggle">
-                <i class="fa-solid fa-ellipsis dropdown-close"></i>More
+            <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="bottom">
+                <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>
                 <div class="dropdown" data-backdrop data-position="right">
                     <ul>
                         <li>
@@ -63,6 +97,3 @@
         </ul>
     </div>
 </div>
-@if($temp_filters)
-@include('layouts.timeline.elements.filters')
-@endif

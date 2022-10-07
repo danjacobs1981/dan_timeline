@@ -9,7 +9,7 @@
         <i class="fa-solid fa-circle fa-stack-2x"></i>
         <i class="fa-solid fa-xmark fa-stack-1x"></i>
     </span>
-    <h3>Filters</h3>
+    <h3>Filter</h3>
     <ul>
         <li class="dropdown-toggle filter-checkboxes">
             Vehicles<i class="fa-solid fa-chevron-down dropdown-close"></i>
@@ -42,9 +42,122 @@
                             </span>4x4
                         </label>
                     </li>
-                    <span></span>
-                    <li>
-                        <a href="#"><i class="fa-solid fa-check"></i>Done</a>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
+                    </li>
+                    <li class="filter filter-checkbox">
+                        <input type="checkbox" id="f_4x4" />
+                        <label for="f_4x4">
+                            <span class="fa-stack">
+                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                            </span>4x4
+                        </label>
                     </li>
                 </ul>
             </div>
@@ -89,10 +202,6 @@
                             </span>4x41
                         </label>
                     </li>
-                    <span></span>
-                    <li>
-                        <a href="#"><i class="fa-solid fa-check"></i>Done</a>
-                    </li>
                 </ul>
             </div>
         </li>
@@ -101,13 +210,13 @@
             <ul>
                 <li class="filter filter-image">
                     <input type="checkbox" id="f_p1" />
-                    <label for="f_p1">
+                    <label for="f_p1" data-popover="Jane Doe">
                         <img src="{{ Vite::asset('resources/images/test/person1.jpg') }}" alt="" />
                     </label>
                 </li>
                 <li class="filter filter-image">
                     <input type="checkbox" id="f_p2" />
-                    <label for="f_p2">
+                    <label for="f_p2" data-popover="Donald Jumper">
                         <span>
                             DJ
                         </span>
@@ -115,11 +224,11 @@
                 </li>
                 <li class="filter filter-image">
                     <input type="checkbox" id="f_p3" />
-                    <label for="f_p3">
+                    <label for="f_p3" data-popover="Max Smith">
                         <img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />
                     </label>
                 </li>
-                <li class="dropdown-toggle filter filter-image">
+                <li class="dropdown-toggle filter filter-image filter-checkboxes">
                     <input type="checkbox" class="more" />
                     <label>
                         <span>
@@ -155,14 +264,55 @@
                                     </span><span>DJ</span>Don Jude
                                 </label>
                             </li>
-                            <span></span>
-                            <li>
-                                <a href="#"><i class="fa-solid fa-check"></i>Done</a>
-                            </li>
                         </ul>
                     </div>
                 </li>
             </ul>
         </li>
     </ul>
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
+    <br/>filters
 </div>

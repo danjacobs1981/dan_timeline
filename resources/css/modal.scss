@@ -116,6 +116,9 @@
                     padding: 10px;
                     &:hover {
                         background: var(--greyLight);
+                        &::after {
+                            content: none;
+                        }
                     }
                     &>i {
                         border-radius: 100%;
