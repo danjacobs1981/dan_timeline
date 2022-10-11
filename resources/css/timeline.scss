@@ -150,10 +150,10 @@
                     box-shadow: rgb(0 0 0 / 25%) 0 0 8px;
                     border-radius: 100%;
                     &>i.fa-solid.fa-circle {
-                        color: var(--primary);
+                        color: #fff;
                     }
                     &>i.fa-map-location {
-                        color: #fff;
+                        color: var(--primary);
                     }
                 }
                 &>.resizer {
