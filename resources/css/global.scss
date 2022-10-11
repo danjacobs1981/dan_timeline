@@ -63,6 +63,10 @@ body {
     }
 }
 
+:focus {
+    outline: none !important;
+}
+
 .colour-edit {
     color: #fff!important;
     background: var(--edit)!important;
@@ -701,7 +705,6 @@ h6 {
             left: 0;
             background-color: rgba(0, 0, 0, 0);
             transition: background-color 0.5s ease, width 0.5s 0.5s;
-            cursor: pointer;
             &>nav {
                 transform: translateX(-360px);
                 transition: transform 0.5s ease;
@@ -894,7 +897,6 @@ h6 {
     transition: background-color 0.5s ease, width 0.5s 0.5s, opacity 0.5s 0.5s;
     opacity: 0;
     z-index: 150;
-    cursor: pointer;
     &ed {
         width: 100%;
         background-color: var(--faded);

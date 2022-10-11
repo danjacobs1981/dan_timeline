@@ -13,13 +13,13 @@
             </li>
             @endauth
             @if($temp_filters)
-            <li class="header__options-filters" data-reveal="filters" data-popover="Filter" data-popover-position="bottom">
-                <i class="fa-solid fa-filter"></i><span>Filter</span>
+            <li class="header__options-filters" data-reveal="filters" data-popover="Filters" data-popover-position="bottom">
+                <i class="fa-solid fa-filter"></i><span>Filters</span>
             </li>
             @elseif(!$temp_filters && $temp_tags)
-            <li class="header__options-tags dropdown-toggle dropdown-toggle-arrow" data-popover="Filter" data-popover-position="bottom">
+            <li class="header__options-tags dropdown-toggle dropdown-toggle-arrow" data-popover="Filters" data-popover-position="bottom">
                 <i class="fa-solid fa-filter dropdown-close"></i>
-                <span>Filter</span>
+                <span>Filters</span>
                 <i class="fa-solid fa-chevron-down dropdown-close"></i>
                 <!-- tag list -->
                 <div class="dropdown dropdown-checkboxes" data-backdrop data-position="right">

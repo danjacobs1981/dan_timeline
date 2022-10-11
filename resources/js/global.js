@@ -153,6 +153,9 @@ function closeDropdowns() {
 }
 
 /* topbar nav */
+$('#nav_menu').on('change', function(e) {
+    scrollbarStyles(true);
+});
 $('.nav-menu-section').on('click', function(e) {
     if ($(e.target).is('.nav-menu-section') || $(e.target).closest('span').length) {
         $('#nav_menu').prop('checked', false);
