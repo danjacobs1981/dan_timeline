@@ -208,9 +208,6 @@
             }
         }
         &>#comments {
-            top: 0;
-            right: 0;
-            z-index: 150;
             &>div {
                 transform: translateY(calc(100vh - 60px));
                 transition: transform 0.5s ease;
@@ -231,9 +228,6 @@
             }
         }
         &>#filters {
-            top: 0;
-            right: 0;
-            z-index: 150;
             &>div {
                 transform: translateY(-60vh);
                 transition: transform 0.5s ease;
