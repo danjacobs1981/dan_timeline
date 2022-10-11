@@ -49,7 +49,7 @@
     </li>
     @if ($more)
     <li class="social-more">
-        <a data-modal href="#modal-share">
+        <a data-modal href="#modal-share" data-popover="More Sharing" data-popover-position="bottom">
             <i class="fa-solid fa-plus"></i>
         </a>
     </li>

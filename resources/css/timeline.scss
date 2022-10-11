@@ -208,15 +208,8 @@
             }
         }
         &>#comments {
-            width: 0;
-            height: 100%;
-            position: fixed;
             top: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0);
-            transition: background-color 0.5s ease, width 0.5s 0.5s, opacity 0.5s 0.5s;
-            opacity: 0;
-            cursor: pointer;
             z-index: 150;
             &>div {
                 transform: translateY(calc(100vh - 60px));
@@ -224,19 +217,12 @@
                 background: #fff;
                 border-radius: 0.5em 0.5rem 0 0;
                 height: calc(100vh - 60px);
-                padding: 0.5rem;
-                overflow-y: scroll;
                 bottom: 0;
                 position: absolute;
                 width: 100%;
                 left: 0;
-                cursor: initial;
             }
-            &.reveal {
-                width: 100%;
-                background-color: var(--faded);
-                transition: background-color 0.5s ease;
-                opacity: 1;
+            &.revealed {
                 &>div {
                     transform: translateY(0);
                     transition: transform 0.5s ease;
@@ -245,35 +231,22 @@
             }
         }
         &>#filters {
-            width: 0;
-            height: 100%;
-            position: fixed;
             top: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0);
-            transition: background-color 0.5s ease, width 0.5s 0.5s, opacity 0.5s 0.5s;
-            opacity: 0;
-            cursor: pointer;
             z-index: 150;
             &>div {
                 transform: translateY(-60vh);
                 transition: transform 0.5s ease;
                 background: #fff;
                 border-radius: 0 0 0.5em 0.5rem;
-                height: 60vh;
-                padding: 0.5rem;
-                overflow-y: scroll;
+                height: auto;
+                max-height: 60vh;
                 top: 0;
                 position: absolute;
                 width: 100%;
                 left: 0;
-                cursor: initial;
             }
-            &.reveal {
-                width: 100%;
-                background-color: var(--faded);
-                transition: background-color 0.5s ease;
-                opacity: 1;
+            &.revealed {
                 &>div {
                     transform: translateY(0);
                     transition: transform 0.5s ease;
@@ -294,7 +267,7 @@
         }
     }
     @media (min-width: 768px) {
-        height: calc(100vh - 60px);
+        /*height: calc(100vh - 60px);*/
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -315,7 +288,7 @@
                     }
                     &>em {
                         padding: 0;
-                        font-size: 0.875rem;
+                        font-size: 0.813rem;
                         line-height: 1;
                     }
                 }
@@ -329,7 +302,7 @@
                 }
                 &>li {
                     font-size: 0.938rem;
-                    line-height: 0.938rem;
+                    /*line-height: 0.938rem;*/
                     height: 31px;
                     &[data-popover] {
                         &:hover {
@@ -353,16 +326,16 @@
         &__body {
             #{$map} & {
                 display: flex;
-                overflow-y: hidden;
-                height: 100%;
+                /*overflow-y: hidden;
+                height: 100%;*/
                 &>article {
                     width: 50%;
                     min-width: 50%;
                     max-width: calc(100% - 100px);
-                    overflow-y: auto;
-                    scroll-behavior: smooth;
+                    /*overflow-y: auto;
+                    scroll-behavior: smooth;*/
                     z-index: 9;
-                    /* SCROLLBARS (chrome & edge) */
+                    /* SCROLLBARS (chrome & edge)
                     &::-webkit-scrollbar-track {
                         background-color: #f4f5f7;
                     }
@@ -377,7 +350,7 @@
                     }
                     &::-webkit-scrollbar-thumb:hover {
                         background-color: #6d6d6d;
-                    }
+                    } */
                 }
                 &>.splitter {
                     display: block;
@@ -388,6 +361,9 @@
                     box-shadow: rgb(0 0 0 / 20%) 0 50px 30px, rgb(0 0 0 / 15%) 1px 0 1px;
                     border-left: 1px solid #d3d3d3;
                     z-index: 4;
+                    position: sticky;
+                    top: 56px;
+                    height: calc(100vh - 56px);
                     &>i {
                         color: #7f7f7f;
                         position: relative;
@@ -397,12 +373,18 @@
                 }
                 &>figure {
                     display: block;
-                    position: relative;
+                    position: sticky;
                     flex: 1;
                     min-height: 100%;
                     z-index: 0;
-                    transform: translateY(0)!important;
-                    bottom: 0;
+                    transform: translateY(0) !important;
+                    top: 56px;
+                    height: calc(100vh - 56px);
+                    bottom: auto;
+                    transition: height 0.25s ease;
+                    &.view-header {
+                        height: calc(100vh - 116px);
+                    }
                     &>.map-open,
                     &>.resizer {
                         display: none!important;
@@ -417,28 +399,23 @@
                 &>div {
                     transform: translateY(0);
                     transform: translateX(calc(100vw + 420px));
-                    padding: 15px 1rem;
                     height: 100%;
                     border-radius: 0;
                     width: 420px;
                     left: auto;
                     right: 0;
-                    /* SCROLLBARS (chrome & edge) */
-                    &::-webkit-scrollbar-track {
-                        background-color: #f4f5f7;
-                    }
-                    &::-webkit-scrollbar {
-                        width: 18px;
-                    }
-                    &::-webkit-scrollbar-thumb {
-                        background-color: #7f7f7f;
-                        width: 10px;
-                        border-radius: 10px;
-                        border: solid 4px #f4f5f7;
-                    }
-                    &::-webkit-scrollbar-thumb:hover {
-                        background-color: #6d6d6d;
-                    }
+                }
+            }
+            &>#filters {
+                &>div {
+                    transform: translateY(0);
+                    transform: translateX(calc(100vw + 420px));
+                    height: 100%;
+                    max-height: none;
+                    border-radius: 0;
+                    width: 420px;
+                    left: auto;
+                    right: 0;
                 }
             }
         }
@@ -462,39 +439,29 @@
                         display: inline-block;
                     }
                 }
-                &-filters {
-                    display: none!important;
-                }
             }
         }
         &__body {
+            position: relative;
             #{$map} & {
                 &>article {
                     width: 560px;
                     min-width: 420px;
                 }
+                &>.splitter {
+                    top: 64px;
+                    height: calc(100vh - 124px);
+                }
+                &>figure {
+                    top: 64px;
+                    height: calc(100vh - 64px);
+                    &.view-header {
+                        height: calc(100vh - 124px);
+                    }
+                }
             }
             &>article {
                 padding: 1.25rem!important;
-            }
-            &>#comments {
-                &>div {
-                    padding: 15px 1.25rem;
-                }
-            }
-            &>#filters {
-                position: relative;
-                transition: none!important;
-                width: 240px!important;
-                opacity: 1;
-                &>div {
-                    transform: translateY(0)!important;
-                    transition: none!important;
-                    border-radius: 0;
-                    height: 100%;
-                    position: relative;
-                    width: 100%;
-                }
             }
         }
     }

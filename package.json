@@ -17,6 +17,7 @@
         "jquery": "^3.6.1",
         "jquery-modal": "^0.9.2",
         "jquery-resizable-dom": "^0.35.0",
-        "modern-normalize": "^1.1.0"
+        "modern-normalize": "^1.1.0",
+        "scrollmagic": "^2.0.8"
     }
 }

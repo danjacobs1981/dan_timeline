@@ -8,12 +8,12 @@
     <div>
         <ul class="header__options">
             @auth
-            <li class="header__options-edit colour-edit">
+            <li class="header__options-edit colour-edit" data-popover="Edit" data-popover-position="bottom">
                 <i class="fa-solid fa-pencil"></i><span>Edit</span>
             </li>
             @endauth
             @if($temp_filters)
-            <li class="header__options-filters">
+            <li class="header__options-filters" data-reveal="filters" data-popover="Filter" data-popover-position="bottom">
                 <i class="fa-solid fa-filter"></i><span>Filter</span>
             </li>
             @elseif(!$temp_filters && $temp_tags)
@@ -67,7 +67,7 @@
             <!--<li class="header__options-save colour-saved">
                 <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
             </li>-->
-            <li class="header__options-comments" data-popover="Comments" data-popover-position="bottom">
+            <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="bottom">
                 <i class="fa-solid fa-comment"></i><span>8 comments</span>
             </li>
             <li class="header__options-share" data-popover="Share" data-popover-position="bottom">
