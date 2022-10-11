@@ -12,8 +12,7 @@ import.meta.glob([
 ]);
 
 window.isMobile = false;
-
-testMobile();
+window.isTouch = testTouch();
 
 var topbarHeight = $('#topbar').outerHeight();
 //var headerHeight = $('header').outerHeight();
@@ -22,8 +21,6 @@ $(window).on('resize', function() {
     testMobile();
     topbarHeight = $('#topbar').outerHeight();
 });
-
-
 
 var controller = new ScrollMagic.Controller();
 
@@ -44,6 +41,12 @@ function testMobile() {
     } else {
         return false;
     }
+}
+
+function testTouch() {
+    return ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0);
 }
 
 /* modals */
@@ -78,6 +81,21 @@ $('[data-modal]').on('click', function() {
     return false;
 });
 
+$(document).on($.modal.OPEN, function() {
+    if (testMobile()) {
+        $('body').addClass('modal-no-scroll');
+    } else {
+        if (testTouch()) {
+            $('body').addClass('modal-no-scroll');
+        } else {
+            $('body').addClass('modal-no-scrollbar');
+        }
+    }
+});
+$(document).on($.modal.BEFORE_CLOSE, function() {
+    $('body').removeClass('modal-no-scroll').removeClass('modal-no-scrollbar');
+});
+
 /* dropdowns */
 
 $(document).on('click', function(e) {
@@ -105,6 +123,9 @@ $('.dropdown-toggle').on('click', function(e) {
         if (typeof $dropdown.data('backdrop') !== 'undefined') {
             $dropdown.attr('data-backdrop', 'open');
             $('.backdrop').html($dropdown.clone()).show();
+            if (testMobile()) {
+                $('body').addClass('backdrop-no-scroll');
+            }
         }
         $(this).addClass('open');
         $dropdown.show();
@@ -120,6 +141,7 @@ function closeDropdowns() {
     });
     $('.dropdown-toggle').removeClass('open');
     $('.backdrop').hide().empty();
+    $('body').removeClass('backdrop-no-scroll').removeClass('backdrop-no-scrollbar');
 }
 
 /* topbar nav */
@@ -140,9 +162,19 @@ $('.nav-search > label').on('click', function() {
 $('[data-reveal]').on('click', function() {
     var revealId = $(this).data('reveal');
     $('#' + revealId).addClass('revealed');
+    if (testMobile()) {
+        $('body').addClass('reveal-no-scroll');
+    } else {
+        if (testTouch()) {
+            $('body').addClass('reveal-no-scroll');
+        } else {
+            $('body').addClass('reveal-no-scrollbar');
+        }
+    }
 });
 $('.reveal').on('click', function(e) {
     if ($(e.target).is('.reveal') || $(e.target).closest('.reveal__close').length) {
         $(this).removeClass('revealed');
+        $('body').removeClass('reveal-no-scroll').removeClass('reveal-no-scrollbar');
     }
 });

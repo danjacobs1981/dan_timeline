@@ -46,6 +46,19 @@ body {
     color: var(--greyDark);
     font-size: 0.938rem;
     height: 100%;
+    &.backdrop-no-scroll,
+    &.reveal-no-scroll,
+    &.modal-no-scroll {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        &bar {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            inset-inline-end: 17px;
+        }
+    }
     @media (min-width: 768px) {
         font-size: 1rem;
     }
