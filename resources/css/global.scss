@@ -853,6 +853,7 @@ h6 {
     &__wrapper {
         overflow-y: auto;
         cursor: initial;
+        overscroll-behavior: contain;
     }
     &__header {
         display: flex;
