@@ -22,9 +22,9 @@
                 <span>Filter</span>
                 <i class="fa-solid fa-chevron-down dropdown-close"></i>
                 <!-- tag list -->
-                <div class="dropdown filter-checkboxes" data-backdrop data-position="right">
-                    <ul>
-                        <li class="filter filter-checkbox">
+                <div class="dropdown dropdown-checkboxes" data-backdrop data-position="right">
+                    <ul class="filter__wrapper">
+                        <li class="filter__checkbox">
                             <input type="checkbox" id="f_Car" />
                             <label for="f_Car">
                                 <span class="fa-stack">
@@ -33,7 +33,7 @@
                                 </span>Car
                             </label>
                         </li>
-                        <li class="filter filter-checkbox">
+                        <li class="filter__checkbox">
                             <input type="checkbox" id="f_Van" />
                             <label for="f_Van">
                                 <span class="fa-stack">
@@ -42,7 +42,7 @@
                                 </span>Van
                             </label>
                         </li>
-                        <li class="filter filter-checkbox">
+                        <li class="filter__checkbox">
                             <input type="checkbox" id="f_4x4" />
                             <label for="f_4x4">
                                 <span class="fa-stack">

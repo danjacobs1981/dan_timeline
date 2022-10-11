@@ -4,7 +4,7 @@
 @push('scripts')
     @vite('resources/js/comments.js')
 @endpush
-<div class="reveal__wrapper comments">
+<div class="reveal__wrapper">
     <div class="reveal__header">
         <h3>Comments</h3>
         <span class="fa-stack reveal__close">

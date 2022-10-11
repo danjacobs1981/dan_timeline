@@ -209,11 +209,12 @@
         }
         &>#comments {
             &>div {
-                transform: translateY(calc(100vh - 60px));
+                transform: translateY(80vh);
                 transition: transform 0.5s ease;
                 background: #fff;
                 border-radius: 0.5em 0.5rem 0 0;
-                height: calc(100% - 60px);
+                height: auto;
+                max-height: 80vh;
                 bottom: 0;
                 position: absolute;
                 width: 100%;
@@ -229,12 +230,12 @@
         }
         &>#filters {
             &>div {
-                transform: translateY(-60vh);
+                transform: translateY(-80vh);
                 transition: transform 0.5s ease;
                 background: #fff;
                 border-radius: 0 0 0.5em 0.5rem;
                 height: auto;
-                max-height: 60vh;
+                max-height: 80vh;
                 top: 0;
                 position: absolute;
                 width: 100%;
@@ -394,6 +395,7 @@
                     transform: translateY(0);
                     transform: translateX(calc(100vw + 420px));
                     height: 100%;
+                    max-height: none;
                     border-radius: 0;
                     width: 420px;
                     left: auto;
