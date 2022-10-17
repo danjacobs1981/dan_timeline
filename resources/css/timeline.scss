@@ -2,6 +2,7 @@
 
 .timeline {
     $map: #{&}--map;
+    $header: #{&}--header;
     &__header {
         background: #fff;
         position: sticky;
@@ -360,6 +361,7 @@
                     position: sticky;
                     top: 56px;
                     height: calc(100vh - 56px);
+                    transition: height 0.25s ease;
                     &>i {
                         color: #7f7f7f;
                         position: relative;
@@ -378,13 +380,16 @@
                     height: calc(100vh - 56px);
                     bottom: auto;
                     transition: height 0.25s ease;
-                    &.view-header {
-                        height: calc(100vh - 116px);
-                    }
                     &>.map-open,
                     &>.resizer {
                         display: none!important;
                     }
+                }
+            }
+            #{$header} & {
+                &>.splitter,
+                &>figure {
+                    height: calc(100vh - 116px);
                 }
             }
             &>article {
@@ -442,19 +447,22 @@
             position: relative;
             #{$map} & {
                 &>article {
-                    width: 560px;
+                    /*width: 560px;*/
                     min-width: 420px;
                 }
                 &>.splitter {
                     top: 64px;
-                    height: calc(100vh - 124px);
+                    height: calc(100vh - 64px);
                 }
                 &>figure {
                     top: 64px;
                     height: calc(100vh - 64px);
-                    &.view-header {
-                        height: calc(100vh - 124px);
-                    }
+                }
+            }
+            #{$header} & {
+                &>.splitter,
+                &>figure {
+                    height: calc(100vh - 124px);
                 }
             }
             &>article {
@@ -510,9 +518,267 @@
         &__body {
             #{$map} & {
                 &>article {
-                    width: 580px;
+                    /*width: 580px;*/
                 }
             }
         }
     }
+    @media (min-width: 1400px) {
+        &__body {
+            #{$map} & {
+                &>article {
+                    width: 700px;
+                }
+            }
+        }
+    }
+}
+
+.events {
+    height: 6000px;
+    position: relative;
+    &>.test {
+        position: sticky;
+        top: 64px;
+        left: 0;
+        height: 68px;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(244, 245, 247, 1) 75%);
+        z-index: 1;
+        width: 100%;
+    }
+    & section {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        &:first-child {}
+        &.year {
+            background-color: red;
+            margin-top: -68px;
+            &>h3 {
+                width: 62px;
+                transition: margin-left 0.25s ease-in;
+            }
+        }
+        &.month {
+            background-color: yellow;
+            &>h3 {
+                width: 110px;
+            }
+        }
+        &.day {
+            background-color: green;
+            &>h3 {
+                width: 62px;
+            }
+        }
+        &.time {
+            background-color: purple;
+            &>h3 {
+                width: 84px;
+            }
+        }
+        & h3 {
+            position: sticky;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 84px;
+            z-index: 1;
+            background: #000;
+            color: #fff;
+            font-size: 0.938rem;
+            border-radius: 14px;
+            height: 1.75rem;
+            padding: 0 14px;
+            margin-bottom: 40px;
+        }
+        & div {
+            border: 1px solid #000;
+            height: 200px;
+            margin-bottom: 1rem;
+        }
+    }
+    &.year.month {
+        & section {
+            &.year {
+                &>h3 {
+                    margin-left: 96px;
+                    border-radius: 0 14px 14px 0;
+                    transition: all 0.25s ease-in;
+                }
+            }
+        }
+    }
+    &.year.month.day {
+        & section {
+            &.year {
+                &>h3 {
+                    margin-left: 144px;
+                    border-radius: 0 14px 14px 0;
+                    transition: all 0.25s ease-in;
+                }
+            }
+            &.month {
+                &>h3 {
+                    margin-left: 48px;
+                    transition: all 0.25s ease-in;
+                }
+            }
+        }
+    }
+}
+
+.filter {
+    &__wrapper {
+        & input[type=checkbox] {
+            display: none;
+        }
+    }
+    &__group {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        &>li {
+            border-top: 1px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            &:first-child {
+                border-top: none;
+                padding: 0;
+                margin: 0;
+            }
+            &>h3 {
+                margin-top: 0.25rem;
+                font-size: 1rem;
+            }
+            &>ul {
+                list-style: none;
+                padding: 0;
+                margin: 0.5rem 0 0;
+                display: flex;
+                flex-wrap: wrap;
+                &>li {
+                    margin-right: 2rem;
+                }
+            }
+        }
+    }
+    &__checkbox {
+        &>label {
+            white-space: nowrap;
+            line-height: 0.938rem;
+            /*height: 31px;*/
+            display: flex;
+            padding: 0.375rem 0;
+            cursor: pointer;
+            align-items: center;
+            &>span {
+                margin-right: 0.375rem;
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                &>i {
+                    font-size: 1.313rem;
+                    &:hover {
+                        color: var(--primary);
+                    }
+                    &:last-child {
+                        display: none;
+                    }
+                }
+            }
+            &>span:not(.fa-stack),
+            &>img {
+                margin-right: 0.375rem;
+                border-radius: 50%;
+                display: block;
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--primary);
+                color: #fff;
+                font-size: 0.813rem;
+            }
+            &:hover {
+                &>span {
+                    &>i {
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+        &>input[type=checkbox] {
+            &:checked {
+                &~label {
+                    &>span {
+                        &>i {
+                            &:last-child {
+                                display: block;
+                                color: var(--primary);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__clear {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    /*&-image {
+        &>label {
+            margin-right: 0.125rem;
+            border-radius: 50%;
+            width: 37px;
+            height: 37px;
+            border: 2px solid #fff;
+            background: #fff;
+            cursor: pointer;
+            transition: transform 0.25s ease;
+            display: block;
+            &:hover {
+                transform: translateY(-0.25rem);
+            }
+            &>span,
+            &>img {
+                border-radius: 50%;
+                display: block;
+                width: 33px;
+                height: 33px;
+                line-height: 33px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.875rem;
+                background: var(--greyLight);
+                color: var(--greyDark);
+            }
+            &[for] {
+                &>span {
+                    background: var(--primary);
+                    color: #fff;
+                }
+            }
+        }
+        &>input[type=checkbox] {
+            &:checked {
+                &~label {
+                    border-color: var(--primary);
+                    &>span,
+                    &>img {
+                        border: 2px solid #fff;
+                    }
+                }
+            }
+        }
+        &:last-child {
+            &>label {
+                margin-right: 0;
+            }
+        }
+    }*/
 }

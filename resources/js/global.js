@@ -33,7 +33,7 @@ var controller = new ScrollMagic.Controller();
 
 var scene = new ScrollMagic.Scene({
     duration: topbarHeight
-}).setClassToggle('figure', 'view-header').addTo(controller);
+}).setClassToggle('section.timeline', 'timeline--header').addTo(controller);
 
 function testMobile() {
     if (window.matchMedia("(max-width: 767px)").matches) {

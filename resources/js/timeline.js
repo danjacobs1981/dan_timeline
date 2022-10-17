@@ -1,4 +1,28 @@
-/*$('#filters').html($('.filters').clone());*/
+import ScrollMagic from 'scrollmagic';
+
+var controller = new ScrollMagic.Controller();
+
+// create a scene
+/*var scene = new ScrollMagic.Scene({ triggerElement: "header", triggerHook: 0 })
+    .setPin("header")
+    .addTo(controller);
+
+var scene = new ScrollMagic.Scene({
+    triggerElement: 'section>h3',
+    triggerHook: 0
+}).setClassToggle('div.events', 'test' + Math.random()).addTo(controller);*/
+
+
+/*$('.events section').each(function() {
+    var scene = new ScrollMagic.Scene({
+            offset: -84, // header + padding?
+            triggerElement: $(this)[0],
+            triggerHook: 0, // on enter
+            duration: $(this).height() //  height of section
+        })
+        .setClassToggle('.events', $(this).data('period'))
+        .addTo(controller);
+});*/
 
 /* header buttons */
 $('.header__options-share').on('click', function() {

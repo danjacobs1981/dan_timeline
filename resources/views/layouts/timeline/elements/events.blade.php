@@ -1,7 +1,141 @@
-<div>
+<div class="events">
+
+    <div class="test"></div>
+
+    <section class="year" data-period="year">
+
+        <h3>2021</h3>
+
+        <section class="month month__september" data-period="month">
+
+            <h3>September</h3>
+
+            <section class="day" data-period="day">
+
+                <h3>15th</h3>
+                <div>something happened</div>
+
+                <section class="time" data-period="time">
+
+                    <h3>5:15am</h3>
+                    <div>something happened</div>
+
+                </section>
+
+                <section>
+
+                    <div>simple event with no time etc</div>
+
+                </section>
+
+                <section class="time" data-period="time">
+
+                    <h3>4:15pm</h3>
+                    <div>something happened</div>
+
+                </section>
+
+            </section>
+
+            <section class="day" data-period="day">
+
+                <h3>16th</h3>
+                <div>something happened</div>
+
+            </section>
+
+        </section>
+
+        <section class="month month__october" data-period="month">
+
+            <h3>October</h3>
+
+            <section class="day" data-period="day">
+
+                <h3>19th</h3>
+
+                <section class="time" data-period="time">
+
+                    <h3>8:19pm</h3>
+                    <div>something happened</div>
+                    
+                </section>
+
+            </section>
+
+        </section>
+
+    </section>
+
+    <section class="year" data-period="year">
+
+<h3>2022</h3>
+
+<section class="month month__september" data-period="month">
+
+    <h3>September</h3>
+
+    <section class="day" data-period="day">
+
+        <h3>15th</h3>
+        <div>something happened</div>
+
+        <section class="time" data-period="time">
+
+            <h3>5:15am</h3>
+            <div>something happened</div>
+
+        </section>
+
+        <section>
+
+            <div>simple event with no time etc</div>
+
+        </section>
+
+        <section class="time" data-period="time">
+
+            <h3>4:15pm</h3>
+            <div>something happened</div>
+
+        </section>
+
+    </section>
+
+    <section class="day" data-period="day">
+
+        <h3>16th</h3>
+        <div>something happened</div>
+
+    </section>
+
+</section>
+
+<section class="month month__october" data-period="month">
+
+    <h3>October</h3>
+
+    <section class="day" data-period="day">
+
+        <h3>19th</h3>
+
+        <section class="time" data-period="time">
+
+            <h3>8:19pm</h3>
+            <div>something happened</div>
+            
+        </section>
+
+    </section>
+
+</section>
+
+</section>
 
 
-<!---<div class="dots"><div></div><div></div><div></div><div></div></div>--->
+
+
+<!---<div class="dots"><div></div><div></div><div></div><div></div></div>
 
             <li class="dropdown-toggle">
                 <i class="fa-solid fa-plus"></i>normal
@@ -90,119 +224,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li>--->
 
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-events<br/>
-bottom
+
 </div>

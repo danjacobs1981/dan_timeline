@@ -104,10 +104,10 @@
         </ul>
     </div>
     <div class="reveal__footer">
-        <span class="clear">
+        <span class="filter__clear">
             Clear all
         </span>
-        <span class="btn">
+        <span class="btn filter__show">
             Show 32 results
         </span>
     </div>
