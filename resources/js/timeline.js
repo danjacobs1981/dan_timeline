@@ -13,16 +13,33 @@ var scene = new ScrollMagic.Scene({
 }).setClassToggle('div.events', 'test' + Math.random()).addTo(controller);*/
 
 
-/*$('.events section').each(function() {
-    var scene = new ScrollMagic.Scene({
-            offset: -84, // header + padding?
+$('.events section').each(function() {
+    var offset = -56; // header
+    if ($(this).hasClass('month')) {
+        offset = -76;
+    } else if ($(this).hasClass('day')) {
+        offset = -96;
+    } else if ($(this).hasClass('time')) {
+        offset = -116;
+    }
+    new ScrollMagic.Scene({
+            offset: offset,
             triggerElement: $(this)[0],
             triggerHook: 0, // on enter
             duration: $(this).height() //  height of section
         })
         .setClassToggle('.events', $(this).data('period'))
         .addTo(controller);
-});*/
+
+    new ScrollMagic.Scene({
+            offset: offset,
+            triggerElement: $(this)[0],
+            triggerHook: 0, // on enter
+            duration: $(this).height() //  height of section
+        })
+        .setClassToggle($(this)[0], 'current')
+        .addTo(controller);
+});
 
 /* header buttons */
 $('.header__options-share').on('click', function() {

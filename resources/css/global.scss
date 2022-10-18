@@ -67,6 +67,10 @@ body {
     outline: none !important;
 }
 
+sup {
+    top: -0.25em;
+}
+
 .colour-edit {
     color: #fff!important;
     background: var(--edit)!important;

@@ -97,7 +97,7 @@
     }
     &__body {
         &>article {
-            padding: 0.5rem;
+            /*padding: 0.5rem;*/
             background: #f4f5f7;
             min-width: 100%;
             max-width: 100%;
@@ -393,7 +393,7 @@
                 }
             }
             &>article {
-                padding: 1rem!important;
+                /*padding: 1rem!important;*/
                 z-index: 5;
             }
             &>#comments {
@@ -466,7 +466,7 @@
                 }
             }
             &>article {
-                padding: 1.25rem!important;
+                /*padding: 1.25rem!important;*/
             }
         }
     }
@@ -536,45 +536,76 @@
 
 .events {
     height: 6000px;
-    position: relative;
-    &>.test {
+    background: linear-gradient(var(--primary), var(--primary)) no-repeat 21px 0/3px 100%;
+    &-fade {
         position: sticky;
-        top: 64px;
+        top: 56px;
         left: 0;
-        height: 68px;
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(244, 245, 247, 1) 75%);
-        z-index: 1;
+        height: 1.25rem;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(244, 245, 247) 75%);
+        z-index: 5;
         width: 100%;
+    }
+    &-wrapper {
+        margin-top: -1.25rem;
+        padding-top: 1.25rem;
+        &>section {
+            &:first-child {
+                &[data-period=""] {
+                    margin-top: 0;
+                }
+            }
+        }
     }
     & section {
         padding: 0;
         display: flex;
         flex-direction: column;
-        &:first-child {}
+        margin: 1.25rem 0;
+        & section {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
         &.year {
-            background-color: red;
-            margin-top: -68px;
+            &:last-child {
+                margin-top: 4rem;
+            }
             &>h3 {
-                width: 62px;
-                transition: margin-left 0.25s ease-in;
+                top: 96px;
+                left: 0;
+                background: var(--primary);
+                width: 48px;
+                border-radius: 0 0.5rem 0.5rem 0;
+                justify-content: flex-start;
+                padding-left: 8px;
             }
         }
         &.month {
-            background-color: yellow;
+            background: linear-gradient(#a3a3a3, #a3a3a3) no-repeat 76px 0/1px 100%;
             &>h3 {
-                width: 110px;
+                top: 96px;
+                background: #a3a3a3;
+                z-index: 3;
             }
         }
         &.day {
-            background-color: green;
             &>h3 {
-                width: 62px;
+                top: 116px;
+                background: #939393;
+                z-index: 2;
+            }
+            & div.event {
+                border-color: #939393;
             }
         }
         &.time {
-            background-color: purple;
             &>h3 {
-                width: 84px;
+                top: 136px;
+                background: #838383;
+            }
+            & div.event {
+                border-color: #838383;
             }
         }
         & h3 {
@@ -582,46 +613,106 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            top: 84px;
             z-index: 1;
-            background: #000;
+            left: 42px;
             color: #fff;
-            font-size: 0.938rem;
-            border-radius: 14px;
-            height: 1.75rem;
-            padding: 0 14px;
-            margin-bottom: 40px;
+            font-size: 0.75rem;
+            border-radius: 0.5rem;
+            height: 1.25rem;
+            width: 68px;
+            font-weight: 400;
+            transition: all 0.2s ease;
         }
-        & div {
-            border: 1px solid #000;
-            height: 200px;
-            margin-bottom: 1rem;
+        & div.event {
+            border: 1px solid #a3a3a3;
+            height: 160px;
+            margin-right: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 42px;
+            margin-top: -1.25rem;
+            background: #fff;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 2px 3px;
+        }
+        &[data-period=""] {
+            margin-bottom: 1.25rem;
+            & div.event {
+                margin-top: 0;
+            }
         }
     }
     &.year.month {
-        & section {
+        & section.current {
             &.year {
                 &>h3 {
-                    margin-left: 96px;
-                    border-radius: 0 14px 14px 0;
-                    transition: all 0.25s ease-in;
+                    border-radius: 0;
                 }
+            }
+            &.month {
+                &>h3 {}
             }
         }
     }
     &.year.month.day {
-        & section {
+        & section.current {
+            &.month {
+                &>h3 {
+                    border-radius: 0.5rem 0.5rem 0 0;
+                }
+            }
+            &.day {
+                &>h3 {
+                    border-radius: 0 0 0.5rem 0.5rem;
+                }
+            }
+        }
+    }
+    &.year.month.day.time {
+        & section.current {
             &.year {
                 &>h3 {
-                    margin-left: 144px;
-                    border-radius: 0 14px 14px 0;
-                    transition: all 0.25s ease-in;
+                    border-radius: 0;
                 }
             }
             &.month {
                 &>h3 {
-                    margin-left: 48px;
-                    transition: all 0.25s ease-in;
+                    border-radius: 0.5rem 0.5rem 0 0;
+                }
+            }
+            &.day {
+                &>h3 {
+                    border-radius: 0;
+                }
+            }
+            &.time {
+                &>h3 {
+                    border-radius: 0 0 0.5rem 0.5rem;
+                }
+            }
+        }
+    }
+    @media (min-width: 768px) {
+        & section {
+            &.year {
+                &>h3 {
+                    top: 76px;
+                }
+            }
+            &.month {
+                &>h3 {
+                    top: 76px;
+                }
+            }
+            &.day {
+                &>h3 {
+                    top: 96px;
+                }
+            }
+            &.time {
+                &>h3 {
+                    top: 116px;
                 }
             }
         }
