@@ -14,7 +14,7 @@ var scene = new ScrollMagic.Scene({
 
 
 $('.events section').each(function() {
-    var offset = -56; // header
+    var offset = -56; // header height
     if ($(this).hasClass('month')) {
         offset = -76;
     } else if ($(this).hasClass('day')) {
