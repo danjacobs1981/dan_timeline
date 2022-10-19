@@ -6,13 +6,15 @@
 
         <section data-period="">
 
-        <div class="event">simple event with no time etc</div>
+            <div class="event">simple event with no time etc</div>
 
         </section>
 
         <section class="year" data-period="year">
 
-            <h3>2021</h3>
+            <h3>
+                <span class="year">2021</span>
+            </h3>
 
             <section data-period="">
 
@@ -22,7 +24,10 @@
 
             <section class="month month__september" data-period="month">
 
-                <h3>Sept</h3>
+                <h3>
+                    <span class="month">September</span>
+                    <span class="year">2021</span>
+                </h3>
 
                 <section data-period="">
 
@@ -32,7 +37,11 @@
 
                 <section class="day" data-period="day">
 
-                    <h3>Wed 15<sup>th</sup></h3>
+                    <h3>
+                        <span class="day">Wednesday 15<sup>th</sup></span>
+                        <span class="month">September</span>
+                        <span class="year">2021</span>
+                    </h3>
                     <div class="event">something happened</div>
 
                     <section class="time" data-period="time">

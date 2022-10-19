@@ -23,7 +23,7 @@ $('.events section').each(function() {
         offset = -116;
     }
     new ScrollMagic.Scene({
-            offset: offset,
+            offset: -74,
             triggerElement: $(this)[0],
             triggerHook: 0, // on enter
             duration: $(this).height() //  height of section
@@ -32,7 +32,7 @@ $('.events section').each(function() {
         .addTo(controller);
 
     new ScrollMagic.Scene({
-            offset: offset,
+            offset: -74,
             triggerElement: $(this)[0],
             triggerHook: 0, // on enter
             duration: $(this).height() //  height of section

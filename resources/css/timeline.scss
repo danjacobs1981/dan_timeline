@@ -536,7 +536,6 @@
 
 .events {
     height: 6000px;
-    background: linear-gradient(var(--primary), var(--primary)) no-repeat 21px 0/3px 100%;
     &-fade {
         position: sticky;
         top: 56px;
@@ -549,11 +548,10 @@
     &-wrapper {
         margin-top: -1.25rem;
         padding-top: 1.25rem;
+        /*background: linear-gradient(var(--primary), var(--primary)) no-repeat 21px 0/3px 100%;*/
         &>section {
             &:first-child {
-                &[data-period=""] {
-                    margin-top: 0;
-                }
+                &[data-period=""] {}
             }
         }
     }
@@ -568,90 +566,101 @@
             }
         }
         &.year {
+            background: linear-gradient(#333, #333) no-repeat 50% 0/1px 100%;
             &:last-child {
                 margin-top: 4rem;
             }
-            &>h3 {
-                top: 96px;
-                left: 0;
-                background: var(--primary);
-                width: 48px;
-                border-radius: 0 0.5rem 0.5rem 0;
-                justify-content: flex-start;
-                padding-left: 8px;
-            }
+            &>h3 {}
         }
         &.month {
-            background: linear-gradient(#a3a3a3, #a3a3a3) no-repeat 76px 0/1px 100%;
+            /*background: linear-gradient(#a3a3a3, #a3a3a3) no-repeat 76px 0/1px 100%;*/
             &>h3 {
-                top: 96px;
-                background: #a3a3a3;
-                z-index: 3;
+                &>.year {
+                    display: none;
+                }
             }
         }
         &.day {
             &>h3 {
-                top: 116px;
-                background: #939393;
-                z-index: 2;
+                &>.year,
+                &>.month {
+                    display: none;
+                }
             }
             & div.event {
                 border-color: #939393;
             }
         }
         &.time {
-            &>h3 {
-                top: 136px;
-                background: #838383;
-            }
+            &>h3 {}
             & div.event {
                 border-color: #838383;
             }
         }
         & h3 {
-            position: sticky;
             display: flex;
             align-items: center;
             justify-content: center;
+            top: 74px;
+            position: sticky;
             z-index: 1;
-            left: 42px;
             color: #fff;
-            font-size: 0.75rem;
-            border-radius: 0.5rem;
-            height: 1.25rem;
-            width: 68px;
-            font-weight: 400;
+            font-size: 0.938rem;
+            width: fit-content;
+            margin: 0 auto;
             transition: all 0.2s ease;
+            &>span {
+                display: block;
+                border-radius: 0.5rem;
+                height: 1.5rem;
+                line-height: 1.5rem;
+                padding: 0 0.5rem;
+                &.day {
+                    background: rgb(50, 50, 50, .9);
+                }
+                &.month {
+                    background: rgb(50, 50, 50, .8);
+                }
+                &.year {
+                    background: rgb(50, 50, 50, .7);
+                }
+                &.time {
+                    background: rgb(50, 50, 50, .6);
+                }
+            }
         }
         & div.event {
             border: 1px solid #a3a3a3;
             height: 160px;
-            margin-right: 1rem;
             border-radius: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 42px;
-            margin-top: -1.25rem;
+            margin: 1.25rem 1rem 1.25rem 1rem;
             background: #fff;
             box-shadow: rgb(0 0 0 / 5%) 0 0 2px 3px;
         }
         &[data-period=""] {
-            margin-bottom: 1.25rem;
-            & div.event {
-                margin-top: 0;
-            }
+            & div.event {}
         }
     }
     &.year.month {
         & section.current {
             &.year {
                 &>h3 {
-                    border-radius: 0;
+                    opacity: 0;
                 }
             }
             &.month {
-                &>h3 {}
+                &>h3 {
+                    &>.month {
+                        border-radius: 0.5rem 0 0 0.5rem;
+                    }
+                    &>.year {
+                        display: inline-block;
+                        border-radius: 0 0.5rem 0.5rem 0;
+                    }
+                }
             }
         }
     }
@@ -659,12 +668,22 @@
         & section.current {
             &.month {
                 &>h3 {
-                    border-radius: 0.5rem 0.5rem 0 0;
+                    opacity: 0;
                 }
             }
             &.day {
                 &>h3 {
-                    border-radius: 0 0 0.5rem 0.5rem;
+                    &>.day {
+                        border-radius: 0.5rem 0 0 0.5rem;
+                    }
+                    &>.month {
+                        display: inline-block;
+                        border-radius: 0;
+                    }
+                    &>.year {
+                        display: inline-block;
+                        border-radius: 0 0.5rem 0.5rem 0;
+                    }
                 }
             }
         }
@@ -696,24 +715,16 @@
     @media (min-width: 768px) {
         & section {
             &.year {
-                &>h3 {
-                    top: 76px;
-                }
+                &>h3 {}
             }
             &.month {
-                &>h3 {
-                    top: 76px;
-                }
+                &>h3 {}
             }
             &.day {
-                &>h3 {
-                    top: 96px;
-                }
+                &>h3 {}
             }
             &.time {
-                &>h3 {
-                    top: 116px;
-                }
+                &>h3 {}
             }
         }
     }
