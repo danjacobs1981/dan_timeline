@@ -536,196 +536,159 @@
 
 .events {
     height: 6000px;
-    &-fade {
+    &-time {
         position: sticky;
-        top: 56px;
+        top: 76px;
         left: 0;
-        height: 1.25rem;
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(244, 245, 247) 75%);
-        z-index: 5;
+        z-index: 3;
         width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        &>div {
+            border-radius: 0 0 0.5rem 0.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            background: var(--greyDark);
+            width: calc(100% - 1rem);
+            color: #fff;
+            padding: 0 1rem;
+            &>i {
+                font-size: 1.375rem;
+                position: relative;
+                top: -1px;
+                margin-right: 0.5rem;
+            }
+            &>span {
+                font-size: 0.938rem;
+            }
+        }
     }
     &-wrapper {
-        margin-top: -1.25rem;
-        padding-top: 1.25rem;
-        /*background: linear-gradient(var(--primary), var(--primary)) no-repeat 21px 0/3px 100%;*/
-        &>section {
-            &:first-child {
-                &[data-period=""] {}
-            }
-        }
-    }
-    & section {
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        margin: 1.25rem 0;
+        padding: 1.5rem 1rem 1rem;
         & section {
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-        &.year {
-            background: linear-gradient(#333, #333) no-repeat 50% 0/1px 100%;
-            &:last-child {
-                margin-top: 4rem;
-            }
-            &>h3 {}
-        }
-        &.month {
-            /*background: linear-gradient(#a3a3a3, #a3a3a3) no-repeat 76px 0/1px 100%;*/
-            &>h3 {
-                &>.year {
-                    display: none;
+            &.none {
+                & .event::before,
+                & .event::after {
+                    content: none;
                 }
             }
-        }
-        &.day {
-            &>h3 {
-                &>.year,
-                &>.month {
-                    display: none;
-                }
-            }
-            & div.event {
-                border-color: #939393;
-            }
-        }
-        &.time {
-            &>h3 {}
-            & div.event {
-                border-color: #838383;
-            }
-        }
-        & h3 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            top: 74px;
-            position: sticky;
-            z-index: 1;
-            color: #fff;
-            font-size: 0.938rem;
-            width: fit-content;
-            margin: 0 auto;
-            transition: all 0.2s ease;
-            &>span {
-                display: block;
-                border-radius: 0.5rem;
-                height: 1.5rem;
-                line-height: 1.5rem;
-                padding: 0 0.5rem;
-                &.day {
-                    background: rgb(50, 50, 50, .9);
-                }
-                &.month {
-                    background: rgb(50, 50, 50, .8);
-                }
-                &.year {
-                    background: rgb(50, 50, 50, .7);
-                }
-                &.time {
-                    background: rgb(50, 50, 50, .6);
-                }
-            }
-        }
-        & div.event {
-            border: 1px solid #a3a3a3;
-            height: 160px;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 1.25rem 1rem 1.25rem 1rem;
-            background: #fff;
-            box-shadow: rgb(0 0 0 / 5%) 0 0 2px 3px;
-        }
-        &[data-period=""] {
-            & div.event {}
-        }
-    }
-    &.year.month {
-        & section.current {
             &.year {
-                &>h3 {
-                    opacity: 0;
-                }
-            }
-            &.month {
-                &>h3 {
-                    &>.month {
-                        border-radius: 0.5rem 0 0 0.5rem;
-                    }
-                    &>.year {
-                        display: inline-block;
-                        border-radius: 0 0.5rem 0.5rem 0;
+                padding-left: 1rem;
+                margin-bottom: 2.5rem;
+                background: linear-gradient(var(--grey), var(--grey)) no-repeat 8px 0/1px 100%;
+                &>.event-item:first-child {
+                    & h3 {
+                        background: blue;
+                        &::before,
+                        &::after {
+                            content: none;
+                        }
                     }
                 }
             }
-        }
-    }
-    &.year.month.day {
-        & section.current {
             &.month {
-                &>h3 {
-                    opacity: 0;
+                padding-left: 1rem;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(var(--grey), var(--grey)) no-repeat 8px 0/1px 100%;
+                &>h3,
+                &>.event-item h3 {
+                    background: red;
                 }
             }
             &.day {
-                &>h3 {
-                    &>.day {
-                        border-radius: 0.5rem 0 0 0.5rem;
-                    }
-                    &>.month {
-                        display: inline-block;
-                        border-radius: 0;
-                    }
-                    &>.year {
-                        display: inline-block;
-                        border-radius: 0 0.5rem 0.5rem 0;
-                    }
-                }
-            }
-        }
-    }
-    &.year.month.day.time {
-        & section.current {
-            &.year {
-                &>h3 {
-                    border-radius: 0;
-                }
-            }
-            &.month {
-                &>h3 {
-                    border-radius: 0.5rem 0.5rem 0 0;
-                }
-            }
-            &.day {
-                &>h3 {
-                    border-radius: 0;
+                padding-left: 1rem;
+                margin-bottom: 0.5rem;
+                background: linear-gradient(var(--grey), var(--grey)) no-repeat 8px 0/1px 100%;
+                &>h3,
+                &>.event-item h3 {
+                    background: green;
                 }
             }
             &.time {
-                &>h3 {
-                    border-radius: 0 0 0.5rem 0.5rem;
-                }
+                & h3 {}
+            }
+        }
+        & h3 {
+            border-radius: 0.25rem;
+            background: #333;
+            color: #fff;
+            font-size: 0.938rem;
+            width: fit-content;
+            margin: 0 0 1.5rem -1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 400;
+            line-height: 1.5rem;
+            padding: 0 0.5rem;
+            position: relative;
+            &::before {
+                content: "";
+                background: #333;
+                height: 1px;
+                width: 8px;
+                position: absolute;
+                left: -8px;
+            }
+            &::after {
+                content: "";
+                height: 7px;
+                width: 7px;
+                border-radius: 50%;
+                background: #333;
+                position: absolute;
+                left: -11px;
+            }
+            &.hidden {
+                opacity: 0;
+                height: 0;
+                top: -3rem;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+        & .event {
+            border-radius: 0.5rem;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5rem;
+            margin: 0 0 1.5rem 0;
+            background: #fff;
+            position: relative;
+            &::before {
+                content: "";
+                background: #aaa;
+                height: 1px;
+                width: 8px;
+                position: absolute;
+                left: -9px;
+            }
+            &::after {
+                content: "";
+                height: 7px;
+                width: 7px;
+                border-radius: 50%;
+                background: #aaa;
+                position: absolute;
+                left: -12px;
+            }
+            &-item {
+                position: relative;
             }
         }
     }
     @media (min-width: 768px) {
-        & section {
-            &.year {
-                &>h3 {}
-            }
-            &.month {
-                &>h3 {}
-            }
-            &.day {
-                &>h3 {}
-            }
-            &.time {
-                &>h3 {}
-            }
+        &-time {
+            top: 56px;
+        }
+    }
+    @media (min-width: 992px) {
+        &-time {
+            top: 64px;
         }
     }
 }

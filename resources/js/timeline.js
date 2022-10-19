@@ -13,7 +13,7 @@ var scene = new ScrollMagic.Scene({
 }).setClassToggle('div.events', 'test' + Math.random()).addTo(controller);*/
 
 
-$('.events section').each(function() {
+/*$('.events section').each(function() {
     var offset = -56; // header1
     if ($(this).hasClass('month')) {
         offset = -76;
@@ -39,6 +39,31 @@ $('.events section').each(function() {
         })
         .setClassToggle($(this)[0], 'current')
         .addTo(controller);
+});*/
+
+$('.events-wrapper h3').each(function() {
+    var offset = -81;
+    if (isMobile) {
+        offset = -73;
+    }
+    new ScrollMagic.Scene({
+            offset: offset,
+            triggerElement: $(this)[0],
+        })
+        .triggerHook(0)
+        .on('enter', function(e) {
+            $('.events-time span').text($(e.target.triggerElement()).data('time'));
+        })
+        .on('leave', function(e) {
+            if ($(e.target.triggerElement()).closest('.event-item').prev().find('h3').length > 0) {
+                $('.events-time span').text($(e.target.triggerElement()).closest('.event-item').prev().find('h3').data('time'));
+            } else if ($(e.target.triggerElement()).closest('section').prev().find('h3').length > 0) {
+                $('.events-time span').text($(e.target.triggerElement()).closest('section').prev().find('h3').data('time'));
+            }
+
+        })
+
+    .addTo(controller);
 });
 
 /* header buttons */
