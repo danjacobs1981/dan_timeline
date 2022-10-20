@@ -8,7 +8,7 @@ function initMap() {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
         mapTypeId: "roadmap",
-        disableDefaultUI: isMobile,
+        disableDefaultUI: true, //isMobile
         options: {
             gestureHandling: 'greedy'
         }

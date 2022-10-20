@@ -4,6 +4,10 @@
         <div>
             <i class="fa-regular fa-calendar"></i>
             <span>First value</span>
+            <div>
+                <i id="" class="fa-solid fa-circle-up"></i>
+                <i id="down" class="fa-solid fa-circle-down"></i>
+            </div>
         </div>
     </div>
 
@@ -54,33 +58,33 @@
 
                 <section class="day">
 
-                    <h3 data-time="Wednesday 15th September 2021">Wednesday 15th</h3>
+                    <h3 data-time="Wed 15th September 2021">Wednesday 15th</h3>
 
                     <section class="time">
 
                         <div class="event-item">
-                            <h3 class="hidden" data-time="Wednesday 15th September 2021 at 5:15pm">5:15pm</h3>
+                            <h3 class="hidden" data-time="Wed 15th September 2021 at 5:15pm">5:15pm</h3>
                             <div class="event">
                                 5:15pm title in event
                             </div>
                         </div>
 
                         <div class="event-item">
-                            <h3 class="hidden" data-time="Wednesday 15th September 2021">Wednesday 15th</h3>
+                            <h3 class="hidden" data-time="Wed 15th September 2021">Wednesday 15th</h3>
                             <div class="event">
                                 event
                             </div>
                         </div>
                         
                         <div class="event-item">
-                            <h3 class="hidden" data-time="Wednesday 15th September 2021">Wednesday 15th</h3>
+                            <h3 class="hidden" data-time="Wed 15th September 2021">Wednesday 15th</h3>
                             <div class="event">
                                 event
                             </div>
                         </div>
 
                         <div class="event-item">
-                            <h3 class="hidden" data-time="Wednesday 15th September 2021 at 9:15pm">9:15pm</h3>
+                            <h3 class="hidden" data-time="Wed 15th September 2021 at 9:15pm">9:15pm</h3>
                             <div class="event">
                                 9:15pm title in event
                             </div>
@@ -93,7 +97,7 @@
                 <section class="day">
 
                     <div class="event-item">
-                        <h3 data-time="Thursday 16th September 2021">Thursday 16th</h3>
+                        <h3 id="test" data-time="Thu 16th September 2021">Thursday 16th</h3>
                         <div class="event">
                             event
                         </div>

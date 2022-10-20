@@ -24,14 +24,28 @@ $(window).on('resize', function() {
     topbarHeight = $('#topbar').outerHeight();
 });
 
-var controller = new ScrollMagic.Controller();
+function scrollOnPageLoad() {
+    if (window.location.hash) scroll(0, 0);
+    setTimeout(scroll(0, 0), 1);
+    var hashLink = window.location.hash;
+    if ($(hashLink).length) {
+        $(function() {
+            $('section.timeline').removeClass('timeline--header');
+            // should position map too
+            // maybe create specific function for ?event=32
+            $('html, body').animate({
+                scrollTop: $(window.location.hash).offset().top - 80
+            }, 1000);
+        });
+    }
+}
 
-// create a scene
-/*var scene = new ScrollMagic.Scene({ triggerElement: "header", triggerHook: 0 })
-    .setPin("header")
-    .addTo(controller);*/
+$(window).on('load', function() {
+    setTimeout(scrollOnPageLoad(), 500);
+});
 
-var scene = new ScrollMagic.Scene({
+window.controller = new ScrollMagic.Controller();
+new ScrollMagic.Scene({
     duration: topbarHeight
 }).setClassToggle('section.timeline', 'timeline--header').addTo(controller);
 

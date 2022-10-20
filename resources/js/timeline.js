@@ -1,6 +1,6 @@
 import ScrollMagic from 'scrollmagic';
 
-var controller = new ScrollMagic.Controller();
+
 
 // create a scene
 /*var scene = new ScrollMagic.Scene({ triggerElement: "header", triggerHook: 0 })
@@ -42,28 +42,64 @@ var scene = new ScrollMagic.Scene({
 });*/
 
 $('.events-wrapper h3').each(function() {
-    var offset = -81;
+    var offset = -80;
     if (isMobile) {
-        offset = -73;
+        offset = -92;
     }
     new ScrollMagic.Scene({
             offset: offset,
             triggerElement: $(this)[0],
         })
         .triggerHook(0)
-        .on('enter', function(e) {
-            $('.events-time span').text($(e.target.triggerElement()).data('time'));
+        .on('enter', function(e) { // forward
+            var $element = $(e.target.triggerElement());
+            $('.events-time span').text($element.data('time'));
+            $('.events-wrapper h3').removeClass('event-current');
+            $element.addClass('event-current');
+            //location.hash = '#' + $(e.target.triggerElement()).attr('id');
         })
-        .on('leave', function(e) {
-            if ($(e.target.triggerElement()).closest('.event-item').prev().find('h3').length > 0) {
-                $('.events-time span').text($(e.target.triggerElement()).closest('.event-item').prev().find('h3').data('time'));
-            } else if ($(e.target.triggerElement()).closest('section').prev().find('h3').length > 0) {
-                $('.events-time span').text($(e.target.triggerElement()).closest('section').prev().find('h3').data('time'));
+        .on('leave', function(e) { // reverse
+            var $element = $(e.target.triggerElement());
+            if (prevEventDate($element, '.event-item', false) > 0) {
+                $('.events-time span').text(prevEventDate($element, '.event-item', true));
+            } else {
+                $('.events-time span').text(prevEventDate($element, 'section', true));
             }
-
+            $('.events-wrapper h3').removeClass('event-current');
+            $element.addClass('event-current');
+            //location.hash = '#' + $(e.target.triggerElement()).attr('id');
         })
 
     .addTo(controller);
+});
+
+function prevEventDate($element, area, time) {
+    if (time) {
+        return $element.closest(area).prev().find('h3').data('time');
+    }
+    return $element.closest(area).prev().find('h3').length;
+}
+
+function nextEvent($element, area) {
+    return $element.closest(area).next().find('h3').length;
+}
+
+
+
+$('#down').on('click', function() {
+    var $currentElement = $('.event-current');
+    var $nextElement = $currentElement.next('.event');
+    // Check if next element actually exists
+    if ($nextElement.length) {
+        // If yes, update:
+        // 1. $currentElement
+        // 2. Scroll position
+        $currentElement = $nextElement;
+        $('html, body').stop(true).animate({
+            scrollTop: $nextElement.offset().top
+        }, 500);
+    }
+    return false;
 });
 
 /* header buttons */
