@@ -41,10 +41,10 @@ var scene = new ScrollMagic.Scene({
         .addTo(controller);
 });*/
 
-$('.events-wrapper h3').each(function() {
-    var offset = -80;
+$('.events-wrapper .event-item').each(function() {
+    var offset = -81;
     if (isMobile) {
-        offset = -92;
+        offset = -93;
     }
     new ScrollMagic.Scene({
             offset: offset,
@@ -53,50 +53,36 @@ $('.events-wrapper h3').each(function() {
         .triggerHook(0)
         .on('enter', function(e) { // forward
             var $element = $(e.target.triggerElement());
-            $('.events-time span').text($element.data('time'));
-            $('.events-wrapper h3').removeClass('event-current');
+            $('.events-time span').text($element.find('h3').data('time'));
+            $('.events-wrapper .event-item').removeClass('event-current');
             $element.addClass('event-current');
             //location.hash = '#' + $(e.target.triggerElement()).attr('id');
         })
         .on('leave', function(e) { // reverse
             var $element = $(e.target.triggerElement());
-            if (prevEventDate($element, '.event-item', false) > 0) {
-                $('.events-time span').text(prevEventDate($element, '.event-item', true));
-            } else {
-                $('.events-time span').text(prevEventDate($element, 'section', true));
-            }
-            $('.events-wrapper h3').removeClass('event-current');
+            var order = $element.data('order') - 1;
+            $('.events-time span').text($('.event-item[data-order="' + order + '"] h3').data('time'));
+            $('.events-wrapper .event-item').removeClass('event-current');
             $element.addClass('event-current');
             //location.hash = '#' + $(e.target.triggerElement()).attr('id');
         })
-
-    .addTo(controller);
+        .addTo(controller);
 });
 
-function prevEventDate($element, area, time) {
-    if (time) {
-        return $element.closest(area).prev().find('h3').data('time');
+
+
+$('.events-increment i').on('click', function() {
+    var increment = -1;
+    var offset = 94;
+    if ($(this).hasClass('events-down')) {
+        increment = 1;
+        offset = 92;
     }
-    return $element.closest(area).prev().find('h3').length;
-}
-
-function nextEvent($element, area) {
-    return $element.closest(area).next().find('h3').length;
-}
-
-
-
-$('#down').on('click', function() {
-    var $currentElement = $('.event-current');
-    var $nextElement = $currentElement.next('.event');
-    // Check if next element actually exists
+    var order = $('.event-current').data('order');
+    var $nextElement = $('.event-item[data-order="' + (order + increment) + '"]');
     if ($nextElement.length) {
-        // If yes, update:
-        // 1. $currentElement
-        // 2. Scroll position
-        $currentElement = $nextElement;
         $('html, body').stop(true).animate({
-            scrollTop: $nextElement.offset().top
+            scrollTop: $nextElement.offset().top - offset
         }, 500);
     }
     return false;

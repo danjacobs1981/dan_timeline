@@ -4,9 +4,9 @@
         <div>
             <i class="fa-regular fa-calendar"></i>
             <span>First value</span>
-            <div>
-                <i id="" class="fa-solid fa-circle-up"></i>
-                <i id="down" class="fa-solid fa-circle-down"></i>
+            <div class="events-increment">
+                <i class="events-up fa-solid fa-circle-up"></i>
+                <i class="events-down fa-solid fa-circle-down"></i>
             </div>
         </div>
     </div>
@@ -15,15 +15,15 @@
 
         <section class="none">
 
-            <div class="event-item">
-                <h3 class="hidden" data-time="Start">Start</h3>
+            <div class="event-item event-current" data-order="0">
+                <h3 data-time="Start">Start</h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
-            <div class="event-item">
-                <h3 class="hidden" data-time="Start">Start</h3>
+            <div class="event-item" data-order="1">
+                <h3 data-time="Start">Start</h3>
                 <div class="event">
                     event
                 </div>
@@ -33,15 +33,15 @@
 
         <section class="year">
 
-            <div class="event-item">
+            <div class="event-item" data-order="2">
                 <h3 data-time="2021">2021</h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
-            <div class="event-item">
-                <h3 class="hidden" data-time="2021">2021</h3>
+            <div class="event-item" data-order="3">
+                <h3 data-time="2021">2021</h3>
                 <div class="event">
                     event
                 </div>
@@ -49,10 +49,10 @@
 
             <section class="month">
 
-                <div class="event-item">
+                <div class="event-item" data-order="4">
                     <h3 data-time="September 2021">September</h3>
                     <div class="event">
-                        event
+                        sep event
                     </div>
                 </div>
 
@@ -62,29 +62,29 @@
 
                     <section class="time">
 
-                        <div class="event-item">
-                            <h3 class="hidden" data-time="Wed 15th September 2021 at 5:15pm">5:15pm</h3>
+                        <div class="event-item" data-order="5">
+                            <h3 data-time="Wed 15th September 2021 at 5:15pm">5:15pm</h3>
                             <div class="event">
                                 5:15pm title in event
                             </div>
                         </div>
 
-                        <div class="event-item">
-                            <h3 class="hidden" data-time="Wed 15th September 2021">Wednesday 15th</h3>
+                        <div class="event-item" data-order="6">
+                            <h3 data-time="Wed 15th September 2021">Wednesday 15th</h3>
                             <div class="event">
                                 event
                             </div>
                         </div>
                         
-                        <div class="event-item">
-                            <h3 class="hidden" data-time="Wed 15th September 2021">Wednesday 15th</h3>
+                        <div class="event-item" data-order="7">
+                            <h3 data-time="Wed 15th September 2021">Wednesday 15th</h3>
                             <div class="event">
                                 event
                             </div>
                         </div>
 
-                        <div class="event-item">
-                            <h3 class="hidden" data-time="Wed 15th September 2021 at 9:15pm">9:15pm</h3>
+                        <div class="event-item" data-order="8">
+                            <h3 data-time="Wed 15th September 2021 at 9:15pm">9:15pm</h3>
                             <div class="event">
                                 9:15pm title in event
                             </div>
@@ -96,7 +96,7 @@
 
                 <section class="day">
 
-                    <div class="event-item">
+                    <div class="event-item" data-order="9">
                         <h3 id="test" data-time="Thu 16th September 2021">Thursday 16th</h3>
                         <div class="event">
                             event
@@ -105,8 +105,8 @@
 
                 </section>
 
-                <div class="event-item">
-                    <h3 class="hidden" data-time="September 2021">September</h3>
+                <div class="event-item" data-order="10">
+                    <h3 data-time="September 2021">September</h3>
                     <div class="event">
                         event
                     </div>
@@ -116,7 +116,7 @@
 
             <section class="month">
 
-                <div class="event-item">
+                <div class="event-item" data-order="11">
                     <h3 data-time="October 2021">October</h3>
                     <div class="event">
                         event
@@ -129,7 +129,7 @@
 
         <section class="year">
 
-            <div class="event-item">
+            <div class="event-item" data-order="12">
                 <h3 data-time="2022">2022</h3>
                 <div class="event">
                     event
