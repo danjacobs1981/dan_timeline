@@ -13,17 +13,28 @@
 
     <div class="events-wrapper">
 
+        <section class="year">
+
+            <div class="event-item" data-order="-1">
+                <h3 data-time="1998">1998</h3>
+                <div class="event">
+                    event
+                </div>
+            </div>
+
+        </section>
+
         <section class="none">
 
             <div class="event-item event-current" data-order="0">
-                <h3 data-time="Start">Start</h3>
+                <h3 data-time="">n/a</h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
             <div class="event-item" data-order="1">
-                <h3 data-time="Start">Start</h3>
+                <h3 data-time="">n/a</h3>
                 <div class="event">
                     event
                 </div>

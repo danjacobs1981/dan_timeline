@@ -42,9 +42,9 @@ var scene = new ScrollMagic.Scene({
 });*/
 
 $('.events-wrapper .event-item').each(function() {
-    var offset = -81;
+    var offset = -88;
     if (isMobile) {
-        offset = -93;
+        offset = -99;
     }
     new ScrollMagic.Scene({
             offset: offset,
@@ -73,10 +73,10 @@ $('.events-wrapper .event-item').each(function() {
 
 $('.events-increment i').on('click', function() {
     var increment = -1;
-    var offset = 94;
+    var offset = 100;
     if ($(this).hasClass('events-down')) {
         increment = 1;
-        offset = 92;
+        offset = 98;
     }
     var order = $('.event-current').data('order');
     var $nextElement = $('.event-item[data-order="' + (order + increment) + '"]');
