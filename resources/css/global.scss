@@ -365,12 +365,27 @@ em.count {
     z-index: 999;
     &>.dropdown {
         display: block!important;
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: rgb(0 0 0 / 35%) 0 -1px 4px;
         position: fixed;
         left: 50%;
         top: 50%;
         bottom: auto;
         right: auto;
         transform: translate(-50%, -50%);
+        &>ul {
+            padding: 0.75rem;
+            &>li {
+                &>a {
+                    padding: 0.75rem;
+                }
+            }
+            &>span {
+                margin-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+        }
     }
     @media (min-width: 768px) {
         display: none!important;

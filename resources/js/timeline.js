@@ -53,7 +53,7 @@ $('.events-wrapper .event-item').each(function() {
         .triggerHook(0)
         .on('enter', function(e) { // forward
             var $element = $(e.target.triggerElement());
-            $('.events-time span').text($element.find('h3').data('time'));
+            $('.events-time span').html($element.find('h3').html());
             $('.events-wrapper .event-item').removeClass('event-current');
             $element.addClass('event-current');
             //location.hash = '#' + $(e.target.triggerElement()).attr('id');
@@ -61,7 +61,7 @@ $('.events-wrapper .event-item').each(function() {
         .on('leave', function(e) { // reverse
             var $element = $(e.target.triggerElement());
             var order = $element.data('order') - 1;
-            $('.events-time span').text($('.event-item[data-order="' + order + '"] h3').data('time'));
+            $('.events-time span').html($('.event-item[data-order="' + order + '"] h3').html());
             $('.events-wrapper .event-item').removeClass('event-current');
             $element.addClass('event-current');
             //location.hash = '#' + $(e.target.triggerElement()).attr('id');
