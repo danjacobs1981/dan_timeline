@@ -15,33 +15,12 @@ window.isMobile = false;
 window.isTouch = testTouch();
 
 var topbarHeight = $('#topbar').outerHeight();
-//var headerHeight = $('header').outerHeight();
 
 testMobile();
 
 $(window).on('resize', function() {
     testMobile();
     topbarHeight = $('#topbar').outerHeight();
-});
-
-function scrollOnPageLoad() {
-    if (window.location.hash) scroll(0, 0);
-    setTimeout(scroll(0, 0), 1);
-    var hashLink = window.location.hash;
-    if ($(hashLink).length) {
-        $(function() {
-            $('section.timeline').removeClass('timeline--header');
-            // should position map too
-            // maybe create specific function for ?event=32
-            $('html, body').animate({
-                scrollTop: $(window.location.hash).offset().top - 80
-            }, 1000);
-        });
-    }
-}
-
-$(window).on('load', function() {
-    setTimeout(scrollOnPageLoad(), 500);
 });
 
 window.controller = new ScrollMagic.Controller();

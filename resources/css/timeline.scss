@@ -545,44 +545,54 @@
         display: flex;
         align-items: flex-start;
         justify-content: center;
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(244, 245, 247) 200%);
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgb(244, 245, 247) 100%);
         &>div {
-            border-radius: 0.5rem;
-            height: 2.5rem;
             display: flex;
-            align-items: center;
-            background: var(--greyDark);
+            margin-top: 0.5rem;
             width: calc(100% - 1rem);
             color: #fff;
-            padding: 0 0.75rem 0 1rem;
-            margin-top: 0.5rem;
-            &>i {
-                font-size: 1.375rem;
-                position: relative;
-                top: -1px;
-                margin-right: 0.5rem;
-            }
-            &>span {
-                font-size: 0.844rem;
+            &>div {
+                background: var(--greyDark);
+                display: flex;
+                height: 2.5rem;
+                align-items: center;
+                justify-content: center;
+                padding: 0 0.5rem;
+                width: 100%;
+                &>i {
+                    font-size: 1.375rem;
+                    position: relative;
+                    top: -1px;
+                    margin-right: 0.5rem;
+                }
                 &>span {
-                    &>em {
-                        font-style: normal;
-                        &>span {
-                            display: none;
+                    font-size: 0.844rem;
+                    &>span {
+                        &>em {
+                            font-style: normal;
+                            &>span {
+                                display: none;
+                            }
                         }
                     }
                 }
             }
-            &>div {
-                margin-left: auto;
-                &>i {
-                    font-size: 1.125rem;
-                    padding: 0 0.125rem;
-                    cursor: pointer;
-                    height: 2.5rem;
-                    line-height: 2.5rem;
-                    width: 1.5rem;
-                    text-align: center;
+            &>i {
+                background: #505050;
+                padding: 0 0.5rem;
+                font-size: 1.125rem;
+                cursor: pointer;
+                height: 2.5rem;
+                line-height: 2.5rem;
+                width: 2.5rem;
+                text-align: center;
+                &.events-up {
+                    border-radius: 0.25rem 0 0 0.25rem;
+                    color: #9b9b9b;
+                }
+                &.events-down {
+                    margin-left: auto;
+                    border-radius: 0 0.25rem 0.25rem 0;
                 }
             }
         }
@@ -742,12 +752,14 @@
         &-time {
             top: 56px;
             &>div {
-                &>span {
-                    font-size: 0.875rem;
+                &>div {
                     &>span {
-                        &>em {
-                            &>span {
-                                display: inline-block;
+                        font-size: 0.875rem;
+                        &>span {
+                            &>em {
+                                &>span {
+                                    display: inline-block;
+                                }
                             }
                         }
                     }

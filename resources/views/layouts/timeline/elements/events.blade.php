@@ -2,12 +2,12 @@
 
     <div class="events-time">
         <div>
-            <i class="fa-regular fa-calendar"></i>
-            <span>First value</span>
-            <div class="events-increment">
-                <i class="events-up fa-solid fa-circle-up"></i>
-                <i class="events-down fa-solid fa-circle-down"></i>
+            <i class="events-increment events-up fa-solid fa-circle-up" title="Previous event"></i>
+            <div>
+                <i class="fa-regular fa-calendar"></i>
+                <span>Start of timeline</span>                
             </div>
+            <i class="events-increment events-down fa-solid fa-circle-down" title="Next event"></i>
         </div>
     </div>
 
@@ -15,8 +15,8 @@
 
         <section class="year">
 
-            <div class="event-item" data-order="-1">
-                <h3><span class="event-moment">1998</span></h3>
+            <div class="event-item event-first" data-order="-1">
+                <h3><span>During</span> <span class="event-moment">1998</span></h3>
                 <div class="event">
                     event
                 </div>
@@ -26,15 +26,15 @@
 
         <section class="none">
 
-            <div class="event-item event-current" data-order="0">
-                <h3><span>n/a</span></h3>
+            <div class="event-item" data-order="0">
+                <h3><span class="event-moment">Between 1998 and 2021</span></h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
             <div class="event-item" data-order="1">
-                <h3><span>n/a</span></h3>
+                <h3><span class="event-moment">Between 1998 and 2021</span></h3>
                 <div class="event">
                     event
                 </div>
@@ -44,15 +44,15 @@
 
         <section class="year">
 
-            <div class="event-item" data-order="2">
-                <h3><span class="event-moment">2021</span></h3>
+            <div id="event-123" class="event-item" data-order="2">
+                <h3><span>During</span> <span class="event-moment">2021</span></h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
-            <div class="event-item" data-order="3">
-                <h3><span class="event-moment">2021</span></h3>
+            <div id="event-456" class="event-item" data-order="3">
+                <h3><span>During</span> <span class="event-moment">2021</span></h3>
                 <div class="event">
                     event
                 </div>
@@ -60,8 +60,8 @@
 
             <section class="month">
 
-                <div class="event-item" data-order="4">
-                    <h3><span class="event-moment">September</span> <span>2021</span></h3>
+                <div id="event-789" class="event-item" data-order="4">
+                    <h3><span>During</span> <span class="event-moment">September</span> <span>2021</span></h3>
                     <div class="event">
                         sep event
                     </div>
@@ -69,35 +69,35 @@
 
                 <section class="day">
 
-                    <h3><span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                    <h3><span>On</span> <span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
 
                     <section class="time">
 
                         <div class="event-item" data-order="5">
-                            <h3><span><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span class="event-moment">5:15pm</span> <span>2021</span></h3>
+                            <h3><span>At 5:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
                             <div class="event">
                                 5:15pm title in event
                             </div>
                         </div>
 
                         <div class="event-item" data-order="6">
-                            <h3><span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                            <h3><span>At 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
+                            <div class="event">
+                                9:15pm (4 hours later)
+                            </div>
+                        </div>
+
+                        <div class="event-item" data-order="7">
+                            <h3><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
                             <div class="event">
                                 event
                             </div>
                         </div>
                         
-                        <div class="event-item" data-order="7">
-                            <h3><span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                        <div class="event-item" data-order="8">
+                            <h3><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
                             <div class="event">
                                 event
-                            </div>
-                        </div>
-
-                        <div class="event-item" data-order="8">
-                            <h3><span><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span class="event-moment">9:15pm</span> <span>2021</span></h3>
-                            <div class="event">
-                                9:15pm title in event
                             </div>
                         </div>
 
@@ -108,7 +108,7 @@
                 <section class="day">
 
                     <div class="event-item" data-order="9">
-                        <h3><span class="event-moment"><em>Thu<span>rsday</span></em> 16<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                        <h3><span>On</span> <span class="event-moment"><em>Thu<span>rsday</span></em> 16<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
                         <div class="event">
                             event
                         </div>
@@ -117,7 +117,7 @@
                 </section>
 
                 <div class="event-item" data-order="10">
-                    <h3><span class="event-moment">September</span> <span>2021</span></h3>
+                    <h3><span>During</span> <span class="event-moment">September</span> <span>2021</span></h3>
                     <div class="event">
                         event
                     </div>
@@ -128,7 +128,7 @@
             <section class="month">
 
                 <div class="event-item" data-order="11">
-                    <h3><span class="event-moment">October</span> <span>2021</span></h3>
+                    <h3><span>During</span> <span class="event-moment">October</span> <span>2021</span></h3>
                     <div class="event">
                         event
                     </div>
@@ -138,10 +138,28 @@
 
         </section>
 
-        <section class="year">
+        <section class="none">
 
             <div class="event-item" data-order="12">
-                <h3><span class="event-moment">2022</span></h3>
+                <h3><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h3>
+                <div class="event">
+                    event
+                </div>
+            </div>
+
+            <div class="event-item" data-order="13">
+                <h3><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h3>
+                <div class="event">
+                    event
+                </div>
+            </div>
+
+        </section>
+
+        <section class="year">
+
+            <div class="event-item event-last" data-order="14">
+                <h3><span>During</span> <span class="event-moment">2022</span></h3>
                 <div class="event">
                     event
                 </div>

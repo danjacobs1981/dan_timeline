@@ -1,6 +1,34 @@
 import ScrollMagic from 'scrollmagic';
 
+var offset = timelineOffset();
 
+$(window).on('resize', function() {
+    offset = timelineOffset();
+});
+
+function timelineOffset() {
+    return $('header').outerHeight() + 24;
+}
+
+function scrollOnPageLoad() {
+    if (window.location.hash) scroll(0, 0);
+    setTimeout(scroll(0, 0), 1);
+    var hashLink = window.location.hash;
+    if ($(hashLink).length) {
+        $(function() {
+            $('section.timeline').removeClass('timeline--header');
+            // should position map too
+            // maybe create specific function for ?event=32
+            $('html, body').animate({
+                scrollTop: $(window.location.hash).offset().top - offset
+            }, 1000);
+        });
+    }
+}
+
+$(window).on('load', function() {
+    setTimeout(scrollOnPageLoad(), 500);
+});
 
 // create a scene
 /*var scene = new ScrollMagic.Scene({ triggerElement: "header", triggerHook: 0 })
@@ -42,28 +70,33 @@ var scene = new ScrollMagic.Scene({
 });*/
 
 $('.events-wrapper .event-item').each(function() {
-    var offset = -88;
-    if (isMobile) {
-        offset = -99;
-    }
-    new ScrollMagic.Scene({
-            offset: offset,
+    var scene = new ScrollMagic.Scene({
+            offset: -offset - 1,
             triggerElement: $(this)[0],
         })
         .triggerHook(0)
         .on('enter', function(e) { // forward
             var $element = $(e.target.triggerElement());
-            $('.events-time span').html($element.find('h3').html());
             $('.events-wrapper .event-item').removeClass('event-current');
+            $('.events-time span').html($element.find('h3').html());
             $element.addClass('event-current');
-            //location.hash = '#' + $(e.target.triggerElement()).attr('id');
+            if ($element.hasClass('event-last')) {
+                $('i.events-down').css('color', '#9b9b9b');
+            }
+            $('i.events-up').css('color', '#ffffff');
         })
         .on('leave', function(e) { // reverse
             var $element = $(e.target.triggerElement());
             var order = $element.data('order') - 1;
-            $('.events-time span').html($('.event-item[data-order="' + order + '"] h3').html());
             $('.events-wrapper .event-item').removeClass('event-current');
-            $element.addClass('event-current');
+            if ($('.event-item[data-order="' + order + '"]').length) {
+                $('.event-item[data-order="' + order + '"]').addClass('event-current');
+                $('.events-time span').html($('.event-item[data-order="' + order + '"] h3').html());
+                $('i.events-down').css('color', '#ffffff');
+            } else {
+                $('.events-time span').html('Start of timeline');
+                $('i.events-up').css('color', '#9b9b9b');
+            }
             //location.hash = '#' + $(e.target.triggerElement()).attr('id');
         })
         .addTo(controller);
@@ -71,18 +104,24 @@ $('.events-wrapper .event-item').each(function() {
 
 
 
-$('.events-increment i').on('click', function() {
-    var increment = -1;
-    var offset = 100;
-    if ($(this).hasClass('events-down')) {
-        increment = 1;
-        offset = 98;
-    }
-    var order = $('.event-current').data('order');
-    var $nextElement = $('.event-item[data-order="' + (order + increment) + '"]');
-    if ($nextElement.length) {
+$('i.events-increment').on('click', function() {
+    var scrollTop = 0;
+    if ($(this).hasClass('events-up') || ($(this).hasClass('events-down') && !$('.event-current').hasClass('event-last'))) {
+        var increment = -1;
+        if ($(this).hasClass('events-down')) {
+            increment = 1;
+        }
+        var order = $('.event-current').data('order');
+        var $goElement = $('.event-item[data-order="' + (order + increment) + '"]');
+        if ($goElement.length) {
+            scrollTop = $goElement.offset().top - offset;
+        } else {
+            if ($(this).hasClass('events-down')) {
+                scrollTop = $('.event-first').offset().top - offset;
+            }
+        }
         $('html, body').stop(true).animate({
-            scrollTop: $nextElement.offset().top - offset
+            scrollTop: scrollTop
         }, 500);
     }
     return false;
