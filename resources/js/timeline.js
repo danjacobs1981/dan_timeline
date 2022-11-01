@@ -10,19 +10,23 @@ function timelineOffset() {
     return $('header').outerHeight() + 24;
 }
 
+
+
 function scrollOnPageLoad() {
-    if (window.location.hash) scroll(0, 0);
-    setTimeout(scroll(0, 0), 1);
-    var hashLink = window.location.hash;
-    if ($(hashLink).length) {
-        $(function() {
-            $('section.timeline').removeClass('timeline--header');
-            // should position map too
-            // maybe create specific function for ?event=32
-            $('html, body').animate({
-                scrollTop: $(window.location.hash).offset().top - offset
-            }, 1000);
-        });
+    //if (window.location.hash) scroll(0, 0);
+    //setTimeout(scroll(0, 0), 1);
+    //var hashLink = window.location.hash;
+    if (urlParams.has('event')) {
+        var id = urlParams.get('event');
+        if ($('#event-' + id).length) {
+            $(function() {
+                $('section.timeline').removeClass('timeline--header');
+                // should position map too using co-ordinates as data-attrs
+                $('html, body').animate({
+                    scrollTop: $('#event-' + id).offset().top - offset
+                }, 1000);
+            });
+        }
     }
 }
 

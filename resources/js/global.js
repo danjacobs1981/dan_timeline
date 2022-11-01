@@ -13,6 +13,7 @@ import.meta.glob([
 
 window.isMobile = false;
 window.isTouch = testTouch();
+window.urlParams = new URLSearchParams(window.location.search);
 
 var topbarHeight = $('#topbar').outerHeight();
 
