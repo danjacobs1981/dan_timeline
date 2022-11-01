@@ -27,14 +27,14 @@
         <section class="none">
 
             <div class="event-item" data-order="0">
-                <h3><span class="event-moment">Between 1998 and 2021</span></h3>
+                <h3><span class="event-moment">Between 1998 and the start of 2021</span></h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
             <div class="event-item" data-order="1">
-                <h3><span class="event-moment">Between 1998 and 2021</span></h3>
+                <h3><span class="event-moment">Between 1998 and the start of 2021</span></h3>
                 <div class="event">
                     event
                 </div>
