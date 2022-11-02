@@ -27,14 +27,14 @@
         <section class="none">
 
             <div class="event-item" data-order="0">
-                <h3><span class="event-moment">Between 1998 and the start of 2021</span></h3>
+                <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
                 <div class="event">
                     event
                 </div>
             </div>
 
             <div class="event-item" data-order="1">
-                <h3><span class="event-moment">Between 1998 and the start of 2021</span></h3>
+                <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
                 <div class="event">
                     event
                 </div>
@@ -44,14 +44,14 @@
 
         <section class="year">
 
-            <div id="event-123" class="event-item" data-order="2">
+            <div class="event-item event-start" data-order="2">
                 <h3><span>During</span> <span class="event-moment">2021</span></h3>
                 <div class="event">
-                    event
+                    include a share link on each event that prefills the share window to autoscroll
                 </div>
             </div>
 
-            <div id="event-456" class="event-item" data-order="3">
+            <div class="event-item" data-order="3">
                 <h3><span>During</span> <span class="event-moment">2021</span></h3>
                 <div class="event">
                     event
@@ -60,7 +60,7 @@
 
             <section class="month">
 
-                <div id="event-789" class="event-item" data-order="4">
+                <div class="event-item" data-order="4">
                     <h3><span>During</span> <span class="event-moment">September</span> <span>2021</span></h3>
                     <div class="event">
                         sep event

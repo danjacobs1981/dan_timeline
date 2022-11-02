@@ -715,6 +715,11 @@
             margin: 0 0 1.5rem 0;
             background: #fff;
             position: relative;
+            &-start {
+                & .event {
+                    background: rgb(255, 240, 198);
+                }
+            }
             &::before {
                 background: #aaa;
                 height: 1px;

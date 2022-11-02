@@ -16,17 +16,18 @@ function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
     //setTimeout(scroll(0, 0), 1);
     //var hashLink = window.location.hash;
-    if (urlParams.has('event')) {
-        var id = urlParams.get('event');
-        if ($('#event-' + id).length) {
+    if (urlParams.has('share')) {
+        if ($('.event-start').length) {
             $(function() {
                 $('section.timeline').removeClass('timeline--header');
-                // should position map too using co-ordinates as data-attrs
+                // open event details
+                // position map using co-ordinates as data-attrs
                 $('html, body').animate({
-                    scrollTop: $('#event-' + id).offset().top - offset
+                    scrollTop: $('.event-start').offset().top - offset
                 }, 1000);
             });
         }
+        window.history.replaceState(null, null, window.location.pathname);
     }
 }
 
