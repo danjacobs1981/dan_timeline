@@ -535,7 +535,6 @@
 }
 
 .events {
-    height: 3000px;
     &-time {
         position: sticky;
         top: 76px;
@@ -616,7 +615,7 @@
             &.year {
                 padding-left: 1rem;
                 /*margin-bottom: 2.5rem;*/
-                background: linear-gradient(var(--month), var(--month)) no-repeat 0 0/1px 100%;
+                background: linear-gradient(var(--year), var(--year)) no-repeat 0 0/1px 100%;
                 &>.event-item:first-child {
                     & h3 {
                         background: var(--year);
@@ -636,7 +635,7 @@
             &.month {
                 padding-left: 1rem;
                 margin-bottom: 1.5rem;
-                background: linear-gradient(var(--day), var(--day)) no-repeat 0 0/1px 100%;
+                background: linear-gradient(var(--month), var(--month)) no-repeat 0 0/1px 100%;
                 &>h3,
                 &>.event-item:first-child h3 {
                     background: var(--month);
@@ -653,7 +652,7 @@
             &.day {
                 padding-left: 1rem;
                 margin-bottom: 0.5rem;
-                background: linear-gradient(var(--time), var(--time)) no-repeat 0 0/1px 100%;
+                background: linear-gradient(var(--day), var(--day)) no-repeat 0 0/1px 100%;
                 &>h3,
                 &>.event-item:first-child h3 {
                     background: var(--day);
@@ -670,10 +669,10 @@
             &.time {
                 & .event {
                     &::before {
-                        background: var(--time);
+                        background: var(--day);
                     }
                     &::after {
-                        background: var(--time);
+                        background: var(--day);
                     }
                 }
             }
@@ -707,14 +706,13 @@
         }
         & .event {
             border-radius: 0.5rem;
-            border: 1px solid var(--greyDark);
+            border: 1px solid var(--grey);
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 5rem;
             margin: 0 0 1.5rem 0;
             background: #fff;
             position: relative;
+            /* shared timeline with starting event */
             &-start {
                 & .event {
                     background: rgb(255, 240, 198);
@@ -736,6 +734,7 @@
                 position: absolute;
                 left: -21px;
             }
+            /* event wrapper */
             &-item {
                 position: relative;
                 &:last-child {
@@ -750,6 +749,58 @@
                         }
                     }
                 }
+            }
+            /* event styling */
+            &-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                padding-top: 0.5rem;
+            }
+            &-subheader {
+                list-style: none;
+                margin: 0;
+                padding: 0 0.5rem;
+                display: flex;
+                &>li {
+                    text-transform: uppercase;
+                    font-size: 0.625rem;
+                    line-height: 1rem;
+                    padding: 0 0.25rem;
+                    border-radius: 0.25rem;
+                    background: var(--greyDark);
+                    color: #fff;
+                    margin: 0 0.25rem 0.25rem 0;
+                }
+            }
+            &-header {
+                width: 100%;
+                display: flex;
+                padding: 0 0.5rem 0.5rem;
+                &>div {
+                    &>h2 {
+                        margin-top: 0.25rem;
+                        font-size: 1rem;
+                    }
+                }
+                &>img {
+                    border-radius: 3px;
+                    display: block;
+                    min-width: 80px;
+                    width: 80px;
+                    height: 80px;
+                    -o-object-fit: cover;
+                    object-fit: cover;
+                    -o-object-position: center;
+                    object-position: center;
+                    margin: 0 0 0 auto;
+                }
+            }
+            &-footer {
+                width: 100%;
+                display: flex;
+                padding: 0.5rem;
+                border-top: 1px solid var(--grey);
             }
         }
     }

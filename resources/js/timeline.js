@@ -33,6 +33,7 @@ function scrollOnPageLoad() {
 
 $(window).on('load', function() {
     setTimeout(scrollOnPageLoad(), 500);
+    $('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
 });
 
 // create a scene

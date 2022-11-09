@@ -18,7 +18,27 @@
             <div class="event-item event-first" data-order="-1">
                 <h3><span>During</span> <span class="event-moment">1998</span></h3>
                 <div class="event">
-                    event
+                    <div class="event-wrapper">
+                        <ul class="event-subheader">
+                            <li>
+                                Verified Time
+                            </li>
+                            <li>
+                                Verified Time
+                            </li>
+                        </ul>
+                        <div class="event-header">
+                            <div>
+                                <h2>
+                                    Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
+                                </h2>
+                            </div>
+                            <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
+                        </div>
+                        <div class="event-footer">
+footer
+                        </div>
+                    </div>
                 </div>
             </div>
 
