@@ -7,7 +7,7 @@
 @endpush
 <span class="map-open fa-stack fa-2x">
     <i class="fa-solid fa-circle fa-stack-2x"></i>
-    <i class="fa-solid fa-map-location fa-stack-1x"></i>
+    <i class="fa-solid fa-map-marker-alt fa-stack-1x"></i>
 </span>
 <div class="resizer">
     <div>

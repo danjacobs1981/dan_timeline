@@ -24,7 +24,7 @@
                                 Verified Time
                             </li>
                             <li>
-                                Verified Time
+                                Verified Location
                             </li>
                         </ul>
                         <div class="event-header">
@@ -32,11 +32,51 @@
                                 <h2>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
                                 </h2>
+                                <span class="event-read event-content-reveal">
+                                    Read more info<i class="fas fa-chevron-right"></i>
+                                </span>
+                                <ul class="event-resources">
+                                    <li class="event-source">
+                                        <i class="far fa-file-alt"></i>3 sources
+                                    </li>
+                                    <li class="event-map-reveal">
+                                        <i class="fas fa-map-marker-alt"></i>View on map
+                                    </li>
+                                </ul>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
                         <div class="event-footer">
-footer
+                            <ul class="event-footer-tags">
+                                <li>
+                                    
+                                </li>
+                            </ul>
+                            <ul class="event-footer-options">
+                                <li class="event-comments" data-reveal="comments">
+                                    <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
+                                </li>
+                                <li class="event-share">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </li>
+                                <li class="event-more dropdown-toggle">
+                                    <i class="fa-solid fa-ellipsis dropdown-close"></i>
+                                    <div class="dropdown" data-backdrop data-position="right">
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                                            </li>
+                                            <span></span>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -49,14 +89,134 @@ footer
             <div class="event-item" data-order="0">
                 <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
                 <div class="event">
-                    event
+                    <div class="event-wrapper">
+                        <ul class="event-subheader">
+                            <li>
+                                Verified Time
+                            </li>
+                            <li>
+                                Verified Location
+                            </li>
+                        </ul>
+                        <div class="event-header">
+                            <div>
+                                <h2>
+                                    Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
+                                </h2>
+                                <span class="event-read event-content-reveal">
+                                    Read more info<i class="fas fa-chevron-right"></i>
+                                </span>
+                                <ul class="event-resources">
+                                    <li class="event-source">
+                                        <i class="far fa-file-alt"></i>3 sources
+                                    </li>
+                                    <li class="event-map-reveal">
+                                        <i class="fas fa-map-marker-alt"></i>View on map
+                                    </li>
+                                </ul>
+                            </div>
+                            <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
+                        </div>
+                        <div class="event-footer">
+                            <ul class="event-footer-tags">
+                                <li>
+                                    
+                                </li>
+                            </ul>
+                            <ul class="event-footer-options">
+                                <li class="event-comments" data-reveal="comments">
+                                    <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
+                                </li>
+                                <li class="event-share">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </li>
+                                <li class="event-more dropdown-toggle">
+                                    <i class="fa-solid fa-ellipsis dropdown-close"></i>
+                                    <div class="dropdown" data-backdrop data-position="right">
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                                            </li>
+                                            <span></span>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="event-item" data-order="1">
                 <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
                 <div class="event">
-                    event
+                    <div class="event-wrapper">
+                        <ul class="event-subheader">
+                            <li>
+                                Verified Time
+                            </li>
+                            <li>
+                                Verified Location
+                            </li>
+                        </ul>
+                        <div class="event-header">
+                            <div>
+                                <h2>
+                                    Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
+                                </h2>
+                                <span class="event-read event-content-reveal">
+                                    Read more info<i class="fas fa-chevron-right"></i>
+                                </span>
+                                <ul class="event-resources">
+                                    <li class="event-source">
+                                        <i class="far fa-file-alt"></i>3 sources
+                                    </li>
+                                    <li class="event-map-reveal">
+                                        <i class="fas fa-map-marker-alt"></i>View on map
+                                    </li>
+                                </ul>
+                            </div>
+                            <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
+                        </div>
+                        <div class="event-footer">
+                            <ul class="event-footer-tags">
+                                <li>
+                                    
+                                </li>
+                            </ul>
+                            <ul class="event-footer-options">
+                                <li class="event-comments" data-reveal="comments">
+                                    <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
+                                </li>
+                                <li class="event-share">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </li>
+                                <li class="event-more dropdown-toggle">
+                                    <i class="fa-solid fa-ellipsis dropdown-close"></i>
+                                    <div class="dropdown" data-backdrop data-position="right">
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                                            </li>
+                                            <span></span>
+                                            <li>
+                                                <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
