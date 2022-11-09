@@ -1,5 +1,11 @@
 import * as resizable from 'jquery-resizable-dom'
 
+$(window).on('resize', function() {
+    eventsWide();
+});
+
+eventsWide();
+
 /* map */
 let map;
 
@@ -17,6 +23,13 @@ function initMap() {
 }
 window.initMap = initMap;
 
+function eventsWide() {
+    if ($('.events').width() > 429) {
+        $('.events').addClass('events--wide');
+    } else {
+        $('.events').removeClass('events--wide');
+    }
+}
 
 $('.map-expand').on('click', function() {
     $('figure').addClass('fullscreen');
@@ -53,7 +66,11 @@ $('.map-open').on('click', function() {
 
 $('article').resizable({
     handleSelector: '.splitter',
-    resizeHeight: false
+    resizeHeight: false,
+    onDrag: function() {
+        /* give article a class dependent of width */
+        eventsWide();
+    }
 });
 
 $("figure").resizable({
