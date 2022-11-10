@@ -1,10 +1,10 @@
 import * as resizable from 'jquery-resizable-dom'
 
 $(window).on('resize', function() {
-    eventsWide();
+    eventsClass();
 });
 
-eventsWide();
+eventsClass();
 
 /* map */
 let map;
@@ -23,11 +23,13 @@ function initMap() {
 }
 window.initMap = initMap;
 
-function eventsWide() {
-    if ($('.events').width() > 429) {
-        $('.events').addClass('events--wide');
-    } else {
-        $('.events').removeClass('events--wide');
+function eventsClass() {
+    $('.events').removeClass('events--sm events--md events--lg');
+    if ($('.events').width() > 499) {
+        $('.events').addClass('events--sm');
+    }
+    if ($('.events').width() > 579) {
+        $('.events').addClass('events--md');
     }
 }
 
@@ -69,7 +71,7 @@ $('article').resizable({
     resizeHeight: false,
     onDrag: function() {
         /* give article a class dependent of width */
-        eventsWide();
+        eventsClass();
     }
 });
 

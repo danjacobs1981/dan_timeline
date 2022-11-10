@@ -16,7 +16,7 @@
         <section class="year">
 
             <div class="event-item event-first" data-order="-1">
-                <h3><span>During</span> <span class="event-moment">1998</span></h3>
+                <h2><span>During</span> <span class="event-moment">1998</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
                         <ul class="event-subheader">
@@ -29,30 +29,25 @@
                         </ul>
                         <div class="event-header">
                             <div>
-                                <h2>
+                                <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                </h2>
+                                </h3>
                                 <span class="event-read event-content-reveal">
                                     Read more info<i class="fas fa-chevron-right"></i>
                                 </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
-                        <ul class="event-resources">
-                            <li class="event-source">
-                                <i class="far fa-file-alt"></i>3 sources
-                            </li>
-                            <li class="event-map-reveal">
-                                <i class="fas fa-map-marker-alt"></i>View on map
-                            </li>
-                        </ul>
                         <div class="event-footer">
-                            <ul class="event-footer-tags">
-                                <li>
-                                    
+                            <ul class="event-resources">
+                                <li class="event-source">
+                                    <i class="far fa-file-alt"></i>3 sources
+                                </li>
+                                <li class="event-map-reveal">
+                                    <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>
                             </ul>
-                            <ul class="event-footer-options">
+                            <ul class="event-options">
                                 <li class="event-comments" data-reveal="comments">
                                     <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
                                 </li>
@@ -87,7 +82,7 @@
         <section class="none">
 
             <div class="event-item" data-order="0">
-                <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
+                <h2><span class="event-moment">Between 1999 and the start of 2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
                         <ul class="event-subheader">
@@ -100,30 +95,25 @@
                         </ul>
                         <div class="event-header">
                             <div>
-                                <h2>
+                                <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                </h2>
+                                </h3>
                                 <span class="event-read event-content-reveal">
                                     Read more info<i class="fas fa-chevron-right"></i>
                                 </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
-                        <ul class="event-resources">
-                            <li class="event-source">
-                                <i class="far fa-file-alt"></i>3 sources
-                            </li>
-                            <li class="event-map-reveal">
-                                <i class="fas fa-map-marker-alt"></i>View on map
-                            </li>
-                        </ul>
                         <div class="event-footer">
-                            <ul class="event-footer-tags">
-                                <li>
-                                    
+                            <ul class="event-resources">
+                                <li class="event-source">
+                                    <i class="far fa-file-alt"></i>3 sources
+                                </li>
+                                <li class="event-map-reveal">
+                                    <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>
                             </ul>
-                            <ul class="event-footer-options">
+                            <ul class="event-options">
                                 <li class="event-comments" data-reveal="comments">
                                     <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
                                 </li>
@@ -154,7 +144,7 @@
             </div>
 
             <div class="event-item" data-order="1">
-                <h3><span class="event-moment">Between 1999 and the start of 2021</span></h3>
+                <h2><span class="event-moment">Between 1999 and the start of 2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
                         <ul class="event-subheader">
@@ -167,30 +157,25 @@
                         </ul>
                         <div class="event-header">
                             <div>
-                                <h2>
+                                <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                </h2>
+                                </h3>
                                 <span class="event-read event-content-reveal">
                                     Read more info<i class="fas fa-chevron-right"></i>
                                 </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
-                        <ul class="event-resources">
-                            <li class="event-source">
-                                <i class="far fa-file-alt"></i>3 sources
-                            </li>
-                            <li class="event-map-reveal">
-                                <i class="fas fa-map-marker-alt"></i>View on map
-                            </li>
-                        </ul>
                         <div class="event-footer">
-                            <ul class="event-footer-tags">
-                                <li>
-                                    
+                            <ul class="event-resources">
+                                <li class="event-source">
+                                    <i class="far fa-file-alt"></i>3 sources
+                                </li>
+                                <li class="event-map-reveal">
+                                    <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>
                             </ul>
-                            <ul class="event-footer-options">
+                            <ul class="event-options">
                                 <li class="event-comments" data-reveal="comments">
                                     <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
                                 </li>
@@ -225,7 +210,7 @@
         <section class="year">
 
             <div class="event-item event-start" data-order="2">
-                <h3><span>During</span> <span class="event-moment">2021</span></h3>
+                <h2><span>During</span> <span class="event-moment">2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
                         <ul class="event-subheader">
@@ -238,30 +223,25 @@
                         </ul>
                         <div class="event-header">
                             <div>
-                                <h2>
+                                <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                </h2>
+                                </h3>
                                 <span class="event-read event-content-reveal">
                                     Read more info<i class="fas fa-chevron-right"></i>
                                 </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
-                        <ul class="event-resources">
-                            <li class="event-source">
-                                <i class="far fa-file-alt"></i>3 sources
-                            </li>
-                            <li class="event-map-reveal">
-                                <i class="fas fa-map-marker-alt"></i>View on map
-                            </li>
-                        </ul>
                         <div class="event-footer">
-                            <ul class="event-footer-tags">
-                                <li>
-                                    
+                            <ul class="event-resources">
+                                <li class="event-source">
+                                    <i class="far fa-file-alt"></i>3 sources
+                                </li>
+                                <li class="event-map-reveal">
+                                    <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>
                             </ul>
-                            <ul class="event-footer-options">
+                            <ul class="event-options">
                                 <li class="event-comments" data-reveal="comments">
                                     <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
                                 </li>
@@ -292,7 +272,7 @@
             </div>
 
             <div class="event-item" data-order="3">
-                <h3><span>During</span> <span class="event-moment">2021</span></h3>
+                <h2><span>During</span> <span class="event-moment">2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
                         <ul class="event-subheader">
@@ -305,30 +285,25 @@
                         </ul>
                         <div class="event-header">
                             <div>
-                                <h2>
+                                <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                </h2>
+                                </h3>
                                 <span class="event-read event-content-reveal">
                                     Read more info<i class="fas fa-chevron-right"></i>
                                 </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
-                        <ul class="event-resources">
-                            <li class="event-source">
-                                <i class="far fa-file-alt"></i>3 sources
-                            </li>
-                            <li class="event-map-reveal">
-                                <i class="fas fa-map-marker-alt"></i>View on map
-                            </li>
-                        </ul>
                         <div class="event-footer">
-                            <ul class="event-footer-tags">
-                                <li>
-                                    
+                            <ul class="event-resources">
+                                <li class="event-source">
+                                    <i class="far fa-file-alt"></i>3 sources
+                                </li>
+                                <li class="event-map-reveal">
+                                    <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>
                             </ul>
-                            <ul class="event-footer-options">
+                            <ul class="event-options">
                                 <li class="event-comments" data-reveal="comments">
                                     <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
                                 </li>
@@ -361,161 +336,41 @@
             <section class="month">
 
                 <div class="event-item" data-order="4">
-                    <h3><span>During</span> <span class="event-moment">September</span> <span>2021</span></h3>
+                    <h2><span>During</span> <span class="event-moment">September</span> <span>2021</span></h2>
                     <div class="event">
-                        <div class="event-wrapper">
-                            <ul class="event-subheader">
-                                <li>
-                                    Verified Time
-                                </li>
-                                <li>
-                                    Verified Location
-                                </li>
-                            </ul>
-                            <div class="event-header">
-                                <div>
-                                    <h2>
-                                        Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                    </h2>
-                                    <span class="event-read event-content-reveal">
-                                        Read more info<i class="fas fa-chevron-right"></i>
-                                    </span>
-                                </div>
-                                <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
-                            </div>
-                            <ul class="event-resources">
-                                <li class="event-source">
-                                    <i class="far fa-file-alt"></i>3 sources
-                                </li>
-                                <li class="event-map-reveal">
-                                    <i class="fas fa-map-marker-alt"></i>View on map
-                                </li>
-                            </ul>
-                            <div class="event-footer">
-                                <ul class="event-footer-tags">
-                                    <li>
-                                        
-                                    </li>
-                                </ul>
-                                <ul class="event-footer-options">
-                                    <li class="event-comments" data-reveal="comments">
-                                        <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
-                                    </li>
-                                    <li class="event-share">
-                                        <i class="fa-solid fa-share-nodes"></i>
-                                    </li>
-                                    <li class="event-more dropdown-toggle">
-                                        <i class="fa-solid fa-ellipsis dropdown-close"></i>
-                                        <div class="dropdown" data-backdrop data-position="right">
-                                            <ul>
-                                                <li>
-                                                    <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
-                                                </li>
-                                                <span></span>
-                                                <li>
-                                                    <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        e
                     </div>
                 </div>
 
                 <section class="day">
 
-                    <h3><span>On</span> <span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                    <h2><span>On</span> <span class="event-moment"><em>Wed<span>nesday</span></em> 15<sup>th</sup></span> <span>September</span> <span>2021</span></h2>
 
                     <section class="time">
 
                         <div class="event-item" data-order="5">
-                            <h3><span>At 5:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
+                            <h2><span>At 5:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h2>
                             <div class="event">
-                                <div class="event-wrapper">
-                                    <ul class="event-subheader">
-                                        <li>
-                                            Verified Time
-                                        </li>
-                                        <li>
-                                            Verified Location
-                                        </li>
-                                    </ul>
-                                    <div class="event-header">
-                                        <div>
-                                            <h2>
-                                                Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
-                                            </h2>
-                                            <span class="event-read event-content-reveal">
-                                                Read more info<i class="fas fa-chevron-right"></i>
-                                            </span>
-                                        </div>
-                                        <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
-                                    </div>
-                                    <ul class="event-resources">
-                                        <li class="event-source">
-                                            <i class="far fa-file-alt"></i>3 sources
-                                        </li>
-                                        <li class="event-map-reveal">
-                                            <i class="fas fa-map-marker-alt"></i>View on map
-                                        </li>
-                                    </ul>
-                                    <div class="event-footer">
-                                        <ul class="event-footer-tags">
-                                            <li>
-                                                
-                                            </li>
-                                        </ul>
-                                        <ul class="event-footer-options">
-                                            <li class="event-comments" data-reveal="comments">
-                                                <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
-                                            </li>
-                                            <li class="event-share">
-                                                <i class="fa-solid fa-share-nodes"></i>
-                                            </li>
-                                            <li class="event-more dropdown-toggle">
-                                                <i class="fa-solid fa-ellipsis dropdown-close"></i>
-                                                <div class="dropdown" data-backdrop data-position="right">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
-                                                        </li>
-                                                        <span></span>
-                                                        <li>
-                                                            <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                e
                             </div>
                         </div>
 
                         <div class="event-item" data-order="6">
-                            <h3><span>At 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
+                            <h2><span>At 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h2>
                             <div class="event">
                                 9:15pm (4 hours later)
                             </div>
                         </div>
 
                         <div class="event-item" data-order="7">
-                            <h3><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
+                            <h2><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h2>
                             <div class="event">
                                 event
                             </div>
                         </div>
                         
                         <div class="event-item" data-order="8">
-                            <h3><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h3>
+                            <h2><span>After 9:15pm on <em>Wed<span>nesday</span></em> 15<sup>th</sup> September 2021</span></h2>
                             <div class="event">
                                 event
                             </div>
@@ -528,7 +383,7 @@
                 <section class="day">
 
                     <div class="event-item" data-order="9">
-                        <h3><span>On</span> <span class="event-moment"><em>Thu<span>rsday</span></em> 16<sup>th</sup></span> <span>September</span> <span>2021</span></h3>
+                        <h2><span>On</span> <span class="event-moment"><em>Thu<span>rsday</span></em> 16<sup>th</sup></span> <span>September</span> <span>2021</span></h2>
                         <div class="event">
                             event
                         </div>
@@ -537,7 +392,7 @@
                 </section>
 
                 <div class="event-item" data-order="10">
-                    <h3><span>During</span> <span class="event-moment">September</span> <span>2021</span></h3>
+                    <h2><span>During</span> <span class="event-moment">September</span> <span>2021</span></h2>
                     <div class="event">
                         event
                     </div>
@@ -548,7 +403,7 @@
             <section class="month">
 
                 <div class="event-item" data-order="11">
-                    <h3><span>During</span> <span class="event-moment">October</span> <span>2021</span></h3>
+                    <h2><span>During</span> <span class="event-moment">October</span> <span>2021</span></h2>
                     <div class="event">
                         event
                     </div>
@@ -561,14 +416,14 @@
         <section class="none">
 
             <div class="event-item" data-order="12">
-                <h3><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h3>
+                <h2><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h2>
                 <div class="event">
                     event
                 </div>
             </div>
 
             <div class="event-item" data-order="13">
-                <h3><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h3>
+                <h2><span>Between <em>Oct<span>ober</span></em> 2021 and the start of 2022</span></h2>
                 <div class="event">
                     event
                 </div>
@@ -579,7 +434,7 @@
         <section class="year">
 
             <div class="event-item event-last" data-order="14">
-                <h3><span>During</span> <span class="event-moment">2022</span></h3>
+                <h2><span>During</span> <span class="event-moment">2022</span></h2>
                 <div class="event">
                     event
                 </div>

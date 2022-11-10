@@ -543,7 +543,7 @@ h6 {
     /*box-shadow: rgb(0 0 0 / 10%) 0 0 2px 1px;*/
     display: flex;
     align-items: center;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     position: relative;
     & label {
         &>span {
@@ -598,8 +598,8 @@ h6 {
     }
     &>a {
         background: #ddd;
-        min-width: 124px;
-        height: 42px;
+        min-width: 102px;
+        height: 36px;
         margin-right: 1rem;
     }
     &>.nav-search {
@@ -621,7 +621,7 @@ h6 {
             display: none;
             align-items: center;
             z-index: 200;
-            padding: 0 0.5rem;
+            padding: 0 1rem;
             margin: 0;
             &>div {
                 display: flex;
@@ -631,7 +631,7 @@ h6 {
                 height: 36px;
                 border: 3px solid var(--greyDark);
                 background: #fff;
-                margin: 0 0.5rem 0 1rem;
+                margin: 0 0 0 1rem;
                 width: 100%;
                 &:hover,
                 &:focus-within {
@@ -710,7 +710,6 @@ h6 {
     }
     @media (min-width: 768px) {
         min-height: 60px;
-        padding: 0 1rem;
         &>.nav-menu {
             margin-right: 1rem;
         }
@@ -793,14 +792,14 @@ h6 {
         top: 0;
         background: #fff;
         border-bottom: 1px solid #d3d3d3;
-        padding: 10.5px 0.5rem;
+        padding: 10.5px 1rem;
         z-index: 2;
     }
     &__close {
         cursor: pointer;
     }
     &__body {
-        padding: 0.5rem;
+        padding: 1rem;
         background: var(--greyVeryLight);
         height: 100%;
     }
@@ -814,7 +813,7 @@ h6 {
         position: sticky;
         background: #fff;
         border-top: 1px solid #d3d3d3;
-        padding: 10.5px 0.5rem;
+        padding: 10.5px 1rem;
         z-index: 2;
         margin-top: auto;
     }

@@ -84,7 +84,7 @@ $('.events-wrapper .event-item').each(function() {
         .on('enter', function(e) { // forward
             var $element = $(e.target.triggerElement());
             $('.events-wrapper .event-item').removeClass('event-current');
-            $('.events-time span').html($element.find('h3').html());
+            $('.events-time span').html($element.find('h2').html());
             $element.addClass('event-current');
             if ($element.hasClass('event-last')) {
                 $('i.events-down').css('color', '#9b9b9b');
@@ -97,7 +97,7 @@ $('.events-wrapper .event-item').each(function() {
             $('.events-wrapper .event-item').removeClass('event-current');
             if ($('.event-item[data-order="' + order + '"]').length) {
                 $('.event-item[data-order="' + order + '"]').addClass('event-current');
-                $('.events-time span').html($('.event-item[data-order="' + order + '"] h3').html());
+                $('.events-time span').html($('.event-item[data-order="' + order + '"] h2').html());
                 $('i.events-down').css('color', '#ffffff');
             } else {
                 $('.events-time span').html('Start of timeline');
