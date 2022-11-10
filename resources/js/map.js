@@ -1,20 +1,21 @@
-import * as resizable from 'jquery-resizable-dom'
+import ScrollMagic from 'scrollmagic';
+import * as resizable from 'jquery-resizable-dom';
+
+eventsClass();
 
 $(window).on('resize', function() {
     eventsClass();
 });
 
-eventsClass();
-
 /* map */
 let map;
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("gmap"), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
         mapTypeId: "roadmap",
-        disableDefaultUI: true, //isMobile
+        disableDefaultUI: true,
         options: {
             gestureHandling: 'greedy'
         }
@@ -22,6 +23,24 @@ function initMap() {
 
 }
 window.initMap = initMap;
+
+new ScrollMagic.Scene({
+        duration: topbarHeight
+    })
+    .triggerHook(0)
+    .on('enter', function(e) { // forward 
+        $('#map').css({
+            'top': topbarHeight + 'px',
+            'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
+        });
+    })
+    .on('leave', function(e) { // reverse
+        $('#map').css({
+            'top': headerHeight + 'px',
+            'height': 'calc(100vh - ' + headerHeight + 'px)'
+        });
+    })
+    .addTo(controller);
 
 function eventsClass() {
     $('.events').removeClass('events--sm events--md events--lg');

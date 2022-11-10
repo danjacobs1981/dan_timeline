@@ -1,16 +1,13 @@
 import ScrollMagic from 'scrollmagic';
 
-var offset = timelineOffset();
+
 
 $(window).on('resize', function() {
-    offset = timelineOffset();
+    $('.events-time').css('top', headerHeight + 'px');
 });
 
-function timelineOffset() {
-    return $('header').outerHeight() + 24;
-}
 
-
+$('.events-time').css('top', headerHeight + 'px');
 
 function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
@@ -23,7 +20,7 @@ function scrollOnPageLoad() {
                 // open event details
                 // position map using co-ordinates as data-attrs
                 $('html, body').animate({
-                    scrollTop: $('.event-start').offset().top - offset
+                    scrollTop: $('.event-start').offset().top - headerHeight
                 }, 1000);
             });
         }
@@ -76,8 +73,8 @@ var scene = new ScrollMagic.Scene({
 });*/
 
 $('.events-wrapper .event-item').each(function() {
-    var scene = new ScrollMagic.Scene({
-            offset: -offset - 1,
+    new ScrollMagic.Scene({
+            offset: -headerHeight - 1,
             triggerElement: $(this)[0],
         })
         .triggerHook(0)
@@ -120,10 +117,10 @@ $('i.events-increment').on('click', function() {
         var order = $('.event-current').data('order');
         var $goElement = $('.event-item[data-order="' + (order + increment) + '"]');
         if ($goElement.length) {
-            scrollTop = $goElement.offset().top - offset;
+            scrollTop = $goElement.offset().top - headerHeight;
         } else {
             if ($(this).hasClass('events-down')) {
-                scrollTop = $('.event-first').offset().top - offset;
+                scrollTop = $('.event-first').offset().top - headerHeight;
             }
         }
         $('html, body').stop(true).animate({

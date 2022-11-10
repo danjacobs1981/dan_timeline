@@ -13,27 +13,33 @@ import.meta.glob([
 
 window.isMobile = false;
 window.isTouch = testTouch();
+window.topbarHeight = getTopbarHeight();
+window.headerHeight = getHeaderHeight();
 window.urlParams = new URLSearchParams(window.location.search);
-
-var topbarHeight = $('#topbar').outerHeight();
+window.controller = new ScrollMagic.Controller();
 
 testMobile();
 
 $(window).on('resize', function() {
     testMobile();
-    topbarHeight = $('#topbar').outerHeight();
+    topbarHeight = getTopbarHeight();
+    headerHeight = getHeaderHeight();
 });
 
-window.controller = new ScrollMagic.Controller();
-new ScrollMagic.Scene({
-    duration: topbarHeight
-}).setClassToggle('section.timeline', 'timeline--header').addTo(controller);
+function getTopbarHeight() {
+    return $('#topbar').outerHeight();
+}
+
+function getHeaderHeight() {
+    return $('header').outerHeight();
+}
 
 function testMobile() {
     if (window.matchMedia("(max-width: 767px)").matches) {
         isMobile = true;
         return true;
     } else {
+        isMobile = false;
         return false;
     }
 }

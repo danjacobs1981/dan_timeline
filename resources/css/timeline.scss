@@ -2,7 +2,6 @@
 
 .timeline {
     $map: #{&}--map;
-    $header: #{&}--header;
     &__header {
         background: #fff;
         position: sticky;
@@ -21,7 +20,7 @@
                 flex-wrap: wrap;
                 &>h1 {
                     font-size: 1.25rem;
-                    padding: 1rem 0 0 1rem;
+                    padding: 0.75rem 0 0 1rem;
                     line-height: 1.1;
                 }
                 &>em {
@@ -37,7 +36,7 @@
         }
         & .header__options {
             list-style: none;
-            padding: 1rem 0.5rem 1rem 1rem;
+            padding: 0.5rem 0.5rem 0.75rem 1rem;
             margin: 0;
             display: flex;
             overflow-x: auto;
@@ -106,105 +105,110 @@
             &>article {
                 padding-bottom: calc(32vh + 46px);
             }
-            &>.splitter {
-                display: none;
-            }
-            &>figure {
-                margin: 0;
-                height: 32vh;
-                max-height: calc(100% - 96px);
-                position: fixed;
-                bottom: 2.5rem;
-                left: 0;
-                width: 100%;
-                z-index: 50;
-                transition: transform 0.5s ease;
-                &.fullscreen {
-                    height: 100%!important;
-                    max-height: none;
-                    transition: height 0.5s ease;
-                    z-index: 200;
+            &>#map {
+                &>.splitter {
+                    display: none;
+                }
+                &>figure {
+                    margin: 0;
+                    height: 32vh;
+                    max-height: calc(100% - 96px);
+                    position: fixed;
+                    bottom: 2.5rem;
+                    left: 0;
+                    width: 100%;
+                    z-index: 50;
+                    transition: transform 0.5s ease;
+                    &>div {
+                        height: 100%;
+                    }
+                    &.fullscreen {
+                        height: 100%!important;
+                        max-height: none;
+                        transition: height 0.5s ease;
+                        z-index: 200;
+                        &>.resizer {
+                            &>div {
+                                &>i {
+                                    transition: transform 0.5s ease;
+                                    z-index: 1;
+                                    position: relative;
+                                    transform: translateY(52px);
+                                    &.map-expand {
+                                        display: none;
+                                    }
+                                    &.map-compress {
+                                        display: inline-block;
+                                        margin-left: 0.5rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &>.map-open {
+                        position: absolute;
+                        top: -78px;
+                        left: 50%;
+                        transform: translate(-50%, 100px);
+                        cursor: pointer;
+                        z-index: -1;
+                        transition: transform 0.5s ease;
+                        box-shadow: rgb(0 0 0 / 25%) 0 0 8px;
+                        border-radius: 100%;
+                        &>i.fa-solid.fa-circle {
+                            color: #fff;
+                        }
+                        &>i.fa-map-marker-alt {
+                            color: var(--primary);
+                        }
+                    }
                     &>.resizer {
+                        cursor: ns-resize;
+                        height: 2.5rem;
+                        background: #ffff;
+                        text-align: center;
+                        border-radius: 0.5rem 0.5rem 0 0;
+                        box-shadow: rgb(0 0 0 / 20%) 0 -1px 4px;
+                        border-bottom: 1px solid #d3d3d3;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 0 1rem;
                         &>div {
+                            min-width: 75px;
                             &>i {
-                                transition: transform 0.5s ease;
-                                z-index: 1;
-                                position: relative;
-                                transform: translateY(52px);
+                                font-size: 18px;
+                                height: 30px;
+                                width: 30px;
+                                line-height: 30px;
+                                text-align: center;
+                                cursor: pointer;
+                                background: #fff;
+                                border-radius: 100%;
                                 &.map-expand {
-                                    display: none;
+                                    margin-left: 0.5rem
                                 }
                                 &.map-compress {
-                                    display: inline-block;
-                                    margin-left: 0.5rem;
+                                    display: none;
                                 }
                             }
-                        }
-                    }
-                }
-                &>.map-open {
-                    position: absolute;
-                    top: -78px;
-                    left: 50%;
-                    transform: translate(-50%, 100px);
-                    cursor: pointer;
-                    z-index: -1;
-                    transition: transform 0.5s ease;
-                    box-shadow: rgb(0 0 0 / 25%) 0 0 8px;
-                    border-radius: 100%;
-                    &>i.fa-solid.fa-circle {
-                        color: #fff;
-                    }
-                    &>i.fa-map-marker-alt {
-                        color: var(--primary);
-                    }
-                }
-                &>.resizer {
-                    cursor: ns-resize;
-                    height: 2.5rem;
-                    background: #ffff;
-                    text-align: center;
-                    border-radius: 0.5rem 0.5rem 0 0;
-                    box-shadow: rgb(0 0 0 / 20%) 0 -1px 4px;
-                    border-bottom: 1px solid #d3d3d3;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0 1rem;
-                    &>div {
-                        min-width: 75px;
-                        &>i {
-                            font-size: 18px;
-                            height: 30px;
-                            width: 30px;
-                            line-height: 30px;
-                            text-align: center;
-                            cursor: pointer;
-                            background: #fff;
-                            border-radius: 100%;
-                            &.map-expand {
-                                margin-left: 0.5rem
+                            &:first-child {
+                                text-align: left;
                             }
-                            &.map-compress {
-                                display: none;
+                            &:last-child {
+                                text-align: right;
                             }
                         }
-                        &:first-child {
-                            text-align: left;
-                        }
-                        &:last-child {
-                            text-align: right;
-                        }
-                    }
-                    &>span {
-                        height: 100%;
-                        width: 100%;
-                        &>div {
-                            width: 38px;
-                            height: 3px;
-                            border-radius: 2px;
-                            background: var(--grey);
-                            margin: 18.5px auto;
+                        &>span {
+                            height: 100%;
+                            width: 100%;
+                            &>div {
+                                width: 38px;
+                                height: 3px;
+                                border-radius: 2px;
+                                background: var(--grey);
+                                margin: 18.5px auto;
+                            }
                         }
                     }
                 }
@@ -255,6 +259,13 @@
     }
     @media (min-width: 576px) {
         &__header {
+            &>div {
+                &>div {
+                    &>h1 {
+                        font-size: 1.313rem;
+                    }
+                }
+            }
             & .header__options {
                 &>li {
                     &:nth-last-child(2) {
@@ -270,7 +281,7 @@
         flex-direction: column;
         width: 100%;
         &__header {
-            padding: 0.5rem 1rem;
+            padding: 1rem;
             box-shadow: none;
             &>div {
                 flex-direction: row;
@@ -281,7 +292,7 @@
                     display: block;
                     &>h1 {
                         padding: 0 0.5rem 0 0;
-                        font-size: 1.313rem;
+                        font-size: 1.438rem;
                         line-height: 1;
                     }
                     &>em {
@@ -350,47 +361,40 @@
                         background-color: #6d6d6d;
                     } */
                 }
-                &>.splitter {
-                    display: block;
-                    cursor: ew-resize;
-                    width: 12px;
-                    background: #fff;
-                    text-align: center;
-                    box-shadow: rgb(0 0 0 / 20%) 0 50px 30px, rgb(0 0 0 / 15%) 1px 0 1px;
-                    border-left: 1px solid #d3d3d3;
-                    z-index: 4;
-                    position: sticky;
-                    top: 56px;
-                    height: calc(100vh - 56px);
+                &>#map {
                     transition: height 0.25s ease;
-                    &>i {
-                        color: #7f7f7f;
-                        position: relative;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
-                }
-                &>figure {
-                    display: block;
-                    position: sticky;
+                    display: flex;
                     flex: 1;
-                    min-height: 100%;
-                    z-index: 0;
-                    transform: translateY(0) !important;
-                    top: 56px;
-                    height: calc(100vh - 56px);
-                    bottom: auto;
-                    transition: height 0.25s ease;
-                    &>.map-open,
-                    &>.resizer {
-                        display: none!important;
+                    position: sticky;
+                    top: 0;
+                    &>.splitter {
+                        display: block;
+                        cursor: ew-resize;
+                        width: 12px;
+                        background: #fff;
+                        text-align: center;
+                        box-shadow: rgb(0 0 0 / 20%) 0 50px 30px, rgb(0 0 0 / 15%) 1px 0 1px;
+                        border-left: 1px solid #d3d3d3;
+                        z-index: 4;
+                        &>i {
+                            color: #7f7f7f;
+                            position: relative;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
                     }
-                }
-            }
-            #{$header} & {
-                &>.splitter,
-                &>figure {
-                    height: calc(100vh - 116px);
+                    &>figure {
+                        display: block;
+                        position: relative;
+                        top: 0;
+                        min-height: 100%;
+                        z-index: 0;
+                        transform: translateY(0) !important;
+                        &>.map-open,
+                        &>.resizer {
+                            display: none!important;
+                        }
+                    }
                 }
             }
             &>article {
@@ -425,7 +429,17 @@
     }
     @media (min-width: 992px) {
         &__header {
-            padding: 0.75rem 1.25rem;
+            padding: 1rem 1.25rem;
+            &>div {
+                &>div {
+                    &>h1 {
+                        font-size: 1.5rem;
+                    }
+                    &>em {
+                        font-size: 0.918rem;
+                    }
+                }
+            }
             & .header__options {
                 &>li {
                     &[data-popover] {
@@ -450,20 +464,6 @@
                 &>article {
                     /*width: 560px;*/
                     min-width: 420px;
-                }
-                &>.splitter {
-                    top: 64px;
-                    height: calc(100vh - 64px);
-                }
-                &>figure {
-                    top: 64px;
-                    height: calc(100vh - 64px);
-                }
-            }
-            #{$header} & {
-                &>.splitter,
-                &>figure {
-                    height: calc(100vh - 124px);
                 }
             }
             &>article {
@@ -613,7 +613,7 @@
                 }
             }
             &>h2,
-            &:not(.none, .time)>.event-item:first-child h2 {
+            &:not(.none)>.event-item h2 {
                 display: flex;
                 opacity: 1;
                 margin-top: 0;
@@ -779,8 +779,11 @@
                         display: inline-block;
                         margin-top: 0.375rem;
                         color: var(--primary);
-                        text-decoration: underline;
                         font-size: 0.875rem;
+                        cursor: pointer;
+                        &:hover {
+                            text-decoration: underline;
+                        }
                         &>i {
                             font-size: 0.563rem;
                             margin-left: 0.25rem;
@@ -817,6 +820,7 @@
                     font-size: 0.875rem;
                     border: 1px solid var(--grey);
                     color: var(--primary);
+                    cursor: pointer;
                     &>span {
                         display: none;
                     }

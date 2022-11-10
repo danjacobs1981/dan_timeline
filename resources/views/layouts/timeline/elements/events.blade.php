@@ -85,14 +85,6 @@
                 <h2><span class="event-moment">Between 1999 and the start of 2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
-                        <ul class="event-subheader">
-                            <li>
-                                Verified Time
-                            </li>
-                            <li>
-                                Verified Location
-                            </li>
-                        </ul>
                         <div class="event-header">
                             <div>
                                 <h3>
@@ -147,24 +139,12 @@
                 <h2><span class="event-moment">Between 1999 and the start of 2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
-                        <ul class="event-subheader">
-                            <li>
-                                Verified Time
-                            </li>
-                            <li>
-                                Verified Location
-                            </li>
-                        </ul>
                         <div class="event-header">
                             <div>
                                 <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
                                 </h3>
-                                <span class="event-read event-content-reveal">
-                                    Read more info<i class="fas fa-chevron-right"></i>
-                                </span>
                             </div>
-                            <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
                         <div class="event-footer">
                             <ul class="event-resources">
@@ -215,9 +195,6 @@
                     <div class="event-wrapper">
                         <ul class="event-subheader">
                             <li>
-                                Verified Time
-                            </li>
-                            <li>
                                 Verified Location
                             </li>
                         </ul>
@@ -226,9 +203,6 @@
                                 <h3>
                                     Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
                                 </h3>
-                                <span class="event-read event-content-reveal">
-                                    Read more info<i class="fas fa-chevron-right"></i>
-                                </span>
                             </div>
                             <img src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
                         </div>
@@ -275,14 +249,6 @@
                 <h2><span>During</span> <span class="event-moment">2021</span></h2>
                 <div class="event">
                     <div class="event-wrapper">
-                        <ul class="event-subheader">
-                            <li>
-                                Verified Time
-                            </li>
-                            <li>
-                                Verified Location
-                            </li>
-                        </ul>
                         <div class="event-header">
                             <div>
                                 <h3>
@@ -296,9 +262,6 @@
                         </div>
                         <div class="event-footer">
                             <ul class="event-resources">
-                                <li class="event-source">
-                                    <i class="far fa-file-alt"></i>3 sources
-                                </li>
                                 <li class="event-map-reveal">
                                     <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
                                 </li>

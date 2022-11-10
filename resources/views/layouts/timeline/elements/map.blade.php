@@ -22,4 +22,4 @@
         <i class="map-compress fa-solid fa-compress"></i>
     </div>
 </div>
-<div id="map"></div>
+<div id="gmap"></div>

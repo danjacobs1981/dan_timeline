@@ -17,12 +17,14 @@
                     @include('layouts.timeline.elements.events')
                 </article>
                 @if($temp_map)
-                <div class="splitter">
-                    <i class="fa-solid fa-grip-lines-vertical"></i>
+                <div id="map">
+                    <div class="splitter">
+                        <i class="fa-solid fa-grip-lines-vertical"></i>
+                    </div>
+                    <figure>
+                        @include('layouts.timeline.elements.map')
+                    </figure>            
                 </div>
-                <figure>
-                    @include('layouts.timeline.elements.map')
-                </figure>            
                 @endif
                 @if($temp_comments)
                 <div id="comments" class="reveal">
