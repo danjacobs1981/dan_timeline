@@ -863,7 +863,7 @@
     }
     &-header {
         #{$open} & {
-            margin-top: -52px;
+            margin-top: -48px;
         }
         width: 100%;
         padding: 0 1rem 1rem;
@@ -1035,6 +1035,7 @@
         cursor: pointer;
         position: sticky;
         margin: 0 1rem 1rem auto;
+        font-size: 1rem;
         #{$open} & {
             display: block;
         }
