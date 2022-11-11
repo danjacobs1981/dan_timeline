@@ -1,13 +1,12 @@
 import ScrollMagic from 'scrollmagic';
 
-
-
 $(window).on('resize', function() {
     $('.events-time').css('top', headerHeight + 'px');
+    $('.event-close').css('top', (headerHeight + 73) + 'px');
 });
 
-
 $('.events-time').css('top', headerHeight + 'px');
+$('.event-close').css('top', (headerHeight + 73) + 'px');
 
 function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
@@ -32,45 +31,6 @@ $(window).on('load', function() {
     setTimeout(scrollOnPageLoad(), 500);
     $('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
 });
-
-// create a scene
-/*var scene = new ScrollMagic.Scene({ triggerElement: "header", triggerHook: 0 })
-    .setPin("header")
-    .addTo(controller);
-
-var scene = new ScrollMagic.Scene({
-    triggerElement: 'section>h3',
-    triggerHook: 0
-}).setClassToggle('div.events', 'test' + Math.random()).addTo(controller);*/
-
-
-/*$('.events section').each(function() {
-    var offset = -56; // header1
-    if ($(this).hasClass('month')) {
-        offset = -76;
-    } else if ($(this).hasClass('day')) {
-        offset = -96;
-    } else if ($(this).hasClass('time')) {
-        offset = -116;
-    }
-    new ScrollMagic.Scene({
-            offset: -74,
-            triggerElement: $(this)[0],
-            triggerHook: 0, // on enter
-            duration: $(this).height() //  height of section
-        })
-        .setClassToggle('.events', $(this).data('period'))
-        .addTo(controller);
-
-    new ScrollMagic.Scene({
-            offset: -74,
-            triggerElement: $(this)[0],
-            triggerHook: 0, // on enter
-            duration: $(this).height() //  height of section
-        })
-        .setClassToggle($(this)[0], 'current')
-        .addTo(controller);
-});*/
 
 $('.events-wrapper .event-item').each(function() {
     new ScrollMagic.Scene({
@@ -104,8 +64,6 @@ $('.events-wrapper .event-item').each(function() {
         })
         .addTo(controller);
 });
-
-
 
 $('i.events-increment').on('click', function() {
     var scrollTop = 0;
@@ -144,5 +102,15 @@ $('.dropdown-toggle input[type="checkbox"]').on('change', function() {
         $dropdown.find('i.fa-chevron-down').before('<em class="count">' + dd_checked + '</em>');
     } else {
         $dropdown.find('em.count').remove();
+    }
+});
+
+/* events */
+$('.event-close, .event-read, .event-source, .event-subheader > li').on('click', function() {
+    var $event = $(this).closest('.event');
+    if ($event.hasClass('event--open')) {
+        $event.removeClass('event--open');
+    } else {
+        $event.addClass('event--open');
     }
 });
