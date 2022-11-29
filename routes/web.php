@@ -22,6 +22,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/', 'HomeController@index')->name('home.index');
 
+    Route::resource('events', 'TestController');
+
     Route::group(['middleware' => ['guest']], function() {
 
         Route::get('/register', 'RegisterController@show')->name('register.show');

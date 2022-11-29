@@ -16,6 +16,12 @@ class TimelineController extends Controller
         Config::set('constants.head.title', 'Timeline: '.$timeline->title);
         Config::set('constants.head.link_canonical', '/'.$timeline->id.'/'.$timeline->slug);
 
+        $d = '2001-09-11 13:02:18';
+        //force my db datetime into unix timestamp
+        $ad = strtotime($d);
+
+        //dd($ad);
+
         if ($request->query('share')) {
             // dd($request->query('share'));
             // join the share table to the timeline table?
