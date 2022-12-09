@@ -16,43 +16,9 @@ class TestController extends Controller
     public function index()
     {
        
-        $all_events = Event::all()->where('id_timeline', '123')->sortBy('order_ny')->groupBy('order_ny');
+        $timeline_events = Event::all()->where('timeline_id', '123')->sortBy('order_ny')->groupBy('order_ny');
 
-        
-
-        
-        //Illuminate\Database\Eloquent\Collection
-        //dd($events);
-
-        //$ny = $events->whereIn('date_type', [null, 1])->sortBy('order_ny')->groupBy('order_ny')->toArray();
-        //$ny = $events->sortBy('order_ny')->groupBy('order_ny');
-        //$ym = $events->sortBy('order_ym')->unique('order_ym');
-
-   //dd($events);
-
-        //$ym = $ny->where('date_year', '!=', null)->whereNull('date_month')->sortBy('order_period')->groupBy('date_year');
-
-
-
-
-        //dd($days);
-
-
-
-
-        /*->where(function($query) {
-            $query->where('date_year', '!=', null)->groupBy(['date_year','date_month','date_day','date_unix_gmt']);
-        });*/
-        //->where('date_year', '!=', null)
-        //->groupBy(['date_year','date_month','date_day','date_unix_gmt']) // if not null conditions ??
-        //->groupBy('date_year') // if not null conditions ??
-        //->orderBy('date_month', 'asc')
-        //->orderBy('date_day', 'asc')
-        //->orderBy('date_unix_gmt', 'asc')
-
- 
-        
-        return view('layouts.portal.pages.event.index',compact('all_events'));
+        return view('layouts.portal.pages.event.index',compact('timeline_events'));
 
     }
 
@@ -197,25 +163,14 @@ class TestController extends Controller
         }
 
         // reorder items during its section & period
-        $data['order_period'] = 0; // old
         
         if($date_type == 1) {
 
             // see if year exists and if so get its latest order_ym
             $exists_year = Event::where('date_year', $data['date_year'])->orderBy('order_ym', 'desc')->first();
             if ($exists_year === null) {
-                $latest_year = Event::whereNotNull('date_year')->max('date_year');
-                if ($latest_year <= $data['date_year']) { 
-                    // new year is greater so add to very end of current order
-                    $data['order_ny'] = Event::max('order_ny') + 1;
-                } else { 
-                    // new year is less so find it's next_year
-                    $next_year = Event::whereNotNull('date_year')->where('date_year','>', $data['date_year'])->orderBy('date_year', 'asc')->first();
-                    // increment order for that year / all items ordered higher
-                    Event::where('order_ny','>=', $next_year['order_ny'])->increment('order_ny');
-                    // apply order to current year (one less than next_year)
-                    $data['order_ny'] = Event::where('date_year', $next_year['date_year'])->max('order_ny') - 1; 
-                }      
+                $latest_moment = Event::whereNotNull('date_year')->max('date_year');
+                reorder($data, $latest_moment, 'date_year', 'order_ny');
                 $data['order_ym'] = 1;
             } else {
                 $data['order_ny'] = $exists_year['order_ny']; 
@@ -227,18 +182,8 @@ class TestController extends Controller
             // see if year exists and if so get its latest order_ym
             $exists_year = Event::where('date_year', $data['date_year'])->orderBy('order_ym', 'desc')->first();
             if ($exists_year === null) {
-                $latest_year = Event::whereNotNull('date_year')->max('date_year');
-                if ($latest_year <= $data['date_year']) { 
-                    // new year is greater so add to very end of current order
-                    $data['order_ny'] = Event::max('order_ny') + 1;
-                } else { 
-                    // new year is less so find it's next_year
-                    $next_year = Event::whereNotNull('date_year')->where('date_year','>', $data['date_year'])->orderBy('date_year', 'asc')->first();
-                    // increment order for that year / all items ordered higher
-                    Event::where('order_ny','>=', $next_year['order_ny'])->increment('order_ny');
-                    // apply order to current year (one less than next_year)
-                    $data['order_ny'] = Event::where('date_year', $next_year['date_year'])->max('order_ny') - 1; 
-                }      
+                $latest_moment = Event::whereNotNull('date_year')->max('date_year');
+                reorder($data, $latest_moment, 'date_year', 'order_ny');     
                 $data['order_ym'] = 1;
                 $data['order_md'] = 1;
             } else {
@@ -246,18 +191,8 @@ class TestController extends Controller
                 // see if month exists and if so get its latest order_md
                 $exists_month = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->orderBy('order_md', 'desc')->first();
                 if ($exists_month === null) {
-                    $latest_month = Event::where('date_year', $data['date_year'])->max('date_month');
-                    if ($latest_month <= $data['date_month']) { 
-                        // new month is greater so add to very end of current order
-                        $data['order_ym'] = Event::where('date_year', $data['date_year'])->max('order_ym') + 1;
-                    } else { 
-                        // new month is less so find it's next_month
-                        $next_month = Event::where('date_year', $data['date_year'])->where('date_month','>', $data['date_month'])->orderBy('date_month', 'asc')->first();
-                        // increment order for that month / all items ordered higher
-                        Event::where('date_year', $next_month['date_year'])->where('order_ym','>=', $next_month['order_ym'])->increment('order_ym');
-                        // apply order to current month (one less than next_month)
-                        $data['order_ym'] = Event::where('date_year', $next_month['date_year'])->where('date_month', $next_month['date_month'])->max('order_ym') - 1; 
-                    }      
+                    $latest_moment = Event::where('date_year', $data['date_year'])->max('date_month');
+                    reorder($data, $latest_moment, 'date_month', 'order_ym');     
                     $data['order_md'] = 1;
                 } else {
                     $data['order_ym'] = $exists_month['order_ym']; 
@@ -270,18 +205,10 @@ class TestController extends Controller
             // see if year exists and if so get its latest order_ym
             $exists_year = Event::where('date_year', $data['date_year'])->orderBy('order_ym', 'desc')->first();
             if ($exists_year === null) {
-                $latest_year = Event::whereNotNull('date_year')->max('date_year');
-                if ($latest_year <= $data['date_year']) { 
-                    // new year is greater so add to very end of current order
-                    $data['order_ny'] = Event::max('order_ny') + 1;
-                } else { 
-                    // new year is less so find it's next_year
-                    $next_year = Event::whereNotNull('date_year')->where('date_year','>', $data['date_year'])->orderBy('date_year', 'asc')->first();
-                    // increment order for that year / all items ordered higher
-                    Event::where('order_ny','>=', $next_year['order_ny'])->increment('order_ny');
-                    // apply order to current year (one less than next_year)
-                    $data['order_ny'] = Event::where('date_year', $next_year['date_year'])->max('order_ny') - 1; 
-                }      
+                //dd($data['date_year']);
+                $latest_moment = Event::whereNotNull('date_year')->max('date_year');
+                reorder($data, $latest_moment, 'date_year', 'order_ny'); 
+                //dd($data['order_ny']);
                 $data['order_ym'] = 1;
                 $data['order_md'] = 1;
             } else {
@@ -289,36 +216,16 @@ class TestController extends Controller
                 // see if month exists and if so get its latest order_md
                 $exists_month = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->orderBy('order_md', 'desc')->first();
                 if ($exists_month === null) {
-                    $latest_month = Event::where('date_year', $data['date_year'])->max('date_month');
-                    if ($latest_month <= $data['date_month']) { 
-                        // new month is greater so add to very end of current order
-                        $data['order_ym'] = Event::where('date_year', $data['date_year'])->max('order_ym') + 1;
-                    } else { 
-                        // new month is less so find it's next_month
-                        $next_month = Event::where('date_year', $data['date_year'])->where('date_month','>', $data['date_month'])->orderBy('date_month', 'asc')->first();
-                        // increment order for that month / all items ordered higher
-                        Event::where('date_year', $next_month['date_year'])->where('order_ym','>=', $next_month['order_ym'])->increment('order_ym');
-                        // apply order to current month (one less than next_month)
-                        $data['order_ym'] = Event::where('date_year', $next_month['date_year'])->where('date_month', $next_month['date_month'])->max('order_ym') - 1; 
-                    }      
+                    $latest_moment = Event::where('date_year', $data['date_year'])->max('date_month');
+                    reorder($data, $latest_moment, 'date_month', 'order_ym');  
                     $data['order_md'] = 1;
                 } else {
                     $data['order_ym'] = $exists_month['order_ym']; 
                     // see if day exists and if so get its latest order_dt
                     $exists_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->orderBy('order_dt', 'desc')->first();
                     if ($exists_day === null) {
-                        $latest_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('date_day');
-                        if ($latest_day <= $data['date_day']) { 
-                            // new day is greater so add to very end of current order
-                            $data['order_md'] = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('order_md') + 1;
-                        } else { 
-                            // new day is less so find it's next_day
-                            $next_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day','>', $data['date_day'])->orderBy('date_day', 'asc')->first();
-                            // increment order for that dday / all items ordered higher
-                            Event::where('date_year', $next_day['date_year'])->where('date_month', $next_day['date_month'])->where('order_md','>=', $next_day['order_md'])->increment('order_md');
-                            // apply order to current day (one less than next_day)
-                            $data['order_md'] = Event::where('date_year', $next_day['date_year'])->where('date_month', $next_day['date_month'])->where('date_day', $next_day['date_day'])->max('order_md') - 1; 
-                        }      
+                        $latest_moment = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('date_day');
+                        reorder($data, $latest_moment, 'date_day', 'order_md');   
                         $data['order_dt'] = 1;
                     } else {
                         $data['order_md'] = $exists_day['order_md']; 
@@ -332,18 +239,8 @@ class TestController extends Controller
             // see if year exists and if so get its latest order_ym
             $exists_year = Event::where('date_year', $data['date_year'])->orderBy('order_ym', 'desc')->first();
             if ($exists_year === null) {
-                $latest_year = Event::whereNotNull('date_year')->max('date_year');
-                if ($latest_year <= $data['date_year']) { 
-                    // new year is greater so add to very end of current order
-                    $data['order_ny'] = Event::max('order_ny') + 1;
-                } else { 
-                    // new year is less so find it's next_year
-                    $next_year = Event::whereNotNull('date_year')->where('date_year','>', $data['date_year'])->orderBy('date_year', 'asc')->first();
-                    // increment order for that year / all items ordered higher
-                    Event::where('order_ny','>=', $next_year['order_ny'])->increment('order_ny');
-                    // apply order to current year (one less than next_year)
-                    $data['order_ny'] = Event::where('date_year', $next_year['date_year'])->max('order_ny') - 1; 
-                }      
+                $latest_moment = Event::whereNotNull('date_year')->max('date_year');
+                reorder($data, $latest_moment, 'date_year', 'order_ny'); 
                 $data['order_ym'] = 1;
                 $data['order_md'] = 1;
                 $data['order_dt'] = 1;
@@ -352,18 +249,8 @@ class TestController extends Controller
                 // see if month exists and if so get its latest order_md
                 $exists_month = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->orderBy('order_md', 'desc')->first();
                 if ($exists_month === null) {
-                    $latest_month = Event::where('date_year', $data['date_year'])->max('date_month');
-                    if ($latest_month <= $data['date_month']) { 
-                        // new month is greater so add to very end of current order
-                        $data['order_ym'] = Event::where('date_year', $data['date_year'])->max('order_ym') + 1;
-                    } else { 
-                        // new month is less so find it's next_month
-                        $next_month = Event::where('date_year', $data['date_year'])->where('date_month','>', $data['date_month'])->orderBy('date_month', 'asc')->first();
-                        // increment order for that month / all items ordered higher
-                        Event::where('date_year', $next_month['date_year'])->where('order_ym','>=', $next_month['order_ym'])->increment('order_ym');
-                        // apply order to current month (one less than next_month)
-                        $data['order_ym'] = Event::where('date_year', $next_month['date_year'])->where('date_month', $next_month['date_month'])->max('order_ym') - 1; 
-                    }      
+                    $latest_moment = Event::where('date_year', $data['date_year'])->max('date_month');
+                    reorder($data, $latest_moment, 'date_month', 'order_ym');  
                     $data['order_md'] = 1;
                     $data['order_dt'] = 1;
                 } else {
@@ -371,23 +258,13 @@ class TestController extends Controller
                     // see if day exists and if so get its latest order_dt
                     $exists_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->orderBy('order_dt', 'desc')->first();
                     if ($exists_day === null) {
-                        $latest_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('date_day');
-                        if ($latest_day <= $data['date_day']) { 
-                            // new day is greater so add to very end of current order
-                            $data['order_md'] = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('order_md') + 1;
-                        } else { 
-                            // new day is less so find it's next_day
-                            $next_day = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day','>', $data['date_day'])->orderBy('date_day', 'asc')->first();
-                            // increment order for that day / all items ordered higher
-                            Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('order_md','>=', $next_day['order_md'])->increment('order_md');
-                            // apply order to current day (one less than next_day)
-                            $data['order_md'] = Event::where('date_year', $next_day['date_year'])->where('date_month', $next_day['date_month'])->where('date_day', $next_day['date_day'])->max('order_md') - 1; 
-                        }      
+                        $latest_moment = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('date_day');
+                        reorder($data, $latest_moment, 'date_day', 'order_md');     
                         $data['order_dt'] = 1;
                     } else {
                         $data['order_md'] = $exists_day['order_md']; 
-                        $latest_time = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->max('date_unix_gmt');
-                        if ($latest_time <= $data['date_unix_gmt']) { 
+                        $latest_moment = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->max('date_unix_gmt');
+                        if ($latest_moment <= $data['date_unix_gmt']) { 
                             // new time is greater so add to very end of current order
                             $data['order_dt'] = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->max('order_dt') + 1;
                         } else { 
@@ -411,12 +288,17 @@ class TestController extends Controller
         // other data
         $data['date_type'] = $date_type;
         $data['id'] = helperUniqueId('events');
-        $data['id_timeline'] = "123";
+        $data['timeline_id'] = 22163;
         
         //dd($data);
 
         // update the table
         $show = Event::create($data);
+
+        // set order_overall for all events
+
+
+
    
         return redirect('/events')->with('success', 'Event successfully saved');
     }
@@ -467,5 +349,16 @@ class TestController extends Controller
         $event->delete();
 
         return redirect('/events')->with('success', 'Event successfully deleted');
+    }
+}
+
+function reorder(&$data, $latest_moment, $data_date, $data_order) {
+    if ($latest_moment <= $data[$data_date]) { 
+        $data[$data_order] = Event::max($data_order) + 1;
+        //dd($data['order_ny']);
+    } else { 
+        $next_year = Event::whereNotNull($data_date)->where($data_date,'>', $data[$data_date])->orderBy($data_date, 'asc')->first();
+        Event::where($data_order,'>=', $next_year[$data_order])->increment($data_order);
+        $data[$data_order] = Event::where($data_date, $next_year[$data_date])->max($data_order) - 1; 
     }
 }

@@ -122,7 +122,7 @@ $(document).on('click', '.dropdown', function(e) {
     }
 });
 
-$('.dropdown-toggle').on('click', function(e) {
+$('body').on('click', '.dropdown-toggle', function(e) {
     if ($(this).hasClass('open') && $(e.target).is('i.dropdown-close')) {
         closeDropdowns();
     } else {
@@ -171,7 +171,7 @@ $('.nav-search > label').on('click', function() {
 });
 
 /* reveal sections */
-$('[data-reveal]').on('click', function() {
+$('body').on('click', '[data-reveal]', function() {
     var revealId = $(this).data('reveal');
     $('#' + revealId).addClass('revealed');
     scrollbarStyles(true);

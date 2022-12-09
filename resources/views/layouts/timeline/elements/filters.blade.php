@@ -108,7 +108,7 @@
             Clear all
         </span>
         <span class="btn filter__show">
-            Show 32 results
+            Show {{ $timeline->events->count() }} results
         </span>
     </div>
 </div>

@@ -606,28 +606,26 @@
         }
         padding: 1.5rem 0 1rem;
         & section {
+            background: linear-gradient(#aaa, #aaa) no-repeat 50% 0/1px 100%;
+            margin-bottom: 2rem;
+            &>h2 {
+                display: none;
+                &.event-title {
+                    display: flex;
+                }
+            }
             &.none {
+                margin-bottom: 3rem;
                 & .event::before,
                 & .event::after {
                     content: none;
                 }
             }
-            &>h2,
-            &:not(.none)>.event-item h2 {
-                display: flex;
-                opacity: 1;
-                margin-top: 0;
-                z-index: 1;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 0.25rem;
-            }
             &.year {
                 /*padding-left: 1rem;*/
-                /*margin-bottom: 2.5rem;*/
-                background: linear-gradient(var(--year), var(--year)) no-repeat 50% 0/1px 100%;
-                &>.event-item:first-child {
-                    & h2 {
+                margin-bottom: 3rem;
+                &>h2 {
+                    &>.none {
                         background: var(--year);
                     }
                 }
@@ -642,11 +640,11 @@
             }
             &.month {
                 /*padding-left: 1rem;*/
-                margin-bottom: 1.5rem;
-                background: linear-gradient(var(--month), var(--month)) no-repeat 50% 0/1px 100%;
-                &>h2,
-                &>.event-item:first-child h3 {
-                    background: var(--month);
+                /*margin-bottom: 3rem;*/
+                &>h2 {
+                    &>.none {
+                        background: var(--month);
+                    }
                 }
                 & .event {
                     &::before {
@@ -659,11 +657,11 @@
             }
             &.day {
                 /*padding-left: 1rem;*/
-                margin-bottom: 0.5rem;
-                background: linear-gradient(var(--day), var(--day)) no-repeat 50% 0/1px 100%;
-                &>h2,
-                &>.event-item:first-child h3 {
-                    background: var(--day);
+                /*margin-bottom: 2rem;*/
+                &>h2 {
+                    &>.none {
+                        background: var(--day);
+                    }
                 }
                 & .event {
                     &::before {
@@ -675,44 +673,69 @@
                 }
             }
             &.time {
+                /*margin-bottom: 1rem;*/
                 & .event {
                     &::before {
-                        background: var(--day);
+                        background: var(--time);
                     }
                     &::after {
-                        background: var(--day);
+                        background: var(--time);
                     }
                 }
             }
         }
         & h2 {
-            border-radius: 0 0.25rem 0.25rem 0;
-            background: #333;
-            color: #fff;
-            font-size: 0.844rem;
+            font-size: 0.938rem;
             width: fit-content;
-            margin: -3rem 0 1.5rem -2rem;
-            opacity: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 400;
             line-height: 1.5rem;
             height: 1.5rem;
-            padding: 0 0.5rem;
             position: relative;
-            z-index: -1;
+            z-index: 1;
+            margin: 0 auto 1rem;
+            &>em {
+                position: absolute;
+            }
             &>span {
-                display: none;
-                &.event-moment {
-                    display: inline-block;
+                color: #fff;
+                padding: 0 0.5rem;
+                &:first-child {
+                    border-top-left-radius: 0.5rem;
+                    border-bottom-left-radius: 0.5rem;
                 }
-                &>em {
-                    font-style: normal;
+                &:last-child {
+                    border-top-right-radius: 0.5rem;
+                    border-bottom-right-radius: 0.5rem;
+                }
+                &.none {
+                    background: #333;
+                }
+                &.year {
+                    background: var(--year);
+                }
+                &.month {
+                    background: var(--month);
+                }
+                &.day {
+                    background: var(--day);
+                }
+                &.time {
+                    background: var(--time);
                 }
             }
         }
         #{$sm} & {
+            & h2 {
+                font-size: 1rem;
+                line-height: 1.75rem;
+                height: 1.75rem;
+                &>span {
+                    padding: 0 0.75rem;
+                }
+            }
             & .event {
                 border-radius: 0.5rem;
                 border: 1px solid var(--greyLight);
@@ -808,9 +831,6 @@
                 }
             }
         }
-        & h2 {
-            font-size: 0.938rem;
-        }
     }
     @media (min-width: 992px) {
         &-time {
@@ -829,7 +849,6 @@
     border-bottom: 1px solid var(--greyLight);
     display: flex;
     align-items: center;
-    margin: 0 0 1.5rem 0;
     background: #fff;
     position: relative;
     z-index: 1;

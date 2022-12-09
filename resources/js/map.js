@@ -24,23 +24,25 @@ function initMap() {
 }
 window.initMap = initMap;
 
-new ScrollMagic.Scene({
-        duration: topbarHeight
-    })
-    .triggerHook(0)
-    .on('enter', function(e) { // forward 
-        $('#map').css({
-            'top': topbarHeight + 'px',
-            'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
-        });
-    })
-    .on('leave', function(e) { // reverse
-        $('#map').css({
-            'top': headerHeight + 'px',
-            'height': 'calc(100vh - ' + headerHeight + 'px)'
-        });
-    })
-    .addTo(controller);
+window.setMap = function() {
+    new ScrollMagic.Scene({
+            duration: topbarHeight
+        })
+        .triggerHook(0)
+        .on('enter', function(e) { // forward 
+            $('#map').css({
+                'top': topbarHeight + 'px',
+                'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
+            });
+        })
+        .on('leave', function(e) { // reverse
+            $('#map').css({
+                'top': headerHeight + 'px',
+                'height': 'calc(100vh - ' + headerHeight + 'px)'
+            });
+        })
+        .addTo(controller);
+}
 
 function eventsClass() {
     $('.events').removeClass('events--sm events--md events--lg');

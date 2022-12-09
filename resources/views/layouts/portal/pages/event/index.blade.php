@@ -10,17 +10,21 @@
   @endif
 
 
-        @foreach($all_events as $key => $events)  
+        @foreach($timeline_events as $events)  
 
             @foreach ($events->unique('order_ny') as $event)
 
                 @if($event->date_year === null)
 
-                    <div style="padding: 10px; border:solid 1px red; margin: 10px 10px 20px;">none event</div>
+                    <section class="none">
+
+                        @include('layouts.portal.pages.event.event')
+
+                    </section>
 
                 @else
                     
-                    <section style="padding: 10px; border:solid 1px red; margin: 10px 10px 20px;">
+                    <section class="year" style="padding: 10px; border:solid 1px red; margin: 10px 10px 20px;">
 
                         <h3>year: {{ $event->date_year }}</h3>
 

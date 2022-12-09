@@ -22,6 +22,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/', 'HomeController@index')->name('home.index');
 
+    // test area
     Route::resource('events', 'TestController');
 
     Route::group(['middleware' => ['guest']], function() {
@@ -43,5 +44,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::get('/{timeline}/{slug?}', 'TimelineController@show')->name('timeline.show');
+    
+    Route::post('/ajax/timeline/events/{timeline}', 'TimelineController@events')->name('timeline.events.ajax');
+    Route::get('/ajax/timeline/tags/{timeline}', 'TimelineController@tags')->name('timeline.tags.ajax');
+    Route::get('/ajax/timeline/comments/{timeline}/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
 
 });

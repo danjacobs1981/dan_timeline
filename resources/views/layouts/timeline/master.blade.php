@@ -7,6 +7,9 @@
 
 <body>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="timeline" content="{{ $timeline->id }}">
+
     @include('layouts.global.topbar')
 
     @yield('content')
