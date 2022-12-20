@@ -1,5 +1,5 @@
 
-<div itemscope itemtype="https://schema.org/Event" class="event-item {{ $event_first === $event->id ? 'event-first' : '' }}" data-order="{{ $event->order_overall }}">
+<div itemscope itemtype="https://schema.org/Event" class="event-item" data-order="{{ $event->order_overall }}">
     <!--<h2 itemprop="startDate" content="{{ $event->date_iso }}">
         {!! $event->date_html !!}
     </h2>-->

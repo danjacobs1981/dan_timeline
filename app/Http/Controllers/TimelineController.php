@@ -16,7 +16,7 @@ class TimelineController extends Controller
     public function show(Timeline $timeline, Request $request) 
     {
 
-        updateTimeline($timeline->id);
+        //updateTimeline($timeline->id);
 
         // set head items
         Config::set('constants.head.title', 'Timeline: '.$timeline->title);
@@ -106,8 +106,8 @@ class TimelineController extends Controller
 
         if ($timeline_events->count()) {
 
-            $event_first = $timeline_events->sortBy('order_ny')->first()->id;
-            $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events, 'event_first' => $event_first])->render();
+            //$event_first = $timeline_events->sortBy('order_ny')->first()->id;
+            $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
             $events_count = $timeline_events->count();
 
         } else {

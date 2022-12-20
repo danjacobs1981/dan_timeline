@@ -5,6 +5,7 @@ eventsClass();
 
 $(window).on('resize', function() {
     eventsClass();
+    setMap();
 });
 
 /* map */
@@ -25,23 +26,29 @@ function initMap() {
 window.initMap = initMap;
 
 window.setMap = function() {
-    new ScrollMagic.Scene({
-            duration: topbarHeight
-        })
-        .triggerHook(0)
-        .on('enter', function(e) { // forward 
-            $('#map').css({
-                'top': topbarHeight + 'px',
-                'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
-            });
-        })
-        .on('leave', function(e) { // reverse
-            $('#map').css({
-                'top': headerHeight + 'px',
-                'height': 'calc(100vh - ' + headerHeight + 'px)'
-            });
-        })
-        .addTo(controller);
+    if (!isMobile) {
+        new ScrollMagic.Scene({
+                duration: topbarHeight
+            })
+            .triggerHook(0)
+            .on('enter', function(e) { // forward 
+                $('#map').css({
+                    'top': topbarHeight + 'px',
+                    'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
+                });
+            })
+            .on('leave', function(e) { // reverse
+                $('#map').css({
+                    'top': headerHeight + 'px',
+                    'height': 'calc(100vh - ' + headerHeight + 'px)'
+                });
+            })
+            .addTo(controller);
+    } else {
+        $('#map').css({
+            'height': 'auto'
+        });
+    }
 }
 
 function eventsClass() {
