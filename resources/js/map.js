@@ -1,4 +1,4 @@
-import ScrollMagic from 'scrollmagic';
+// import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
 
 eventsClass();
@@ -25,7 +25,7 @@ function initMap() {
 }
 window.initMap = initMap;
 
-window.setMap = function() {
+/*window.setMap = function() {
     if (!isMobile) {
         new ScrollMagic.Scene({
                 duration: topbarHeight
@@ -49,6 +49,19 @@ window.setMap = function() {
             'height': 'auto'
         });
     }
+}*/
+
+window.setMap = function() {
+    if (!isMobile) {
+        $('#map').css({
+            'top': topHeight + 'px',
+            'height': 'calc(100vh - ' + topHeight + 'px)'
+        });
+    } else {
+        $('#map').css({
+            'height': 'auto'
+        });
+    }
 }
 
 function eventsClass() {
@@ -60,6 +73,15 @@ function eventsClass() {
         $('.events').addClass('events--md');
     }
 }
+
+$('article').resizable({
+    handleSelector: '.splitter',
+    resizeHeight: false,
+    onDrag: function() {
+        /* give article a class dependent of width */
+        eventsClass();
+    }
+});
 
 $('.map-expand').on('click', function() {
     $('figure').addClass('fullscreen');
@@ -92,15 +114,6 @@ $('.map-open').on('click', function() {
     $('figure').css('transform', 'translateY(0)');
     $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
     $(this).css('transform', 'translate(-50%, 100px)');
-});
-
-$('article').resizable({
-    handleSelector: '.splitter',
-    resizeHeight: false,
-    onDrag: function() {
-        /* give article a class dependent of width */
-        eventsClass();
-    }
 });
 
 $("figure").resizable({

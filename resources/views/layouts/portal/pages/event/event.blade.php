@@ -78,7 +78,7 @@
                     </li>
                     <li class="event-more dropdown-toggle">
                         <i class="fa-solid fa-ellipsis dropdown-close"></i>
-                        <div class="dropdown" data-backdrop data-position="right">
+                        <div class="dropdown" data-backdrop data-position-x="right">
                             <ul>
                                 <li>
                                     <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>

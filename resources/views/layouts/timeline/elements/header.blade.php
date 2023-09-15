@@ -22,7 +22,7 @@
                 <span>Filters</span>
                 <i class="fa-solid fa-chevron-down dropdown-close"></i>
                 <!-- tag list -->
-                <div class="dropdown dropdown-checkboxes" data-backdrop data-position="right">
+                <div class="dropdown dropdown-checkboxes" data-backdrop data-position-x="right">
                     <ul class="filter__wrapper">
                         <li class="filter__checkbox">
                             <input type="checkbox" id="f_Car" />
@@ -76,7 +76,7 @@
             </li>
             <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="bottom">
                 <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>
-                <div class="dropdown" data-backdrop data-position="right">
+                <div class="dropdown" data-backdrop data-position-x="right">
                     <ul>
                         <li>
                             <a href="#"><i class="fa-regular fa-user"></i>See more by <strong>username</strong></a>

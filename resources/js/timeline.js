@@ -19,6 +19,7 @@ window.loadEvents = function(share, tags) {
 
                 scrollEvents();
                 setMap();
+                setEventElements();
 
             });
 
@@ -35,12 +36,17 @@ window.loadEvents = function(share, tags) {
 loadEvents(null, false);
 
 $(window).on('resize', function() {
-    $('.events-time').css('top', headerHeight + 'px');
-    $('.event-close').css('top', (headerHeight + 73) + 'px');
+    setEventElements();
 });
 
-$('.events-time').css('top', headerHeight + 'px');
-$('.event-close').css('top', (headerHeight + 73) + 'px');
+function setEventElements() {
+    $('.events-time').css({
+        'top': topHeight + 'px'
+    });
+    $('.event-close').css({
+        'top': (topHeight + 73) + 'px'
+    });
+}
 
 function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
@@ -54,7 +60,7 @@ function scrollOnPageLoad() {
                 // open event details
                 // position map using co-ordinates as data-attrs
                 $('html, body').animate({
-                    scrollTop: $('.event-start').offset().top - headerHeight
+                    scrollTop: $('.event-start').offset().top - topHeight
                 }, 1000);
             });
         }
@@ -69,7 +75,7 @@ $(window).on('load', function() {
 function scrollEvents() {
     $('.events-wrapper .event-title').each(function() {
         new ScrollMagic.Scene({
-                offset: -headerHeight - 80,
+                offset: -topHeight - 92,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
@@ -152,10 +158,10 @@ $('i.events-increment').on('click', function() {
         }
         var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
         if ($goElement.length) {
-            scrollTop = $goElement.offset().top - headerHeight - 79;
+            scrollTop = $goElement.offset().top - topHeight - 91;
         } else {
             if ($(this).hasClass('events-down')) {
-                //scrollTop = $('.event-first').offset().top - headerHeight;
+                //scrollTop = $('.event-first').offset().top - topHeight;
             }
         }
         $('html, body').stop(true).animate({

@@ -13,8 +13,7 @@ import.meta.glob([
 
 window.isMobile = false;
 window.isTouch = testTouch();
-window.topbarHeight = getTopbarHeight();
-window.headerHeight = getHeaderHeight();
+window.topHeight = getTopHeight();
 window.urlParams = new URLSearchParams(window.location.search);
 window.controller = new ScrollMagic.Controller();
 
@@ -22,16 +21,15 @@ testMobile();
 
 $(window).on('resize', function() {
     testMobile();
-    topbarHeight = getTopbarHeight();
-    headerHeight = getHeaderHeight();
+    topHeight = getTopHeight();
 });
 
-function getTopbarHeight() {
-    return $('#topbar').outerHeight();
-}
-
-function getHeaderHeight() {
-    return $('header').outerHeight();
+function getTopHeight() {
+    if (!isMobile) {
+        return $('#topbar').outerHeight() + $('header').outerHeight();
+    } else {
+        return $('header').outerHeight();
+    }
 }
 
 function testMobile() {

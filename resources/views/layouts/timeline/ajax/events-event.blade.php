@@ -13,7 +13,7 @@
                 <div class="event-header">
                     <ul class="event-subheader">
                         <li>
-                            Period: {{ $event->date_period }}
+                            Order: {{ $event->order_overall }}
                         </li>
                         <li>
                             Date Type: {{ $event->date_type }}
@@ -21,11 +21,14 @@
                         <li>
                             ID: {{ $event->id }}
                         </li>
+                        <li>
+                            TZ: {{ $event->location_tz }}
+                        </li>
                     </ul>
                     <div>
                         <div>
                             <h3 itemprop="name">
-                                Postumus's Gallic Empire is reabsorbed into the Roman Empire under Aurelian
+                                {{ $event->title }}
                             </h3>
                             <div itemprop="location" itemscope itemtype="https://schema.org/Place">
                                 @if($event->location_geo)
@@ -85,7 +88,7 @@
                     </li>
                     <li class="event-more dropdown-toggle">
                         <i class="fa-solid fa-ellipsis dropdown-close"></i>
-                        <div class="dropdown" data-backdrop data-position="right">
+                        <div class="dropdown" data-backdrop data-position-x="right" data-position-y="top">
                             <ul>
                                 <li>
                                     <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>

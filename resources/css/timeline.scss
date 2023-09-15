@@ -283,6 +283,7 @@
         &__header {
             padding: 0.5rem 1rem 1rem;
             box-shadow: none;
+            top: 60px;
             &>div {
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -603,12 +604,53 @@
     &-wrapper {
         /*height: 100vh;*/
         #{$sm} & {
-            padding: 2rem 1rem 1rem;
+            padding: 1rem;
         }
-        padding: 2rem 0 1rem;
         & section {
             background: linear-gradient(#aaa, #aaa) no-repeat 50% 0/1px 100%;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            &:first-child {
+                margin-top: 3rem!important;
+            }
+            &>div {
+                &>span, &>em {
+                    background: var(--greyDark);
+                    color: #fff;
+                    line-height: 1.5rem;
+                    padding: 0 0.75rem;
+                    border-radius: 1.375rem;
+                    font-size: 0.844rem;
+                    white-space: nowrap;
+                    display: table;
+                    margin: 0 auto;
+                }                
+                &>span {
+                    font-size: 0.875rem;
+                    line-height: 1.75rem;
+                    margin-bottom: 1rem;
+                    position: relative;
+                    &::after {
+                        content: '';
+                        border-style: solid;
+                        position: absolute;
+                        left: 50%;
+                        border-right: 8px solid transparent;
+                        border-left: 8px solid transparent;
+                        border-top: 8px solid var(--greyDark);
+                        border-bottom: none;
+                        bottom: 0;
+                        transform: translate(-50%, 100%)
+                    }
+                } 
+                &>em {
+                    background: var(--grey);
+                    color: var(--greyDark);
+                    position: relative;
+                    top: -16px;
+                    font-style: normal;
+                }
+            }
             &.active {
                 & .event {
                     background: rgb(255, 251, 237);
@@ -659,7 +701,7 @@
                 }
             }
             &.none {
-                margin-bottom: 2.5rem;
+                margin-top: 4rem;
                 & .event::before,
                 & .event::after {
                     content: none;
@@ -667,7 +709,7 @@
             }
             &.year {
                 /*padding-left: 1rem;*/
-                margin-bottom: 2.5rem;
+                margin-top: 4rem;
                 &>h2 {
                     &>.none {
                         background: var(--year);
@@ -684,7 +726,7 @@
             }
             &.month {
                 /*padding-left: 1rem;*/
-                /*margin-bottom: 3rem;*/
+                margin-top: 3rem;
                 &>h2 {
                     &>.none {
                         background: var(--month);
@@ -701,7 +743,7 @@
             }
             &.day {
                 /*padding-left: 1rem;*/
-                /*margin-bottom: 2rem;*/
+                margin-top: 2rem;
                 &>h2 {
                     &>.none {
                         background: var(--day);
@@ -717,7 +759,7 @@
                 }
             }
             &.time {
-                /*margin-bottom: 1rem;*/
+                margin-top: 1rem;
                 & .event {
                     &::before {
                         background: var(--time);
@@ -734,7 +776,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 1.75rem;
             height: 1.75rem;
             position: relative;

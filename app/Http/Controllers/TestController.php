@@ -139,6 +139,7 @@ class TestController extends Controller
             }
         }
 
+        // get time details
         if ($data['date_unix']) {
             $data['date_unix'] = Carbon::parse($request->date_unix)->timestamp;
             $data['date_unix_gmt'] = null;
@@ -263,6 +264,7 @@ class TestController extends Controller
                         $data['order_dt'] = 1;
                     } else {
                         $data['order_md'] = $exists_day['order_md']; 
+                        // sort the position based on its time
                         $latest_moment = Event::where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->max('date_unix_gmt');
                         if ($latest_moment <= $data['date_unix_gmt']) { 
                             // new time is greater so add to very end of current order
