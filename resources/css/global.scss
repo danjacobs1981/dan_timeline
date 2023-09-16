@@ -15,7 +15,7 @@
     /* grey */
     --greyVeryLight: #f4f5f7;
     --greyLight: #ebebeb;
-    --grey: rgb(219, 219, 219);
+    --grey: #dbdbdb;
     --greyDark: #6d6d6d;
     --greyVeryDark: #101010;
     /* edit: purple */
@@ -535,7 +535,7 @@ h6 {
     width: 100%;
     background: var(--greyVeryLight);
     z-index: 100;
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid var(--grey);
     /*box-shadow: rgb(0 0 0 / 10%) 0 0 2px 1px;*/
     display: flex;
     align-items: center;

@@ -1,6 +1,6 @@
 @inject('carbon', 'Carbon\Carbon')
 @php
-    $eventNone = $eventType = null;
+    $eventNone = $eventType = $eventTZ = null;
     $periodCount = 1;
 @endphp
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  
@@ -114,7 +114,7 @@
                                                             <span class="month">{{ $dt->format('F') }}</span>
                                                             <span class="year">{{ $event->date_year }}</span>
                                                         </h2>
-                                                        @if($event->location_tz)
+                                                        @if($event->location_tz && $event->location_tz != $eventTZ)
                                                             <em>Timezone: {{ $event->location_tz }}</em>
                                                         @endif
                                                     </div>
@@ -123,6 +123,7 @@
                                                 <section>
                                                     @include('layouts.timeline.ajax.events-event')
                                                     @php($eventType = 4)
+                                                    @php($eventTZ = $event->location_tz)
                                                 </section>
                                             @endforeach
                                         </section>

@@ -75,7 +75,7 @@ $(window).on('load', function() {
 function scrollEvents() {
     $('.events-wrapper .event-title').each(function() {
         new ScrollMagic.Scene({
-                offset: -topHeight - 92,
+                offset: -topHeight - 86,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
@@ -158,7 +158,7 @@ $('i.events-increment').on('click', function() {
         }
         var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
         if ($goElement.length) {
-            scrollTop = $goElement.offset().top - topHeight - 91;
+            scrollTop = $goElement.offset().top - topHeight - 85;
         } else {
             if ($(this).hasClass('events-down')) {
                 //scrollTop = $('.event-first').offset().top - topHeight;
