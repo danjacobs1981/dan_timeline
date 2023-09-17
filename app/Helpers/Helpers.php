@@ -47,16 +47,16 @@ function updateTimeline($timeline_id)
 
             if ($event->date_type === null) {
 
-                $period_none = null;
+                $period = null;
 
                 if($eventNone) {
 
-                    $period_none = 'Sometime after '.$prevDate->format('Y');
+                    $period = 'Sometime after '.$prevDate->format('Y');
 
                 }
 
                 // NONE
-                Event::find($event->id)->update(['order_overall' => $order_overall++, 'period_none' => $period_none]);
+                Event::find($event->id)->update(['order_overall' => $order_overall++, 'period' => $period]);
 
                 $eventCurrent = null;
 
@@ -72,23 +72,19 @@ function updateTimeline($timeline_id)
 
                     $dt = Carbon::createFromTimestamp($event->date_unix);
                     
-                    $period_year = $difference = null;
+                    $period = $difference = null;
                     
+                    // DURING YEAR
+
+                    $period = 'During '.$dt->format('Y');
                     
+                    if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
 
-                        // DURING YEAR
+                        $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
 
-                        $period_year = 'During '.$dt->format('Y');
-                        
-                        if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+                    }
 
-                            $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 6]).' later';
-
-                        }
-
-                    
-
-                    Event::find($event->id)->update(['period_year' => $period_year, 'difference' => $difference]); // (period + diff) year
+                    Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year
 
                     if ($event->date_type === 1) {
 
@@ -105,24 +101,19 @@ function updateTimeline($timeline_id)
 
                             $dt = Carbon::createFromTimestamp($event->date_unix);
 
-                            $period_year = $period_month = $difference = null;
+                            $period = $difference = null;
 
+                            // DURING YEAR, IN MONTH
+
+                            $period = 'In '.$dt->format('F, Y');
+
+                            if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+
+                                $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+
+                            }
                             
-
-                                // DURING YEAR, IN MONTH
-
-                                $period_year = 'During '.$dt->format('Y');
-                                $period_month = 'In '.$dt->format('F, Y');
-
-                                if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
-
-                                    $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 6]).' later';
-    
-                                }
-                            
-                            
-
-                            Event::find($event->id)->update(['period_year' => $period_year, 'period_month' => $period_month, 'difference' => $difference]); // (period + diff) year & month
+                            Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month
 
                             if ($event->date_type === 2) {
     
@@ -139,25 +130,19 @@ function updateTimeline($timeline_id)
 
                                     $dt = Carbon::createFromTimestamp($event->date_unix);
 
-                                    $period_year = $period_month = $period_day = $difference = null;
-                                    
-                                    
+                                    $period = $difference = null;
 
-                                        // DURING YEAR, IN MONTH, ON DAY
+                                    // DURING YEAR, IN MONTH, ON DAY
 
-                                        $period_year = 'During '.$dt->format('Y');
-                                        $period_month = 'In '.$dt->format('F, Y');
-                                        $period_day = 'On '.$dt->format('l jS \o\f F, Y');
+                                    $period = 'On '.$dt->format('l jS \o\f F, Y');
 
-                                        if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+                                    if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
 
-                                            $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 6]).' later';
-                                            
-                                        }
-    
-                                    
+                                        $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+                                        
+                                    }
 
-                                    Event::find($event->id)->update(['period_year' => $period_year, 'period_month' => $period_month, 'period_day' => $period_day, 'difference' => $difference]); // (period + diff) year & month & day
+                                    Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month & day
 
                                     if ($event->date_type === 3) {
     
@@ -175,26 +160,20 @@ function updateTimeline($timeline_id)
                                             $dt = Carbon::createFromTimestamp($event->date_unix);
                                             $dt_gmt = Carbon::createFromTimestamp($event->date_unix_gmt);
 
-                                            $period_year = $period_month = $period_day = $period_time = $difference = null;
+                                            $period = $difference = null;
                                             
-                                            
+                                            // DURING YEAR, IN MONTH, ON DAY, AT TIME
 
-                                                // DURING YEAR, IN MONTH, ON DAY, AT TIME
 
-                                                $period_year = 'During '.$dt->format('Y');
-                                                $period_month = 'In '.$dt->format('F, Y');
-                                                $period_day = 'On '.$dt->format('l jS \o\f F, Y');
-                                                $period_time = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
-    
-                                                if ($prevDate && $dt_gmt > $prevDate && $eventCurrent >= $event->date_type) {
-    
-                                                    $difference = $dt_gmt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 6]).' later';
-                                                    
-                                                }
+                                            $period = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
 
-                                            
+                                            if ($prevDate && $dt_gmt > $prevDate && $eventCurrent >= $event->date_type) {
 
-                                            Event::find($event->id)->update(['period_year' => $period_year, 'period_month' => $period_month, 'period_day' => $period_day, 'period_time' => $period_time, 'difference' => $difference]); // (period + diff) year & month & day & time
+                                                $difference = $dt_gmt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+                                                
+                                            }
+
+                                            Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month & day & time
 
                                             if ($event->date_type === 4) {
 
