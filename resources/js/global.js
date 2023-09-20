@@ -18,6 +18,7 @@ window.urlParams = new URLSearchParams(window.location.search);
 window.controller = new ScrollMagic.Controller();
 
 testMobile();
+topHeight = getTopHeight();
 
 $(window).on('resize', function() {
     testMobile();
@@ -43,9 +44,7 @@ function testMobile() {
 }
 
 function testTouch() {
-    return ('ontouchstart' in window) ||
-        (navigator.maxTouchPoints > 0) ||
-        (navigator.msMaxTouchPoints > 0);
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 }
 
 function scrollbarStyles(apply) {
