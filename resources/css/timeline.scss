@@ -334,6 +334,7 @@
             }
         }
         &__body {
+            margin-top: 60px;
             #{$map} & {
                 display: flex;
                 height: calc(100vh - 135px);

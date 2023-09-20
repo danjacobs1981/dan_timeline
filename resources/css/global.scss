@@ -45,6 +45,7 @@ html {
 }
 
 body {
+    overflow-y: scroll;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-family: 'Rubik', sans-serif;
