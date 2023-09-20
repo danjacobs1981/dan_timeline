@@ -130,11 +130,12 @@ function updateTimeline($timeline_id)
 
                                     $dt = Carbon::createFromTimestamp($event->date_unix);
 
-                                    $period = $difference = null;
+                                    $period = $period_short = $difference = null;
 
                                     // DURING YEAR, IN MONTH, ON DAY
 
                                     $period = 'On '.$dt->format('l jS \o\f F, Y');
+                                    $period_short = 'On '.$dt->format('D jS \o\f M, Y');
 
                                     if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
 
@@ -142,7 +143,7 @@ function updateTimeline($timeline_id)
                                         
                                     }
 
-                                    Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month & day
+                                    Event::find($event->id)->update(['period' => $period, 'period_short' => $period_short, 'difference' => $difference]); // (period + diff) year & month & day
 
                                     if ($event->date_type === 3) {
     
@@ -166,6 +167,7 @@ function updateTimeline($timeline_id)
 
 
                                             $period = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
+                                            $period_short = 'At '.$dt->format('h:ia \o\n D jS \o\f M, Y');
 
                                             if ($prevDate && $dt_gmt > $prevDate && $eventCurrent >= $event->date_type) {
 
@@ -173,7 +175,7 @@ function updateTimeline($timeline_id)
                                                 
                                             }
 
-                                            Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month & day & time
+                                            Event::find($event->id)->update(['period' => $period, 'period_short' => $period_short, 'difference' => $difference]); // (period + diff) year & month & day & time
 
                                             if ($event->date_type === 4) {
 

@@ -72,6 +72,7 @@ $(window).on('load', function() {
     setTimeout(scrollOnPageLoad(), 500);
 });
 
+/* timeline scroll indicator */
 function scrollEvents() {
     $('.events-wrapper .event-title').each(function() {
         new ScrollMagic.Scene({
@@ -81,11 +82,13 @@ function scrollEvents() {
             .triggerHook(0)
             .on('enter', function(e) { // forward
                 var $element = $(e.target.triggerElement());
-                $('.events-time span').text($element.data('period'));
+                var period = "period";
+                if (isMobile && $element.attr('data-periodshort') !== "") {
+                    period = "periodshort";
+                }
+                $('.events-time span').text($element.data(period));
                 $('.event-title').removeClass('active');
                 $element.addClass('active');
-                //$('.events-wrapper section').removeClass('active');
-                //$element.parent().addClass('active');
                 if ($element.hasClass('event-last')) {
                     $('i.events-down').css('color', '#9b9b9b');
                 }
@@ -94,11 +97,14 @@ function scrollEvents() {
             .on('leave', function(e) { // reverse
                 var $element = $(e.target.triggerElement());
                 var order = $element.data('order') - 1;
-                //$('.events-wrapper .event-item').removeClass('event-current');
                 $('.event-title').removeClass('active');
                 if ($('.event-item[data-order="' + order + '"]').length) {
                     $('.event-title[data-order="' + order + '"]').addClass('active');
-                    $('.events-time span').text($('.event-title[data-order="' + order + '"]').data('period'));
+                    var period = "period";
+                    if (isMobile && $element.attr('data-periodshort') !== "") {
+                        period = "periodshort";
+                    }
+                    $('.events-time span').text($('.event-title[data-order="' + order + '"]').data(period));
                     $('i.events-down').css('color', '#ffffff');
                 } else {
                     $('.events-time span').html('Start of timeline');
@@ -109,42 +115,7 @@ function scrollEvents() {
     });
 }
 
-/*function scrollEvents() {
-    $('.events-wrapper .event-item').each(function() {
-        new ScrollMagic.Scene({
-                offset: -headerHeight - 1,
-                triggerElement: $(this)[0],
-            })
-            .triggerHook(0)
-            .on('enter', function(e) { // forward
-                var $element = $(e.target.triggerElement());
-                $('.events-wrapper .event-item').removeClass('event-current');
-                $('.events-time span').html($element.find('h2').html());
-                $element.addClass('event-current');
-                if ($element.hasClass('event-last')) {
-                    $('i.events-down').css('color', '#9b9b9b');
-                }
-                $('i.events-up').css('color', '#ffffff');
-            })
-            .on('leave', function(e) { // reverse
-                var $element = $(e.target.triggerElement());
-                var order = $element.data('order') - 1;
-                $('.events-wrapper .event-item').removeClass('event-current');
-                if ($('.event-item[data-order="' + order + '"]').length) {
-                    $('.event-item[data-order="' + order + '"]').addClass('event-current');
-                    $('.events-time span').html($('.event-item[data-order="' + order + '"] h2').html());
-                    $('i.events-down').css('color', '#ffffff');
-                } else {
-                    $('.events-time span').html('Start of timeline');
-                    $('i.events-up').css('color', '#9b9b9b');
-                }
-                //location.hash = '#' + $(e.target.triggerElement()).attr('id');
-            })
-            .addTo(controller);
-    });
-}*/
-
-
+/* timeline scroll increment up/down */
 $('i.events-increment').on('click', function() {
     var scrollTop = 0;
     if ($(this).hasClass('events-up') || ($(this).hasClass('events-down') && !$('.event-title').hasClass('event-last'))) {

@@ -50,14 +50,10 @@ function testTouch() {
 
 function scrollbarStyles(apply) {
     if (apply) {
-        if (testMobile()) {
+        if (isMobile || testTouch()) {
             $('body').addClass('no-scroll');
         } else {
-            if (testTouch()) {
-                $('body').addClass('no-scroll');
-            } else {
-                $('body').addClass('no-scrollbar');
-            }
+            $('body').addClass('no-scrollbar');
         }
     } else {
         $('body').removeClass('no-scroll').removeClass('no-scrollbar');
@@ -129,7 +125,7 @@ $('body').on('click', '.dropdown-toggle', function(e) {
         if (typeof $dropdown.data('backdrop') !== 'undefined') {
             $dropdown.attr('data-backdrop', 'open');
             $('.backdrop').html($dropdown.clone()).show();
-            if (testMobile()) {
+            if (isMobile) {
                 $('body').addClass('backdrop-no-scroll');
             }
         }

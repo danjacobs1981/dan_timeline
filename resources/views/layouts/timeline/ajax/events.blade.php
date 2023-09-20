@@ -76,7 +76,7 @@
                                 @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                     @if($loop->first && $event->date_time === null)
                                         <?php $dt = $carbon::create()->year($event->date_year)->month($event->date_month)->day($event->date_day) ?>
-                                        <div class="{{ $event->date_time === null ? 'event-title' : ''}}" data-period="{{ $event->period }}" data-order="{{ $periodCount++ }}">
+                                        <div class="{{ $event->date_time === null ? 'event-title' : ''}}" data-period="{{ $event->period }}" data-periodshort="{{ $event->period_short }}" data-order="{{ $periodCount++ }}">
                                             @if($event->difference)
                                                 <span>{{ $event->difference }}</span>
                                             @endif
@@ -104,7 +104,7 @@
                                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
                                                 @if($loop->first)
                                                     <?php $dt = $carbon::createFromTimestamp($event->date_unix) ?>
-                                                    <div class="event-title" data-period="{{ $event->period }}" data-order="{{ $periodCount++ }}">
+                                                    <div class="event-title" data-period="{{ $event->period }}" data-periodshort="{{ $event->period_short }}" data-order="{{ $periodCount++ }}">
                                                         @if($event->difference)
                                                             <span>{{ $event->difference }}</span>
                                                         @endif
@@ -133,6 +133,13 @@
                             @endif
                         @endforeach
                     </section>
+                    @endif
+                    @if($loop->last)
+                        <em>
+                            <span>
+                                End of {{ $event->date_year }}
+                            </span>
+                        </em>
                     @endif
                 @endforeach
             </section>

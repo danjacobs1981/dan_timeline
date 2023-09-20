@@ -612,7 +612,7 @@
             }
         }
         & section {
-            background: linear-gradient(#dbdbdb, #dbdbdb) no-repeat 50% 0/3px calc(100% - 3rem);
+            background: linear-gradient(#dbdbdb, #dbdbdb) no-repeat 50% 0/3px 100%;
             margin-bottom: 3rem;
             /*position: relative;*/
             &:first-child {
@@ -626,8 +626,8 @@
                     margin: 0 auto;
                 }                
                 &>span {
-                    background: var(--greyDark);
-                    color: #fff;
+                    background: var(--grey);
+                    color: var(--greyDark);
                     font-size: 0.813rem;
                     line-height: 1.5rem;
                     border-radius: 1.5rem;
@@ -640,7 +640,7 @@
                         left: 50%;
                         border-right: 8px solid transparent;
                         border-left: 8px solid transparent;
-                        border-top: 8px solid var(--greyDark);
+                        border-top: 8px solid var(--grey);
                         border-bottom: none;
                         bottom: 0;
                         transform: translate(-50%, 100%)
@@ -710,17 +710,32 @@
             &.none {
                 margin-top: 3rem;
                 background: none;
-                padding-bottom: 3rem;
-                border-bottom: 1px solid var(--grey);
+                margin-bottom: 5rem;
                 & .event::before,
                 & .event::after {
                     content: none;
+                }
+                &+.none {
+                    margin-top: -2rem;
                 }
             }
             &.year {
                 /*padding-left: 1rem;*/
                 margin-top: 3rem;
-                border-bottom: 1px solid var(--grey);
+                position: relative;
+                margin-bottom: 7rem;
+                &>em:last-child {
+                    position: absolute;
+                    bottom: -3.5rem;
+                    width: 100%;
+                    border-bottom: 1px solid var(--grey);
+                    text-align: center;
+                    font-style: normal;
+                    color: var(--greyDark);
+                    padding-bottom: 0.5rem;
+                    font-size: 0.813rem;
+                    opacity: 0.5;
+                }
                 & .event {
                     &::before {
                         background: var(--year);
@@ -822,6 +837,11 @@
                     } 
                     &>em {
                         font-size: 0.813rem;
+                    }
+                }
+                &.year {
+                    &>em:last-child {
+                        font-size: 0.875rem;
                     }
                 }
             }
