@@ -122,8 +122,7 @@ class TimelineEditController extends Controller
 
                 $modal_title = 'Privacy Options';
                 $route = 'layouts.portal.snippets.modal.edit-privacy';
-                $routeParams = array();
-                return view('layouts.modal.master', compact('modal_title', 'route', 'routeParams', 'timeline'));
+                return view('layouts.modal.master', compact('modal_title', 'route', 'timeline'));
 
             } else {
 
@@ -142,8 +141,7 @@ class TimelineEditController extends Controller
 
                 $modal_title = 'Share timeline privately';
                 $route = 'layouts.portal.snippets.edit-privacy-share';
-                $routeParams = array();
-                return view('layouts.modal.master', compact('modal_title', 'route', 'routeParams', 'timeline'));
+                return view('layouts.modal.master', compact('modal_title', 'route', 'timeline'));
 
             } else {
 

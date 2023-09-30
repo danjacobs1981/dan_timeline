@@ -6,5 +6,5 @@
 </div>
 @endisset
 <div class="modal-body">
-    @include($route, $routeParams)
+    @include($route, isset($routeParams) ? $routeParams : array())
 </div>
