@@ -4,7 +4,6 @@
     @vite('resources/js/portal/timeline/edit.js')
     @vite('resources/js/portal/timeline/ajax/settings.js')
     @vite('resources/js/portal/timeline/ajax/privacy.js')
-    @vite('resources/js/portal/resources/tagsinput.js')
 @endpush
 
 @section('content')

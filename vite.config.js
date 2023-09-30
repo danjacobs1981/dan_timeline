@@ -16,12 +16,15 @@ export default defineConfig({
                 'resources/css/filters.scss',
                 'resources/css/portal.scss',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
-                'resources/js/web.js',
-                'resources/js/timeline.js',
-                'resources/js/map.js', /* imports jquery-resizable-dom */
-                'resources/js/comments.js',
-                'resources/js/filters.js',
-                'resources/js/portal.js'
+                'resources/js/web/scripts.js',
+                'resources/js/timeline/scripts.js',
+                'resources/js/timeline/map.js', /* imports jquery-resizable-dom */
+                'resources/js/timeline/comments.js',
+                'resources/js/timeline/filters.js',
+                'resources/js/portal/scripts.js',
+                'resources/js/portal/timeline/edit.js',
+                'resources/js/portal/timeline/ajax/privacy.js',
+                'resources/js/portal/timeline/ajax/settings.js'
             ],
             refresh: true,
         }),
