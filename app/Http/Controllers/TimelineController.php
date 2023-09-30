@@ -9,26 +9,46 @@ use App\Models\Event;
 use App\Models\Tag;
 use App\Models\Share;
 
+use App\Mail\AmazonSESMail;
+use Illuminate\Support\Facades\Mail;
+
 use Config;
 
 class TimelineController extends Controller
 {
+    
     public function show(Timeline $timeline, Request $request) 
     {
 
-        //updateTimeline($timeline->id);
+        //dd(Auth::check());
+        // updateTimeline($timeline->id);
 
-        // set head items
-        Config::set('constants.head.title', 'Timeline: '.$timeline->title);
-        Config::set('constants.head.link_canonical', '/'.$timeline->id.'/'.$timeline->slug);
+        // Mail::to('success@simulator.amazonses.com')->send(new AmazonSESMail());
 
-        if ($request->query('share')) {
-            // dd($request->query('share'));
-            // join the share table to the timeline table?
-            // this will also add the class "event-start" if an initial event has been selected
+        if ($timeline->privacy > 1 || checkCanViewTimeline($timeline->user_id, $timeline->id)) { 
+
+            // set head items
+            Config::set('constants.head.title', 'Timeline: '.$timeline->title);
+            Config::set('constants.head.link_canonical', '/'.$timeline->id.'/'.$timeline->slug);
+
+            if ($request->query('share')) {
+                // dd($request->query('share'));
+                // join the share table to the timeline table?
+                // this will also add the class "event-start" if an initial event has been selected
+            }
+
+            return view('layouts.timeline.pages.timeline', ['timeline' => $timeline, 'username' => $timeline->user->username, 'temp_map' => 1, 'temp_comments' => 1, 'temp_filters' => 1, 'temp_tags' => 1]);
+
+        } else {
+
+            // error "private timeline" page
+            return view('errors.private');
+
         }
+
+
         
-        return view('layouts.timeline.pages.timeline', ['timeline' => $timeline, 'temp_map' => 1, 'temp_comments' => 1, 'temp_filters' => 1, 'temp_tags' => 1]);
+        
 
     }
 
@@ -189,6 +209,5 @@ class TimelineController extends Controller
         return view('layouts.timeline.ajax.tags', ['timeline_tags' => $timeline_tags]);
 
     }
-
 
 }

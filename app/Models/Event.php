@@ -12,8 +12,6 @@ class Event extends Model
 
     use HasFactory;
 
-
-
     /**
      * Get the timeline that owns the event.
      */

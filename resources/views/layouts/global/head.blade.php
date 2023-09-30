@@ -13,6 +13,8 @@
 
     <link rel="canonical" href="{{ env('APP_URL').$_SERVER['REQUEST_URI'] }}" />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @vite('resources/css/global.scss')
     @stack('stylesheets')
 

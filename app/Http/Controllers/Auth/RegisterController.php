@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -23,9 +26,10 @@ class RegisterController extends Controller
     public function showModal()
     {
 
-        $modal_title = 'hiya1112';
-
-        return view('layouts.global.modal.register', compact('modal_title'));
+        $modal_title = 'Register';
+        $route = 'snippets.modal.login-register';
+        $routeParams = array('show'=>'register');
+        return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title'));
 
     }
 
@@ -38,10 +42,15 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request) 
     {
+
         $user = User::create($request->validated());
+
+        event(new Registered($user));
 
         auth()->login($user);
 
-        return redirect('/')->with('success', "Account successfully registered.");
+        return redirect('/')->with('action', "Account successfully registered");
+        
     }
+
 }

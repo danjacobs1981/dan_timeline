@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
+
+    protected $redirect = '/register';
+
     /**
      * Determine if the user is authorized to make this request.
      *

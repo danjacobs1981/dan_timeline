@@ -3,21 +3,27 @@
 @push('stylesheets')
     @vite('resources/css/web.scss')
 @endpush
+
 @include('layouts.global.head')
 
 <body>
 
     @include('layouts.global.topbar')
 
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
 
     @include('layouts.web.elements.footer')
 
-    <div class="backdrop" data-status="hide"></div>
+    <div class="backdrop"></div>
+
+    @include('layouts.global.action')
 
     @push('scripts')
-        @vite('resources/js/web.js')
+        @vite('resources/js/web/scripts.js')
     @endpush
+
     @include('layouts.global.scripts')
 
 </body>

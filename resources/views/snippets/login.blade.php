@@ -1,11 +1,9 @@
-<hr/>
 <form method="post" action="{{ route('login.perform') }}">
     
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    <input type="hidden" name="current_page" value="{{ url()->previous() }}">
     
-    <hr/>errors here:
-    @include('errors.messages')
-    <hr/>
+    @include('snippets.messages')
 
     <div class="form-group form-floating mb-3">
         <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required" autofocus>
@@ -26,4 +24,3 @@
     <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
     
 </form>
-<hr/>

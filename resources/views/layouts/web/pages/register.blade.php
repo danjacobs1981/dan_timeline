@@ -3,6 +3,6 @@
 @section('content')
 <hr/>
 <h1>Register</h1>
-@include('includes.register')
+@include('snippets.register')
 <hr/>
 @endsection

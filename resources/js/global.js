@@ -11,6 +11,12 @@ import.meta.glob([
     '../images/**'
 ]);
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 window.isMobile = false;
 window.isTouch = testTouch();
 window.topHeight = getTopHeight();
@@ -60,6 +66,7 @@ function scrollbarStyles(apply) {
 }
 
 /* modals */
+
 $.modal.defaults = {
     blockerClass: 'modal-blocker',
     closeText: '<span class="fa-stack"><i class="fa-solid fa-circle fa-stack-2x"></i><i class="fa-solid fa-xmark fa-stack-1x"></i></span>',
@@ -70,18 +77,18 @@ $.modal.defaults = {
     clickClose: true
 };
 
-$('[data-modal]').on('click', function() {
+$(document).on('click', '[data-modal]', function() {
     var modalExtraClass = '';
-    if (typeof $(this).data('modal_class') !== 'undefined') {
-        modalExtraClass = $(this).data('modal_class');
+    if (typeof $(this).data('modal-class') !== 'undefined') {
+        modalExtraClass = $(this).data('modal-class');
     }
     var modalSize = '';
-    if (typeof $(this).data('modal_size') !== 'undefined') {
-        modalSize = $(this).data('modal_size');
+    if (typeof $(this).data('modal-size') !== 'undefined') {
+        modalSize = $(this).data('modal-size');
     }
     var modalClose = true;
-    if (typeof $(this).data('modal_close') !== 'undefined') {
-        modalClose = $(this).data('modal_close');
+    if (typeof $(this).data('modal-close') !== 'undefined') {
+        modalClose = $(this).data('modal-close');
     }
     $(this).modal({
         modalClass: modalExtraClass + ' ' + modalSize + ' modal',
@@ -146,6 +153,7 @@ function closeDropdowns() {
 }
 
 /* topbar nav */
+
 $('#nav_menu').on('change', function(e) {
     scrollbarStyles(true);
 });
@@ -157,6 +165,7 @@ $('.nav-menu-section').on('click', function(e) {
 });
 
 /* topbar search */
+
 $('.nav-search > label').on('click', function() {
     setTimeout(function() {
         $(".nav-search-section input").focus();
@@ -164,6 +173,7 @@ $('.nav-search > label').on('click', function() {
 });
 
 /* reveal sections */
+
 $('body').on('click', '[data-reveal]', function() {
     var revealId = $(this).data('reveal');
     $('#' + revealId).addClass('revealed');
@@ -174,4 +184,16 @@ $('.reveal').on('click', function(e) {
         $(this).removeClass('revealed');
         scrollbarStyles(false);
     }
+});
+
+/* action notifications */
+
+if ($('.action').length) {
+    $('.action').addClass('show');
+    setTimeout(function() {
+        $('.action').removeClass('show');
+    }, 3000);
+}
+$(".action>div>span").on("click", function() {
+    $('.action').removeClass('show');
 });

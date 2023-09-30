@@ -2,7 +2,7 @@
     @vite('resources/css/comments.scss')
 @endpush
 @push('scripts')
-    @vite('resources/js/comments.js')
+    @vite('resources/js/timeline/comments.js')
 @endpush
 <div class="reveal__wrapper">
     <div class="reveal__header">

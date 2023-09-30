@@ -69,7 +69,7 @@
 			</nav>
 		</div>
 	</div>
-    <a href="{{ route('home.index') }}" title="">
+    <a href="{{ route('home.show') }}" title="">
 		
     </a>
 	<div class="nav-search">
@@ -99,13 +99,13 @@
 	</div>
     <ul>
 		<li class="nav-create">
-			<a href="#" class="btn" title="">
+			<a href="{{ route('timelines.create') }}" class="btn" title="">
 				<i class="fa-solid fa-circle-plus"></i>Create<em>&nbsp;a timeline</em>
 			</a>
 		</li>
 		@auth
 		<li class="nav-notifications">
-			<a href="#" title="">
+			<a href="{{ route('logout.perform') }}" title="TEMP LOGOUT">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>
@@ -114,7 +114,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#" title="">
+			<a href="{{ route('dashboard.show') }}" title="Dashboard">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>
@@ -130,7 +130,7 @@
 			</a>
 		</li>
 		<li class="nav-login">
-			<a href="{{ route('login.showModal') }}" data-modal data-modal_size="modal-lg">
+			<a href="{{ route('login.showModal') }}" data-modal data-modal-size="modal-lg">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>

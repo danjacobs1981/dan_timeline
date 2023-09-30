@@ -1,3 +1,5 @@
+// all below will be moved to event edit
+
 /* map */
 
 var endMarker;

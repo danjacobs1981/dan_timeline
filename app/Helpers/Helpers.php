@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Timeline;
 use App\Models\Event;
+use App\Models\Collab;
+use App\Models\Select;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -28,6 +31,22 @@ function helperCurl($url)
     $returnedJson = curl_exec($ch);
     curl_close($ch);
     return json_decode($returnedJson);
+}
+
+function checkCanViewTimeline($timeline_user_id, $timeline_id) 
+{
+    if(Auth::check()) {
+        if ($timeline_user_id === auth()->user()->id) {
+            // if user owns the timeline
+            return true;
+        } else if (Select::where('timeline_id', $timeline_id)->where('email', auth()->user()->email)->exists()) {
+            // if user is in the privately selected list
+            return true;
+        } else if (Collab::where('timeline_id', $timeline_id)->where('email', auth()->user()->email)->exists()) {
+            // if user is collab on the timeline
+            return true;
+        }
+    }
 }
 
 

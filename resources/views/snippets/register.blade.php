@@ -2,6 +2,8 @@
 <form method="post" action="{{ route('register.perform') }}">
 
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+    @include('snippets.messages')
     
     <div class="form-group form-floating mb-3">
         <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required="required" autofocus>

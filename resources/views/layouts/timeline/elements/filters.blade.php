@@ -2,7 +2,7 @@
     @vite('resources/css/filters.scss')
 @endpush
 @push('scripts')
-    @vite('resources/js/filters.js')
+    @vite('resources/js/timeline/filters.js')
 @endpush
 <div class="reveal__wrapper">
     <div class="reveal__header">

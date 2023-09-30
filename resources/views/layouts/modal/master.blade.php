@@ -6,5 +6,5 @@
 </div>
 @endisset
 <div class="modal-body">
-    @yield('modal_content')
+    @include($route, $routeParams)
 </div>

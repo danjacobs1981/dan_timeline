@@ -1,0 +1,22 @@
+
+
+<h3>settings - ajax updates this section</h3>
+
+<form id="timelineSettings">
+
+    @method('PUT')
+
+    <div>
+        <label for="title">Title</label>
+        <input name="title" value="{{ old('title', $timeline->title) }}">
+    </div>
+
+    <div>
+        <label for="comments">Show Comments?</label>
+        <input type="hidden" name="comments" value="0">
+        <input type="checkbox" name="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
+    </div>
+
+    <button type="submit" class="btn">Update Settings</button> (disable until something changes)
+
+</form>

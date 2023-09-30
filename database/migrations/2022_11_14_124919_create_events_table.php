@@ -23,9 +23,11 @@ return new class extends Migration
             $table->tinyInteger('date_month')->nullable();
             $table->tinyInteger('date_day')->nullable();
             $table->time('date_time')->nullable();
-            //$table->string('date_time_amppm')->nullable();
             $table->dateTime('date_unix')->nullable();
             $table->dateTime('date_unix_gmt')->nullable();
+            $table->string('period');
+            $table->string('period_short');            
+            $table->string('difference');
             $table->decimal('location_lat', 12,9)->nullable();
             $table->decimal('location_lng', 12,9)->nullable();
             $table->string('location')->nullable();
@@ -34,8 +36,10 @@ return new class extends Migration
             $table->smallInteger('location_show')->default(1); 
             $table->string('location_tz')->nullable();
             $table->tinyInteger('location_tz_error')->default(0);
-            $table->smallInteger('order_section')->default(0); 
-            $table->smallInteger('order_period')->default(0); 
+            $table->smallInteger('order_ny')->default(0); 
+            $table->smallInteger('order_ym')->default(0); 
+            $table->smallInteger('order_md')->default(0); 
+            $table->smallInteger('order_dt')->default(0); 
             $table->smallInteger('order_overall')->default(0); 
             $table->timestamps();
         });

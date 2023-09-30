@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('timelines', function (Blueprint $table) {
             $table->integer('id')->primary();
+            $table->foreignId('user_id')->constrained();
+            $table->tinyInteger('privacy')->default(0);
             $table->string('title');
             $table->string('slug');
             $table->boolean('comments')->default(1);
-            $table->boolean('visibility')->default(0);
             $table->timestamps();
         });
     }

@@ -1,26 +1,26 @@
 @extends('layouts.web.master')
 
 @section('content')
-<hr/>
     
-        @auth
-        <h1>Dashboard</h1>
-        <p class="lead">Only authenticated users can access this section.</p>
-        @endauth
+    @auth
+    <h1>logged in</h1>
+    <p class="lead">you're logged in - Only authenticated users can access this section.</p>
+    <a href="{{ route('logout.perform') }}">log out</a> | 
+    <a href="{{ route('dashboard.show') }}">dashboard</a>
+    @endauth
 
-        @guest
-        <h1>Homepage</h1>
-        <p class="lead">You're viewing the home page. Please login to view the restricted data.</p>
-        <a data-modal data-modal_class="bob" data-modal_size="modal-lg" data-modal_close="false" href="{{ route('login.showModal') }}">Login (modal)</a>
-        <a data-modal href="{{ route('register.showModal') }}">Register (modal)</a>
-        @endguest
+    @guest
+    <h1>Homepage</h1>
+    <p class="lead">You're viewing the home page. you're not logged in - Please login to view the restricted data - can't see this if you're logged in</p>
+    <a data-modal data-modal-class="bob" data-modal-size="modal-lg" data-modal-close="false" href="{{ route('login.showModal') }}">Login (modal)</a>
+    <a data-modal href="{{ route('register.showModal') }}">Register (modal)</a>
+    <hr/>
+    @endguest
 
-        <div>
-        <i class="fa-solid fa-cart-shopping"></i>
-        <i class="fa-solid fa-image"></i>
-            <h3>timelines list:</h3>
-            @include('layouts.web.snippets.timelines')
-        </div>
-    
-<hr/>
+    <div>
+        everyone can see this:
+        <h3>timelines list:</h3>
+        @include('layouts.web.snippets.list-timelines')
+    </div>
+
 @endsection

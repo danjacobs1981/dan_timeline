@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
@@ -24,8 +26,10 @@ class LoginController extends Controller
     public function showModal()
     {
 
-        $modal_title = 'hiya1112';
-        return view('layouts.global.modal.login', compact('modal_title'));
+        $modal_title = 'Log in';
+        $route = 'snippets.modal.login-register';
+        $routeParams = array('show'=>'login');
+        return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title'));
 
     }
 
@@ -38,11 +42,11 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
+
         $credentials = $request->getCredentials();
 
         if(!Auth::validate($credentials)):
-            return redirect()->to('login')
-                ->withErrors(trans('auth.failed'));
+            return redirect()->to('login')->withErrors(trans('auth.failed'));
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
@@ -50,6 +54,7 @@ class LoginController extends Controller
         Auth::login($user);
 
         return $this->authenticated($request, $user);
+
     }
 
     /**
@@ -62,6 +67,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user) 
     {
-        return redirect()->intended();
+        //return redirect()->intended();
+        return redirect($request['current_page'])->with('action', 'You have been logged in');
     }
 }

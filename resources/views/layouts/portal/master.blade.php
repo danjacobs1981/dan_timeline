@@ -10,14 +10,20 @@
 
     @include('layouts.global.topbar')
 
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
 
-    <div class="backdrop" data-status="hide"></div>
+    @include('layouts.web.elements.footer')
+
+    <div class="backdrop"></div>
+
+    @include('layouts.global.action')
 
     @push('scripts')
-        @vite('resources/js/portal.js')
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ App::environment() == 'local' ? config('constants.map.key.local') : config('constants.map.key.production') }}&callback=initMap&v=weekly" defer></script>
+        @vite('resources/js/portal/scripts.js')
     @endpush
+
     @include('layouts.global.scripts')
 
 </body>
