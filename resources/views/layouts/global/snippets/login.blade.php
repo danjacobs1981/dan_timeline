@@ -3,7 +3,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input type="hidden" name="current_page" value="{{ url()->previous() }}">
     
-    @include('snippets.messages')
+    @include('layouts.global.snippets.messages')
 
     <div class="form-group form-floating mb-3">
         <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required" autofocus>

@@ -130,7 +130,7 @@
 			</a>
 		</li>
 		<li class="nav-login">
-			<a href="{{ route('login.showModal') }}" data-modal data-modal-size="modal-lg">
+			<a href="{{ route('login.showModal') }}" data-modal data-modal-size="modal-md" data-modal-clickclose="false">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>

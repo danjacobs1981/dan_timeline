@@ -74,7 +74,7 @@
             </li>
             <li class="header__options-share" data-popover="Share" data-popover-position="bottom">
                 <i class="fa-solid fa-share-nodes"></i><span>Share</span>
-                @include('layouts.timeline.elements.social',['more'=>true])
+                @include('layouts.timeline.snippets.social',['more'=>true])
             </li>
             <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="bottom">
                 <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>

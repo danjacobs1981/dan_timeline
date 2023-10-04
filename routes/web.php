@@ -2,21 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*Route::get('/', function () {
-    return view('home');
-});*/
-
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {   
 
@@ -28,10 +13,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::group(['middleware' => ['guest']], function() {
 
+        // registration
         Route::get('/register', 'Auth\RegisterController@show')->name('register.show');
         Route::get('/register/modal', 'Auth\RegisterController@showModal')->name('register.showModal');
         Route::post('/register', 'Auth\RegisterController@register')->name('register.perform');
 
+        // logging in
         Route::get('/login', 'Auth\LoginController@show')->name('login.show');
         Route::get('/login/modal', 'Auth\LoginController@showModal')->name('login.showModal');
         Route::post('/login', 'Auth\LoginController@login')->name('login.perform');
@@ -41,6 +28,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // only authenticated
     Route::group(['middleware' => ['auth']], function() {
 
+        // email verification
         Route::get('/verify', 'Auth\VerificationController@show')->name('verification.notice');
         Route::get('/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify')->middleware(['signed']);
         Route::post('/resend', 'Auth\VerificationController@resend')->name('verification.resend');
@@ -55,15 +43,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // crud of timelines
             Route::resource('timelines', Portal\TimelineController::class);
 
-            // timeline editing
+            // timeline editing modals
             Route::get('/timelines/{timeline}/privacy/modal', 'Portal\TimelineEditController@showModalPrivacy')->name('timeline.privacy.showModal');
             Route::get('/timelines/{timeline}/privacy/share/modal', 'Portal\TimelineEditController@showModalPrivacyShare')->name('timeline.privacy-share.showModal');
             
-            // ajax routes for editing
+            // ajax routes for timeline saving
             Route::put('/timelines/{timeline}/settings', 'Portal\TimelineEditController@settings');
             Route::put('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@privacy');
             Route::put('/timelines/{timeline}/privacy/share', 'Portal\TimelineEditController@privacyShare');
 
+            // crud of timeline events
             Route::resource('timelines.events', Portal\TimelineEventController::class);
             
             // crud of profile
@@ -79,9 +68,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // timeline
     Route::get('/{timeline}/{slug?}', 'TimelineController@show')->name('timeline.show');
 
-    // ajax
-    Route::post('/ajax/timeline/events/{timeline}', 'TimelineController@events')->name('timeline.events.ajax');
-    Route::get('/ajax/timeline/tags/{timeline}', 'TimelineController@tags')->name('timeline.tags.ajax');
-    Route::get('/ajax/timeline/comments/{timeline}/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
+    // ajax routes for timeline content
+    Route::post('/timelines/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
+    Route::get('/timelines/{timeline}/tags', 'TimelineController@tags')->name('timeline.tags.ajax');
+    Route::get('/timelines/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
 
 });

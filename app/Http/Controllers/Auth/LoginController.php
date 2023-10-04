@@ -27,8 +27,8 @@ class LoginController extends Controller
     {
 
         $modal_title = 'Log in';
-        $route = 'snippets.modal.login-register';
-        $routeParams = array('show'=>'login');
+        $route = 'layouts.global.snippets.modal.login-register';
+        $routeParams = array('modal' => true, 'show' => 'login');
         return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title'));
 
     }

@@ -27,8 +27,8 @@ class RegisterController extends Controller
     {
 
         $modal_title = 'Register';
-        $route = 'snippets.modal.login-register';
-        $routeParams = array('show'=>'register');
+        $route = 'layouts.global.snippets.modal.login-register';
+        $routeParams = array('modal' => true, 'show' => 'register');
         return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title'));
 
     }

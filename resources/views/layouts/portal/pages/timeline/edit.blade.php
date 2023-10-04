@@ -1,14 +1,15 @@
 @extends('layouts.portal.master')
 
+@push('stylesheets')
+    @vite('resources/css/portal/edit.scss')
+@endpush
 @push('scripts')
     @vite('resources/js/portal/timeline/edit.js')
-    @vite('resources/js/portal/timeline/ajax/settings.js')
-    @vite('resources/js/portal/timeline/ajax/privacy.js')
 @endpush
 
 @section('content')
 
-    <meta name="timeline" content="{{ $timeline->id }}">
+    <!--<meta name="timeline" content="{{ $timeline->id }}">-->
 
     @if(session('helper'))
         <p>
@@ -18,57 +19,210 @@
         </p>
     @endif
 
-    <h1>edit timeline</h1>
+    <div class="edit">
 
-    <a href="{{ route('timelines.index') }}" class="btn">Exit Editing Timeline</a> (gives a warning if something isn't saved)
+        <section class="edit__section">
 
-    <div style="border:1px solid black;padding:20px;margin-top:20px;">
-        Timeline link: <a target="_blank" href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}">{{ route('timeline.show', ['timeline' => $timeline->id]) }}</a>
+            <header>
+
+                <h1>{{ $timeline->title }}</h1>
+
+                <!-- (gives a warning if something isn't saved) -->
+                <a href="{{ route('timelines.index') }}" class="btn">
+                    Exit Editing Timeline
+                </a>
+    
+                <p>
+                    Timeline link: <a target="_blank" href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}">{{ route('timeline.show', ['timeline' => $timeline->id]) }}</a>
+                </p>
+    
+                @if(old('privacy', $timeline->privacy) === 0)
+                    <span class="privacy-draft">
+                        <i class="fa-solid fa-circle-exclamation"></i> Timeline is currently a draft
+                    </span>
+                @endif
+
+            </header>
+
+            <ul>
+                <li>
+                    <a href="#general" data-text="General">General</a>
+                </li>
+                <li>
+                    <a href="#events" data-text="Events">Events</a>
+                </li>
+                <li>
+                    <a href="#visibility" data-text="Visibility">Visibility</a>
+                </li>
+                <li>
+                    <a href="#collaborators" data-text="Collaborators">Collaborators</a>
+                </li>
+                <li>
+                    <a href="#options" data-text="Further Options">Further Options</a>
+                </li>
+            </ul>
+
+            <section>
+
+                <section id="general" class="edit__tab" style="display:none;">
+
+                    <h2>General Settings</h2>
+                    <p>Intro to this section</p>
+                    <a href="#visibility" class="tab">vis</a>
+
+                    @include('layouts.portal.snippets.edit-settings')
+
+                </section>
+
+                <section id="visibility" class="edit__tab" style="display:none;">
+
+                    <h2>Visibility</h2>
+                    <p>Intro to this section</p>
+
+                    @include('layouts.portal.snippets.edit-privacy')
+
+                </section>
+
+                <section id="collaborators" class="edit__tab" style="display:none;">
+
+                    <h2>Collaborators</h2>
+                    <p>Intro to this section</p>
+
+                </section>
+
+                <section id="options" class="edit__tab" style="display:none;">
+
+                    <h2>Further Options</h2>
+                    <p>Intro to this section</p>
+
+                    <form action="{{ route('timelines.destroy', $timeline->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn">Delete timeline</button>
+                    </form>
+
+                </section>
+
+            </section>
+
+        </section>
+
+        <section id="events" class="edit__tab edit__events" style="display:none;">
+
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            events<br/>
+            end<br/>
+
+        </section>
+
     </div>
-
-    <div style="border:1px solid black;padding:20px;margin-top:20px;">
-        
-        <h3>settings</h3>
-
-        <div id="timelineSettings">
-            <div>
-                <label for="title">Title</label>
-                <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
-            </div>
-
-            <div>
-                <label for="comments">Show Comments?</label>
-                <input type="hidden" name="comments" value="0">
-                <input type="checkbox" name="comments" id="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
-            </div>
-
-            <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
-        </div>
-
-
-    </div>
-
-
-    <div style="border:1px solid black;padding:20px;margin-top:20px;">
-
-        <h3>privacy</h3>
-
-        @include('layouts.portal.snippets.edit-privacy')
-
-    </div>
-
-    <div id="timelineCollaborators" style="border:1px solid black;padding:20px;margin-top:20px;">
-
-        <h3>collaborators</h3>
-
-    </div>
-
-    <form action="{{ route('timelines.destroy', $timeline->id) }}" method="POST">
-        @method('DELETE')
-        @csrf
-
-        <button type="submit" class="btn">Delete timeline</button>
-
-    </form>
     
 @endsection

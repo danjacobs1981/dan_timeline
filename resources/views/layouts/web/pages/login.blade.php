@@ -3,6 +3,6 @@
 @section('content')
 <hr/>
 <h1>Login</h1>
-@include('snippets.login')
+@include('layouts.global.snippets.login')
 <hr/>
 @endsection

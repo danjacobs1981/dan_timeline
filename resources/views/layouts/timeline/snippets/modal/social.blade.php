@@ -1,4 +1,4 @@
-@include('layouts.timeline.elements.social', ['more'=>false])
+@include('layouts.timeline.snippets.social', ['more'=>false])
 <div class="form-input form-input-copy">
     <input type="text" readonly value="{{ request()->getSchemeAndHttpHost() }}/{{ $timeline->id }}/{{ $timeline->slug }}" />
     <div>checkbox: Share with current filters applied</div>

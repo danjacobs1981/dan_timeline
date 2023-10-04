@@ -28,3 +28,16 @@ $(document).on('click', '#timelineSettings>button', function(e) {
         }
     });
 });
+
+// detect settings change
+$('#timelineSettings').on('input', ':input', function(e) {
+    var $settings = $(e.delegateTarget);
+    $settings.find(':input').each(function() {
+        var $this = $(this);
+        if ($this.val() === $this.data('value')) {
+            return;
+        }
+        $('#timelineSettings>button').prop("disabled", false);
+        return false;
+    });
+});

@@ -1,8 +1,3 @@
-@push('scripts')
-        @vite('resources/js/portal/timeline/ajax/settings.js')
-        @vite('resources/js/portal/timeline/ajax/privacy.js')
-@endpush
-
 <ul>
     @foreach($timelines as $timeline)
         <li>
@@ -15,7 +10,7 @@
                     <a href="{{ route('timeline.show', ['timeline' => $timeline->id,'slug' => $timeline->slug ]) }}">View</a>
                 </li>
                 <li>
-                    Privacy: {{ $timeline->privacy }} <a href="{{ route('timeline.privacy.showModal', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-size="modal-lg">Change</a>
+                    Privacy: {{ $timeline->privacy }} <a href="{{ route('timeline.privacy.showModal', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-showclose="false" data-modal-clickclose="false" data-modal-class="modal-privacy">Change</a>
                 </li>
             </ul> 
         </li>  

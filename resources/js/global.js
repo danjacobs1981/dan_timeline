@@ -86,13 +86,18 @@ $(document).on('click', '[data-modal]', function() {
     if (typeof $(this).data('modal-size') !== 'undefined') {
         modalSize = $(this).data('modal-size');
     }
-    var modalClose = true;
-    if (typeof $(this).data('modal-close') !== 'undefined') {
-        modalClose = $(this).data('modal-close');
+    var modalShowClose = true;
+    if (typeof $(this).data('modal-showclose') !== 'undefined') {
+        modalShowClose = $(this).data('modal-showclose');
+    }
+    var modalClickClose = true;
+    if (typeof $(this).data('modal-clickclose') !== 'undefined') {
+        modalClickClose = $(this).data('modal-clickclose');
     }
     $(this).modal({
         modalClass: modalExtraClass + ' ' + modalSize + ' modal',
-        showClose: modalClose
+        showClose: modalShowClose,
+        clickClose: modalClickClose
     });
     return false;
 });

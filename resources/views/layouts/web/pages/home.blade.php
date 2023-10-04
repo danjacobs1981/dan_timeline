@@ -12,7 +12,7 @@
     @guest
     <h1>Homepage</h1>
     <p class="lead">You're viewing the home page. you're not logged in - Please login to view the restricted data - can't see this if you're logged in</p>
-    <a data-modal data-modal-class="bob" data-modal-size="modal-lg" data-modal-close="false" href="{{ route('login.showModal') }}">Login (modal)</a>
+    <a data-modal data-modal-class="bob" data-modal-size="modal-lg" data-modal-showclose="false" href="{{ route('login.showModal') }}">Login (modal)</a>
     <a data-modal href="{{ route('register.showModal') }}">Register (modal)</a>
     <hr/>
     @endguest

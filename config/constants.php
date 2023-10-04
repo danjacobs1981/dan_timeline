@@ -1,6 +1,9 @@
 <?php
 
     return [
+        'website' => [
+            'name' => 'Timeline-Events.com'
+        ],
         'head' => [
             'title' => 'Timeline Events | Discover...',
             'meta_title' => 'Timeline Events | Discover...',

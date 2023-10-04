@@ -72,8 +72,10 @@ class TimelineController extends Controller
         $timeline = Timeline::get()->find($id);
         
         if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $privateUsers = $timeline->privateUsers;
             
-            return view('layouts.portal.pages.timeline.edit', compact('timeline'));
+            return view('layouts.portal.pages.timeline.edit', compact('timeline', 'privateUsers'));
 
         } else {
 

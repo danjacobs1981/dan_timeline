@@ -35,7 +35,7 @@ function helperCurl($url)
 
 function checkCanViewTimeline($timeline_user_id, $timeline_id) 
 {
-    if(Auth::check()) {
+    if(Auth::check() && auth()->user()->hasVerifiedEmail()) {
         if ($timeline_user_id === auth()->user()->id) {
             // if user owns the timeline
             return true;

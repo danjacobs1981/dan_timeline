@@ -42,4 +42,11 @@ class Timeline extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Get the private selected users for the timeline.
+    */
+    public function privateUsers() {
+        return $this->hasMany(Select::class, 'timeline_id')->select(['email as value']);
+    }
+
 }

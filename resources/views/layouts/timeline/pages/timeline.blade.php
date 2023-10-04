@@ -3,7 +3,7 @@
 @section('content')
 
     <section class="timeline {{ $temp_map ? 'timeline--map' : '' }}">
-        <header class="timeline__header">
+        <header>
             @include('layouts.timeline.elements.header')
         </header>
         <div class="timeline__body">
@@ -34,7 +34,7 @@
     </section>
 
     <div class="modal" id="modal-share">
-        @include('layouts.modal.master', ['route'=>'layouts.timeline.elements.social-share', 'modal_title'=>'Share'])
+        @include('layouts.modal.master', ['route'=>'layouts.timeline.snippets.modal.social', 'modal_title'=>'Share'])
     </div>
 
 @endsection

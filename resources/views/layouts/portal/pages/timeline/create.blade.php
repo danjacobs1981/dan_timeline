@@ -4,7 +4,7 @@
 
     <h1>create timeline</h1>
 
-    @include('snippets.messages')
+    @include('layouts.global.snippets.messages')
 
     <form action="{{ route('timelines.store') }}" method="POST">
 

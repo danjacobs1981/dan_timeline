@@ -1,5 +1,2 @@
-<h3>for {{ $timeline->title }}</h3>
-this is a modal wrapper
-<hr/>
-       
+<p>Set the visibility for your '{{ $timeline->title }}' timeline:</p>
 @include('layouts.portal.snippets.edit-privacy')

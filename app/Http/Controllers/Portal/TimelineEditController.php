@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Models\Timeline;
+use App\Models\Select;
 
 class TimelineEditController extends Controller
 {
@@ -32,14 +33,14 @@ class TimelineEditController extends Controller
                 $timeline->save();
 
                 return response()->json([
-                    'status'=>200,
+                    'status'=> 200,
                     'message' => 'Settings updated successfully',
                 ]);
 
             } else {
 
                 return response()->json([
-                    'status'=>401,
+                    'status'=> 401,
                     'message' => 'Authentication error',
                 ]);
 
@@ -54,9 +55,9 @@ class TimelineEditController extends Controller
 
         // ajax for timeline privacy
         if($request->ajax()){
-        
-            $timeline = Timeline::find($id);
 
+            $timeline = Timeline::find($id);
+        
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
                 $timeline->privacy = $request->privacy;
@@ -64,14 +65,14 @@ class TimelineEditController extends Controller
                 $timeline->save();
 
                 return response()->json([
-                    'status'=>200,
+                    'status'=> 200,
                     'message' => 'Privacy updated successfully',
                 ]);
 
             } else {
 
                 return response()->json([
-                    'status'=>401,
+                    'status'=> 401,
                     'message' => 'Authentication error',
                 ]);
 
@@ -86,24 +87,34 @@ class TimelineEditController extends Controller
 
         // ajax for timeline privacy sharing email addresses
         if($request->ajax()){
-        
+
             $timeline = Timeline::find($id);
 
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-                $timeline->privacy = $request->privacy;
-                
-                $timeline->save();
+                $data = $request->data;
+
+                Select::where('timeline_id', $timeline->id)->delete();
+
+                if($data) {
+                    foreach($data as $value) {
+                        $store = new Select;
+                        $store->timeline_id = $timeline->id;
+                        $store->email = $value['value'];
+                        $store->save();
+                    }
+                }
 
                 return response()->json([
-                    'status'=>200,
+                    'status'=> 200,
                     'message' => 'Privacy sharing updated successfully',
+                    'result' => $data
                 ]);
 
             } else {
 
                 return response()->json([
-                    'status'=>401,
+                    'status'=> 401,
                     'message' => 'Authentication error',
                 ]);
 
@@ -120,9 +131,12 @@ class TimelineEditController extends Controller
 
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
+                $privateUsers = $timeline->privateUsers;
+
                 $modal_title = 'Privacy Options';
+                $modal_buttons = array('close' => 'Done');
                 $route = 'layouts.portal.snippets.modal.edit-privacy';
-                return view('layouts.modal.master', compact('modal_title', 'route', 'timeline'));
+                return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
 
             } else {
 
@@ -135,13 +149,16 @@ class TimelineEditController extends Controller
     public function showModalPrivacyShare(string $id)
     {
 
-            $timeline = Timeline::find($id);
+            $timeline = Timeline::select(['id', 'user_id'])->find($id);
 
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
+                $privateUsers = $timeline->privateUsers->toJson();
+
                 $modal_title = 'Share timeline privately';
+                $modal_buttons = array('close' => 'Cancel', 'action' => 'Save');
                 $route = 'layouts.portal.snippets.edit-privacy-share';
-                return view('layouts.modal.master', compact('modal_title', 'route', 'timeline'));
+                return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
 
             } else {
 

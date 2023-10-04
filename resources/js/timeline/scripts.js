@@ -2,10 +2,7 @@ import ScrollMagic from 'scrollmagic';
 
 window.loadEvents = function(share, tags) {
     $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: '/ajax/timeline/events/' + $('meta[name="timeline"]').attr('content'),
+        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
         data: { 'share': share, 'tags': tags },
         type: 'POST',
         dataType: 'json',
@@ -144,7 +141,9 @@ $('i.events-increment').on('click', function() {
 
 /* header buttons */
 $('.header__options-share').on('click', function() {
-    $('#modal-share').modal();
+    $('#modal-share').modal({
+        modalClass: 'modal-share'
+    });
 });
 
 /* header dropdown (tag) filter */

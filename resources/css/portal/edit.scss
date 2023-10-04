@@ -1,0 +1,81 @@
+body>main {
+    padding: 0;
+    max-width: none;
+    display: inline;
+    margin: 0;
+}
+
+.edit {
+    &__section {
+        &>header {}
+        &>ul {
+            display: flex;
+            margin: 2rem 0 1rem;
+            list-style: none;
+            padding: 0;
+            border-bottom: 1px solid var(--grey);
+            &>li {
+                margin-right: 1.5rem;
+                white-space: nowrap;
+                &>a {
+                    display: inline-flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.75rem 0;
+                    text-decoration: none;
+                    &::after {
+                        content: attr(data-text);
+                        content: attr(data-text) / "";
+                        height: 0;
+                        visibility: hidden;
+                        overflow: hidden;
+                        user-select: none;
+                        pointer-events: none;
+                        font-weight: 600;
+                    }
+                    &.active,
+                    &:hover {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        @media (min-width: 768px) {
+            &>ul {
+                margin: 3rem 0 2rem;
+                font-size: 1.125rem;
+                &>li {
+                    margin-right: 3rem;
+                    &>a {
+                        padding: 1rem 0;
+                    }
+                }
+            }
+        }
+        @media (min-width: 1200px) {
+            &>ul {
+                &>li {
+                    &:nth-child(2) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    &__events {}
+    @media (min-width: 768px) {
+        margin-top: 60px;
+    }
+    @media (min-width: 1200px) {
+        display: flex;
+        &__events {
+            position: sticky;
+            top: 60px;
+            display: block!important;
+            height: calc(100vh - 60px);
+            border-left: 1px solid var(--grey);
+            overflow-y: auto;
+        }
+    }
+}

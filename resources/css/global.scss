@@ -6,6 +6,9 @@
 /* global stuff... like buttons etc */
 
 :root {
+    /* link */
+    --link: #006edb;
+    --linkHover: #004b96;
     /* primary */
     --primaryVeryLight: #ffaabb;
     --primaryLight: #eb637e;
@@ -513,10 +516,10 @@ em.count {
 
 a {
     text-decoration: none;
-    color: var(--primary);
+    color: var(--link);
     &:hover {
         text-decoration: underline;
-        color: var(--primaryDark);
+        color: var(--linkHover);
     }
 }
 

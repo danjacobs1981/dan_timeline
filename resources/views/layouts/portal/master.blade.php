@@ -2,6 +2,7 @@
 <html>
 @push('stylesheets')
     @vite('resources/css/portal.scss')
+    @vite('resources/css/plugin/tagify.css')
 @endpush
 
 @include('layouts.global.head')
@@ -13,8 +14,6 @@
     <main>
         @yield('content')
     </main>
-
-    @include('layouts.web.elements.footer')
 
     <div class="backdrop"></div>
 
