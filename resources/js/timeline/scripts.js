@@ -12,10 +12,10 @@ window.loadEvents = function(share, tags) {
 
 
                 //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
-                $('.timeline--map .timeline__body').css('height', 'auto');
+                /*$('.timeline--map .timeline__body').css('height', 'auto');*/
 
                 scrollEvents();
-                setMap();
+                /*setMap();*/
                 setEventElements();
 
             });
@@ -30,19 +30,56 @@ window.loadEvents = function(share, tags) {
     });
 }
 
+var topHeight = getTopHeight();
+setLayout();
 loadEvents(null, false);
 
 $(window).on('resize', function() {
+    topHeight = getTopHeight();
+    setLayout();
     setEventElements();
 });
 
+$(window).on('load', function() {
+    setTimeout(scrollOnPageLoad(), 500);
+});
+
+function getTopHeight() {
+    if (screenSize > 2) {
+        return $('#topbar').outerHeight() + $('header').outerHeight();
+    } else {
+        return $('header').outerHeight();
+    }
+}
+
+function setLayout() {
+    if (screenSize > 2) {
+        $('.timeline__body').css({
+            'height': 'calc(100vh - ' + topHeight + 'px)'
+        });
+    } else {
+        $('.timeline__body').css({
+            'height': 'auto'
+        });
+    }
+}
+
 function setEventElements() {
-    $('.events-time').css({
-        'top': topHeight + 'px'
-    });
-    $('.event-close').css({
-        'top': (topHeight + 73) + 'px'
-    });
+    if (screenSize > 2) {
+        $('.events-time').css({
+            'top': 0
+        });
+        $('.event-close').css({
+            'top': 72
+        });
+    } else {
+        $('.events-time').css({
+            'top': topHeight + 'px'
+        });
+        $('.event-close').css({
+            'top': (topHeight + 72) + 'px'
+        });
+    }
 }
 
 function scrollOnPageLoad() {
@@ -65,10 +102,6 @@ function scrollOnPageLoad() {
     }
 }
 
-$(window).on('load', function() {
-    setTimeout(scrollOnPageLoad(), 500);
-});
-
 /* timeline scroll indicator */
 function scrollEvents() {
     $('.events-wrapper .event-title').each(function() {
@@ -80,7 +113,7 @@ function scrollEvents() {
             .on('enter', function(e) { // forward
                 var $element = $(e.target.triggerElement());
                 var period = "period";
-                if (isMobile && $element.attr('data-periodshort') !== "") {
+                if (screenSize <= 2 && $element.attr('data-periodshort') !== "") {
                     period = "periodshort";
                 }
                 $('.events-time span').text($element.data(period));
@@ -98,7 +131,7 @@ function scrollEvents() {
                 if ($('.event-item[data-order="' + order + '"]').length) {
                     $('.event-title[data-order="' + order + '"]').addClass('active');
                     var period = "period";
-                    if (isMobile && $element.attr('data-periodshort') !== "") {
+                    if (screenSize <= 2 && $element.attr('data-periodshort') !== "") {
                         period = "periodshort";
                     }
                     $('.events-time span').text($('.event-title[data-order="' + order + '"]').data(period));

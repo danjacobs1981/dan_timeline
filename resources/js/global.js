@@ -17,29 +17,31 @@ $.ajaxSetup({
     }
 });
 
-window.isMobile = false;
+window.screenSize = getScreenSize();
 window.isTouch = testTouch();
-window.topHeight = getTopHeight();
+/*window.topHeight = getTopHeight();*/
 window.urlParams = new URLSearchParams(window.location.search);
 window.controller = new ScrollMagic.Controller();
 
-testMobile();
-topHeight = getTopHeight();
+/*testMobile();*/
+/*getScreenSize();*/
+/*topHeight = getTopHeight();*/
 
 $(window).on('resize', function() {
-    testMobile();
-    topHeight = getTopHeight();
+    screenSize = getScreenSize();
+    /*testMobile();*/
+    /*topHeight = getTopHeight();*/
 });
 
-function getTopHeight() {
+/*function getTopHeight() {
     if (!isMobile) {
         return $('#topbar').outerHeight() + $('header').outerHeight();
     } else {
         return $('header').outerHeight();
     }
-}
+}*/
 
-function testMobile() {
+/*function testMobile() {
     if (window.matchMedia("(max-width: 767px)").matches) {
         isMobile = true;
         return true;
@@ -47,13 +49,29 @@ function testMobile() {
         isMobile = false;
         return false;
     }
+}*/
+
+function getScreenSize() {
+    if (window.matchMedia("(max-width: 575px)").matches) {
+        return 1;
+    } else if (window.matchMedia("(max-width: 767px)").matches) {
+        return 2;
+    } else if (window.matchMedia("(max-width: 991px)").matches) {
+        return 3;
+    } else if (window.matchMedia("(max-width: 1199px)").matches) {
+        return 4;
+    } else if (window.matchMedia("(max-width: 1399px)").matches) {
+        return 5;
+    } else {
+        return 6;
+    }
 }
 
 function testTouch() {
     return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
 }
 
-function scrollbarStyles(apply) {
+/*function scrollbarStyles(apply) {
     if (apply) {
         if (isMobile || testTouch()) {
             $('body').addClass('no-scroll');
@@ -63,7 +81,7 @@ function scrollbarStyles(apply) {
     } else {
         $('body').removeClass('no-scroll').removeClass('no-scrollbar');
     }
-}
+}*/
 
 /* modals */
 
@@ -102,12 +120,12 @@ $(document).on('click', '[data-modal]', function() {
     return false;
 });
 
-$(document).on($.modal.OPEN, function() {
+/*$(document).on($.modal.OPEN, function() {
     scrollbarStyles(true);
 });
 $(document).on($.modal.BEFORE_CLOSE, function() {
     scrollbarStyles(false);
-});
+});*/
 
 /* dropdowns */
 
@@ -136,7 +154,7 @@ $('body').on('click', '.dropdown-toggle', function(e) {
         if (typeof $dropdown.data('backdrop') !== 'undefined') {
             $dropdown.attr('data-backdrop', 'open');
             $('.backdrop').html($dropdown.clone()).show();
-            if (isMobile) {
+            if (screenSize <= 2) {
                 $('body').addClass('backdrop-no-scroll');
             }
         }
@@ -154,18 +172,18 @@ function closeDropdowns() {
     });
     $('.dropdown-toggle').removeClass('open');
     $('.backdrop').hide().empty();
-    $('body').removeClass('backdrop-no-scroll').removeClass('backdrop-no-scrollbar');
+    $('body').removeClass('backdrop-no-scroll');
 }
 
 /* topbar nav */
 
-$('#nav_menu').on('change', function(e) {
+/*$('#nav_menu').on('change', function(e) {
     scrollbarStyles(true);
-});
+});*/
 $('.nav-menu-section').on('click', function(e) {
     if ($(e.target).is('.nav-menu-section') || $(e.target).closest('span').length) {
         $('#nav_menu').prop('checked', false);
-        scrollbarStyles(false);
+        /*scrollbarStyles(false);*/
     }
 });
 
@@ -182,12 +200,12 @@ $('.nav-search > label').on('click', function() {
 $('body').on('click', '[data-reveal]', function() {
     var revealId = $(this).data('reveal');
     $('#' + revealId).addClass('revealed');
-    scrollbarStyles(true);
+    /*scrollbarStyles(true);*/
 });
 $('.reveal').on('click', function(e) {
     if ($(e.target).is('.reveal') || $(e.target).closest('.reveal__close').length) {
         $(this).removeClass('revealed');
-        scrollbarStyles(false);
+        /*scrollbarStyles(false);*/
     }
 });
 

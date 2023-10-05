@@ -23,7 +23,7 @@
         transform: translateY(-50%) translateX(-50%);
         width: 101px!important;
         height: 32px;
-        background: var(--primary);
+        background: var(--link);
         border-radius: 1rem;
         padding: 9.5px 0.75rem;
         z-index: 999;
@@ -72,7 +72,7 @@
             color: var(--greyLight)!important;
         }
         &:hover .fa-circle {
-            color: var(--primary)!important;
+            color: var(--link)!important;
         }
     }
     &-header {

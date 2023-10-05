@@ -9,12 +9,6 @@
     /* link */
     --link: #006edb;
     --linkHover: #004b96;
-    /* primary */
-    --primaryVeryLight: #ffaabb;
-    --primaryLight: #eb637e;
-    --primary: #dc143c;
-    --primaryDark: #aa0022;
-    --primaryVeryDark: #550011;
     /* grey */
     --greyVeryLight: #f4f5f7;
     --greyLight: #ebebeb;
@@ -36,6 +30,8 @@
     /* edit: purple */
     --edit: #551B8D;
     --editDark: #3b0b68;
+    /* like */
+    --like: #eb637e;
     /* backdrop */
     --faded: rgba(0, 0, 0, 0.35);
     --fadedDark: rgba(0, 0, 0, 0.75);
@@ -51,7 +47,7 @@ html {
 }
 
 body {
-    overflow-y: scroll;
+    overflow-y: auto!important;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-family: 'Rubik', sans-serif;
@@ -95,6 +91,27 @@ body {
     }
 }
 
+
+/* SCROLLBARS (chrome & edge) */
+
+.scrollbar {
+    &::-webkit-scrollbar-track {
+        background-color: var(--greyLight);
+    }
+    &::-webkit-scrollbar {
+        width: 18px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #7f7f7f;
+        width: 10px;
+        border-radius: 10px;
+        border: solid 4px var(--greyLight);
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--greyDark);
+    }
+}
+
 :focus {
     outline: none !important;
 }
@@ -113,7 +130,7 @@ sup {
 
 .colour-like {
     color: #fff!important;
-    background: var(--primaryLight)!important;
+    background: var(--like)!important;
     &>i.fa-solid {
         display: none;
     }
@@ -128,9 +145,9 @@ sup {
 }
 
 .colour-liked {
-    color: var(--primaryLight)!important;
+    color: var(--like)!important;
     background: #fff!important;
-    border: 2px solid var(--primaryLight);
+    border: 2px solid var(--like);
     &>i.fa-regular {
         display: none;
     }
@@ -422,7 +439,7 @@ em.count {
         width: 13px;
         height: 13px;
         border-radius: 50%;
-        background: var(--primary);
+        background: var(--link);
         -webkit-animation-timing-function: cubic-bezier(0, 1, 1, 0);
         animation-timing-function: cubic-bezier(0, 1, 1, 0);
         &:nth-child(1) {
@@ -531,11 +548,36 @@ h5,
 h6 {
     margin: 0;
     color: var(--greyVeryDark);
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+
+h2 {
+    font-size: 1.625rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.375rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1.125rem;
 }
 
 .btn {
     border-radius: 1rem;
-    background: var(--primary);
+    background: var(--link);
     padding: 0 0.75rem;
     display: flex;
     align-items: center;
@@ -545,9 +587,10 @@ h6 {
     cursor: pointer;
     border: none;
     width: fit-content;
+    white-space: nowrap;
     &:hover {
         text-decoration: none;
-        background: var(--primaryDark);
+        background: var(--linkHover);
         color: #fff;
     }
     &>i {
@@ -664,9 +707,9 @@ h6 {
                 width: 100%;
                 &:hover,
                 &:focus-within {
-                    border-color: var(--primary);
+                    border-color: var(--link);
                     &>button {
-                        color: var(--primary);
+                        color: var(--link);
                     }
                 }
                 &>input,
@@ -910,10 +953,10 @@ h6 {
     &:hover {
         &>i {
             &.fa-solid.fa-circle {
-                color: var(--primary);
+                color: var(--link);
             }
             &.fa-regular.fa-circle {
-                color: var(--primary);
+                color: var(--link);
             }
             &:nth-child(n+2) {
                 color: #fff;

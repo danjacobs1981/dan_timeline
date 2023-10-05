@@ -4,6 +4,8 @@ body {
         max-width: none;
         display: inline;
         margin: 0;
+        border: none;
+        height: auto;
     }
 }
 
@@ -115,9 +117,9 @@ body {
         }
     }
     &__body {
+        background: var(--greyVeryLight);
         &>article {
             /*padding: 0.5rem;*/
-            background: var(--greyVeryLight);
             min-width: 100%;
             max-width: 100%;
         }
@@ -179,7 +181,7 @@ body {
                             color: #fff;
                         }
                         &>i.fa-map-marker-alt {
-                            color: var(--primary);
+                            color: var(--link);
                         }
                     }
                     &>.resizer {
@@ -296,10 +298,6 @@ body {
         }
     }
     @media (min-width: 768px) {
-        /*height: calc(100vh - 60px);*/
-        display: flex;
-        flex-direction: column;
-        width: 100%;
         &>header {
             padding: 0.5rem 1rem 1rem;
             box-shadow: none;
@@ -334,10 +332,15 @@ body {
                 &::after {
                     content: none;
                 }
-                &>li {
+                &>* {
                     font-size: 0.938rem;
-                    /*line-height: 0.938rem;*/
                     height: 31px;
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+                &>li {
+                    /*line-height: 0.938rem;*/
                     &[data-popover] {
                         &:hover {
                             &::after {
@@ -351,50 +354,31 @@ body {
                     &>span {
                         display: none;
                     }
-                    &:last-child {
-                        margin-right: 0;
-                    }
                 }
             }
         }
         &__body {
             margin-top: 60px;
+            position: sticky;
+            height: calc(100vh - 137.391px);
             #{$map} & {
                 display: flex;
-                height: calc(100vh - 135px);
-                /*overflow-y: hidden;
-                height: 100%;*/
                 &>article {
                     width: 50%;
                     min-width: 50%;
                     max-width: calc(100% - 100px);
                     padding-bottom: 0!important;
-                    /*overflow-y: auto;
-                    scroll-behavior: smooth;*/
+                    overflow-y: scroll;
+                    scroll-behavior: smooth;
                     z-index: 9;
-                    /* SCROLLBARS (chrome & edge)
-                    &::-webkit-scrollbar-track {
-                        background-color: #f4f5f7;
-                    }
-                    &::-webkit-scrollbar {
-                        width: 18px;
-                    }
-                    &::-webkit-scrollbar-thumb {
-                        background-color: #7f7f7f;
-                        width: 10px;
-                        border-radius: 10px;
-                        border: solid 4px #f4f5f7;
-                    }
-                    &::-webkit-scrollbar-thumb:hover {
-                        background-color: #6d6d6d;
-                    } */
+                    background: linear-gradient(#dbdbdb, #dbdbdb) no-repeat calc(100% - 18px) 0/1px 100%;
                 }
                 &>#map {
                     transition: height 0.25s ease;
                     display: flex;
                     flex: 1;
-                    position: sticky;
-                    top: 0;
+                    /*position: sticky;
+                    top: 0;*/
                     &>.splitter {
                         display: block;
                         cursor: ew-resize;
@@ -457,7 +441,7 @@ body {
     }
     @media (min-width: 992px) {
         &>header {
-            padding: 0.5rem 1.25rem 1rem;
+            /*padding: 0.5rem 1.25rem 1rem;*/
             &>div {
                 &>div {
                     &>h1 {
@@ -573,7 +557,7 @@ body {
     $lg: #{&}--lg;
     &-time {
         position: sticky;
-        //top: 100px;
+        top: 0;
         left: 0;
         z-index: 3;
         width: 100%;
@@ -631,7 +615,6 @@ body {
         }
     }
     &-wrapper {
-        /*height: 100vh;*/
         #{$sm} & {
             padding: 1rem;
         }
@@ -962,6 +945,12 @@ body {
             }
         }
     }
+    @media (min-width: 768px) {
+        &-wrapper,
+        &-time {
+            width: calc(100% - 1px);
+        }
+    }
 }
 
 .event {
@@ -1064,7 +1053,7 @@ body {
                 &>span {
                     display: inline-block;
                     margin-top: 0.375rem;
-                    color: var(--primary);
+                    color: var(--link);
                     font-size: 0.875rem;
                     cursor: pointer;
                     &:hover {
@@ -1125,7 +1114,7 @@ body {
             margin: 0 0.5rem 0.25rem 0;
             font-size: 0.875rem;
             border: 1px solid var(--grey);
-            color: var(--primary);
+            color: var(--link);
             cursor: pointer;
             line-height: 1.25rem;
             &>span {
@@ -1244,7 +1233,7 @@ body {
                 &>i {
                     font-size: 1.313rem;
                     &:hover {
-                        color: var(--primary);
+                        color: var(--link);
                     }
                     &:last-child {
                         display: none;
@@ -1262,14 +1251,14 @@ body {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: var(--primary);
+                background: var(--link);
                 color: #fff;
                 font-size: 0.813rem;
             }
             &:hover {
                 &>span {
                     &>i {
-                        color: var(--primary);
+                        color: var(--link);
                     }
                 }
             }
@@ -1281,7 +1270,7 @@ body {
                         &>i {
                             &:last-child {
                                 display: block;
-                                color: var(--primary);
+                                color: var(--link);
                             }
                         }
                     }

@@ -12,7 +12,7 @@
                 @include('layouts.timeline.elements.filters')
             </div>
             @endif
-            <article>
+            <article class="scrollbar">
                 @include('layouts.timeline.elements.events')
             </article>
             @if($temp_map)

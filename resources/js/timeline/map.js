@@ -5,7 +5,7 @@ eventsClass();
 
 $(window).on('resize', function() {
     eventsClass();
-    setMap();
+    /*setMap();*/
 });
 
 /* map */
@@ -52,7 +52,7 @@ window.initMap = initMap;
     }
 }*/
 
-window.setMap = function() {
+/*window.setMap = function() {
     if (!isMobile) {
         $('#map').css({
             'top': topHeight + 'px',
@@ -63,7 +63,7 @@ window.setMap = function() {
             'height': 'auto'
         });
     }
-}
+}*/
 
 function eventsClass() {
     $('.events').removeClass('events--sm events--md events--lg');

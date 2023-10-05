@@ -10,6 +10,12 @@
                 <input type="checkbox" name="comments" id="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
             </div>
 
+            <div>
+                <label for="comments">Show on profile?</label>
+                <input type="hidden" name="profile" value="0">
+                <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>
+            </div>
+
             <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
         </div>
 

@@ -14,6 +14,9 @@
                     </a>
                 @endif
             @endauth
+            <li class="header__options-about" data-reveal="about" data-popover="About" data-popover-position="bottom">
+                <i class="fa-solid fa-comment"></i><span>About</span>
+            </li>
             @if($temp_filters)
                 <li class="header__options-filters" data-reveal="filters" data-popover="Filters" data-popover-position="bottom">
                     <i class="fa-solid fa-filter"></i><span>Filters</span>
@@ -57,6 +60,9 @@
                     </div>
                 </li>
             @endif
+            <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="bottom">
+                <i class="fa-solid fa-comment"></i><span>8 comments</span>
+            </li>
             <li class="header__options-like colour-like" data-popover="Like" data-popover-position="bottom">
                 <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Like</span>
             </li>
@@ -69,9 +75,6 @@
             <!--<li class="header__options-save colour-saved">
                 <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
             </li>-->
-            <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="bottom">
-                <i class="fa-solid fa-comment"></i><span>8 comments</span>
-            </li>
             <li class="header__options-share" data-popover="Share" data-popover-position="bottom">
                 <i class="fa-solid fa-share-nodes"></i><span>Share</span>
                 @include('layouts.timeline.snippets.social',['more'=>true])

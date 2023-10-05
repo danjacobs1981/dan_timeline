@@ -2,7 +2,8 @@
 
     return [
         'website' => [
-            'name' => 'Timeline-Events.com'
+            'name' => 'Timeline-Events.com',
+            'url' => 'timeline-events.com'
         ],
         'head' => [
             'title' => 'Timeline Events | Discover...',
