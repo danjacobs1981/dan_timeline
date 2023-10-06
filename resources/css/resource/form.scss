@@ -64,9 +64,6 @@
                         &~div {
                             background: var(--controlBorder);
                         }
-                        &:hover {
-                            &~div {}
-                        }
                     }
                 }
                 &:checked {
@@ -74,11 +71,6 @@
                         &::after {
                             display: block;
                         }
-                    }
-                }
-                &:focus {
-                    &~div {
-                        /*background: purple;*/
                     }
                 }
             }

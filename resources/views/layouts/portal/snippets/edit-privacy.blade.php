@@ -7,30 +7,36 @@
     @endif
 
     <div>
-        <input data-id="{{ $timeline->id }}" type="radio" id="public" name="privacy" value="3" {{ old('privacy', $timeline->privacy) === 3 ? 'checked' : '' }}>
-        <label for="public">
-            Public
-        </label>
+        <div class="control control--radio">
+            <label class="control__label">Public
+                <input data-id="{{ $timeline->id }}" type="radio" id="public" name="privacy" value="3" {{ old('privacy', $timeline->privacy) === 3 ? 'checked' : '' }}>
+                <div></div>
+            </label>
+        </div>
         <p>
             Everyone can see your timeline.
         </p>
     </div>
     
     <div>
-        <input data-id="{{ $timeline->id }}" type="radio" id="unlisted" name="privacy" value="2" {{ old('privacy', $timeline->privacy) === 2 ? 'checked' : '' }}>
-        <label for="unlisted">
-            Unlisted
-        </label>
+        <div class="control control--radio">
+            <label class="control__label">Unlisted
+                <input data-id="{{ $timeline->id }}" type="radio" id="unlisted" name="privacy" value="2" {{ old('privacy', $timeline->privacy) === 2 ? 'checked' : '' }}>
+                <div></div>
+            </label>
+        </div>
         <p>
             Anyone with the timeline link can see your timeline.
         </p>
     </div>
 
     <div>
-        <input data-id="{{ $timeline->id }}" type="radio" id="private" name="privacy" value="1" {{ old('privacy', $timeline->privacy) === 1 ? 'checked' : '' }}>
-        <label for="private">
-            Private
-        </label>
+        <div class="control control--radio">
+            <label class="control__label">Private
+                <input data-id="{{ $timeline->id }}" type="radio" id="private" name="privacy" value="1" {{ old('privacy', $timeline->privacy) === 1 ? 'checked' : '' }}>
+                <div></div>
+            </label>
+        </div>
         <p>
             Only you, your collaborators, and selected people can see your timeline.
         </p>
