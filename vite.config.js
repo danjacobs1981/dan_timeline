@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/css/comments.scss',
                 'resources/css/filters.scss',
                 'resources/css/portal.scss',
+                'resources/css/portal/edit.scss',
                 'resources/css/resource/form.scss',
                 'resources/css/plugin/tagify.css',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
