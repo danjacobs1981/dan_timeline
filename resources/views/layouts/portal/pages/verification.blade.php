@@ -10,7 +10,7 @@
             </div>
         @endif
 
-        Before proceeding, please check your email for a verification link. If you did not receive the email,
+        Before proceeding, please check your email ({{ Auth::user()->email }}) for a verification link. If you did not receive the email,
         <form action="{{ route('verification.resend') }}" method="POST">
             @csrf
             <button type="submit">

@@ -1,7 +1,8 @@
 @extends('layouts.portal.master')
 
 @push('stylesheets')
-    @vite('resources/css/portal/edit.scss')
+@vite('resources/css/resource/form.scss')
+@vite('resources/css/portal/edit.scss')
 @endpush
 @push('scripts')
     @vite('resources/js/portal/timeline/edit.js')

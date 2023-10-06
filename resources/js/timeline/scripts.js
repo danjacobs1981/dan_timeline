@@ -106,7 +106,7 @@ function scrollOnPageLoad() {
 function scrollEvents() {
     $('.events-wrapper .event-title').each(function() {
         new ScrollMagic.Scene({
-                offset: -topHeight - 86,
+                offset: (-topHeight) - 86,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
@@ -159,13 +159,21 @@ $('i.events-increment').on('click', function() {
         }
         var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
         if ($goElement.length) {
-            scrollTop = $goElement.offset().top - topHeight - 85;
+            var diff = topHeight + 85;
+            if (screenSize > 2) {
+                diff = 85;
+            }
+            scrollTop = $goElement[0].offsetTop - diff;
         } else {
             if ($(this).hasClass('events-down')) {
                 //scrollTop = $('.event-first').offset().top - topHeight;
             }
         }
-        $('html, body').stop(true).animate({
+        var el = 'html, body';
+        if (screenSize > 2) {
+            el = 'article';
+        }
+        $(el).stop(true).animate({
             scrollTop: scrollTop
         }, 500);
     }

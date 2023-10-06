@@ -15,6 +15,10 @@
     --grey: #dbdbdb;
     --greyDark: #6d6d6d;
     --greyVeryDark: #101010;
+    /* form */
+    --controlBorder: #006edb;
+    --controlBorderDark: #004b96;
+    --controlBg: #f4f5f7;
     /* success: green */
     --successLight: #d2ffe6;
     --success: #009944;
@@ -36,8 +40,8 @@
     --faded: rgba(0, 0, 0, 0.35);
     --fadedDark: rgba(0, 0, 0, 0.75);
     /* timeline */
-    --year: #072F5F;
-    --month: #1261A0;
+    --year: #004b96;
+    --month: #006edb;
     --day: #3895D3;
     --time: #58CCED;
 }

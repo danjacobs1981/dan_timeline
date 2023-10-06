@@ -369,7 +369,7 @@ body {
                     max-width: calc(100% - 100px);
                     padding-bottom: 0!important;
                     overflow-y: scroll;
-                    scroll-behavior: smooth;
+                    /*scroll-behavior: smooth;*/
                     z-index: 9;
                     background: linear-gradient(#dbdbdb, #dbdbdb) no-repeat calc(100% - 18px) 0/1px 100%;
                 }
@@ -735,19 +735,17 @@ body {
             &.year {
                 /*padding-left: 1rem;*/
                 margin-top: 3rem;
-                position: relative;
-                margin-bottom: 7rem;
+                /*position: relative;*/
+                margin-bottom: 5rem;
                 &>em:last-child {
-                    position: absolute;
-                    bottom: -3.5rem;
-                    width: 100%;
                     border-bottom: 1px solid var(--grey);
                     text-align: center;
                     font-style: normal;
-                    color: var(--greyDark);
-                    padding-bottom: 0.5rem;
+                    color: var(--grey);
+                    padding: 1rem 0 0.5rem;
                     font-size: 0.813rem;
-                    opacity: 0.5;
+                    display: block;
+                    background: var(--greyVeryLight);
                 }
                 & .event {
                     &::before {

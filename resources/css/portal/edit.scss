@@ -96,26 +96,47 @@ body>main {
                     margin: 0;
                     list-style: none;
                     padding: 0 1rem;
-                    border-top: 1px solid var(--grey);
                     border-bottom: 1px solid var(--grey);
-                    background: var(--greyVeryLight);
                     overflow-x: auto;
                     -ms-overflow-style: none;
                     scrollbar-width: none;
+                    &::before,
+                    &::after {
+                        content: "";
+                        width: 1rem;
+                        height: 30px;
+                        position: absolute;
+                        bottom: 1px;
+                        z-index: 2;
+                    }
+                    &::before {
+                        left: 0;
+                        background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
+                    }
+                    &::after {
+                        right: 0;
+                        background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
+                    }
                     &::-webkit-scrollbar {
                         display: none;
                     }
                     &>li {
-                        margin-right: 1.5rem;
+                        margin: 0.5rem 0.75rem 0 0;
                         white-space: nowrap;
+                        &:last-child {
+                            margin-right: 0;
+                        }
                         &>a {
                             display: inline-block;
-                            padding: 0.75rem 0;
-                            color: var(--greyVeryDark);
+                            padding: 0.375rem 0.75rem;
+                            color: var(--greyDark);
                             text-decoration: none;
+                            background: var(--greyVeryLight);
+                            border-radius: 0.375rem 0.375rem 0 0;
                             &.active,
                             &:hover {
-                                color: var(--edit);
+                                color: #000;
+                                background: var(--grey);
                             }
                         }
                     }
@@ -182,10 +203,7 @@ body>main {
                     }
                     &>ul {
                         &>li {
-                            margin-right: 2.5rem;
-                            &>a {
-                                padding: 1rem 0;
-                            }
+                            &>a {}
                         }
                     }
                 }
@@ -220,14 +238,13 @@ body>main {
                 width: 100%;
                 &>header {
                     &>ul {
-                        padding: 0;
+                        &::before,
+                        &::after {
+                            content: none;
+                        }
                         &>li {
-                            margin-right: 0.5rem;
                             &:nth-child(2) {
                                 display: none;
-                            }
-                            &>a {
-                                padding: 1rem;
                             }
                         }
                     }
@@ -242,7 +259,9 @@ body>main {
             display: block!important;
             border-left: 1px solid var(--grey);
             overflow-y: auto;
-            min-width: 600px;
+            max-width: 600px;
+            width: 100%;
+            ;
             padding: 1rem;
         }
     }

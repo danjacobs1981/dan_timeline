@@ -1,16 +1,7 @@
-a {
-    color: var(--edit);
+.btn {
+    background: var(--edit);
     &:hover {
-        color: var(--editDark);
-    }
-}
-
-.nav-create {
-    & .btn {
-        background: var(--edit);
-        &:hover {
-            background: var(--editDark);
-        }
+        background: var(--editDark);
     }
 }
 
