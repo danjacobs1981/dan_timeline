@@ -75,14 +75,10 @@
 
                     <section id="general-tab" class="edit__tab" style="display:none;">
 
-                        @if(old('privacy', $timeline->privacy) === 0)
-                            <a href="#visibility" class="tab privacy-draft">
-                                <i class="fa-solid fa-circle-exclamation"></i> Timeline is currently a draft
-                            </a>
-                        @endif
+
 
                         <p>Intro to this section</p>
-                        <a href="#visibility" class="tab">vis</a>
+                        <a href="#visibility-tab" class="tab">vis</a>
 
                         @include('layouts.portal.snippets.edit-settings')
 
@@ -130,7 +126,7 @@
 
             </div>
 
-            <section id="events" class="edit__tab edit__events scrollbar" style="display:none;">
+            <section id="events-tab" class="edit__tab edit__events scrollbar" style="display:none;">
 
                 add event
     

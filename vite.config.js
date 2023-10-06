@@ -26,8 +26,9 @@ export default defineConfig({
                 'resources/js/timeline/filters.js',
                 'resources/js/portal/scripts.js',
                 'resources/js/portal/timeline/edit.js',
+                'resources/js/portal/timeline/ajax/settings.js',
                 'resources/js/portal/timeline/ajax/privacy.js',
-                'resources/js/portal/timeline/ajax/settings.js'
+                'resources/js/portal/timeline/ajax/privacy-share.js',
             ],
             refresh: true,
         }),
