@@ -9,7 +9,7 @@
         <ul class="header__options">
             @auth
                 @if($timeline->user_id == Auth::user()->id)
-                    <a class="header__options-edit colour-edit" href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
+                    <a class="header__options-edit link" href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
                         <i class="fa-solid fa-pencil"></i><span>Edit</span>
                     </a>
                 @endif

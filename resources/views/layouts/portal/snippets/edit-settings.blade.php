@@ -1,8 +1,23 @@
 <div id="timelineSettings">
     
     <div class="control control--textbox">
-        <label for="title">Title</label>
+        <label class="control__label" for="title">Title</label>
         <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
+    </div>
+
+    <div class="control control--textarea">
+        <label class="control__label" for="textarea">Textarea</label>
+        <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+    </div>
+
+    <div class="control control--select">
+        <label class="control__label" for="select">Dropdown</label>
+        <select name="select" id="select">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
     </div>
 
     <div class="control control--checkbox">      

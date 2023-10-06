@@ -1,7 +1,6 @@
 @extends('layouts.portal.master')
 
 @push('stylesheets')
-@vite('resources/css/resource/form.scss')
 @vite('resources/css/portal/edit.scss')
 @endpush
 @push('scripts')
@@ -38,7 +37,7 @@
                                 <a href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}" target="_blank">
                                     <i class="fa-regular fa-window-restore"></i> <span>View Timeline</span>
                                 </a>
-                                <a href="{{ route('timelines.index') }}" class="colour-edit">
+                                <a href="{{ route('timelines.index') }}" class="link-outline">
                                     <i class="fa-solid fa-chevron-left"></i> <span>Exit Editing</span><!-- (gives a warning if something isn't saved) -->
                                 </a>
                             </ul>
@@ -47,16 +46,16 @@
                     
                     <ul>
                         <li>
-                            <a href="#general-tab">Settings</a>
+                            <a href="#general-tab">General</a>
                         </li>
                         <li>
                             <a href="#events-tab">Events</a>
                         </li>
                         <li>
-                            <a href="#visibility-tab">Visibility</a>
+                            <a href="#about-tab">About</a>
                         </li>
                         <li>
-                            <a href="#tags-tab">Tags &amp; Filters</a>
+                            <a href="#tags-tab">Tags / Filters</a>
                         </li>
                         <li>
                             <a href="#comments-tab">Comments</a>
@@ -75,20 +74,35 @@
 
                     <section id="general-tab" class="edit__tab" style="display:none;">
 
-
-
                         <p>Intro to this section</p>
-                        <a href="#visibility-tab" class="tab">vis</a>
 
                         @include('layouts.portal.snippets.edit-settings')
+                        
+                        <div class="visibility">
+                            <em>
+                                Timeline Visibility
+                            </em>
+                            <strong>
+                                <i class="fa-regular fa-eye public"></i>Public
+                            </strong>
+                            <!--
+                                <i class="fa-regular fa-eye-slash"></i>
+                            -->
+                            <div>
+                                @include('layouts.portal.snippets.edit-privacy')
+                                <span>
+                                    <a href="#">
+                                        Done
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
 
                     </section>
 
-                    <section id="visibility-tab" class="edit__tab" style="display:none;">
+                    <section id="about-tab" class="edit__tab" style="display:none;">
 
                         <p>Intro to this section</p>
-
-                        @include('layouts.portal.snippets.edit-privacy')
 
                     </section>
 

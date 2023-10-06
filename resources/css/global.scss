@@ -15,10 +15,6 @@
     --grey: #dbdbdb;
     --greyDark: #6d6d6d;
     --greyVeryDark: #101010;
-    /* form */
-    --controlBorder: #006edb;
-    --controlBorderDark: #004b96;
-    --controlBg: #f4f5f7;
     /* success: green */
     --successLight: #d2ffe6;
     --success: #009944;
@@ -31,9 +27,6 @@
     --infoLight: #c5eefc;
     --info: #2a96b9;
     --infoDark: #1a7d9e;
-    /* edit: purple */
-    --edit: #551B8D;
-    --editDark: #3b0b68;
     /* like */
     --like: #eb637e;
     /* backdrop */
@@ -124,11 +117,21 @@ sup {
     top: -0.25em;
 }
 
-.colour-edit {
+.link {
     color: #fff!important;
-    background: var(--edit)!important;
+    background: var(--link)!important;
     &:hover {
-        background: var(--editDark)!important;
+        background: var(--linkHover)!important;
+    }
+}
+
+.link-outline {
+    background: #fff!important;
+    color: var(--link)!important;
+    box-shadow: inset 0 0 0 2px var(--link);
+    &:hover {
+        background: var(--greyVeryLight)!important;
+        box-shadow: inset 0 0 0 2px var(--linkHover);
     }
 }
 
