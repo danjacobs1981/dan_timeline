@@ -1,18 +1,26 @@
 import Tagify from '@yaireo/tagify'
 
-var input = document.querySelector('.tagify-privacy-share'),
-    tagify = new Tagify(input, {
-        // email address validation
-        pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        tagTextProp: 'email',
-        delimiters: ' ',
-        trim: false,
-        dropdown: {
-            position: 'input',
-            enabled: 0,
-            mapValueTo: 'email'
-        }
-    })
+rerun();
+
+$(document).on($.modal.OPEN, function() {
+    rerun();
+});
+
+function rerun() {
+    var input = document.querySelector('.tagify-privacy-share'),
+        tagify = new Tagify(input, {
+            // email address validation
+            pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            tagTextProp: 'email',
+            delimiters: ' ',
+            trim: false,
+            dropdown: {
+                position: 'input',
+                enabled: 0,
+                mapValueTo: 'email'
+            }
+        })
+}
 
 // update privacy share ajax
 $('.modal-privacy-share>.modal-buttons>button').on('click', function() {

@@ -83,19 +83,25 @@
                                 Timeline Visibility
                             </em>
                             <strong>
-                                <i class="fa-regular fa-eye public"></i>Public
+                                @if(old('privacy', $timeline->privacy) === 3)
+                                    <i class="fa-regular fa-eye public"></i>Public
+                                @elseif(old('privacy', $timeline->privacy) === 2)
+                                    <i class="fa-regular fa-eye"></i>Unlisted
+                                @elseif(old('privacy', $timeline->privacy) === 1)
+                                    <i class="fa-regular fa-eye-slash"></i>Private
+                                @else
+                                    <i class="fa-brands fa-firstdraft"></i>Draft
+                                @endif
                             </strong>
-                            <!--
-                                <i class="fa-regular fa-eye-slash"></i>
-                            -->
-                            <div>
-                                @include('layouts.portal.snippets.edit-privacy')
-                                <span>
-                                    <a href="#">
-                                        Done
-                                    </a>
-                                </span>
-                            </div>
+                        </div>
+
+                        <div class="visibility-options">
+                            @include('layouts.portal.snippets.edit-privacy')
+                            <span>
+                                <a href="#">
+                                    Done
+                                </a>
+                            </span>
                         </div>
 
                     </section>

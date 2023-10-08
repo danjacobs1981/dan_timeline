@@ -5,7 +5,7 @@
 </div>
 
 @isset($modal)
-    @vite('resources/js/portal/timeline/ajax/privacy-share.js?v='.rand(10,10000))
+    @vite('resources/js/portal/timeline/ajax/privacy-share.js')
 @else
     @push('scripts')
         @vite('resources/js/portal/timeline/ajax/privacy-share.js')

@@ -67,6 +67,7 @@ class TimelineEditController extends Controller
                 return response()->json([
                     'status'=> 200,
                     'message' => 'Privacy updated successfully',
+                    'result' => $timeline->privacy
                 ]);
 
             } else {
