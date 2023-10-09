@@ -24,11 +24,11 @@ function rerun() {
 
 // update privacy share ajax
 $('.modal-privacy-share>.modal-buttons>button').on('click', function() {
+    console.log("h");
     var timeline_id = $('.modal-privacy-share input[name="timeline-id"]').val();
     var data = {
         'data': tagify.value,
     }
-    console.log(data);
     $.ajax({
         type: 'PUT',
         url: '/timelines/' + timeline_id + '/privacy/share',

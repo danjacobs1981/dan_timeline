@@ -1,41 +1,69 @@
 <div id="timelineSettings">
     
     <div class="control control--textbox">
-        <label class="control__label" for="title">Title</label>
+        <label class="control__label" for="title">Timeline Title</label>
         <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
+        <p>The title should sum up your timeline in just a few words. This will also make up your timeline URL.</p>
     </div>
 
-    <div class="control control--textarea">
-        <label class="control__label" for="textarea">Textarea</label>
-        <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
-    </div>
-
-    <div class="control control--select">
-        <label class="control__label" for="select">Dropdown</label>
-        <select name="select" id="select">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
+    <div class="control control--checkbox">
+        <label class="control__label" for="map">Show map
+            <input type="hidden" name="map" value="0">
+            <input type="checkbox" name="map" id="map" value="1" {{ old('map', $timeline->map) ? 'checked' : '' }}>
+            <div></div>
+        </label>
+        <p>Hiding the map will hide the map and any event links that are referenced to it. If no events link to the map then it is hidden by default.</p>
     </div>
 
     <div class="control control--checkbox">      
-        <label class="control__label" for="comments">Show Comments?
+        <label class="control__label" for="comments">Show comments
             <input type="hidden" name="comments" value="0">
             <input type="checkbox" name="comments" id="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
+            <div></div>
+        </label>
+        <label class="control__label" for="comments_event">Show comments per event
+            <input type="hidden" name="comments_event" value="0">
+            <input type="checkbox" name="comments_event" id="comments_event" value="1" {{ old('comments_event', $timeline->comments_event) ? 'checked' : '' }}>
             <div></div>
         </label>
     </div>
 
     <div class="control control--checkbox">
-        <label class="control__label" for="profile">Show on profile?
-            <input type="hidden" name="profile" value="0">
-            <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>
+        <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tag">tagging &amp; filtering</a>
+            <input type="hidden" name="filter" value="0">
+            <input type="checkbox" name="filter" id="filter" disabled="disabled" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
+            <div></div>
+        </label>
+        <p>Group your tags to give your timeline more depth when filtering.</p>
+    </div>
+
+    <div class="control control--checkbox">
+        <label class="control__label" for="social">Show social sharing options
+            <input type="hidden" name="social" value="0">
+            <input type="checkbox" name="social" id="social" value="1" {{ old('social', $timeline->social) ? 'checked' : '' }}>
             <div></div>
         </label>
     </div>
 
+    <div class="control control--checkbox">
+        <label class="control__label" for="collab">Offer requests to collaborate
+            <input type="hidden" name="collab" value="0">
+            <input type="checkbox" name="collab" id="collab" value="1" {{ old('collab', $timeline->collab) ? 'checked' : '' }}>
+            <div></div>
+        </label>
+        <p>Turning this off will have no affect on any of your exisiting collaborators, it simply removes the "Request to collaborate" buttons from your timeline.</p>
+    </div>
+
+    <div class="control control--checkbox">
+        <label class="control__label" for="profile">List on profile
+            <input type="hidden" name="profile" value="0">
+            <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>
+            <div></div>
+        </label>
+        <p>Feature this timeline on your profile page.</p>
+    </div>
+
+    <!---
     <div class="control control--checkbox">
         <label class="control__label">Disabled
             <input type="checkbox" disabled="disabled"/>
@@ -64,7 +92,8 @@
             <input type="radio" name="radio2" disabled="disabled" checked="checked"/>
             <div></div>
         </label>
-        </div>
+    </div>
+    --->
 
     <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
 

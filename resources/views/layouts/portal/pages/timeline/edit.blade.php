@@ -74,41 +74,60 @@
 
                     <section id="general-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <div class="top">
+                            <p>Edit general timeline settings, including which features are shown on your timeline.</p>
+                            <div class="visibility">
+                                <span data-popover="Change timeline visibility" data-popover-position="bottom">
+                                    <em>
+                                        Timeline Visibility
+                                    </em>
+                                    <strong>
+                                        @if(old('privacy', $timeline->privacy) === 3)
+                                            <i class="fa-regular fa-eye public"></i>Public
+                                        @elseif(old('privacy', $timeline->privacy) === 2)
+                                            <i class="fa-regular fa-eye"></i>Unlisted
+                                        @elseif(old('privacy', $timeline->privacy) === 1)
+                                            <i class="fa-regular fa-eye-slash"></i>Private
+                                        @else
+                                            <i class="fa-brands fa-firstdraft"></i>Draft
+                                        @endif
+                                    </strong>
+                                </span>
+                                <div class="visibility-options">
+                                    @include('layouts.portal.snippets.edit-privacy')
+                                    <span>
+                                        <a href="#">
+                                            Done
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
                         @include('layouts.portal.snippets.edit-settings')
-                        
-                        <div class="visibility">
-                            <em>
-                                Timeline Visibility
-                            </em>
-                            <strong>
-                                @if(old('privacy', $timeline->privacy) === 3)
-                                    <i class="fa-regular fa-eye public"></i>Public
-                                @elseif(old('privacy', $timeline->privacy) === 2)
-                                    <i class="fa-regular fa-eye"></i>Unlisted
-                                @elseif(old('privacy', $timeline->privacy) === 1)
-                                    <i class="fa-regular fa-eye-slash"></i>Private
-                                @else
-                                    <i class="fa-brands fa-firstdraft"></i>Draft
-                                @endif
-                            </strong>
-                        </div>
-
-                        <div class="visibility-options">
-                            @include('layouts.portal.snippets.edit-privacy')
-                            <span>
-                                <a href="#">
-                                    Done
-                                </a>
-                            </span>
-                        </div>
 
                     </section>
 
                     <section id="about-tab" class="edit__tab" style="display:none;">
 
                         <p>Intro to this section</p>
+
+                        <div class="control control--select">
+                            <label class="control__label" for="select">Dropdown</label>
+                            <select name="select" id="select">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                              </select>
+                              <p>Helpful line of text goes along here.</p>
+                        </div>
+
+                        <div class="control control--textarea">
+                            <label class="control__label" for="textarea">Textarea</label>
+                            <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                            <p>Helpful line of text goes along here.</p>
+                        </div>
 
                     </section>
 

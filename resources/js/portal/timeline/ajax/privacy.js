@@ -21,15 +21,18 @@ $(document).on('click', 'input[name="privacy"]', function() {
             if (response.status === 200) {
                 // show "saved!" for a few seconds
                 if ($('.visibility').length) {
-                    if (response.result == 3) {
-                        $('.visibility>strong').html('<i class="fa-regular fa-eye public"></i>Public');
-                    } else if (response.result == 2) {
-                        $('.visibility>strong').html('<i class="fa-regular fa-eye"></i>Unlisted');
-                    } else if (response.result == 1) {
-                        $('.visibility>strong').html('<i class="fa-regular fa-eye-slash"></i>Private');
-                    } else {
-                        $('.visibility>strong').html('<i class="fa-brands fa-firstdraft"></i>Draft');
-                    }
+                    $('.visibility>span>strong').fadeOut('fast', function() {
+                        if (response.result == 3) {
+                            $('.visibility>span>strong').html('<i class="fa-regular fa-eye public"></i>Public');
+                        } else if (response.result == 2) {
+                            $('.visibility>span>strong').html('<i class="fa-regular fa-eye"></i>Unlisted');
+                        } else if (response.result == 1) {
+                            $('.visibility>span>strong').html('<i class="fa-regular fa-eye-slash"></i>Private');
+                        } else {
+                            $('.visibility>span>strong').html('<i class="fa-brands fa-firstdraft"></i>Draft');
+                        }
+                        $('.visibility>span>strong').fadeIn();
+                    });
                 }
             } else {
                 // show "error!" for a few seconds

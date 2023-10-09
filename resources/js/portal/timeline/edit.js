@@ -31,7 +31,7 @@ $('.edit__section header>ul a, .edit__section a.tab').on('click', function() {
 });
 
 // visibility
-$('.visibility').on('click', function(e) {
+$('.visibility>span').on('click', function(e) {
     e.preventDefault();
     $('.visibility-options').show();
 });
