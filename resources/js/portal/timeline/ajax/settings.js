@@ -1,9 +1,9 @@
 // update settings ajax
-$(document).on('click', '#timelineSettings>button', function(e) {
+$(document).on('click', '#timelineSettings button[type="submit"]', function(e) {
     e.preventDefault();
     var timeline_id = $(this).data('id');
     // show spinner on button
-    $('#timelineSettings>button').prop("disabled", true);
+    $('#timelineSettings button[type="submit"]').prop("disabled", true);
     var data = {
         'title': $('#title').val(),
         'comments': +$('#comments').prop('checked'), // boolean (checkbox) - the + makes integers
@@ -17,10 +17,12 @@ $(document).on('click', '#timelineSettings>button', function(e) {
             // console.log(response.status);
             if (response.status === 200) {
                 // show "saved!" for a few seconds
-
+                if ($('.edit__section h1').length) {
+                    $('.edit__section h1').text(data['title']);
+                }
             } else {
                 // show "error!" for a few seconds
-                $('#timelineSettings>button').prop("disabled", false);
+                $('#timelineSettings button[type="submit"]').prop("disabled", false);
             }
         },
         error: function(xhr) {
@@ -37,7 +39,7 @@ $('#timelineSettings').on('input', ':input', function(e) {
         if ($this.val() === $this.data('value')) {
             return;
         }
-        $('#timelineSettings>button').prop("disabled", false);
+        $('#timelineSettings button[type="submit"]').prop("disabled", false);
         return false;
     });
 });

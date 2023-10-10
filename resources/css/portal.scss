@@ -82,10 +82,13 @@
         background: #fff;
         &>div {
             margin-bottom: 0;
+            border: none;
+            padding: 0;
         }
         &>p {
-            margin: 0.375rem 0 0;
+            margin: 0.75rem 0 0;
             font-size: 0.875rem;
+            color: var(--greyMedium);
         }
         &>.privacy-share {
             margin-top: 0.75rem;
@@ -94,6 +97,7 @@
             &>p {
                 margin: 0 0 0.375rem;
                 font-size: 0.875rem;
+                color: var(--greyMedium);
             }
         }
         &:last-child {

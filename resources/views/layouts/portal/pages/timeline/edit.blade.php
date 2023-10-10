@@ -129,6 +129,10 @@
                             <p>Helpful line of text goes along here.</p>
                         </div>
 
+                        <div class="control-submit">
+                            <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
+                        </div>
+
                     </section>
 
                     <section id="tags-tab" class="edit__tab" style="display:none;">

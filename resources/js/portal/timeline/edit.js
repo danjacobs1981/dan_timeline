@@ -26,7 +26,7 @@ if ($(window.location.hash).length) {
     openTab('#' + $('section.edit__tab:first').attr('id'));
 }
 
-$('.edit__section header>ul a, .edit__section a.tab').on('click', function() {
+$('.edit__section header>ul a, a.tab').on('click', function() {
     openTab($(this).attr('href'));
 });
 

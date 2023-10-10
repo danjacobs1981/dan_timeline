@@ -1,12 +1,14 @@
 import Tagify from '@yaireo/tagify'
 
-rerun();
+var tags = [];
+
+runScript();
 
 $(document).on($.modal.OPEN, function() {
-    rerun();
+    runScript();
 });
 
-function rerun() {
+function runScript() {
     var input = document.querySelector('.tagify-privacy-share'),
         tagify = new Tagify(input, {
             // email address validation
@@ -19,15 +21,15 @@ function rerun() {
                 enabled: 0,
                 mapValueTo: 'email'
             }
-        })
+        });
+    tags = tagify.value;
 }
 
 // update privacy share ajax
-$('.modal-privacy-share>.modal-buttons>button').on('click', function() {
-    console.log("h");
+$(document).on('click', '.modal-privacy-share>.modal-buttons>button', function() {
     var timeline_id = $('.modal-privacy-share input[name="timeline-id"]').val();
     var data = {
-        'data': tagify.value,
+        'data': tags
     }
     $.ajax({
         type: 'PUT',

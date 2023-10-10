@@ -12,7 +12,7 @@
             <input type="checkbox" name="map" id="map" value="1" {{ old('map', $timeline->map) ? 'checked' : '' }}>
             <div></div>
         </label>
-        <p>Hiding the map will hide the map and any event links that are referenced to it. If no events link to the map then it is hidden by default.</p>
+        <p>Hiding the map will also hide any event buttons that are referenced to it. If no events utilise the map then it is hidden by default.</p>
     </div>
 
     <div class="control control--checkbox">      
@@ -29,7 +29,7 @@
     </div>
 
     <div class="control control--checkbox">
-        <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tag">tagging &amp; filtering</a>
+        <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
             <input type="hidden" name="filter" value="0">
             <input type="checkbox" name="filter" id="filter" disabled="disabled" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
             <div></div>
@@ -95,7 +95,9 @@
     </div>
     --->
 
-    <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
+    <div class="control-submit">
+        <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
+    </div>
 
 </div>
 
