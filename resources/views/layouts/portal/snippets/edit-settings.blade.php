@@ -6,6 +6,26 @@
         <p>The title should sum up your timeline in just a few words. This will also make up your timeline URL.</p>
     </div>
 
+    @if (auth()->user()->premium)
+        <div class="control control--checkbox">
+            <label class="control__label" for="adverts">Show adverts
+                <input type="hidden" name="adverts" value="0">
+                <input type="checkbox" name="adverts" id="adverts" value="1" {{ old('adverts', $timeline->adverts) ? 'checked' : '' }}>
+                <div></div>
+            </label>
+        </div>
+    @else
+        <div class="control control--checkbox">
+            <label class="control__label">Remove adverts <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+                <input type="checkbox" disabled="disabled">
+                <div></div>
+                <i class="fa-solid fa-lock"></i>
+            </label>
+            <p>Remove all advertising banners from the timeline event feed.</p>
+        </div>
+    @endif
+
+
     <div class="control control--checkbox">
         <label class="control__label" for="map">Show map
             <input type="hidden" name="map" value="0">
@@ -28,14 +48,25 @@
         </label>
     </div>
 
-    <div class="control control--checkbox">
-        <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
-            <input type="hidden" name="filter" value="0">
-            <input type="checkbox" name="filter" id="filter" disabled="disabled" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
-            <div></div>
-        </label>
-        <p>Group your tags to give your timeline more depth when filtering.</p>
-    </div>
+    @if (auth()->user()->premium)
+        <div class="control control--checkbox">
+            <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
+                <input type="hidden" name="filter" value="0">
+                <input type="checkbox" name="filter" id="filter" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
+                <div></div>
+            </label>
+            <p>Group your tags to give your timeline more depth when filtering.</p>
+        </div>    
+    @else
+        <div class="control control--checkbox">
+            <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a> <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+                <input type="checkbox" disabled="disabled">
+                <div></div>
+                <i class="fa-solid fa-lock"></i>
+            </label>
+            <p>Group your tags to give your timeline more depth when filtering.</p>
+        </div>    
+    @endif
 
     <div class="control control--checkbox">
         <label class="control__label" for="social">Show social sharing options

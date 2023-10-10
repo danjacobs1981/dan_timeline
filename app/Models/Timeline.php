@@ -16,7 +16,14 @@ class Timeline extends Model
         'privacy',
         'title',
         'slug',
-        'comments'
+        'map',
+        'comments',
+        'comments_event',
+        'filter',
+        'social',
+        'collab',
+        'profile',
+        'adverts',
     ];
     
     /**

@@ -19,7 +19,14 @@ return new class extends Migration
             $table->tinyInteger('privacy')->default(0);
             $table->string('title');
             $table->string('slug');
+            $table->boolean('map')->default(1);
             $table->boolean('comments')->default(1);
+            $table->boolean('comments_event')->default(1);
+            $table->boolean('filter')->default(1);
+            $table->boolean('social')->default(1);
+            $table->boolean('collab')->default(1);
+            $table->boolean('profile')->default(1);
+            $table->boolean('adverts')->default(1);
             $table->timestamps();
         });
     }

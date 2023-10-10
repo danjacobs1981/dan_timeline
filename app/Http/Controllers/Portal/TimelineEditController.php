@@ -28,7 +28,20 @@ class TimelineEditController extends Controller
 
                 $timeline->title = $request->title;
                 $timeline->slug = Str::slug($request->title, "-");
+                $timeline->map = $request->map;
                 $timeline->comments = $request->comments;
+                $timeline->comments_event = $request->comments_event;
+                $timeline->social = $request->social;
+                $timeline->collab = $request->collab;
+                $timeline->profile = $request->profile;
+
+                if(auth()->user()->premium) {
+                    $timeline->filter = $request->filter;
+                    $timeline->adverts = $request->adverts;
+                } else {
+                    $timeline->filter = 0;
+                    $timeline->adverts = 1;
+                }
                 
                 $timeline->save();
 
