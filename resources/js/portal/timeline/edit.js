@@ -1,17 +1,38 @@
-/* THIS GETS A VIEW:
-$.ajax({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/settings/edit',
-    type: 'GET',
-    success: function(data) {
-        $('#timelineSettings').html(data);
-    }
-});*/
+import $ from 'jquery';
+import Sortable from 'sortablejs';
+
+export function loadEvents() {
+    $.ajax({
+        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('#events-tab>div').html(data['events_html']).promise().done(function() {
+
+                console.log("events loaded in");
+
+            });
+        }
+    });
+}
+
+// Nested demo
+var nestedSortables = [].slice.call(document.querySelectorAll('.nested-sortable'));
+
+// Loop through each nested sortable element
+for (var i = 0; i < nestedSortables.length; i++) {
+    new Sortable(nestedSortables[i], {
+        filter: '.filtered',
+        group: 'nested',
+        animation: 150,
+        fallbackOnBody: true,
+        swapThreshold: 0.65
+    });
+}
 
 var topHeight = getTopHeight();
 setLayout();
+loadEvents();
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();

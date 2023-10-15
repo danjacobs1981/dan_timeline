@@ -5,9 +5,9 @@
 </div>
 
 @isset($modal)
-    @vite('resources/js/portal/timeline/ajax/privacy-share.js')
+    @vite('resources/js/portal/timeline/privacy-share.js')
 @else
     @push('scripts')
-        @vite('resources/js/portal/timeline/ajax/privacy-share.js')
+        @vite('resources/js/portal/timeline/privacy-share.js')
     @endpush
 @endif

@@ -7,23 +7,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Models\Timeline;
+use App\Models\Event;
 use App\Models\Select;
+
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 class TimelineEditController extends Controller
 {
 
-    public function settings(Request $request, string $id)
+    public function settings(Timeline $timeline, Request $request)
     {
 
         // ajax for timeline settings
         if($request->ajax()){
         
-            $timeline = Timeline::find($id);
-
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
                 $this->validate($request,[
-                    'title' => 'required', // this needs to be decent validation for title
+                    'title' => 'required|max:255', // this needs to be decent validation for title
+                    'map' => 'boolean',
+                    'comments' => 'boolean',
+                    'comments_event' => 'boolean',
+                    'social' => 'boolean',
+                    'collab' => 'boolean',
+                    'profile' => 'boolean',
+                    'filter' => 'boolean',
+                    'adverts' => 'boolean'
                 ]);
 
                 $timeline->title = $request->title;
@@ -63,13 +73,11 @@ class TimelineEditController extends Controller
         
     }
 
-    public function privacy(Request $request, string $id)
+    public function privacy(Timeline $timeline, Request $request)
     {
 
         // ajax for timeline privacy
         if($request->ajax()){
-
-            $timeline = Timeline::find($id);
         
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
@@ -96,13 +104,11 @@ class TimelineEditController extends Controller
         
     }
 
-    public function privacyShare(Request $request, string $id)
+    public function privacyShare(Timeline $timeline, Request $request)
     {
 
         // ajax for timeline privacy sharing email addresses
         if($request->ajax()){
-
-            $timeline = Timeline::find($id);
 
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
@@ -138,47 +144,231 @@ class TimelineEditController extends Controller
         
     }
 
-    public function showModalPrivacy(string $id)
+    public function reorderEvents(Timeline $timeline)
     {
 
-            $timeline = Timeline::find($id);
+        // ajax for reordering of events
+        if ($timeline) {
 
-            if ($timeline && $timeline->user_id === auth()->user()->id) {
+            //dd($timeline->events); // collection
 
-                $privateUsers = $timeline->privateUsers;
-
-                $modal_title = 'Privacy Options';
-                $modal_buttons = array('close' => 'Done');
-                $route = 'layouts.portal.snippets.modal.edit-privacy';
-                return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
-
-            } else {
-
-                abort(401);
-
+            $order_overall = 1;
+        
+            $prevDate = $eventNone = $eventCurrent = null;
+        
+            foreach($timeline->events->sortBy('order_ny')->groupBy('order_ny') as $events) {
+        
+                foreach ($events->unique('order_ny') as $event) {
+        
+                    if ($event->date_type === null) { // n
+        
+                        $period = null;
+        
+                        if($eventNone) {
+        
+                            $period = 'Sometime after '.$prevDate->format('Y');
+        
+                        }
+        
+                        // NONE
+                        Event::find($event->id)->update(['order_overall' => $order_overall++, 'period' => $period]);
+        
+                        $eventCurrent = null;
+        
+                        $eventNone = null;
+        
+                        $prevDate = null;
+                        
+                    } else { // y
+        
+                        $eventNone = 1;
+                        
+                        foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event) {
+        
+                            $dt = Carbon::createFromTimestamp($event->date_unix);
+                            
+                            $period = $difference = null;
+                            
+                            // DURING YEAR
+        
+                            $period = 'During '.$dt->format('Y');
+                            
+                            if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+        
+                                $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+        
+                            }
+        
+                            Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year
+        
+                            if ($event->date_type === 1) {
+        
+                                // YEAR
+                                Event::find($event->id)->update(['order_overall' => $order_overall++]);
+        
+                                $eventCurrent = $event->date_type;
+        
+                                $prevDate = $dt;
+        
+                            } else {
+        
+                                foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event) { 
+        
+                                    $dt = Carbon::createFromTimestamp($event->date_unix);
+        
+                                    $period = $difference = null;
+        
+                                    // DURING YEAR, IN MONTH
+        
+                                    $period = 'In '.$dt->format('F, Y');
+        
+                                    if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+        
+                                        $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+        
+                                    }
+                                    
+                                    Event::find($event->id)->update(['period' => $period, 'difference' => $difference]); // (period + diff) year & month
+        
+                                    if ($event->date_type === 2) {
+            
+                                        // MONTH
+                                        Event::find($event->id)->update(['order_overall' => $order_overall++]);
+        
+                                        $eventCurrent = $event->date_type;
+        
+                                        $prevDate = $dt;
+            
+                                    } else {
+                                        
+                                        foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event) {
+        
+                                            $dt = Carbon::createFromTimestamp($event->date_unix);
+        
+                                            $period = $period_short = $difference = null;
+        
+                                            // DURING YEAR, IN MONTH, ON DAY
+        
+                                            $period = 'On '.$dt->format('l jS \o\f F, Y');
+                                            $period_short = 'On '.$dt->format('D jS \o\f M, Y');
+        
+                                            if ($prevDate && $dt > $prevDate && $eventCurrent >= $event->date_type) {
+        
+                                                $difference = $dt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+                                                
+                                            }
+        
+                                            Event::find($event->id)->update(['period' => $period, 'period_short' => $period_short, 'difference' => $difference]); // (period + diff) year & month & day
+        
+                                            if ($event->date_type === 3) {
+            
+                                                // DAY
+                                                Event::find($event->id)->update(['order_overall' => $order_overall++]);
+        
+                                                $eventCurrent = $event->date_type;
+        
+                                                $prevDate = $dt;
+                                            
+                                            } else {
+                                                    
+                                                foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event) {
+                                                    
+                                                    $dt = Carbon::createFromTimestamp($event->date_unix);
+                                                    $dt_gmt = Carbon::createFromTimestamp($event->date_unix_gmt);
+        
+                                                    $period = $difference = null;
+                                                    
+                                                    // DURING YEAR, IN MONTH, ON DAY, AT TIME
+        
+        
+                                                    $period = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
+                                                    $period_short = 'At '.$dt->format('h:ia \o\n D jS \o\f M, Y');
+        
+                                                    if ($prevDate && $dt_gmt > $prevDate && $eventCurrent >= $event->date_type) {
+        
+                                                        $difference = $dt_gmt->diffForHumans($prevDate, ['syntax' => CarbonInterface::DIFF_ABSOLUTE, 'join' => ', ', 'parts' => 4]).' later';
+                                                        
+                                                    }
+        
+                                                    Event::find($event->id)->update(['period' => $period, 'period_short' => $period_short, 'difference' => $difference]); // (period + diff) year & month & day & time
+        
+                                                    if ($event->date_type === 4) {
+        
+                                                        // TIME
+                                                        Event::find($event->id)->update(['order_overall' => $order_overall++]);
+        
+                                                        $eventCurrent = $event->date_type;
+        
+                                                        $prevDate = $dt_gmt;
+        
+                                                    }
+            
+                                                }
+            
+                                            }
+        
+                                        }
+            
+                                    }
+            
+                                }
+        
+                            }
+        
+                        }
+        
+                    }
+        
+                }
+            
             }
+
+            return response()->json([
+                'status'=> 200,
+                'message' => 'Timeline events reordered'
+            ]);
+
+        } 
+
+    }
+
+    public function showModalPrivacy(Timeline $timeline)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $privateUsers = $timeline->privateUsers;
+
+            $modal_title = 'Privacy Options';
+            $modal_buttons = array('close' => 'Done');
+            $route = 'layouts.portal.snippets.modal.edit-privacy';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
+
+        } else {
+
+            abort(401);
+
+        }
  
     }
 
-    public function showModalPrivacyShare(string $id)
+    public function showModalPrivacyShare(Timeline $timeline)
     {
 
-            $timeline = Timeline::select(['id', 'user_id'])->find($id);
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-            if ($timeline && $timeline->user_id === auth()->user()->id) {
+            $privateUsers = $timeline->privateUsers->toJson();
 
-                $privateUsers = $timeline->privateUsers->toJson();
+            $modal_title = 'Share timeline privately';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Save');
+            $route = 'layouts.portal.snippets.edit-privacy-share';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
 
-                $modal_title = 'Share timeline privately';
-                $modal_buttons = array('close' => 'Cancel', 'action' => 'Save');
-                $route = 'layouts.portal.snippets.edit-privacy-share';
-                return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
+        } else {
 
-            } else {
+            abort(401);
 
-                abort(401);
-
-            }
+        }
  
     }
 

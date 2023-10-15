@@ -1,8 +1,4 @@
-@extends('layouts.portal.master')
-
-@section('content')
-
-<div class="test">
+<div id="timelineEventCreate">
 
     <h2>Add Event</h2>
 
@@ -16,17 +12,15 @@
       </div>
     @endif
 
-    <form method="post" action="{{ route('events.store') }}">
+    <form method="post" action="{{ route('timelines.events.store', [ 'timeline' => $timeline ]) }}">
 
-        @csrf
+        <!--@csrf-->
 
-        <div>
-            <h3>Title</h3>
-            <label for="title">Event title:</label>
+        <div class="control control--textbox">
+            <label class="control__label" for="title">Event Title</label>
             <input type="text" name="title" value="{{ old('title') }}"/>
+            <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
         </div>
-
-        <hr/>
     
         <div class="date_wrapper">
             <h3>Date</h3>
@@ -65,7 +59,7 @@
                                 <span class="add" data-period="time">Add Time</span>
                             </div>
                             <div class="time {{ old('date_time') ? 'date_active' : '' }}">
-                                <label>Time: (X:XX) <span class="remove" data-period="time"><i class="fa-solid fa-xmark"></i></span></label>
+                                <label>Time: (XX:XX) <span class="remove" data-period="time"><i class="fa-solid fa-xmark"></i></span></label>
                                 <input data-date type="text" id="time" value="{{ old('date_time') }}"/>
                                 <select data-date id="time_ampm">
                                     <option value="AM" {{ old('date_time_ampm') == 'AM' ? 'selected' : '' }}>am</option>
@@ -78,7 +72,7 @@
             </div>
         </div>
     
-        <div class="hidden">
+        <div class="hidden" style="display: none;">
             <h3>Hidden date fields</h3>
             <div class="year">
                 Year: <input readonly type="text" name="date_year" /><br/><br/>
@@ -114,7 +108,7 @@
             <div id="gmap" style="width: 500px;height:500px;"></div>
         </div>
     
-        <div class="hidden">
+        <div class="hidden" style="display: none;">
             <h3>Hidden location fields</h3>
             <div>
                 Latitude: <input type="text" name="location_lat" value="{{ old('location_lat') }}"/>
@@ -133,4 +127,5 @@
     </form>
 
 </div>
-@endsection
+
+@vite('resources/js/portal/timeline/event/create.js')

@@ -1,5 +1,7 @@
+import $ from 'jquery';
 // import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
+import { Loader } from '@googlemaps/js-api-loader';
 
 eventsClass();
 
@@ -9,8 +11,34 @@ $(window).on('resize', function() {
 });
 
 /* map */
+
 let map;
 
+const loader = new Loader({
+    apiKey: "AIzaSyCdUgGxKLmMPrK3dwRdBq2XHFWXWpXnrrM",
+    version: "weekly",
+    libraries: ["places"]
+});
+const mapOptions = {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+    mapId: "53cedd9afde08104",
+    mapTypeId: "roadmap",
+    disableDefaultUI: true,
+    options: {
+        gestureHandling: 'greedy'
+    }
+};
+loader
+    .importLibrary('maps')
+    .then(({ Map }) => {
+        map = new Map(document.getElementById("gmap"), mapOptions);
+    })
+    .catch((e) => {
+        // do something
+    });
+
+/* 
 function initMap() {
     map = new google.maps.Map(document.getElementById("gmap"), {
         center: { lat: -34.397, lng: 150.644 },
@@ -24,7 +52,7 @@ function initMap() {
     });
 
 }
-window.initMap = initMap;
+window.initMap = initMap;*/
 
 /*window.setMap = function() {
     if (!isMobile) {

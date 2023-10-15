@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 /* filter */
 $('#filters input[type="checkbox"]').on('change', function() {
     var f_checked = $('#filters').find('input:checkbox:checked').length;

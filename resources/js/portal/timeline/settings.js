@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // update settings ajax
 $(document).on('click', '#timelineSettings button[type="submit"]', function(e) {
     e.preventDefault();

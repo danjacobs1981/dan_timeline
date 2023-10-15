@@ -1,34 +1,6 @@
+import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
-
-window.loadEvents = function(share, tags) {
-    $.ajax({
-        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
-        data: { 'share': share, 'tags': tags },
-        type: 'POST',
-        dataType: 'json',
-        success: function(result) {
-
-            $('.events-wrapper').html(result['events_html']).promise().done(function() {
-
-
-                //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
-                /*$('.timeline--map .timeline__body').css('height', 'auto');*/
-
-                scrollEvents();
-                /*setMap();*/
-                setEventElements();
-
-            });
-
-            if (result['events_count'] === 1) {
-                $('.filter__show').text('Show 1 result');
-            } else {
-                $('.filter__show').text('Show ' + result['events_count'] + ' results');
-            }
-
-        }
-    });
-}
+//import { getScreenSize } from './../global.js';
 
 var topHeight = getTopHeight();
 setLayout();
@@ -64,6 +36,29 @@ function setLayout() {
     }
 }
 
+function loadEvents(share, tags) {
+    $.ajax({
+        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
+        data: { 'share': share, 'tags': tags },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('.events-wrapper').html(data['events_html']).promise().done(function() {
+                //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
+                /*$('.timeline--map .timeline__body').css('height', 'auto');*/
+                scrollEvents();
+                /*setMap();*/
+                setEventElements();
+            });
+            if (data['events_count'] === 1) {
+                $('.filter__show').text('Show 1 result');
+            } else {
+                $('.filter__show').text('Show ' + data['events_count'] + ' results');
+            }
+        }
+    });
+}
+
 function setEventElements() {
     if (screenSize > 2) {
         $('.events-time').css({
@@ -86,6 +81,7 @@ function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
     //setTimeout(scroll(0, 0), 1);
     //var hashLink = window.location.hash;
+    var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('share')) {
         loadEvents(urlParams.get('share'), false);
         if ($('.event-start').length) {
@@ -101,6 +97,8 @@ function scrollOnPageLoad() {
         window.history.replaceState(null, null, window.location.pathname);
     }
 }
+
+var controller = new ScrollMagic.Controller();
 
 /* timeline scroll indicator */
 function scrollEvents() {

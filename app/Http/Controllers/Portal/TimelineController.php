@@ -43,7 +43,7 @@ class TimelineController extends Controller
         $timeline_id = helperUniqueId('timelines');
 
         $this->validate($request,[
-            'title' => 'required', // this needs to be decent validation for title
+            'title' => 'required|max:255', // this needs to be decent validation for title
         ]);
 
         // adds all "request data" plus adds these specific things
@@ -66,10 +66,10 @@ class TimelineController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Timeline $timeline)
     {
 
-        $timeline = Timeline::get()->find($id);
+        //updateTimeline($timeline->id);
         
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
@@ -120,11 +120,9 @@ class TimelineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Timeline $timeline)
     {
         
-        $timeline = Timeline::find($id);
-
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
             $timeline->delete(); 

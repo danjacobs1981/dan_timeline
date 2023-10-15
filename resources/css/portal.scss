@@ -5,8 +5,7 @@
     }
 }*/
 
-.test {
-    margin: 1rem;
+#timelineEventCreate {
     &>h2 {
         margin-bottom: 1rem;
     }
@@ -84,6 +83,9 @@
             margin-bottom: 0;
             border: none;
             padding: 0;
+            &:hover {
+                background: none;
+            }
         }
         &>p {
             margin: 0.75rem 0 0;

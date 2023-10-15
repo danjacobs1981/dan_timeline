@@ -9,7 +9,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/', 'HomeController@show')->name('home.show');
 
     // test area
-    Route::resource('events', 'TestController');
+    //Route::resource('events', 'TestController');
 
     Route::group(['middleware' => ['guest']], function() {
 
@@ -51,6 +51,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::put('/timelines/{timeline}/settings', 'Portal\TimelineEditController@settings');
             Route::put('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@privacy');
             Route::put('/timelines/{timeline}/privacy/share', 'Portal\TimelineEditController@privacyShare');
+            Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorderEvents'); // events reordering
 
             // crud of timeline events
             Route::resource('timelines.events', Portal\TimelineEventController::class);
@@ -69,8 +70,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/{timeline}/{slug?}', 'TimelineController@show')->name('timeline.show');
 
     // ajax routes for timeline content
-    Route::post('/timelines/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
-    Route::get('/timelines/{timeline}/tags', 'TimelineController@tags')->name('timeline.tags.ajax');
-    Route::get('/timelines/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
+    Route::get('/timeline/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
+    Route::get('/timeline/{timeline}/tags', 'TimelineController@tags')->name('timeline.tags.ajax');
+    Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
 
 });

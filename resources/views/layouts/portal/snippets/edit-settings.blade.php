@@ -3,7 +3,7 @@
     <div class="control control--textbox">
         <label class="control__label" for="title">Timeline Title</label>
         <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
-        <p>The title should sum up your timeline in just a few words. This will also make up your timeline URL.</p>
+        <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
     </div>
 
     @if (auth()->user()->premium)
@@ -17,7 +17,7 @@
     @else
         <div class="control control--checkbox">
             <label class="control__label">Remove adverts <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
-                <input type="checkbox" disabled="disabled">
+                <input type="checkbox" name="adverts" id="adverts" disabled="disabled">
                 <div></div>
                 <i class="fa-solid fa-lock"></i>
             </label>
@@ -60,7 +60,7 @@
     @else
         <div class="control control--checkbox">
             <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a> <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
-                <input type="checkbox" disabled="disabled">
+                <input type="checkbox" name="filter" id="filter" disabled="disabled">
                 <div></div>
                 <i class="fa-solid fa-lock"></i>
             </label>
@@ -133,9 +133,9 @@
 </div>
 
 @isset($modal)
-    @vite('resources/js/portal/timeline/ajax/settings.js')
+    @vite('resources/js/portal/timeline/settings.js')
 @else
     @push('scripts')
-        @vite('resources/js/portal/timeline/ajax/settings.js')
+        @vite('resources/js/portal/timeline/settings.js')
     @endpush
 @endif

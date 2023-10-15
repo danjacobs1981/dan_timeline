@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <!--<meta name="timeline" content="{{ $timeline->id }}">-->
+    <meta name="timeline" content="{{ $timeline->id }}">
 
     @if(session('helper'))
         <p>
@@ -171,7 +171,60 @@
 
             <section id="events-tab" class="edit__tab edit__events scrollbar" style="display:none;">
 
-                add event
+                <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">Add Event</a>
+
+                <div>
+                    Loading events...
+                </div>
+
+                <!--<div class="nested-sortable">
+
+                    <div class="year">1981
+
+                        <div class="nested-sortable">
+
+                            <div class="none">none</div>
+                            <div class="month">January
+                                <div class="nested-sortable">
+                                    <div class="day">1st</div>
+                                    <div class="day">10th</div>
+                                    <div class="none">none</div>
+                                    <div class="day">30th</div>
+                                </div>
+                            </div>
+                            <div class="month">March</div>
+                            <div class="month">December</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="year">1990
+
+                    </div>
+
+                    <div class="none">none
+
+                    </div>
+
+                    <div class="year">2000
+
+                        <div class="nested-sortable">
+
+                            <div class="month">February</div>
+                            <div class="month">March</div>
+                            <div class="month">April</div>
+                            <div class="month">May</div>
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="year filtered">2023
+
+                    </div>
+
+                </div>-->
     
             </section>
 

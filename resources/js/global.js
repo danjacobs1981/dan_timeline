@@ -1,15 +1,14 @@
-import './bootstrap';
-
+//import './bootstrap';
 import $ from 'jquery';
-window.$ = $;
-
-import * as modal from 'jquery-modal';
-
 import ScrollMagic from 'scrollmagic';
-
+import modal from 'jquery-modal';
 import.meta.glob([
     '../images/**'
 ]);
+
+//import 'jquery-sortablejs';
+//import * as modal from 'jquery-modal';
+//window.$ = $;
 
 $.ajaxSetup({
     headers: {
@@ -17,18 +16,19 @@ $.ajaxSetup({
     }
 });
 
+// global variables
 window.screenSize = getScreenSize();
 window.isTouch = testTouch();
-/*window.topHeight = getTopHeight();*/
-window.urlParams = new URLSearchParams(window.location.search);
-window.controller = new ScrollMagic.Controller();
 
+//window.controller = new ScrollMagic.Controller();
+//window.topHeight = getTopHeight();
 /*testMobile();*/
 /*getScreenSize();*/
 /*topHeight = getTopHeight();*/
 
 $(window).on('resize', function() {
     screenSize = getScreenSize();
+    isTouch = testTouch();
     /*testMobile();*/
     /*topHeight = getTopHeight();*/
 });
@@ -113,7 +113,7 @@ $(document).on('click', '[data-modal]', function() {
         modalClickClose = $(this).data('modal-clickclose');
     }
     $(this).modal({
-        modalClass: modalExtraClass + ' ' + modalSize + ' modal',
+        modalClass: modalExtraClass + ' ' + modalSize + ' scrollbar modal',
         showClose: modalShowClose,
         clickClose: modalClickClose
     });

@@ -12,6 +12,7 @@
     border-radius: 0.5rem;
     &:hover {
         background: var(--greyVeryLight);
+        border-color: var(--grey);
     }
     &>p {
         font-size: 0.813rem;

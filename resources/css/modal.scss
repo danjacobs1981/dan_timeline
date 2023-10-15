@@ -13,6 +13,8 @@
     -ms-box-shadow: rgb(0 0 0 / 35%) 0 -1px 4px;
     box-shadow: rgb(0 0 0 / 35%) 0 -1px 4px;
     text-align: left;
+    max-height: 100%;
+    overflow-y: auto;
     &-spinner {
         display: none;
         position: fixed;
@@ -103,6 +105,10 @@
     &-lg {
         width: 100%;
         max-width: 1024px;
+    }
+    &-xl {
+        width: 100%;
+        max-width: 1200px;
     }
     @media (min-width: 768px) {
         padding: 1rem;

@@ -3,7 +3,6 @@
 @endpush
 @push('scripts')
     @vite('resources/js/timeline/map.js')
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ App::environment() == 'local' ? config('constants.map.key.local') : config('constants.map.key.production') }}&callback=initMap&v=weekly" defer></script>
 @endpush
 <span class="map-open fa-stack fa-2x">
     <i class="fa-solid fa-circle fa-stack-2x"></i>

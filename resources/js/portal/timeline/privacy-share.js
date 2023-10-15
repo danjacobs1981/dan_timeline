@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Tagify from '@yaireo/tagify'
 
 var tags = [];
@@ -36,6 +37,7 @@ $(document).on('click', '.modal-privacy-share>.modal-buttons>button', function()
         url: '/timelines/' + timeline_id + '/privacy/share',
         data: data,
         dataType: 'json',
+        encode: true,
         success: function(response) {
             // console.log(response.status);
             if (response.status === 200) {

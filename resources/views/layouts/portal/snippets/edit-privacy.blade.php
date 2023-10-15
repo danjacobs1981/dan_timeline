@@ -59,9 +59,9 @@
 </div>
 
 @isset($modal)
-    @vite('resources/js/portal/timeline/ajax/privacy.js')
+    @vite('resources/js/portal/timeline/privacy.js')
 @else
     @push('scripts')
-        @vite('resources/js/portal/timeline/ajax/privacy.js')
+        @vite('resources/js/portal/timeline/privacy.js')
     @endpush
 @endif

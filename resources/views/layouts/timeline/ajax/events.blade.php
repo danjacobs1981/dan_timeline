@@ -115,10 +115,9 @@
                                                             <span class="year">{{ $event->date_year }}</span>
                                                         </h2>
                                                         @if($event->location_tz && $event->location_tz != $eventTZ)
-                                                            <em>Timezone: {{ $event->location_tz }}</em>
+                                                            <em>Timezone: {{ str_replace('_', ' ', $event->location_tz) }}</em>
                                                         @endif
                                                     </div>
-                                                    <!--<em>{{ str_replace('_', ' ', $event->location_tz) }}</em>-->
                                                 @endif
                                                 <section>
                                                     @include('layouts.timeline.ajax.events-event')

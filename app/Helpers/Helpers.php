@@ -54,7 +54,7 @@ function checkCanViewTimeline($timeline_user_id, $timeline_id)
 function updateTimeline($timeline_id)
 {
     
-    $timeline_events = Timeline::find($timeline_id)->events;
+    $timeline_events = Timeline::find($timeline_id)->events; // collection
 
     $order_overall = 1;
 
@@ -64,7 +64,7 @@ function updateTimeline($timeline_id)
 
         foreach ($events->unique('order_ny') as $event) {
 
-            if ($event->date_type === null) {
+            if ($event->date_type === null) { // n
 
                 $period = null;
 
@@ -83,7 +83,7 @@ function updateTimeline($timeline_id)
 
                 $prevDate = null;
                 
-            } else {
+            } else { // y
 
                 $eventNone = 1;
                 
@@ -226,6 +226,11 @@ function updateTimeline($timeline_id)
         }
     
     }
+
+    sleep(30);
+    
+    $userData = array('timeline_id' => 24476, 'email' => 'script@ran.com');
+    $show = Select::create($userData);
 
 }
 
