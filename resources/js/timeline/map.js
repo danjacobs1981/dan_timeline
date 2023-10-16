@@ -15,7 +15,7 @@ $(window).on('resize', function() {
 let map;
 
 const loader = new Loader({
-    apiKey: "AIzaSyCdUgGxKLmMPrK3dwRdBq2XHFWXWpXnrrM",
+    apiKey: import.meta.env.VITE_GOOGLE_API,
     version: "weekly",
     libraries: ["places"]
 });
