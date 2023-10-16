@@ -8,8 +8,8 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/*.js',
-                'resources/css/*.css'
+                '/resources/js/*.js',
+                '/resources/css/*.css'
             ],
             refresh: true,
         }),

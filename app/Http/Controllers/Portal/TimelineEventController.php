@@ -91,8 +91,8 @@ class TimelineEventController extends Controller
 
                 $data = $request->validate(
                     [
-                        'title' => 'required|max:255',
-                        'date_year' => 'nullable|integer|digits:4',
+                        'title' => 'required|string|max:255',
+                        'date_year' => 'nullable|integer|digits:4|max:9999',
                         'date_month' => 'nullable|numeric|between:1,12',
                         'date_day' => 'nullable|numeric|between:1,31',
                         'date_time' => 'nullable|date_format:h:i',

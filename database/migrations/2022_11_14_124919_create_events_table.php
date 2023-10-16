@@ -23,8 +23,8 @@ return new class extends Migration
             $table->tinyInteger('date_month')->nullable();
             $table->tinyInteger('date_day')->nullable();
             $table->time('date_time')->nullable();
-            $table->dateTime('date_unix')->nullable();
-            $table->dateTime('date_unix_gmt')->nullable();
+            $table->bigInteger('date_unix')->nullable();
+            $table->bigInteger('date_unix_gmt')->nullable();
             $table->string('period');
             $table->string('period_short');            
             $table->string('difference');
