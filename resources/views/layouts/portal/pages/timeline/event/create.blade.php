@@ -1,7 +1,5 @@
 <div id="timelineEventCreate">
 
-    <h2>Add Event</h2>
-
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -128,4 +126,11 @@
 
 </div>
 
-@vite('resources/js/portal/timeline/event/create.js')
+@isset($modal)
+    @vite('resources/js/portal/timeline/event/create.js')
+@else
+    @push('scripts')
+        @vite('resources/js/portal/timeline/event/create.js')
+    @endpush
+@endif
+

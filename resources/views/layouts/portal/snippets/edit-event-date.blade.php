@@ -2,6 +2,7 @@
 
 @if(!$previous)
     {{ $event->date_year }} {{ $event->date_month }} {{ $event->date_day }} {{ $event->date_time }}
+    <input type="hidden" value="0" id="previous">
 @else
     <div>
         Current: {{ $event->date_year }} {{ $event->date_month }} {{ $event->date_day }} {{ $event->date_time }}<br/>

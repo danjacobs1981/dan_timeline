@@ -171,7 +171,7 @@
 
             <section id="events-tab" class="edit__tab edit__events scrollbar" style="display:none;">
 
-                <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">Add Event</a>
+                <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">Add Event</a>
 
                 <div id="example1">
                     Loading events...

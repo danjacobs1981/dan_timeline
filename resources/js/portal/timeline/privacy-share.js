@@ -3,13 +3,17 @@ import Tagify from '@yaireo/tagify'
 
 var tags = [];
 
-runScript();
+PrivacyShare();
 
-$(document).on($.modal.OPEN, function() {
-    runScript();
+$(document).on($.modal.OPEN, function(event, modal) {
+    if (modal['options']['modalClass'].includes('modal-privacy-share')) {
+        //console.log("PRIVACY MODAL");
+        PrivacyShare();
+        //event.stopImmediatePropagation();
+    }
 });
 
-function runScript() {
+function PrivacyShare() {
     var input = document.querySelector('.tagify-privacy-share'),
         tagify = new Tagify(input, {
             // email address validation

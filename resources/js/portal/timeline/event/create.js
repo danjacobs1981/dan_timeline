@@ -2,13 +2,19 @@ import $ from 'jquery';
 import { Loader } from '@googlemaps/js-api-loader';
 import { loadEvents } from './../edit.js';
 
-runScript();
+CreateEvent();
 
-$(document).on($.modal.OPEN, function() {
-    runScript();
+$(document).on($.modal.OPEN, function(event, modal) {
+    if (modal['options']['modalClass'].includes('modal-create-event')) {
+        //console.log("CREATE MODAL");
+        CreateEvent();
+        //event.stopImmediatePropagation();
+    }
 });
 
-function runScript() {
+function CreateEvent() {
+
+    //console.log("load create.js");
 
     /* map */
 

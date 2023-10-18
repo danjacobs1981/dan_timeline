@@ -46,7 +46,20 @@ class TimelineEventController extends Controller
      */
     public function create(Timeline $timeline)
     {
-        return view('layouts.portal.pages.timeline.event.create', compact('timeline'));
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $modal_title = 'Add Event';
+            $modal_buttons = array('close' => 'Done');
+            $route = 'layouts.portal.pages.timeline.event.create';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
+
+        } else {
+
+            abort(401);
+
+        }
+
     }
 
     /**
