@@ -49,14 +49,14 @@ class Event extends Model
     }
     */
 
-    public function getDateISOAttribute()
+    /*public function getDateISOAttribute()
     {
         if ($this->date_unix) {
             return Carbon::parse($this->date_unix)->toISOString();
         } else {
             return null;
         }
-    }
+    }*/
 
     public $incrementing = false;
 

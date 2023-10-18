@@ -29,7 +29,7 @@ class TimelineEventController extends Controller
         } else {
 
             $events_html = 'No results';
-            $events_count = 0;
+            $events_count = null;
 
         }
 
@@ -328,6 +328,24 @@ class TimelineEventController extends Controller
     public function edit(string $id)
     {
         //
+    }
+
+    public function showModalDate(Timeline $timeline, Event $event, Event $previous = null)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $modal_title = 'Change event date';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Change Date');
+            $route = 'layouts.portal.snippets.edit-event-date';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'event', 'previous'));
+
+        } else {
+
+            abort(401);
+
+        }
+
     }
 
     /**

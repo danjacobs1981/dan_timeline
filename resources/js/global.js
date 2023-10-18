@@ -113,7 +113,7 @@ $(document).on('click', '[data-modal]', function() {
         modalClickClose = $(this).data('modal-clickclose');
     }
     $(this).modal({
-        modalClass: modalExtraClass + ' ' + modalSize + ' scrollbar modal',
+        modalClass: modalExtraClass + ' ' + modalSize + ' modal',
         showClose: modalShowClose,
         clickClose: modalClickClose
     });

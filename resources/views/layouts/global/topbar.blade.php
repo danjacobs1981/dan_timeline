@@ -90,7 +90,7 @@
 				</span>
 			</label>
 			<div>
-				<input type="text" placeholder="Search for timelines..." />
+				<input type="text" name="search" placeholder="Search for timelines..." />
 				<button>
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>

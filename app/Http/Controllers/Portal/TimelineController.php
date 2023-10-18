@@ -69,8 +69,6 @@ class TimelineController extends Controller
     public function edit(Timeline $timeline)
     {
 
-        //updateTimeline($timeline->id);
-        
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
             $privateUsers = $timeline->privateUsers;

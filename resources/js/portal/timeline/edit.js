@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Sortable from 'sortablejs';
 
 export function loadEvents() {
+    $('#events-tab>div').html('loading');
     $.ajax({
         url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
         type: 'GET',
@@ -9,26 +10,37 @@ export function loadEvents() {
         success: function(data) {
             $('#events-tab>div').html(data['events_html']).promise().done(function() {
 
-                console.log("events loaded in");
+                console.log(data['events_count']);
 
             });
         }
     });
 }
 
-// Nested demo
-var nestedSortables = [].slice.call(document.querySelectorAll('.nested-sortable'));
+var previous = null;
 
-// Loop through each nested sortable element
-for (var i = 0; i < nestedSortables.length; i++) {
-    new Sortable(nestedSortables[i], {
-        filter: '.filtered',
-        group: 'nested',
-        animation: 150,
-        fallbackOnBody: true,
-        swapThreshold: 0.65
-    });
-}
+var sortable = new Sortable(example1, {
+    handle: '.handle',
+    animation: 150,
+    ghostClass: 'blue-background-class',
+    onSort: function(evt) {
+        //console.log(evt.item.dataset.id);
+
+    },
+    onMove: function(evt) {
+        //console.log(evt.dragged.dataset.id);
+        //console.log(evt.related.dataset.id);
+        previous = evt.related.dataset.id;
+
+    },
+    onEnd: function(evt) {
+        var url = '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events/' + evt.item.dataset.id + '/edit/date';
+        $('div[data-id=83375] a.change-date').attr('href', url + '/' + previous).trigger('click');
+        $('div[data-id=83375] a.change-date').attr('href', url);
+        //console.log(evt.item.dataset.id);
+        //console.log('dropped past: ' + previous);
+    },
+});
 
 var topHeight = getTopHeight();
 setLayout();
