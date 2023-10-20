@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { Loader } from '@googlemaps/js-api-loader';
-import { loadEvents } from './../edit.js';
+//import { loadEvents } from './../edit.js';
 
 CreateEvent();
 

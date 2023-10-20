@@ -1,44 +1,45 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 
-export function loadEvents() {
-    $('#events-tab>div').html('loading');
+// needs to be global function as called from a modal
+window.loadEvents = function() {
+    $('#events-tab>#events').html();
+    $('#events-tab>.loading').show();
     $.ajax({
         url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            $('#events-tab>div').html(data['events_html']).promise().done(function() {
-
-                console.log(data['events_count']);
-
+            $('#events-tab>#events').html(data['events_html']).promise().done(function() {
+                $('#events-tab>header>span').text(data['events_count']);
+                $('#events-tab>.loading').fadeOut();
+                console.log("events loaded");
             });
         }
     });
 }
 
-var previous = null;
+var previousEvent = null;
 
-var sortable = new Sortable(example1, {
+var sortable = new Sortable(events, {
     handle: '.handle',
     animation: 150,
     ghostClass: 'blue-background-class',
     onSort: function(evt) {
         //console.log(evt.item.dataset.id);
-
     },
     onMove: function(evt) {
         //console.log(evt.dragged.dataset.id);
         //console.log(evt.related.dataset.id);
-        previous = evt.related.dataset.id;
+        previousEvent = evt.related.dataset.id;
 
     },
     onEnd: function(evt) {
         var url = '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events/' + evt.item.dataset.id + '/edit/date';
-        $('div[data-id=83375] a.change-date').attr('href', url + '/' + previous).trigger('click');
-        $('div[data-id=83375] a.change-date').attr('href', url);
+        $('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url + '/' + previousEvent).trigger('click');
+        $('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url);
         //console.log(evt.item.dataset.id);
-        //console.log('dropped past: ' + previous);
+        //console.log('dropped past: ' + previousEvent);
     },
 });
 
@@ -96,6 +97,7 @@ function setLayout() {
             'height': 'calc(100vh - ' + topHeight + 'px)'
         });
         $('.edit__events').appendTo($('.edit__section'));
+        openTab('#' + $('section.edit__tab:first').attr('id'));
     } else {
         $('.edit__section>div>section').css({
             'height': 'auto'

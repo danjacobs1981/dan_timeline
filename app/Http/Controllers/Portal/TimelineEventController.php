@@ -24,12 +24,12 @@ class TimelineEventController extends Controller
         if ($timeline_events->count()) {
 
             $events_html = view('layouts.portal.ajax.timeline.events', ['timeline_events' => $timeline_events])->render();
-            $events_count = $timeline_events->count();
+            $events_count = $timeline_events->count().' events in timeline';
 
         } else {
 
-            $events_html = 'No results';
-            $events_count = null;
+            $events_html = null;
+            $events_count = 'Add an event to get started!';
 
         }
 
@@ -338,9 +338,10 @@ class TimelineEventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Timeline $timeline, Event $event, Request $request)
     {
-        //
+        // this is the event edit modal
+        dd($request->section);
     }
 
     public function showModalDate(Timeline $timeline, Event $event, Event $previous = null)

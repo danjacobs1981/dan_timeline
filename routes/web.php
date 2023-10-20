@@ -54,7 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorderEvents'); // events reordering
 
             // crud of timeline events
-            Route::get('/timelines/{timeline}/events/{event}/edit/date/{previous?}', 'Portal\TimelineEventController@showModalDate')->name('event.date.edit');
+            Route::get('/timelines/{timeline}/events/{event}/edit/date/{previous?}', 'Portal\TimelineEventController@showModalDate')->name('timelines.events.edit.date');
             Route::resource('timelines.events', Portal\TimelineEventController::class);
             
             // crud of profile

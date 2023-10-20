@@ -58,6 +58,9 @@
                             <a href="#tags-tab">Tags / Filters</a>
                         </li>
                         <li>
+                            <a href="#resources-tab">Resources</a>
+                        </li>
+                        <li>
                             <a href="#comments-tab">Comments</a>
                         </li>
                         <li>
@@ -110,7 +113,7 @@
 
                     <section id="about-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <p>Give a summary of what your timeline is about.</p>
 
                         <div class="control control--select">
                             <label class="control__label" for="select">Dropdown</label>
@@ -137,25 +140,31 @@
 
                     <section id="tags-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <p>Listing of all tags that can be added to individual events for filtering.</p>
+
+                    </section>
+
+                    <section id="resources-tab" class="edit__tab" style="display:none;">
+
+                        <p>Listing of all resources that can be added to individual events.</p>
 
                     </section>
 
                     <section id="comments-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <p>Moderate comments that have been made on your timeline.</p>
 
                     </section>
 
                     <section id="collaborators-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <p>Allow others to collaborate with you in building your timeline.</p>
 
                     </section>
 
                     <section id="more-tab" class="edit__tab" style="display:none;">
 
-                        <p>Intro to this section</p>
+                        <p>Further timeline settings.</p>
 
                         <form action="{{ route('timelines.destroy', $timeline->id) }}" method="POST">
                             @method('DELETE')
@@ -171,61 +180,19 @@
 
             <section id="events-tab" class="edit__tab edit__events scrollbar" style="display:none;">
 
-                <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">Add Event</a>
-
-                <div id="example1">
-                    Loading events...
+                <div class="loading">
+                    <div class="dots"><div></div><div></div><div></div><div></div></div>
                 </div>
 
-                <!--<div class="nested-sortable">
+                <header>
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                        Add Event
+                    </a>
+                    <span></span>
+                </header>
+                
+                <section id="events"></section>
 
-                    <div class="year">1981
-
-                        <div class="nested-sortable">
-
-                            <div class="none">none</div>
-                            <div class="month">January
-                                <div class="nested-sortable">
-                                    <div class="day">1st</div>
-                                    <div class="day">10th</div>
-                                    <div class="none">none</div>
-                                    <div class="day">30th</div>
-                                </div>
-                            </div>
-                            <div class="month">March</div>
-                            <div class="month">December</div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="year">1990
-
-                    </div>
-
-                    <div class="none">none
-
-                    </div>
-
-                    <div class="year">2000
-
-                        <div class="nested-sortable">
-
-                            <div class="month">February</div>
-                            <div class="month">March</div>
-                            <div class="month">April</div>
-                            <div class="month">May</div>
-                            
-                        </div>
-
-                    </div>
-
-                    <div class="year filtered">2023
-
-                    </div>
-
-                </div>-->
-    
             </section>
 
         </section>

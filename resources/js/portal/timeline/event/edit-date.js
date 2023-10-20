@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { loadEvents } from '../edit.js';
 
 EditEventDate();
 
