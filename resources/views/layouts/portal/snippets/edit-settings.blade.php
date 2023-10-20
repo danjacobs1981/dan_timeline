@@ -8,6 +8,7 @@
 
     @if (auth()->user()->premium)
         <div class="control control--checkbox">
+            <span class="control__label">Adverts</span>
             <label class="control__label" for="adverts">Show adverts
                 <input type="hidden" name="adverts" value="0">
                 <input type="checkbox" name="adverts" id="adverts" value="1" {{ old('adverts', $timeline->adverts) ? 'checked' : '' }}>
@@ -15,8 +16,10 @@
             </label>
         </div>
     @else
-        <div class="control control--checkbox">
-            <label class="control__label">Remove adverts <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+        <div class="control control--checkbox control--premium">
+            <span class="control__label">Adverts</span>
+            <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+            <label class="control__label">Remove adverts
                 <input type="checkbox" name="adverts" id="adverts" disabled="disabled">
                 <div></div>
                 <i class="fa-solid fa-lock"></i>
@@ -27,6 +30,7 @@
 
 
     <div class="control control--checkbox">
+        <span class="control__label">Map</span>
         <label class="control__label" for="map">Show map
             <input type="hidden" name="map" value="0">
             <input type="checkbox" name="map" id="map" value="1" {{ old('map', $timeline->map) ? 'checked' : '' }}>
@@ -35,7 +39,8 @@
         <p>Hiding the map will also hide any event buttons that are referenced to it. If no events utilise the map then it is hidden by default.</p>
     </div>
 
-    <div class="control control--checkbox">      
+    <div class="control control--checkbox">    
+        <span class="control__label">Comments</span>
         <label class="control__label" for="comments">Show comments
             <input type="hidden" name="comments" value="0">
             <input type="checkbox" name="comments" id="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
@@ -50,6 +55,7 @@
 
     @if (auth()->user()->premium)
         <div class="control control--checkbox">
+            <span class="control__label">Tags / Filters</span>
             <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
                 <input type="hidden" name="filter" value="0">
                 <input type="checkbox" name="filter" id="filter" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
@@ -58,8 +64,10 @@
             <p>Group your tags to give your timeline more depth when filtering.</p>
         </div>    
     @else
-        <div class="control control--checkbox">
-            <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a> <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+        <div class="control control--checkbox control--premium">
+            <span class="control__label">Tags / Filters</span>
+            <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
+            <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
                 <input type="checkbox" name="filter" id="filter" disabled="disabled">
                 <div></div>
                 <i class="fa-solid fa-lock"></i>
@@ -69,6 +77,7 @@
     @endif
 
     <div class="control control--checkbox">
+        <span class="control__label">Social</span>
         <label class="control__label" for="social">Show social sharing options
             <input type="hidden" name="social" value="0">
             <input type="checkbox" name="social" id="social" value="1" {{ old('social', $timeline->social) ? 'checked' : '' }}>
@@ -77,6 +86,7 @@
     </div>
 
     <div class="control control--checkbox">
+        <span class="control__label">Collaborators</span>
         <label class="control__label" for="collab">Offer requests to collaborate
             <input type="hidden" name="collab" value="0">
             <input type="checkbox" name="collab" id="collab" value="1" {{ old('collab', $timeline->collab) ? 'checked' : '' }}>
@@ -86,6 +96,7 @@
     </div>
 
     <div class="control control--checkbox">
+        <span class="control__label">Profile</span>
         <label class="control__label" for="profile">List on profile
             <input type="hidden" name="profile" value="0">
             <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>

@@ -24,7 +24,7 @@ var previousEvent = null;
 var sortable = new Sortable(events, {
     handle: '.handle',
     animation: 150,
-    ghostClass: 'blue-background-class',
+    ghostClass: 'event--ghost',
     onSort: function(evt) {
         //console.log(evt.item.dataset.id);
     },
