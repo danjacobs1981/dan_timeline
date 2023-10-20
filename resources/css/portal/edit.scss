@@ -307,24 +307,24 @@ body>main {
                             &>div {
                                 display: flex;
                                 &>span {
-                                    margin-right: 0.5rem;
+                                    margin-right: 0.25rem;
                                     font-weight: 600;
                                 }
                             }
                             &>a {
-                                margin-left: auto;
-                                font-size: 0.875rem;
-                                text-decoration: none;
+                                display: none;
                             }
                         }
-                        &>p {}
                         &>ul {
                             display: flex;
                             flex-wrap: wrap;
                             list-style: none;
                             padding: 0.25rem 0.5rem;
                             &>li {
-                                margin: 0.25rem 0.125rem 0.25rem 0;
+                                margin: 0.25rem 0.5rem 0.25rem 0;
+                                &:not(:first-child) {
+                                    display: none;
+                                }
                                 &:last-child {
                                     margin-right: 0;
                                 }
@@ -335,7 +335,6 @@ body>main {
                                     cursor: pointer;
                                     background: var(--greyVeryLight);
                                     border-radius: 0.5rem;
-                                    margin-right: 0.5rem;
                                     display: flex;
                                     align-items: center;
                                     text-decoration: none;
@@ -369,6 +368,36 @@ body>main {
                         &>div {
                             &>h1 {
                                 font-size: 1.313rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &__events {
+            &>section#events {
+                &>.event {
+                    &>div {
+                        &.details {
+                            &>div {
+                                &>div {
+                                    &>span {
+                                        margin-right: 0.5rem;
+                                    }
+                                }
+                                &>a {
+                                    margin-left: auto;
+                                    font-size: 0.875rem;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                }
+                            }
+                            &>ul {
+                                &>li {
+                                    &:not(:first-child) {
+                                        display: inline-block;
+                                    }
+                                }
                             }
                         }
                     }

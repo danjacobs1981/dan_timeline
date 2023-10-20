@@ -19,10 +19,10 @@
                         @else
                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                 @if($event->date_time === null)
-                                    @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$event->date_year.'</span> <span>'.$month[$event->date_month].'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (l)').'</span>' ])
+                                    @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$event->date_year.'</span> <span>'.$month[$event->date_month].'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (D)').'</span>' ])
                                 @else
                                     @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
-                                        @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$event->date_year.'</span> <span>'.$month[$event->date_month].'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (l)').'</span> <span>'.$carbon::parse($event->date_time)->format('h:ia').'</span>' ])
+                                        @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$event->date_year.'</span> <span>'.$month[$event->date_month].'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (D)').'</span> <span>'.$carbon::parse($event->date_time)->format('h:ia').'</span>' ])
                                     @endforeach
                                 @endif
                             @endforeach
