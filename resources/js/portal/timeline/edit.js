@@ -55,7 +55,11 @@ $(window).on('resize', function() {
 // header tabs
 
 if ($(window.location.hash).length) {
-    openTab(window.location.hash);
+    if (screenSize > 4 && window.location.hash == '#events-tab') {
+        openTab('#' + $('section.edit__tab:first').attr('id'));
+    } else {
+        openTab(window.location.hash);
+    }
 } else {
     openTab('#' + $('section.edit__tab:first').attr('id'));
 }
@@ -80,7 +84,9 @@ function openTab(id) {
     $('.edit__section header>ul a[href="' + id + '"]').addClass('active');
     $('section.edit__tab').hide();
     var activeTab = $(id);
-    $(activeTab).fadeIn();
+    $(activeTab).show(function() {
+        $(window).scrollTop(0);
+    });
 }
 
 function getTopHeight() {

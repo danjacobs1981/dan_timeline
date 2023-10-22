@@ -616,6 +616,16 @@ h6 {
     }
 }
 
+@media (min-width: 768px) {
+    .split {
+        display: flex;
+        gap: 1.5rem;
+        &>div {
+            width: 50%;
+        }
+    }
+}
+
 #topbar {
     min-height: 52px;
     width: 100%;
