@@ -85,7 +85,11 @@ function openTab(id) {
     $('section.edit__tab').hide();
     var activeTab = $(id);
     $(activeTab).show(function() {
-        $(window).scrollTop(0);
+        if (screenSize > 2) {
+            $(window).scrollTop(0);
+        } else {
+            $(window).scrollTop(52);
+        }
     });
 }
 
