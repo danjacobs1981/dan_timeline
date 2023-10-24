@@ -84,13 +84,17 @@ function openTab(id) {
     $('.edit__section header>ul a[href="' + id + '"]').addClass('active');
     $('section.edit__tab').hide();
     var activeTab = $(id);
-    $(activeTab).show(function() {
-        if (screenSize > 2) {
-            $(window).scrollTop(0);
-        } else {
-            $(window).scrollTop(52);
-        }
-    });
+
+    $('html, body').animate({
+        scrollTop: $('.edit__tab').offset().top
+    }, 50);
+
+    /*if (screenSize > 2) {
+        $(activeTab).scrollTop(0);
+    } else {
+        $(activeTab).scrollTop(200);
+    }*/
+    $(activeTab).show();
 }
 
 function getTopHeight() {

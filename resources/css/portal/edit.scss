@@ -144,9 +144,9 @@ body>main {
                 }
             }
             &>section {
-                padding: 1rem;
+                /*padding: 1rem;*/
                 &>section {
-                    /*padding: 1rem 1rem 3rem;*/
+                    padding: 1rem 1rem 3rem;
                     position: relative;
                     min-width: 100%;
                     &>p {
@@ -246,10 +246,8 @@ body>main {
     &__events {
         position: relative;
         height: 100%;
-        padding: 0 !important;
         z-index: 20;
         background: #fff;
-        margin: -1rem;
         &>.loading {
             background: rgb(255, 255, 255, 0.5);
             height: 100%;
@@ -280,7 +278,7 @@ body>main {
             }
         }
         &>section#events {
-            padding: 1rem;
+            /*padding: 1rem;*/
             &>.event {
                 display: flex;
                 align-items: stretch;
