@@ -14,34 +14,43 @@ window.loadEvents = function() {
                 $('#events-tab>header>span').text(data['events_count']);
                 $('#events-tab>.loading').fadeOut();
                 console.log("events loaded");
+
+                $('.sortable').each(function(index, value) {
+                    console.log(index);
+                    console.log(value);
+                    var sortable = new Sortable(this, {
+                        handle: '.handle',
+                        animation: 150,
+                        ghostClass: 'event--ghost',
+                        onSort: function(evt) {
+                            //console.log(evt.item.dataset.id);
+                        },
+                        onMove: function(evt) {
+                            //console.log(evt.dragged.dataset.id);
+                            //console.log(evt.related.dataset.id);
+                            //previousEvent = evt.related.dataset.id;
+
+                        },
+                        onEnd: function(evt) {
+                            //var url = '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events/' + evt.item.dataset.id + '/edit/date';
+                            //$('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url + '/' + previousEvent).trigger('click');
+                            //$('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url);
+                            //console.log(evt.item.dataset.id);
+                            //console.log('dropped past: ' + previousEvent);
+                        },
+                    });
+                });
+
+
             });
         }
     });
 }
 
-var previousEvent = null;
+//var previousEvent = null;
 
-var sortable = new Sortable(events, {
-    handle: '.handle',
-    animation: 150,
-    ghostClass: 'event--ghost',
-    onSort: function(evt) {
-        //console.log(evt.item.dataset.id);
-    },
-    onMove: function(evt) {
-        //console.log(evt.dragged.dataset.id);
-        //console.log(evt.related.dataset.id);
-        previousEvent = evt.related.dataset.id;
 
-    },
-    onEnd: function(evt) {
-        var url = '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events/' + evt.item.dataset.id + '/edit/date';
-        $('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url + '/' + previousEvent).trigger('click');
-        $('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url);
-        //console.log(evt.item.dataset.id);
-        //console.log('dropped past: ' + previousEvent);
-    },
-});
+
 
 var topHeight = getTopHeight();
 setLayout();

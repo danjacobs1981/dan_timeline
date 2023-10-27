@@ -190,8 +190,14 @@
                         Add Event
                     </a>
                 </header>
+
+                <div class="control-submit">
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                        Add Event
+                    </a>
+                </div>
                 
-                <section id="events" class="scrollbar"></section>
+                <section id="events" class="sortable scrollbar"></section>
 
             </section>
 

@@ -170,7 +170,7 @@ class TimelineEventController extends Controller
                 // get time details
                 if ($data['date_unix']) {
                     $data['date_unix'] = Carbon::parse($request->date_unix)->timestamp;
-                    $data['date_unix_gmt'] = null;
+                    $data['date_unix_gmt'] = $data['date_unix'];
                     if ($data['date_time']) {
                         $data['date_time'] = Carbon::parse($request->date_time.' '.$request->date_time_ampm)->format('H:i'); // converts to 24 hour
                     }
