@@ -185,15 +185,18 @@
                 </div>
 
                 <header>
-                    <span></span>
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
-                        Add Event
+                    <div>
+                        <span></span>
+                        <em><i class="fa-regular fa-square-caret-down"></i>Expand all dates</li></em>
+                    </div>
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                        <i class="fa-solid fa-circle-plus"></i>Add Event
                     </a>
                 </header>
 
                 <div class="control-submit">
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
-                        Add Event
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                        <i class="fa-solid fa-circle-plus"></i>Add Event
                     </a>
                 </div>
                 

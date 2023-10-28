@@ -18,10 +18,10 @@
             @foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event)
                 @if($loop->first)
                     <summary>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-regular fa-square-caret-down"></i>
                         <span>{{ $event->date_year }}</span> 
-                        <em>{{ $total > 1 ? $total.' entries' : $total.' entry' }}</em>
-                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-plus"></i></a>
+                        <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
+                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
                     </summary>
                 @endif
                 @if($event->date_month === null)
@@ -34,10 +34,10 @@
                     @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event)
                         @if($loop->first)
                             <summary>
-                                <i class="fa-solid fa-chevron-down"></i>
+                                <i class="fa-regular fa-square-caret-down"></i>
                                 <span>{{ $month[$event->date_month] }}</span>
-                                <em>{{ $total > 1 ? $total.' entries' : $total.' entry' }}</em>
-                                <a href="#" data-popover="Add Event"><i class="fa-solid fa-plus"></i></a>
+                                <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
+                                <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
                             </summary>
                         @endif
                         @if($event->date_day === null)
@@ -50,10 +50,10 @@
                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                 @if($loop->first)
                                     <summary>
-                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <i class="fa-regular fa-square-caret-down"></i>
                                         <span>{{ $carbon::parse($event->date_unix)->format('jS (l)') }}</span>
-                                        <em>{{ $total > 1 ? $total.' entries' : $total.' entry' }}</em>
-                                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-plus"></i></a>
+                                        <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
+                                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
                                     </summary>
                                 @endif
                                 @if($event->date_time === null)
@@ -67,10 +67,10 @@
                                         @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
                                             @if($loop->first)
                                                 <summary>
-                                                    <i class="fa-solid fa-chevron-down"></i>
+                                                    <i class="fa-regular fa-square-caret-down"></i>
                                                     <span>{{ $carbon::parse($event->date_time)->format('h:ia') }} <em>({{ $event->location_tz }})</em></span>
-                                                    <em>{{ $total > 1 ? $total.' entries' : $total.' entry' }}</em>
-                                                    <a href="#" data-popover="Add Event"><i class="fa-solid fa-plus"></i></a>
+                                                    <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
+                                                    <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
                                                 </summary>
                                             @endif
                                             @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$carbon::parse($event->date_time)->format('h:ia').'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (D)').'</span> <span>'.$month[$event->date_month].'</span> <span>'.$event->date_year.'</span>' ])

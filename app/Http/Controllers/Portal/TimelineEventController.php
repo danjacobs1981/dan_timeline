@@ -24,7 +24,7 @@ class TimelineEventController extends Controller
         if ($timeline_events->count()) {
 
             $events_html = view('layouts.portal.ajax.timeline.events', ['timeline_events' => $timeline_events])->render();
-            $events_count = $timeline_events->count().' events in timeline:';
+            $events_count = $timeline_events->count().' events in timeline';
 
         } else {
 

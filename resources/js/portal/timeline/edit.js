@@ -11,7 +11,7 @@ window.loadEvents = function() {
         dataType: 'json',
         success: function(data) {
             $('#events-tab>#events').html(data['events_html']).promise().done(function() {
-                $('#events-tab>header>span').text(data['events_count']);
+                $('#events-tab>header>div>span').text(data['events_count']);
                 $('#events-tab>.loading').fadeOut();
                 console.log("events loaded");
 
@@ -59,6 +59,10 @@ loadEvents();
 $(window).on('resize', function() {
     topHeight = getTopHeight();
     setLayout();
+});
+
+$('#events-tab>header>div>em').on('click', function() {
+
 });
 
 // header tabs

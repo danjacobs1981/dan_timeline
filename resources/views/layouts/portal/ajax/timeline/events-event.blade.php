@@ -3,15 +3,15 @@
         <span>
             {{ $event->title }}
         </span>
-        <ul class="options">
+        <ul>
             <li>
-                <a href="{{ route('timelines.events.edit', [ 'timeline' => $event->timeline_id, 'event' => $event->id, 'section' => 'general' ]) }}" class="link" data-modal data-modal-class="modal-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                    Update Event Details
+                <a href="{{ route('timelines.events.edit', [ 'timeline' => $event->timeline_id, 'event' => $event->id, 'section' => 'general' ]) }}" data-modal data-modal-class="modal-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                    <i class="fa-solid fa-pencil"></i>Edit <span>Event</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('timelines.events.edit.date', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]) }}" class="link" data-modal data-modal-class="modal-edit-event-date" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                    Change Date
+                <a href="{{ route('timelines.events.edit.date', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]) }}" data-modal data-modal-class="modal-edit-event-date" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                    <i class="fa-regular fa-calendar-days"></i>Change Date
                 </a>
             </li>
         </ul>
