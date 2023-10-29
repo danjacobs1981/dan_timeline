@@ -269,7 +269,7 @@ body>main {
             /*padding: 1rem;*/
             & details {
                 border-radius: 0.5rem;
-                border: 1px solid var(--grey);
+                border: 1px solid var(--greyMedium);
                 background: #fff;
                 margin-bottom: 1rem;
                 &>summary {
@@ -321,7 +321,7 @@ body>main {
                         &>i {
                             &::before {
                                 font-family: "Font Awesome 5 Free";
-                                font-weight: 900;
+                                /*font-weight: 900;*/
                                 content: "\f151";
                             }
                         }

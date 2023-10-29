@@ -62,8 +62,23 @@ $(window).on('resize', function() {
 });
 
 $('#events-tab>header>div>em').on('click', function() {
+    var $details = $('#events').find('details');
+    var $detailsOpen = $details.prop('open');
+    var $detailsActive = $(this).hasClass('active');
 
+    if ($detailsActive == true) {
+        $details.prop('open', false);
+        $(this).html('<i class="fa-regular fa-square-caret-down"></i>Expand all dates').toggleClass('active');
+    } else if (($detailsOpen == true) && ($detailsActive == false)) {
+        $details.prop('open', true);
+        $(this).html('<i class="fa-regular fa-square-caret-up"></i>Contract all dates').toggleClass('active');
+    } else {
+        $details.prop('open', true);
+        $(this).html('<i class="fa-regular fa-square-caret-up"></i>Contract all dates').toggleClass('active');
+    };
 });
+
+
 
 // header tabs
 

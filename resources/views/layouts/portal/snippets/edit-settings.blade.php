@@ -26,7 +26,7 @@
                     <div></div>
                     <i class="fa-solid fa-lock"></i>
                 </label>
-                <p>Remove all advertising banners from the timeline event feed.</p>
+                <p>Remove all advertising banners from your timeline event feed.</p>
             </div>
         @endif
 
@@ -57,6 +57,7 @@
                 <input type="checkbox" name="comments_event" id="comments_event" value="1" {{ old('comments_event', $timeline->comments_event) ? 'checked' : '' }}>
                 <div></div>
             </label>
+            <p>Turning this off has no affect on any <a href="#comments-tab" class="tab">existing comments</a>, it simply removes any access to view them from your timeline.</p>
         </div>
 
         @if (auth()->user()->premium)
@@ -102,7 +103,7 @@
                 <input type="checkbox" name="collab" id="collab" value="1" {{ old('collab', $timeline->collab) ? 'checked' : '' }}>
                 <div></div>
             </label>
-            <p>Turning this off will have no affect on any of your exisiting collaborators, it simply removes the "Request to collaborate" buttons from your timeline.</p>
+            <p>Turning this off has no affect on any of your <a href="#collaborators-tab" class="tab">existing collaborators</a>, it simply removes the "Request to collaborate" buttons from your timeline.</p>
         </div>
 
     </div>

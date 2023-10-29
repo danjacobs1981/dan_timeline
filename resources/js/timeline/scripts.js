@@ -111,7 +111,7 @@ function scrollEvents() {
             .on('enter', function(e) { // forward
                 var $element = $(e.target.triggerElement());
                 var period = "period";
-                if (screenSize <= 2 && $element.attr('data-periodshort') !== "") {
+                if (screenSize <= 2 && (typeof $element.attr('data-periodshort') !== typeof undefined && $element.attr('data-periodshort') !== false)) {
                     period = "periodshort";
                 }
                 $('.events-time span').text($element.data(period));
@@ -129,7 +129,7 @@ function scrollEvents() {
                 if ($('.event-item[data-order="' + order + '"]').length) {
                     $('.event-title[data-order="' + order + '"]').addClass('active');
                     var period = "period";
-                    if (screenSize <= 2 && $element.attr('data-periodshort') !== "") {
+                    if (screenSize <= 2 && (typeof $element.attr('data-periodshort') !== typeof undefined && $element.attr('data-periodshort') !== false)) {
                         period = "periodshort";
                     }
                     $('.events-time span').text($('.event-title[data-order="' + order + '"]').data(period));
