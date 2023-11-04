@@ -5,7 +5,7 @@
     </h5>
 </div>
 @endisset
-<div class="modal-body">
+<div class="modal-body scrollbar">
     @include($route, isset($routeParams) ? $routeParams : array('modal' => true))
 </div>
 @isset($modal_buttons)
@@ -16,7 +16,7 @@
         </a>
     @endisset
     @isset($modal_buttons['action'])
-        <button class="btn">
+        <button class="btn" {{ isset($modal_buttons['form']) ? 'type=submit form='.$modal_buttons['form'] : ''}}>
             {{ $modal_buttons['action'] }}
         </button>
     @endisset

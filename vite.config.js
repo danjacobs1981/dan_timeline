@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/css/comments.scss',
                 'resources/css/filters.scss',
                 'resources/css/portal.scss',
-                'resources/css/portal/edit.scss',
+                'resources/css/portal/timeline/edit.scss',
+                'resources/css/portal/timeline/event/create-edit.scss',
                 'resources/css/resource/form.scss',
                 'resources/css/plugin/tagify.css',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
@@ -29,7 +30,7 @@ export default defineConfig({
                 'resources/js/portal/timeline/settings.js',
                 'resources/js/portal/timeline/privacy.js',
                 'resources/js/portal/timeline/privacy-share.js',
-                'resources/js/portal/timeline/event/create.js',
+                'resources/js/portal/timeline/event/create-edit.js',
                 'resources/js/portal/timeline/event/edit-date.js',
             ],
             refresh: true,

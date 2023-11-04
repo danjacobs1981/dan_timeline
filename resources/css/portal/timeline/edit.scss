@@ -8,6 +8,9 @@ body>main {
     }
 }
 
+
+/* edit page */
+
 .edit {
     &__section {
         &>div {
@@ -664,6 +667,22 @@ body>main {
                             margin-right: 2rem;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+
+/* custom modals */
+
+.modal {
+    &-delete {
+        &>.modal-buttons {
+            &>.btn {
+                background: var(--danger);
+                &:hover {
+                    background: var(--dangerDark);
                 }
             }
         }

@@ -12,12 +12,6 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function EditEventDate() {
 
-    $(document).on('click', '.modal-edit-event-date>.modal-buttons>a', function(event) {
-        var previousEvent = $(this).closest('.modal').find('input#previous').val();
-        if (previousEvent == 1) {
-            loadEvents();
-        }
-        event.stopImmediatePropagation();
-    });
+
 
 }

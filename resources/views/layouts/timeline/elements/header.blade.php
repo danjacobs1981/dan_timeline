@@ -81,17 +81,25 @@
                 <div class="dropdown" data-backdrop data-position-x="right">
                     <ul>
                         <li>
-                            <a href="#"><i class="fa-regular fa-user"></i>See more by <strong>username</strong></a>
+                            <a href="{{ route('profile.show', ['username' => $username ]) }}">
+                                <i class="fa-regular fa-user"></i>See more by <strong>{{ $username }}</strong>
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                            <a href="#">
+                                <i class="fa-solid fa-pencil"></i>Suggest an edit
+                            </a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                            <a href="#">
+                                <i class="fa-solid fa-user-group"></i>Request to collaborate
+                            </a>
                         </li>
                         <span></span>
                         <li>
-                            <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                            <a href="#">
+                                <i class="fa-solid fa-circle-exclamation"></i>Report
+                            </a>
                         </li>
                     </ul>
                 </div>

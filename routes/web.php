@@ -46,6 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // timeline editing modals
             Route::get('/timelines/{timeline}/privacy/modal', 'Portal\TimelineEditController@showModalPrivacy')->name('timeline.privacy.showModal');
             Route::get('/timelines/{timeline}/privacy/share/modal', 'Portal\TimelineEditController@showModalPrivacyShare')->name('timeline.privacy-share.showModal');
+            Route::get('/timelines/{timeline}/delete/modal', 'Portal\TimelineEditController@showModalDelete')->name('timeline.delete.showModal');
             
             // ajax routes for timeline saving
             Route::put('/timelines/{timeline}/settings', 'Portal\TimelineEditController@settings');
@@ -54,7 +55,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorderEvents'); // events reordering
 
             // crud of timeline events
-            Route::get('/timelines/{timeline}/events/{event}/edit/date/{previous?}', 'Portal\TimelineEventController@showModalDate')->name('timelines.events.edit.date');
+            Route::get('/timelines/{timeline}/events/{event}/edit/date}', 'Portal\TimelineEventController@showModalDate')->name('timelines.events.edit.date');
             Route::resource('timelines.events', Portal\TimelineEventController::class);
             
             // crud of profile

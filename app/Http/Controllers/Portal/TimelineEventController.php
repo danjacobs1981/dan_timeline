@@ -44,15 +44,17 @@ class TimelineEventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Timeline $timeline)
+    public function create(Timeline $timeline, Request $request)
     {
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
+            $predate = $request->predate;
+
             $modal_title = 'Add Event';
-            $modal_buttons = array('close' => 'Done');
-            $route = 'layouts.portal.pages.timeline.event.create';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Add Event', 'form' => 'formEventCreateEdit');
+            $route = 'layouts.portal.pages.timeline.event.create-edit';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'predate'));
 
         } else {
 
@@ -338,21 +340,15 @@ class TimelineEventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Timeline $timeline, Event $event, Request $request)
-    {
-        // this is the event edit modal
-        dd($request->section);
-    }
-
-    public function showModalDate(Timeline $timeline, Event $event, Event $previous = null)
+    public function edit(Timeline $timeline, Event $event)
     {
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-            $modal_title = 'Change event date';
-            $modal_buttons = array('close' => 'Cancel', 'action' => 'Change Date');
-            $route = 'layouts.portal.snippets.edit-event-date';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'event', 'previous'));
+            $modal_title = 'Edit Event';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Update Event', 'form' => 'formEventCreateEdit');
+            $route = 'layouts.portal.pages.timeline.event.create-edit';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
 
         } else {
 
@@ -365,9 +361,9 @@ class TimelineEventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): never
+    public function update(Timeline $timeline, Event $event, Request $request)
     {
-        abort(404);
+        dd("update");
     }
 
     /**
@@ -377,6 +373,25 @@ class TimelineEventController extends Controller
     {
         //
     }
+
+    public function showModalDate(Timeline $timeline, Event $event)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $modal_title = 'Change Event Date';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Change Date');
+            $route = 'layouts.portal.snippets.edit-event-date';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'event'));
+
+        } else {
+
+            abort(401);
+
+        }
+
+    }
+
 }
 
 function reorderYear($timeline_id, $events, &$data) {

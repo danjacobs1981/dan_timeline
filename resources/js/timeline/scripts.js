@@ -81,7 +81,6 @@ function scrollOnPageLoad() {
     //if (window.location.hash) scroll(0, 0);
     //setTimeout(scroll(0, 0), 1);
     //var hashLink = window.location.hash;
-    var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('share')) {
         loadEvents(urlParams.get('share'), false);
         if ($('.event-start').length) {

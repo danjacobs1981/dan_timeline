@@ -2,17 +2,18 @@ import $ from 'jquery';
 import { Loader } from '@googlemaps/js-api-loader';
 //import { loadEvents } from './../edit.js';
 
-CreateEvent();
+CreateEditEvent();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-event')) {
+    if (modal['options']['modalClass'].includes('modal-create-edit-event')) {
         //console.log("CREATE MODAL");
-        CreateEvent();
+        CreateEditEvent();
         //event.stopImmediatePropagation();
     }
 });
 
-function CreateEvent() {
+function CreateEditEvent() {
+
 
     //console.log("load create.js");
 
@@ -117,7 +118,7 @@ function CreateEvent() {
         $('input[name="location_lng"]').val(endMarker.getPosition().lng());
     }
 
-    var $form = $('#timelineEventCreate form');
+    var $form = $('#formEventCreateEdit');
 
     $form.on('submit', function(e) {
         $.ajax({

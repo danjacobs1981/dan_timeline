@@ -622,6 +622,12 @@ h6 {
             background: var(--greyLight);
         }
     }
+    &-danger {
+        background: var(--danger);
+        &:hover {
+            background: var(--dangerDark);
+        }
+    }
 }
 
 @media (min-width: 768px) {

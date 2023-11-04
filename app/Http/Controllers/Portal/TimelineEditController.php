@@ -372,4 +372,25 @@ class TimelineEditController extends Controller
  
     }
 
+    public function showModalDelete(Timeline $timeline)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $event_count = $timeline->events->count();
+
+            $modal_title = 'Delete timeline';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Timeline', 'form' => 'formDelete');
+            $route = 'layouts.portal.snippets.edit-delete';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event_count'));
+
+        } else {
+
+            abort(401);
+
+        }
+ 
+    }
+
+
 }

@@ -1,7 +1,7 @@
 @extends('layouts.portal.master')
 
 @push('stylesheets')
-@vite('resources/css/portal/edit.scss')
+    @vite('resources/css/portal/timeline/edit.scss')
 @endpush
 @push('scripts')
     @vite('resources/js/portal/timeline/edit.js')
@@ -10,14 +10,6 @@
 @section('content')
 
     <meta name="timeline" content="{{ $timeline->id }}">
-
-    @if(session('helper'))
-        <p>
-            <strong>
-                timeline created - now add some events and hit publish when ready
-            </strong>
-        </p>
-    @endif
 
     <div class="edit">
 
@@ -107,6 +99,14 @@
                             </div>
                         </div>
 
+                        @if(session('helper'))
+                            <p>
+                                <strong>
+                                    timeline created - now add some events and hit publish when ready
+                                </strong>
+                            </p>
+                        @endif
+
                         @include('layouts.portal.snippets.edit-settings')
 
                     </section>
@@ -166,11 +166,13 @@
 
                         <p>Further timeline settings.</p>
 
-                        <form action="{{ route('timelines.destroy', $timeline->id) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn">Delete timeline</button>
-                        </form>
+                        <div class="control control--textbox">
+                            <label class="control__label" for="title">Delete Timeline</label>
+                            <a href="{{ route('timeline.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                                <i class="fa-regular fa-trash-can"></i>Delete
+                            </a>                            
+                            <p>Deleting a timeline cannot be undone.</p>
+                        </div>
 
                     </section>
 
@@ -186,16 +188,16 @@
 
                 <header>
                     <div>
-                        <span></span>
+                        <span>Loading events...</span>
                         <em><i class="fa-regular fa-square-caret-down"></i>Expand all dates</li></em>
                     </div>
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                         <i class="fa-solid fa-circle-plus"></i>Add Event
                     </a>
                 </header>
 
                 <div class="control-submit">
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-event scrollbar" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="true">
+                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                         <i class="fa-solid fa-circle-plus"></i>Add Event
                     </a>
                 </div>

@@ -13,11 +13,8 @@ window.loadEvents = function() {
             $('#events-tab>#events').html(data['events_html']).promise().done(function() {
                 $('#events-tab>header>div>span').text(data['events_count']);
                 $('#events-tab>.loading').fadeOut();
-                console.log("events loaded");
-
+                //console.log("events loaded");
                 $('.sortable').each(function(index, value) {
-                    console.log(index);
-                    console.log(value);
                     var sortable = new Sortable(this, {
                         handle: '.handle',
                         animation: 150,

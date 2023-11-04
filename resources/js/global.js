@@ -19,6 +19,7 @@ $.ajaxSetup({
 // global variables
 window.screenSize = getScreenSize();
 window.isTouch = testTouch();
+window.urlParams = new URLSearchParams(window.location.search);
 
 //window.controller = new ScrollMagic.Controller();
 //window.topHeight = getTopHeight();
@@ -96,6 +97,14 @@ $.modal.defaults = {
 };
 
 $(document).on('click', '[data-modal]', function() {
+    var modalFull = '';
+    if (typeof $(this).data('modal-full') !== 'undefined') {
+        modalFull = 'modal-full';
+    }
+    var modalScroll = '';
+    if (typeof $(this).data('modal-scroll') !== 'undefined') {
+        modalScroll = 'modal-scroll';
+    }
     var modalExtraClass = '';
     if (typeof $(this).data('modal-class') !== 'undefined') {
         modalExtraClass = $(this).data('modal-class');
@@ -113,7 +122,8 @@ $(document).on('click', '[data-modal]', function() {
         modalClickClose = $(this).data('modal-clickclose');
     }
     $(this).modal({
-        modalClass: modalExtraClass + ' ' + modalSize + ' modal',
+        blockerClass: modalFull + ' modal-blocker',
+        modalClass: modalExtraClass + ' ' + modalSize + ' ' + modalScroll + ' modal',
         showClose: modalShowClose,
         clickClose: modalClickClose
     });

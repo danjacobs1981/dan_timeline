@@ -1,7 +1,6 @@
 @inject('carbon', 'Carbon\Carbon')
 
 @php 
-    $month = ['', "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     $prev_date_unix = null;
     $prev_date_unix_gmt = null;
 @endphp
@@ -21,11 +20,13 @@
                         <i class="fa-regular fa-square-caret-down"></i>
                         <span>{{ $event->date_year }}</span> 
                         <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
+                        <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $event->date_year ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                            <i class="fa-solid fa-circle-plus"></i>
+                        </a>
                     </summary>
                 @endif
                 @if($event->date_month === null)
-                    @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$event->date_year.'</span>' ])
+                    @include('layouts.portal.ajax.timeline.events-event')
                 @else
                     @php
                         $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->unique('order_md')->count();
@@ -35,13 +36,15 @@
                         @if($loop->first)
                             <summary>
                                 <i class="fa-regular fa-square-caret-down"></i>
-                                <span>{{ $month[$event->date_month] }}</span>
+                                <span>{{ $carbon::parse($event->date_unix)->format('F') }}</span>
                                 <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
+                                <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </a>
                             </summary>
                         @endif
                         @if($event->date_day === null)
-                            @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$month[$event->date_month].'</span> <span>'.$event->date_year.'</span>' ])
+                            @include('layouts.portal.ajax.timeline.events-event')
                         @else
                             @php
                                 $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->unique('order_dt')->count();
@@ -53,11 +56,13 @@
                                         <i class="fa-regular fa-square-caret-down"></i>
                                         <span>{{ $carbon::parse($event->date_unix)->format('jS (l)') }}</span>
                                         <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                        <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
+                                        <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F|d') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                            <i class="fa-solid fa-circle-plus"></i>
+                                        </a>
                                     </summary>
                                 @endif
                                 @if($event->date_time === null)
-                                    @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$carbon::parse($event->date_unix)->format('jS (D)').'</span> <span>'.$month[$event->date_month].'</span> <span>'.$event->date_year.'</span>' ])
+                                    @include('layouts.portal.ajax.timeline.events-event')
                                 @else
                                     @if($prev_date_unix != $event->date_unix || $prev_date_unix_gmt != $event->date_unix_gmt)
                                         @php
@@ -70,10 +75,12 @@
                                                     <i class="fa-regular fa-square-caret-down"></i>
                                                     <span>{{ $carbon::parse($event->date_time)->format('h:ia') }} <em>({{ $event->location_tz }})</em></span>
                                                     <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                                    <a href="#" data-popover="Add Event"><i class="fa-solid fa-circle-plus"></i></a>
+                                                    <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F|d|h|i|a') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                                        <i class="fa-solid fa-circle-plus"></i>
+                                                    </a>
                                                 </summary>
                                             @endif
-                                            @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>'.$carbon::parse($event->date_time)->format('h:ia').'</span> <span>'.$carbon::parse($event->date_unix)->format('jS (D)').'</span> <span>'.$month[$event->date_month].'</span> <span>'.$event->date_year.'</span>' ])
+                                            @include('layouts.portal.ajax.timeline.events-event')
                                         @endforeach
                                         </details>
                                     @endif
