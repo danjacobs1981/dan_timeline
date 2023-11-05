@@ -38,7 +38,7 @@
                     
                     <ul>
                         <li>
-                            <a href="#general-tab">General</a>
+                            <a href="#settings-tab">Settings</a>
                         </li>
                         <li>
                             <a href="#events-tab">Events</a>
@@ -67,37 +67,7 @@
 
                 <section class="scrollbar">
 
-                    <section id="general-tab" class="edit__tab" style="display:none;">
-
-                        <div class="top">
-                            <p>Edit general timeline settings, including which features are shown on your timeline.</p>
-                            <div class="visibility">
-                                <span data-popover="Change timeline visibility" data-popover-position="bottom">
-                                    <em>
-                                        Timeline Visibility
-                                    </em>
-                                    <strong>
-                                        @if(old('privacy', $timeline->privacy) === 3)
-                                            <i class="fa-regular fa-eye public"></i>Public
-                                        @elseif(old('privacy', $timeline->privacy) === 2)
-                                            <i class="fa-regular fa-eye"></i>Unlisted
-                                        @elseif(old('privacy', $timeline->privacy) === 1)
-                                            <i class="fa-regular fa-eye-slash"></i>Private
-                                        @else
-                                            <i class="fa-brands fa-firstdraft"></i>Draft
-                                        @endif
-                                    </strong>
-                                </span>
-                                <div class="visibility-options">
-                                    @include('layouts.portal.snippets.edit-privacy')
-                                    <span>
-                                        <a href="#">
-                                            Done
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    <section id="settings-tab" class="edit__tab" style="display:none;">
 
                         @if(session('helper'))
                             <p>
@@ -113,65 +83,93 @@
 
                     <section id="about-tab" class="edit__tab" style="display:none;">
 
-                        <p>Give a summary of what your timeline is about.</p>
+                        <div class="timelineAbout">
 
-                        <div class="control control--select">
-                            <label class="control__label" for="select">Dropdown</label>
-                            <select name="select" id="select">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
-                              </select>
-                              <p>Helpful line of text goes along here.</p>
-                        </div>
+                            <div class="control-submit control-submit-sticky">
+                                <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
+                            </div>
 
-                        <div class="control control--textarea">
-                            <label class="control__label" for="textarea">Textarea</label>
-                            <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
-                            <p>Helpful line of text goes along here.</p>
-                        </div>
+                            <p>Give a summary of what your timeline is about.</p>
 
-                        <div class="control-submit">
-                            <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
+                            <div class="control control--select">
+                                <label class="control__label" for="select">Dropdown</label>
+                                <select name="select" id="select">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                  </select>
+                                  <p>Helpful line of text goes along here.</p>
+                            </div>
+    
+                            <div class="control control--textarea">
+                                <label class="control__label" for="textarea">Textarea</label>
+                                <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                                <p>Helpful line of text goes along here.</p>
+                            </div>
+    
+                            <div class="control-submit">
+                                <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
+                            </div>
+
                         </div>
 
                     </section>
 
                     <section id="tags-tab" class="edit__tab" style="display:none;">
 
-                        <p>Listing of all tags that can be added to individual events for filtering.</p>
+                        <div class="timelineTags">
+
+                            <p>Listing of all tags that can be added to individual events for filtering.</p>
+
+                        </div>
 
                     </section>
 
                     <section id="resources-tab" class="edit__tab" style="display:none;">
 
-                        <p>Listing of all resources that can be added to individual events.</p>
+                        <div class="timelineResources">
+
+                            <p>Listing of all resources that can be added to individual events.</p>
+
+                        </div>
 
                     </section>
 
                     <section id="comments-tab" class="edit__tab" style="display:none;">
 
-                        <p>Moderate comments that have been made on your timeline.</p>
+                        <div class="timelineComments">
+
+                            <p>Moderate comments that have been made on your timeline.</p>
+
+                        </div>
 
                     </section>
 
                     <section id="collaborators-tab" class="edit__tab" style="display:none;">
 
-                        <p>Allow others to collaborate with you in building your timeline.</p>
+                        <div class="timelineCollaborators">
+
+                            <p>Allow others to collaborate with you in building your timeline.</p>
+
+                        </div>
 
                     </section>
 
                     <section id="more-tab" class="edit__tab" style="display:none;">
 
-                        <p>Further timeline settings.</p>
+                        <div class="timelineMore">
 
-                        <div class="control control--textbox">
-                            <label class="control__label" for="title">Delete Timeline</label>
-                            <a href="{{ route('timeline.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
-                                <i class="fa-regular fa-trash-can"></i>Delete
-                            </a>                            
-                            <p>Deleting a timeline cannot be undone.</p>
+                            <p>Further timeline settings.</p>
+
+                            <div class="control control--textbox">
+                                <label class="control__label" for="title">Delete Timeline</label>
+                                <a href="{{ route('timeline.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                                    <i class="fa-regular fa-trash-can"></i>Delete
+                                </a>                            
+                                <p>Deleting a timeline cannot be undone.</p>
+                            </div>
+
                         </div>
 
                     </section>
@@ -182,27 +180,31 @@
 
             <section id="events-tab" class="edit__tab edit__events" style="display:none;">
 
-                <div class="loading">
-                    <div class="dots"><div></div><div></div><div></div><div></div></div>
-                </div>
+                <div class="timelineEvents">
 
-                <header>
-                    <div>
-                        <span>Loading events...</span>
-                        <em><i class="fa-regular fa-square-caret-down"></i>Expand all dates</li></em>
+                    <div class="loading">
+                        <div class="dots"><div></div><div></div><div></div><div></div></div>
                     </div>
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                        <i class="fa-solid fa-circle-plus"></i>Add Event
-                    </a>
-                </header>
+    
+                    <header>
+                        <div>
+                            <span>Loading events...</span>
+                            <em><i class="fa-regular fa-square-caret-down"></i>Expand all dates</li></em>
+                        </div>
+                        <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                            <i class="fa-solid fa-circle-plus"></i>Add Event
+                        </a>
+                    </header>
+    
+                    <div class="control-submit">
+                        <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                            <i class="fa-solid fa-circle-plus"></i>Add Event
+                        </a>
+                    </div>
+                    
+                    <section id="events" class="sortable scrollbar"></section>    
 
-                <div class="control-submit">
-                    <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                        <i class="fa-solid fa-circle-plus"></i>Add Event
-                    </a>
                 </div>
-                
-                <section id="events" class="sortable scrollbar"></section>
 
             </section>
 

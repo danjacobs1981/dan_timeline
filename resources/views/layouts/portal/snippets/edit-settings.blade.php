@@ -1,5 +1,38 @@
 <div id="timelineSettings">
-    
+
+    <div class="control-submit control-submit-sticky">
+        <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
+    </div>
+
+    <p>Edit general timeline settings, including which features are shown on your timeline.</p>
+
+    <div class="visibility">
+        <span data-popover="Change timeline visibility" data-popover-position="bottom">
+            <em>
+                Timeline Visibility
+            </em>
+            <strong>
+                @if(old('privacy', $timeline->privacy) === 3)
+                    <i class="fa-regular fa-eye public"></i>Public
+                @elseif(old('privacy', $timeline->privacy) === 2)
+                    <i class="fa-regular fa-eye"></i>Unlisted
+                @elseif(old('privacy', $timeline->privacy) === 1)
+                    <i class="fa-regular fa-eye-slash"></i>Private
+                @else
+                    <i class="fa-brands fa-firstdraft"></i>Draft
+                @endif
+            </strong>
+        </span>
+        <div class="visibility-options">
+            @include('layouts.portal.snippets.edit-privacy')
+            <span>
+                <a href="#">
+                    Done
+                </a>
+            </span>
+        </div>
+    </div>
+
     <div class="control control--textbox">
         <label class="control__label" for="title">Timeline Title</label>
         <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">

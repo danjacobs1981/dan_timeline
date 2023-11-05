@@ -132,6 +132,12 @@
             &>.modal {
                 height: 100%;
                 border-radius: 0;
+                &>.modal-buttons {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                }
                 &-scroll {
                     &>.modal-body {
                         height: calc(100vh - 104px);
@@ -162,27 +168,10 @@
         }
     }
     @media (min-width: 992px) {
-        &-scroll {
-            &>.modal-body {
-                height: calc(100vh - 178px);
-            }
-        }
-        &-body {
-            padding: 1.25rem;
-        }
         &-header {
-            margin-bottom: 1.25rem;
-            padding: 1.25rem;
             &>h5 {
                 font-size: 1.25rem;
             }
-        }
-        &-buttons {
-            margin-top: 1.25rem;
-            padding: 1.25rem;
-        }
-        &-blocker {
-            padding: 1.25rem;
         }
     }
     @media (min-width: 1200px) {}
