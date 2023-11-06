@@ -25,7 +25,7 @@
 
     </header>
 
-    <section>
+    <section class="scrollbar">
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -39,30 +39,115 @@
   
         <form id="formEventCreateEdit" method="post" action="{{ isset($event) ? route('timelines.events.update', [ 'timeline' => $timeline, 'event' => $event ]) : route('timelines.events.store', [ 'timeline' => $timeline ]) }}">
 
-            <section id="event-details-tab" class="event__tab">
+            <section id="event-details-tab" class="event__tab" style="display:none;">
     
                 <div class="control control--textbox">
                     <label class="control__label" for="title">Event Title</label>
                     <input type="text" name="title" value="{{ old('title', isset($event) ? $event->title : '') }}"/>
-                    <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
+                    <p>The title should reflect this event in just a few words.</p>
+                </div>
+            
+                <div class="control control--datepicker" data-predate="">
+                    <span class="control__label">Event Date &amp; Time</span>
+                    <div>
+                        <div class="year active">
+                            <em data-popover="Add year" data-popover-position="top">
+                                <i class="fa-solid fa-circle-plus"></i>
+                                <span>
+                                    Year
+                                </span>
+                            </em>
+                            <div>
+                                <strong>
+                                    Year
+                                </strong>
+                                <input type="text" id="dp_year" value="{{ old('date_year') }}" placeholder="YYYY"/>
+                                <span data-popover="Remove year" data-popover-position="bottom">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="month active">
+                            <em data-popover="Add month" data-popover-position="top">
+                                <i class="fa-solid fa-circle-plus"></i>
+                                <span>
+                                    Month
+                                </span>
+                            </em>
+                            <div>
+                                <strong>
+                                    Month
+                                </strong>
+                                <select id="dp_month">
+                                    <option value="01" {{ old('date_month') == '01' ? 'selected' : '' }}>January</option>
+                                    <option value="02" {{ old('date_month') == '02' ? 'selected' : '' }}>February</option>
+                                    <option value="03" {{ old('date_month') == '03' ? 'selected' : '' }}>March</option>
+                                    <option value="04" {{ old('date_month') == '04' ? 'selected' : '' }}>April</option>
+                                    <option value="05" {{ old('date_month') == '05' ? 'selected' : '' }}>May</option>
+                                    <option value="06" {{ old('date_month') == '06' ? 'selected' : '' }}>June</option>
+                                    <option value="07" {{ old('date_month') == '07' ? 'selected' : '' }}>July</option>
+                                    <option value="08" {{ old('date_month') == '08' ? 'selected' : '' }}>August</option>
+                                    <option value="09" {{ old('date_month') == '09' ? 'selected' : '' }}>September</option>
+                                    <option value="10" {{ old('date_month') == '10' ? 'selected' : '' }}>October</option>
+                                    <option value="11" {{ old('date_month') == '11' ? 'selected' : '' }}>November</option>
+                                    <option value="12" {{ old('date_month') == '12' ? 'selected' : '' }}>December</option>
+                                </select>
+                                <span data-popover="Remove month" data-popover-position="bottom">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="day active">
+                            <em data-popover="Add day" data-popover-position="top">
+                                <i class="fa-solid fa-circle-plus"></i>
+                                <span>
+                                    Day
+                                </span>
+                            </em>
+                            <div>
+                                <strong>
+                                    Day
+                                </strong>
+                                <select id="dp_day">
+                                    <option value="01" {{ old('date_day') == '01' ? 'selected' : '' }}>1st</option>
+                                    <option value="02" {{ old('date_day') == '02' ? 'selected' : '' }}>2nd</option>
+                                </select>
+                                <span data-popover="Remove day" data-popover-position="bottom">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="time add">
+                            <em data-popover="Add time" data-popover-position="top">
+                                <i class="fa-solid fa-circle-plus"></i>
+                                <span>
+                                    Time
+                                </span>
+                            </em>
+                            <div>
+                                <strong>
+                                    Time
+                                </strong>
+                                <input type="text" id="dp_year" value="{{ old('date_year') }}"/>
+                                <span data-popover="Remove time" data-popover-position="bottom">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Adding a date is optional. Complete as much (or as little) of the date as required.</p>
                 </div>
             
                 <div class="control">
-                    <span class="control__label">Date</span>
-                    date
-                    <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
-                </div>
-            
-                <div class="control">
-                    <span class="control__label">Image</span>
+                    <span class="control__label">Event Image</span>
                     image
                     <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
                 </div>
             
                 <div class="control control--textarea">
-                    <label class="control__label" for="description">Description</label>
-                    <textarea id="textarea" name="description" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
-                    <p>Helpful line of text goes along here.</p>
+                    <label class="control__label" for="description">Event Description</label>
+                    <textarea id="textarea" name="description" rows="4" cols="50"></textarea>
+                    <p>This text is revealed once "Read more" is clicked.</p>
                 </div>
 
                 <div class="date_wrapper" data-predate="{{ isset($predate) ? $predate : '' }}">
@@ -134,7 +219,7 @@
 
             </section>
 
-            <section id="event-map-tab" class="event__tab">
+            <section id="event-map-tab" class="event__tab" style="display:none;">
 
                 <div>
                     <h3>Location</h3>
@@ -165,25 +250,25 @@
 
             </section>
         
-            <section id="event-resources-tab" class="event__tab">
+            <section id="event-resources-tab" class="event__tab" style="display:none;">
 
                 resources
 
             </section>
 
-            <section id="event-tags-tab" class="event__tab">
+            <section id="event-tags-tab" class="event__tab" style="display:none;">
 
                 tags
 
             </section>
 
-            <section id="event-comments-tab" class="event__tab">
+            <section id="event-comments-tab" class="event__tab" style="display:none;">
 
                 comments
 
             </section>
 
-            <section id="event-more-tab" class="event__tab">
+            <section id="event-more-tab" class="event__tab" style="display:none;">
 
                 more
 

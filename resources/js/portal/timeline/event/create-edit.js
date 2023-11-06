@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { Loader } from '@googlemaps/js-api-loader';
-//import { loadEvents } from './../edit.js';
 
 CreateEditEvent();
 
@@ -14,8 +13,21 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function CreateEditEvent() {
 
+    openTab('#' + $('section.event__tab:first').attr('id'));
 
-    //console.log("load create.js");
+    $('#timelineEventCreateEdit header>ul a, a.tab').on('click', function() {
+        openTab($(this).attr('href'));
+    });
+
+    function openTab(id) {
+        $('#timelineEventCreateEdit header>ul a').removeClass('active');
+        $('#timelineEventCreateEdit header>ul a[href="' + id + '"]').addClass('active');
+        $('#timelineEventCreateEdit section.event__tab').hide();
+        var activeTab = $(id);
+        $(activeTab).show();
+    }
+
+
 
     /* map */
 

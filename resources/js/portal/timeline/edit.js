@@ -84,8 +84,6 @@ if ($(window.location.hash).length) {
     } else {
         openTab(window.location.hash);
     }
-} else {
-    openTab('#' + $('section.edit__tab:first').attr('id'));
 }
 
 $('.edit__section header>ul a, a.tab').on('click', function() {
@@ -118,6 +116,7 @@ function openTab(id) {
     } else {
         $(activeTab).scrollTop(200);
     }*/
+
     $(activeTab).show();
 }
 

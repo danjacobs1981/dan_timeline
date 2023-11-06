@@ -1,6 +1,7 @@
 .modal-create-edit-event {
     &>.modal-body {
         padding: 0;
+        overflow-y: hidden;
     }
 }
 
@@ -62,6 +63,14 @@
             }
         }
     }
+    &>section {
+        overflow-y: auto;
+        height: calc(100vh - 156px);
+        & section {
+            padding: 1rem;
+        }
+    }
+    /* old stuff */
     &>div {
         padding: 0.75rem;
         &>h2 {
@@ -130,8 +139,8 @@
         }
     }
     @media (min-width: 768px) {
-        &>div {
-            padding: 1rem;
+        &>section {
+            height: calc(100vh - 189px);
         }
     }
     @media (min-width: 992px) {}
