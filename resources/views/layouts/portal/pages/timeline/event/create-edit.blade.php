@@ -111,13 +111,14 @@
                                 <select id="dp_day">
                                     <option value="01" {{ old('date_day') == '01' ? 'selected' : '' }}>1st</option>
                                     <option value="02" {{ old('date_day') == '02' ? 'selected' : '' }}>2nd</option>
+                                    <option value="30" {{ old('date_day') == '30' ? 'selected' : '' }}>30th</option>
                                 </select>
                                 <span data-popover="Remove day" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </span>
                             </div>
                         </div>
-                        <div class="time add">
+                        <div class="time active">
                             <em data-popover="Add time" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -128,7 +129,24 @@
                                 <strong>
                                     Time
                                 </strong>
-                                <input type="text" id="dp_year" value="{{ old('date_year') }}"/>
+                                <div>
+                                    <select id="dp_time_hour">
+                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>1</option>
+                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>2</option>
+                                        <option value="30" {{ old('date_time') == '30' ? 'selected' : '' }}>12</option>
+                                    </select>
+                                    :
+                                    <select id="dp_time_min">
+                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>00</option>
+                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>01</option>
+                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>02</option>
+                                        <option value="30" {{ old('date_time') == '30' ? 'selected' : '' }}>59</option>
+                                    </select>
+                                    <select id="dp_time_ap">
+                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>am</option>
+                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>pm</option>
+                                    </select>
+                                </div>
                                 <span data-popover="Remove time" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </span>
