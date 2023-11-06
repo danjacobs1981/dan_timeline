@@ -27,7 +27,17 @@ function CreateEditEvent() {
         $(activeTab).show();
     }
 
+    /* date picker */
+    var $datepicker = $('.control--datepicker');
 
+    $datepicker.on('click', '.period.add', function() {
+        $(this).addClass('active').removeClass('add').next('div').addClass('add');
+    });
+
+    $datepicker.on('click', '.period.active span', function() {
+        console.log("rem");
+        $(this).closest('.period').removeClass('active').addClass('add').nextAll('div').removeClass('active').removeClass('add');
+    });
 
     /* map */
 

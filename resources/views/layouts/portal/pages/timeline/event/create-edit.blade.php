@@ -50,7 +50,7 @@
                 <div class="control control--datepicker" data-predate="">
                     <span class="control__label">Event Date &amp; Time</span>
                     <div>
-                        <div class="year active">
+                        <div class="period year add">
                             <em data-popover="Add year" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -67,7 +67,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="month active">
+                        <div class="period month">
                             <em data-popover="Add month" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -97,7 +97,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="day active">
+                        <div class="period day">
                             <em data-popover="Add day" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -118,7 +118,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="time active">
+                        <div class="period time">
                             <em data-popover="Add time" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
