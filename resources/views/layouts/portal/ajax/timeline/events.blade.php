@@ -38,7 +38,7 @@
                                 <i class="fa-regular fa-square-caret-down"></i>
                                 <span>{{ $carbon::parse($event->date_unix)->format('F') }}</span>
                                 <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                                     <i class="fa-solid fa-circle-plus"></i>
                                 </a>
                             </summary>
@@ -56,7 +56,7 @@
                                         <i class="fa-regular fa-square-caret-down"></i>
                                         <span>{{ $carbon::parse($event->date_unix)->format('jS (l)') }}</span>
                                         <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                        <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F|d') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                        <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n|j') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                                             <i class="fa-solid fa-circle-plus"></i>
                                         </a>
                                     </summary>
@@ -75,7 +75,7 @@
                                                     <i class="fa-regular fa-square-caret-down"></i>
                                                     <span>{{ $carbon::parse($event->date_time)->format('h:ia') }} <em>({{ $event->location_tz }})</em></span>
                                                     <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
-                                                    <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|F|d|h|i|a') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                                                    <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n|j|h|i|a') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                                                         <i class="fa-solid fa-circle-plus"></i>
                                                     </a>
                                                 </summary>

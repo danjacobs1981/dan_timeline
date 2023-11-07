@@ -29,14 +29,52 @@ function CreateEditEvent() {
 
     /* date picker */
     var $datepicker = $('.control--datepicker');
+    var predate = $datepicker.data('predate').toString();
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    $.each(predate.split(/\|/), function(i, val) {
+        var period = '';
+        if (val) {
+            if (i == 0) {
+                period = 'year';
+            } else if (i == 1) {
+                period = 'month';
+            } else if (i == 2) {
+                period = 'day';
+            } else if (i == 3) {
+                period = 'time';
+            } else if (i == 4) {
+                period = 'time_min';
+            } else if (i == 5) {
+                period = 'time_ampm';
+            }
+            if (i <= 3) {
+                $datepicker.find('.period.' + period).removeClass('add').addClass('active').next('div').addClass('add');
+            }
+            $('#dp_' + period).val(val);
+        }
+    });
 
     $datepicker.on('click', '.period.add', function() {
         $(this).addClass('active').removeClass('add').next('div').addClass('add');
     });
 
-    $datepicker.on('click', '.period.active span', function() {
-        console.log("rem");
-        $(this).closest('.period').removeClass('active').addClass('add').nextAll('div').removeClass('active').removeClass('add');
+    $datepicker.on('click', '.period.active>div>span', function() {
+        $(this).closest('.period').css('border-color', 'inherit').removeClass('active').addClass('add').nextAll('div').css('border-color', 'inherit').removeClass('active').removeClass('add');
+    });
+
+    $datepicker.on('mouseenter', '.period.active>div>span', function() {
+        $(this).closest('.period').css('border-color', 'red').nextAll('div.active').css('border-color', 'red');
+    });
+
+    $datepicker.on('mouseleave', '.period.active>div>span', function() {
+        $('.period').css('border-color', 'inherit');
+    });
+
+    $datepicker.on('change', '#dp_month', function() {
+        var daysCount = daysInMonth[(this.value * 1) - 1];
+        console.log(daysCount);
+        $('#dp_day').val(1);
     });
 
     /* map */

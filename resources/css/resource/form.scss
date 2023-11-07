@@ -60,13 +60,13 @@
                 border-radius: 0.25rem;
                 padding: 0 0.5rem;
                 &.month {
-                    min-width: 144px;
+                    min-width: 134px;
                 }
                 &.day {
-                    min-width: 98px;
+                    min-width: 82px;
                 }
                 &.time {
-                    min-width: 222px;
+                    min-width: 198px;
                 }
                 &>em {
                     margin: 0.25rem 0;
@@ -139,10 +139,10 @@
                             /* Personalize */
                             border-radius: 0.25rem;
                             border: 1px solid var(--greyMedium);
-                            max-width: 7.75rem;
+                            max-width: 7.25rem;
                             width: 100%;
                             padding: 0.5rem;
-                            background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Caret_down_font_awesome.svg) no-repeat right 0.25em center / 1em, linear-gradient(to left, var(--grey) 1.5em, #fff 1.5em);
+                            background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Caret_down_font_awesome.svg) no-repeat right 0.25em center / 1em;
                             border-radius: 0.25em;
                             cursor: pointer;
                             &::-ms-expand {
@@ -158,21 +158,21 @@
                                 background-color: #fff;
                             }
                             &[id="dp_day"] {
-                                max-width: 5rem;
+                                max-width: 4.25rem;
                             }
-                            &[id="dp_time_hour"] {
-                                min-width: 3.75rem;
-                                max-width: 3.75rem;
+                            &[id="dp_time"] {
+                                min-width: 3.25rem;
+                                max-width: 3.25rem;
                                 margin-right: 0.25rem;
                             }
                             &[id="dp_time_min"] {
-                                min-width: 3.75rem;
-                                max-width: 3.75rem;
+                                min-width: 3.25rem;
+                                max-width: 3.25rem;
                                 margin-left: 0.25rem;
                             }
-                            &[id="dp_time_ap"] {
-                                min-width: 4rem;
-                                max-width: 4rem;
+                            &[id="dp_time_ampm"] {
+                                min-width: 3.5rem;
+                                max-width: 3.5rem;
                                 margin-left: 0.5rem;
                             }
                         }

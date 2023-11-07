@@ -47,7 +47,7 @@
                     <p>The title should reflect this event in just a few words.</p>
                 </div>
             
-                <div class="control control--datepicker" data-predate="">
+                <div class="control control--datepicker" data-predate="{{ isset($predate) ? $predate : '' }}">
                     <span class="control__label">Event Date &amp; Time</span>
                     <div>
                         <div class="period year add">
@@ -61,7 +61,7 @@
                                 <strong>
                                     Year
                                 </strong>
-                                <input type="text" id="dp_year" value="{{ old('date_year') }}" placeholder="YYYY"/>
+                                <input type="text" id="dp_year" name="date_year" value="{{ old('date_year') }}" placeholder="YYYY"/>
                                 <span data-popover="Remove year" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </span>
@@ -78,16 +78,16 @@
                                 <strong>
                                     Month
                                 </strong>
-                                <select id="dp_month">
-                                    <option value="01" {{ old('date_month') == '01' ? 'selected' : '' }}>January</option>
-                                    <option value="02" {{ old('date_month') == '02' ? 'selected' : '' }}>February</option>
-                                    <option value="03" {{ old('date_month') == '03' ? 'selected' : '' }}>March</option>
-                                    <option value="04" {{ old('date_month') == '04' ? 'selected' : '' }}>April</option>
-                                    <option value="05" {{ old('date_month') == '05' ? 'selected' : '' }}>May</option>
-                                    <option value="06" {{ old('date_month') == '06' ? 'selected' : '' }}>June</option>
-                                    <option value="07" {{ old('date_month') == '07' ? 'selected' : '' }}>July</option>
-                                    <option value="08" {{ old('date_month') == '08' ? 'selected' : '' }}>August</option>
-                                    <option value="09" {{ old('date_month') == '09' ? 'selected' : '' }}>September</option>
+                                <select id="dp_month" name="date_month">
+                                    <option value="1" {{ old('date_month') == '1' ? 'selected' : '' }}>January</option>
+                                    <option value="2" {{ old('date_month') == '2' ? 'selected' : '' }}>February</option>
+                                    <option value="3" {{ old('date_month') == '3' ? 'selected' : '' }}>March</option>
+                                    <option value="4" {{ old('date_month') == '4' ? 'selected' : '' }}>April</option>
+                                    <option value="5" {{ old('date_month') == '5' ? 'selected' : '' }}>May</option>
+                                    <option value="6" {{ old('date_month') == '6' ? 'selected' : '' }}>June</option>
+                                    <option value="7" {{ old('date_month') == '7' ? 'selected' : '' }}>July</option>
+                                    <option value="8" {{ old('date_month') == '8' ? 'selected' : '' }}>August</option>
+                                    <option value="9" {{ old('date_month') == '9' ? 'selected' : '' }}>September</option>
                                     <option value="10" {{ old('date_month') == '10' ? 'selected' : '' }}>October</option>
                                     <option value="11" {{ old('date_month') == '11' ? 'selected' : '' }}>November</option>
                                     <option value="12" {{ old('date_month') == '12' ? 'selected' : '' }}>December</option>
@@ -108,10 +108,38 @@
                                 <strong>
                                     Day
                                 </strong>
-                                <select id="dp_day">
-                                    <option value="01" {{ old('date_day') == '01' ? 'selected' : '' }}>1st</option>
-                                    <option value="02" {{ old('date_day') == '02' ? 'selected' : '' }}>2nd</option>
+                                <select id="dp_day" name="date_day">
+                                    <option value="1" {{ old('date_day') == '1' ? 'selected' : '' }}>1st</option>
+                                    <option value="2" {{ old('date_day') == '2' ? 'selected' : '' }}>2nd</option>
+                                    <option value="3" {{ old('date_day') == '3' ? 'selected' : '' }}>3rd</option>
+                                    <option value="4" {{ old('date_day') == '4' ? 'selected' : '' }}>4th</option>
+                                    <option value="5" {{ old('date_day') == '5' ? 'selected' : '' }}>5th</option>
+                                    <option value="6" {{ old('date_day') == '6' ? 'selected' : '' }}>6th</option>
+                                    <option value="7" {{ old('date_day') == '7' ? 'selected' : '' }}>7th</option>
+                                    <option value="8" {{ old('date_day') == '8' ? 'selected' : '' }}>8th</option>
+                                    <option value="9" {{ old('date_day') == '9' ? 'selected' : '' }}>9th</option>
+                                    <option value="10" {{ old('date_day') == '10' ? 'selected' : '' }}>10th</option>
+                                    <option value="11" {{ old('date_day') == '11' ? 'selected' : '' }}>11th</option>
+                                    <option value="12" {{ old('date_day') == '12' ? 'selected' : '' }}>12th</option>
+                                    <option value="13" {{ old('date_day') == '13' ? 'selected' : '' }}>13th</option>
+                                    <option value="14" {{ old('date_day') == '14' ? 'selected' : '' }}>14th</option>
+                                    <option value="15" {{ old('date_day') == '15' ? 'selected' : '' }}>15th</option>
+                                    <option value="16" {{ old('date_day') == '16' ? 'selected' : '' }}>16th</option>
+                                    <option value="17" {{ old('date_day') == '17' ? 'selected' : '' }}>17th</option>
+                                    <option value="18" {{ old('date_day') == '18' ? 'selected' : '' }}>18th</option>
+                                    <option value="19" {{ old('date_day') == '19' ? 'selected' : '' }}>19th</option>
+                                    <option value="20" {{ old('date_day') == '20' ? 'selected' : '' }}>20th</option>
+                                    <option value="21" {{ old('date_day') == '21' ? 'selected' : '' }}>21st</option>
+                                    <option value="22" {{ old('date_day') == '22' ? 'selected' : '' }}>22nd</option>
+                                    <option value="23" {{ old('date_day') == '23' ? 'selected' : '' }}>23rd</option>
+                                    <option value="24" {{ old('date_day') == '24' ? 'selected' : '' }}>24th</option>
+                                    <option value="25" {{ old('date_day') == '25' ? 'selected' : '' }}>25th</option>
+                                    <option value="26" {{ old('date_day') == '26' ? 'selected' : '' }}>26th</option>
+                                    <option value="27" {{ old('date_day') == '27' ? 'selected' : '' }}>27th</option>
+                                    <option value="28" {{ old('date_day') == '28' ? 'selected' : '' }}>28th</option>
+                                    <option value="29" {{ old('date_day') == '29' ? 'selected' : '' }}>29th</option>
                                     <option value="30" {{ old('date_day') == '30' ? 'selected' : '' }}>30th</option>
+                                    <option value="31" {{ old('date_day') == '31' ? 'selected' : '' }}>31st</option>
                                 </select>
                                 <span data-popover="Remove day" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
@@ -130,22 +158,32 @@
                                     Time
                                 </strong>
                                 <div>
-                                    <select id="dp_time_hour">
-                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>1</option>
-                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>2</option>
-                                        <option value="30" {{ old('date_time') == '30' ? 'selected' : '' }}>12</option>
+                                    <select id="dp_time">
+                                        <option value="01" {{ old('date_time_hour') == '01' ? 'selected' : '' }}>1</option>
+                                        <option value="02" {{ old('date_time_hour') == '02' ? 'selected' : '' }}>2</option>
+                                        <option value="03" {{ old('date_time_hour') == '03' ? 'selected' : '' }}>3</option>
+                                        <option value="04" {{ old('date_time_hour') == '04' ? 'selected' : '' }}>4</option>
+                                        <option value="05" {{ old('date_time_hour') == '05' ? 'selected' : '' }}>5</option>
+                                        <option value="06" {{ old('date_time_hour') == '06' ? 'selected' : '' }}>6</option>
+                                        <option value="07" {{ old('date_time_hour') == '07' ? 'selected' : '' }}>7</option>
+                                        <option value="08" {{ old('date_time_hour') == '08' ? 'selected' : '' }}>8</option>
+                                        <option value="09" {{ old('date_time_hour') == '09' ? 'selected' : '' }}>9</option>
+                                        <option value="10" {{ old('date_time_hour') == '10' ? 'selected' : '' }}>10</option>
+                                        <option value="11" {{ old('date_time_hour') == '11' ? 'selected' : '' }}>11</option>
+                                        <option value="12" {{ old('date_time_hour') == '12' ? 'selected' : '' }}>12</option>
                                     </select>
                                     :
                                     <select id="dp_time_min">
-                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>00</option>
-                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>01</option>
-                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>02</option>
-                                        <option value="30" {{ old('date_time') == '30' ? 'selected' : '' }}>59</option>
+                                        <option value="00" {{ old('date_time_min') == '01' ? 'selected' : '' }}>00</option>
+                                        <option value="01" {{ old('date_time_min') == '01' ? 'selected' : '' }}>01</option>
+                                        <option value="02" {{ old('date_time_min') == '02' ? 'selected' : '' }}>02</option>
+                                        <option value="59" {{ old('date_time_min') == '30' ? 'selected' : '' }}>59</option>
                                     </select>
-                                    <select id="dp_time_ap">
-                                        <option value="01" {{ old('date_time') == '01' ? 'selected' : '' }}>am</option>
-                                        <option value="02" {{ old('date_time') == '02' ? 'selected' : '' }}>pm</option>
+                                    <select id="dp_time_ampm">
+                                        <option value="am" {{ old('date_time_ampm') == 'am' ? 'selected' : '' }}>am</option>
+                                        <option value="pm" {{ old('date_time_ampm') == 'pm' ? 'selected' : '' }}>pm</option>
                                     </select>
+                                    <input type="hidden" type="text" name="date_time" value="{{ old('date_time') }}" />
                                 </div>
                                 <span data-popover="Remove time" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
@@ -168,72 +206,7 @@
                     <p>This text is revealed once "Read more" is clicked.</p>
                 </div>
 
-                <div class="date_wrapper" data-predate="{{ isset($predate) ? $predate : '' }}">
-                    <h3>Date</h3>
-                    <span class="add" data-period="year">Add Date</span>
-                    <div class="date">
-                        <div class="year {{ old('date_year') || old('date_month') || old('date_day') || old('date_time') ? 'date_active' : '' }}">
-                            <label>Year: <span class="remove" data-period="year"><i class="fa-solid fa-xmark"></i></span></label>
-                            <input data-date type="text" id="year" value="{{ old('date_year') }}"/>
-                            <div>
-                                <span class="add" data-period="month">Add Month</span>
-                            </div>
-                            <div class="month {{ old('date_month') || old('date_day') || old('date_time') ? 'date_active' : '' }}">
-                                <label>Month: <span class="remove" data-period="month"><i class="fa-solid fa-xmark"></i></span></label>
-                                <select data-date id="month">
-                                    <option value="">Select...</option>
-                                    <option value="01" {{ old('date_month') == '01' ? 'selected' : '' }}>January</option>
-                                    <option value="02" {{ old('date_month') == '02' ? 'selected' : '' }}>February</option>
-                                    <option value="03" {{ old('date_month') == '03' ? 'selected' : '' }}>March</option>
-                                    <option value="04" {{ old('date_month') == '04' ? 'selected' : '' }}>April</option>
-                                    <option value="05" {{ old('date_month') == '05' ? 'selected' : '' }}>May</option>
-                                    <option value="06" {{ old('date_month') == '06' ? 'selected' : '' }}>June</option>
-                                    <option value="07" {{ old('date_month') == '07' ? 'selected' : '' }}>July</option>
-                                    <option value="08" {{ old('date_month') == '08' ? 'selected' : '' }}>August</option>
-                                    <option value="09" {{ old('date_month') == '09' ? 'selected' : '' }}>September</option>
-                                    <option value="10" {{ old('date_month') == '10' ? 'selected' : '' }}>October</option>
-                                    <option value="11" {{ old('date_month') == '11' ? 'selected' : '' }}>November</option>
-                                    <option value="12" {{ old('date_month') == '12' ? 'selected' : '' }}>December</option>
-                                </select>
-                                <div>
-                                    <span class="add" data-period="day">Add Day</span>
-                                </div>
-                                <div class="day {{ old('date_day') || old('date_time') ? 'date_active' : '' }}">
-                                    <label>Day: <span class="remove" data-period="day"><i class="fa-solid fa-xmark"></i></span></label>
-                                    <input data-date type="text" id="day" value="{{ old('date_day') }}"/>
-                                    <div>
-                                        <span class="add" data-period="time">Add Time</span>
-                                    </div>
-                                    <div class="time {{ old('date_time') ? 'date_active' : '' }}">
-                                        <label>Time: (XX:XX) <span class="remove" data-period="time"><i class="fa-solid fa-xmark"></i></span></label>
-                                        <input data-date type="text" id="time" value="{{ old('date_time') }}"/>
-                                        <select data-date id="time_ampm">
-                                            <option value="AM" {{ old('date_time_ampm') == 'AM' ? 'selected' : '' }}>am</option>
-                                            <option value="PM" {{ old('date_time_ampm') == 'PM' ? 'selected' : '' }}>pm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hidden" style="display: none;">
-                    <h3>Hidden date fields</h3>
-                    <div class="year">
-                        Year: <input readonly type="text" name="date_year" /><br/><br/>
-                        <div class="month">
-                            Month: <input readonly type="text" name="date_month" /><br/><br/>
-                            <div class="day">
-                                Day: <input readonly type="text" name="date_day" /><br/><br/>     
-                                <div class="time">
-                                    Time: <input readonly type="text" name="date_time" /><br/><br/>
-                                    AM / PM: <input readonly type="text" name="date_time_ampm" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
             </section>
 
