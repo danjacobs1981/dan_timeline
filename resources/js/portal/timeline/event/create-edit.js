@@ -30,7 +30,7 @@ function CreateEditEvent() {
     /* date picker */
     var $datepicker = $('.control--datepicker');
     var predate = $datepicker.data('predate').toString();
-    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     $.each(predate.split(/\|/), function(i, val) {
         var period = '';
@@ -51,16 +51,20 @@ function CreateEditEvent() {
             if (i <= 3) {
                 $datepicker.find('.period.' + period).removeClass('add').addClass('active').next('div').addClass('add');
             }
-            $('#dp_' + period).val(val);
+            $('#' + period).val(val);
+            updateFields(period, val);
         }
     });
 
     $datepicker.on('click', '.period.add', function() {
         $(this).addClass('active').removeClass('add').next('div').addClass('add');
+        updateFields($(this).data('period'), $(this).find('[data-date').val());
     });
 
     $datepicker.on('click', '.period.active>div>span', function() {
         $(this).closest('.period').css('border-color', 'inherit').removeClass('active').addClass('add').nextAll('div').css('border-color', 'inherit').removeClass('active').removeClass('add');
+        var period = $(this).closest('.period').data('period');
+        $('.hidden-dates input[name="date_' + period + '"]').val(null).nextAll('input').val(null);
     });
 
     $datepicker.on('mouseenter', '.period.active>div>span', function() {
@@ -71,11 +75,41 @@ function CreateEditEvent() {
         $('.period').css('border-color', 'inherit');
     });
 
-    $datepicker.on('change', '#dp_month', function() {
+    $datepicker.on('change', '#month', function() {
         var daysCount = daysInMonth[(this.value * 1) - 1];
-        console.log(daysCount);
-        $('#dp_day').val(1);
+        var dayCurrent = $('#day').val();
+        $('#day option').show();
+        if (daysCount == 30) {
+            if (dayCurrent == 31) {
+                $('#day, input[name="date_day"]').val(30);
+            }
+            $('#day option[value=31]').hide();
+        } else if (daysCount == 29) {
+            if (dayCurrent > 29) {
+                $('#day, input[name="date_day"]').val(29);
+            }
+            $('#day option[value=31], #day option[value=30]').hide();
+        }
     });
+
+    $datepicker.on('input', '#year', function() {
+        updateFields('year', this.value);
+    });
+
+    $datepicker.on('change', 'select', function() {
+        updateFields($(this).attr('id'), this.value);
+    });
+
+    function updateFields(period, value) {
+        if (period == 'year') {
+            $('input[name="date_year"]').val(value);
+        } else if (period == 'time' || period == 'time_min') {
+            $('input[name="date_time"]').val($('#time').val() + ':' + $('#time_min').val());
+            $('input[name="date_time_ampm"]').val($('#time_ampm').val());
+        } else {
+            $('input[name="date_' + period + '"]').val(value);
+        }
+    }
 
     /* map */
 
@@ -110,7 +144,7 @@ function CreateEditEvent() {
         dropPin();
     });
 
-    $('[data-date]').each(function() {
+    /*$('[data-date]').each(function() {
         var name = $(this).attr('id');
         $('input[name="date_' + name + '"]').val(this.value);
         if (this.value) {
@@ -153,7 +187,7 @@ function CreateEditEvent() {
     $('.date select').on('change', function() {
         var name = $(this).attr('id');
         $('input[name="date_' + name + '"]').val(this.value);
-    });
+    });*/
 
     function dropPin() {
         // if any previous marker exists, let's first remove it from the map

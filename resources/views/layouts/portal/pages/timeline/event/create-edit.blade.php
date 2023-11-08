@@ -1,3 +1,5 @@
+@inject('carbon', 'Carbon\Carbon')
+
 <div id="timelineEventCreateEdit">
 
     <header>
@@ -36,7 +38,21 @@
                 </ul>
             </div>
         @endif
-  
+
+        @php
+            if (isset($event)) {
+                if ($event->date_type == 1) {
+                    $predate = $event->date_year;
+                } else if ($event->date_type == 2) {
+                    $predate = $carbon::parse($event->date_unix)->format('Y|n');
+                } else if ($event->date_type == 3) {
+                    $predate = $carbon::parse($event->date_unix)->format('Y|n|j');
+                } else if ($event->date_type == 4) {
+                    $predate = $carbon::parse($event->date_unix)->format('Y|n|j|h|i|a');
+                }
+            }
+        @endphp
+
         <form id="formEventCreateEdit" method="post" action="{{ isset($event) ? route('timelines.events.update', [ 'timeline' => $timeline, 'event' => $event ]) : route('timelines.events.store', [ 'timeline' => $timeline ]) }}">
 
             <section id="event-details-tab" class="event__tab" style="display:none;">
@@ -50,7 +66,7 @@
                 <div class="control control--datepicker" data-predate="{{ isset($predate) ? $predate : '' }}">
                     <span class="control__label">Event Date &amp; Time</span>
                     <div>
-                        <div class="period year add">
+                        <div class="period year add" data-period="year">
                             <em data-popover="Add year" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -61,13 +77,13 @@
                                 <strong>
                                     Year
                                 </strong>
-                                <input type="text" id="dp_year" name="date_year" value="{{ old('date_year') }}" placeholder="YYYY"/>
+                                <input type="text" data-date id="year" value="{{ old('date_year') }}" placeholder="YYYY" autocomplete="off" />
                                 <span data-popover="Remove year" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </span>
                             </div>
                         </div>
-                        <div class="period month">
+                        <div class="period month" data-period="month">
                             <em data-popover="Add month" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -78,7 +94,7 @@
                                 <strong>
                                     Month
                                 </strong>
-                                <select id="dp_month" name="date_month">
+                                <select id="month" data-date>
                                     <option value="1" {{ old('date_month') == '1' ? 'selected' : '' }}>January</option>
                                     <option value="2" {{ old('date_month') == '2' ? 'selected' : '' }}>February</option>
                                     <option value="3" {{ old('date_month') == '3' ? 'selected' : '' }}>March</option>
@@ -97,7 +113,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="period day">
+                        <div class="period day" data-period="day">
                             <em data-popover="Add day" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -108,7 +124,7 @@
                                 <strong>
                                     Day
                                 </strong>
-                                <select id="dp_day" name="date_day">
+                                <select id="day" data-date>
                                     <option value="1" {{ old('date_day') == '1' ? 'selected' : '' }}>1st</option>
                                     <option value="2" {{ old('date_day') == '2' ? 'selected' : '' }}>2nd</option>
                                     <option value="3" {{ old('date_day') == '3' ? 'selected' : '' }}>3rd</option>
@@ -146,7 +162,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="period time">
+                        <div class="period time" data-period="time">
                             <em data-popover="Add time" data-popover-position="top">
                                 <i class="fa-solid fa-circle-plus"></i>
                                 <span>
@@ -158,7 +174,7 @@
                                     Time
                                 </strong>
                                 <div>
-                                    <select id="dp_time">
+                                    <select id="time" data-date>
                                         <option value="01" {{ old('date_time_hour') == '01' ? 'selected' : '' }}>1</option>
                                         <option value="02" {{ old('date_time_hour') == '02' ? 'selected' : '' }}>2</option>
                                         <option value="03" {{ old('date_time_hour') == '03' ? 'selected' : '' }}>3</option>
@@ -173,17 +189,16 @@
                                         <option value="12" {{ old('date_time_hour') == '12' ? 'selected' : '' }}>12</option>
                                     </select>
                                     :
-                                    <select id="dp_time_min">
-                                        <option value="00" {{ old('date_time_min') == '01' ? 'selected' : '' }}>00</option>
+                                    <select id="time_min" data-date>
+                                        <option value="00" {{ old('date_time_min') == '00' ? 'selected' : '' }}>00</option>
                                         <option value="01" {{ old('date_time_min') == '01' ? 'selected' : '' }}>01</option>
                                         <option value="02" {{ old('date_time_min') == '02' ? 'selected' : '' }}>02</option>
-                                        <option value="59" {{ old('date_time_min') == '30' ? 'selected' : '' }}>59</option>
+                                        <option value="59" {{ old('date_time_min') == '59' ? 'selected' : '' }}>59</option>
                                     </select>
-                                    <select id="dp_time_ampm">
+                                    <select id="time_ampm" data-date>
                                         <option value="am" {{ old('date_time_ampm') == 'am' ? 'selected' : '' }}>am</option>
                                         <option value="pm" {{ old('date_time_ampm') == 'pm' ? 'selected' : '' }}>pm</option>
                                     </select>
-                                    <input type="hidden" type="text" name="date_time" value="{{ old('date_time') }}" />
                                 </div>
                                 <span data-popover="Remove time" data-popover-position="bottom">
                                     <i class="fa-solid fa-circle-xmark"></i>
@@ -193,7 +208,15 @@
                     </div>
                     <p>Adding a date is optional. Complete as much (or as little) of the date as required.</p>
                 </div>
-            
+
+                <div class="hidden-dates">
+                    <input type="hidden" name="date_year" />
+                    <input type="hidden" name="date_month" />
+                    <input type="hidden" name="date_day" />
+                    <input type="hidden" name="date_time" />
+                    <input type="hidden" name="date_time_ampm" />
+                </div>
+
                 <div class="control">
                     <span class="control__label">Event Image</span>
                     image
@@ -205,8 +228,6 @@
                     <textarea id="textarea" name="description" rows="4" cols="50"></textarea>
                     <p>This text is revealed once "Read more" is clicked.</p>
                 </div>
-
-                
 
             </section>
 
