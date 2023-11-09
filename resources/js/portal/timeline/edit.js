@@ -44,11 +44,6 @@ window.loadEvents = function() {
     });
 }
 
-//var previousEvent = null;
-
-
-
-
 var topHeight = getTopHeight();
 setLayout();
 loadEvents();
@@ -74,8 +69,6 @@ $('#events-tab header>div>em').on('click', function() {
     };
 });
 
-
-
 // header tabs
 
 if ($(window.location.hash).length) {
@@ -84,21 +77,12 @@ if ($(window.location.hash).length) {
     } else {
         openTab(window.location.hash);
     }
+} else {
+    openTab('#' + $('section.edit__tab:first').attr('id'));
 }
 
 $('.edit__section header>ul a, a.tab').on('click', function() {
     openTab($(this).attr('href'));
-});
-
-// visibility
-$('.visibility>span').on('click', function(e) {
-    e.preventDefault();
-    $('.visibility-options').show();
-});
-
-$('.visibility-options>span>a').on('click', function(e) {
-    e.preventDefault();
-    $('.visibility-options').hide();
 });
 
 function openTab(id) {
@@ -119,6 +103,20 @@ function openTab(id) {
 
     $(activeTab).show();
 }
+
+// timeline visibility box
+
+$('.visibility>span').on('click', function(e) {
+    e.preventDefault();
+    $('.visibility-options').show();
+});
+
+$('.visibility-options>span>a').on('click', function(e) {
+    e.preventDefault();
+    $('.visibility-options').hide();
+});
+
+// layout functions
 
 function getTopHeight() {
     if (screenSize > 4) {

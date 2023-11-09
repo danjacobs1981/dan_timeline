@@ -1,3 +1,9 @@
+input {
+    &::placeholder {
+        opacity: 0.5;
+    }
+}
+
 .control {
     $textbox: #{&}--textbox;
     $textarea: #{&}--textarea;

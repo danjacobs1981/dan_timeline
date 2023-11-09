@@ -70,38 +70,13 @@ class TimelineEventController extends Controller
     public function store(Timeline $timeline, Request $request)
     {
 
-        if($request->ajax()){
+        if ($request->ajax()){
             
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-                $date_type = null;
+                $timeline_id = $timeline->id;
 
-                $request['date_unix'] = null;
-
-                if ($request->date_day || $request->date_month || $request->date_year || $request->date_time) {
-                    if ($request->date_day && $request->date_month && $request->date_year && $request->date_time) { // TIME
-                        $request['date_unix'] = $request->date_day.'-'.$request->date_month.'-'.$request->date_year.' '.$request->date_time.' '.$request->date_time_ampm;
-                        $date_type = 4;
-                    } else if ($request->date_day && $request->date_month && $request->date_year && !$request->date_time) { // DAY
-                        $request['date_unix'] = $request->date_day.'-'.$request->date_month.'-'.$request->date_year.' 00:00:00';
-                        $request['date_time'] = null;
-                        $date_type = 3;
-                    } else if ($request->date_month && $request->date_year && !$request->date_day && !$request->date_time) { // MONTH
-                        $request['date_unix'] = '01-'.$request->date_month.'-'.$request->date_year.' 00:00:00';
-                        $request['date_day'] = null;
-                        $request['date_time'] = null;
-                        $date_type = 2;
-                    } else if ($request->date_year && !$request->date_month && !$request->date_day && !$request->date_time) { // YEAR
-                        $request['date_unix'] = '01-01-'.$request->date_year.' 00:00:00';
-                        $request['date_month'] = null;
-                        $request['date_day'] = null;
-                        $request['date_time'] = null;
-                        $date_type = 1;
-                    } else { // NONE
-                        $request['date_unix'] = 0; // needs to be zero to throw validation error
-                        $request['date_time'] = null;
-                    }
-                }
+                $date_type = getDateType($request);
 
                 $data = $request->validate(
                     [
@@ -110,10 +85,9 @@ class TimelineEventController extends Controller
                         'date_month' => 'nullable|numeric|between:1,12',
                         'date_day' => 'nullable|numeric|between:1,31',
                         'date_time' => 'nullable|date_format:h:i',
-                        //'date_time_ampm' => 'nullable|in:AM,PM',
                         'date_unix' => 'nullable|date',
-                        'location_lat' => 'required_with:date_time',
-                        'location_lng' => 'required_with:date_time',
+                        'location_lat' => 'nullable',
+                        'location_lng' => 'nullable',
                         'location_geo_street' => 'boolean',
                         'location_show' => 'boolean',
                     ],
@@ -171,20 +145,19 @@ class TimelineEventController extends Controller
 
                 // get time details
                 if ($data['date_unix']) {
-                    $data['date_unix'] = Carbon::parse($request->date_unix)->timestamp;
+                    $data['date_unix'] = Carbon::parse($data['date_unix'])->timestamp;
                     $data['date_unix_gmt'] = $data['date_unix'];
                     if ($data['date_time']) {
                         $data['date_time'] = Carbon::parse($request->date_time.' '.$request->date_time_ampm)->format('H:i'); // converts to 24 hour
+                        $data['location_tz'] = 'Coordinated Universal Time'; // time exists so set UTC as default timezone
                     }
                     if ($data['date_time'] && $data['location_lat'] && $data['location_lng']) {
                         $timezone = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.env('VITE_GOOGLE_API'));
                         if ($timezone->status == 'OK') {
                             $data['date_unix_gmt'] = $data['date_unix'] + (($timezone->dstOffset + $timezone->rawOffset) * -1);
-                            $data['location_tz'] = $timezone->timeZoneId;
-                            $data['location_tz_error'] = 0; 
+                            $data['location_tz'] = $timezone->timeZoneId; // and then overrides timezone if successful
                         } else {
                             $data['location_tz_error'] = 1; 
-                            $data['location_tz'] = 'Coordinated Universal Time';
                         }
                     }
                 } else {
@@ -195,10 +168,9 @@ class TimelineEventController extends Controller
 
                 // reorder items during its section & period
 
-                $timeline_id = $timeline->id;
                 $events = $timeline->events;
                 
-                if($date_type == 1) {
+                if ($date_type == 1) {
 
                     // YEAR
                     $exists_year = $events->where('date_year', $data['date_year'])->sortByDesc('order_ym')->first();
@@ -313,6 +285,7 @@ class TimelineEventController extends Controller
                 return response()->json([
                     'status'=> 200,
                     'message' => 'Event created successfully',
+                    'loadEvents' => true,
                     'timeline_id' => $timeline_id
                 ]);
 
@@ -363,7 +336,76 @@ class TimelineEventController extends Controller
      */
     public function update(Timeline $timeline, Event $event, Request $request)
     {
-        dd("update");
+        
+        //dd($request);
+
+        if ($request->ajax()){
+            
+            if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+                $timeline_id = $timeline->id;
+
+                $date_type = getDateType($request);
+
+                if ($request->date) { // only updating date
+
+                    $data = $request->validate(
+                        [
+                            'date_year' => 'nullable|integer|digits:4|max:9999',
+                            'date_month' => 'nullable|numeric|between:1,12',
+                            'date_day' => 'nullable|numeric|between:1,31',
+                            'date_time' => 'nullable|date_format:h:i',
+                            'date_unix' => 'nullable|date'
+                        ],
+                        [   
+                            'date_unix.date' => 'Please enter a valid date'
+                        ]
+                    );
+
+                    if ($data['date_unix']) {
+                        $data['date_unix'] = Carbon::parse($data['date_unix'])->timestamp;
+                    }
+
+                    if ($data['date_unix'] != $event->date_unix) {
+
+                        // date has been updated
+                        dd("date has been updated");
+
+                        return response()->json([
+                            'status'=> 200,
+                            'message' => 'Date updated',
+                            'loadEvents' => true,
+                            'timeline_id' => $timeline_id
+                        ]);
+
+                    } else {
+
+                        return response()->json([
+                            'status'=> 200,
+                            'message' => 'No change in date',
+                            'loadEvents' => false,
+                            'timeline_id' => $timeline_id
+                        ]);
+
+                    }
+
+                } else { // full event update
+
+                    dd("full event update");
+
+                }
+
+            } else {
+
+                return response()->json([
+                    'status'=> 401,
+                    'message' => 'Authentication error',
+                ]);
+
+            }
+
+        }
+
     }
 
     /**
@@ -380,9 +422,9 @@ class TimelineEventController extends Controller
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
             $modal_title = 'Change Event Date';
-            $modal_buttons = array('close' => 'Cancel', 'action' => 'Change Date');
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Change Date', 'form' => 'formEventEditDate');
             $route = 'layouts.portal.snippets.edit-event-date';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'event'));
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
 
         } else {
 
@@ -392,6 +434,33 @@ class TimelineEventController extends Controller
 
     }
 
+}
+
+function getDateType($request) {
+    $request['date_unix'] = null;
+    if ($request->date_day || $request->date_month || $request->date_year || $request->date_time) {
+        if ($request->date_day && $request->date_month && $request->date_year && $request->date_time) { // TIME
+            $request['date_unix'] = $request->date_day.'-'.$request->date_month.'-'.$request->date_year.' '.$request->date_time.' '.$request->date_time_ampm;
+            return 4;
+        } else if ($request->date_day && $request->date_month && $request->date_year && !$request->date_time) { // DAY
+            $request['date_unix'] = $request->date_day.'-'.$request->date_month.'-'.$request->date_year.' 00:00:00';
+            $request['date_time'] = null;
+            return 3;
+        } else if ($request->date_month && $request->date_year && !$request->date_day && !$request->date_time) { // MONTH
+            $request['date_unix'] = '01-'.$request->date_month.'-'.$request->date_year.' 00:00:00';
+            $request['date_day'] = null;
+            $request['date_time'] = null;
+            return 2;
+        } else if ($request->date_year && !$request->date_month && !$request->date_day && !$request->date_time) { // YEAR
+            $request['date_unix'] = '01-01-'.$request->date_year.' 00:00:00';
+            $request['date_month'] = null;
+            $request['date_day'] = null;
+            $request['date_time'] = null;
+            return 1;
+        }
+    } else {
+        return null; // NONE
+    }
 }
 
 function reorderYear($timeline_id, $events, &$data) {

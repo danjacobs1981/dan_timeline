@@ -27,7 +27,7 @@ function CreateEditEvent() {
         $(activeTab).show();
     }
 
-    /* date picker */
+    // DATE PICKER 
     var $datepicker = $('.control--datepicker');
     var predate = $datepicker.data('predate').toString();
     var daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -52,19 +52,19 @@ function CreateEditEvent() {
                 $datepicker.find('.period.' + period).removeClass('add').addClass('active').next('div').addClass('add');
             }
             $('#' + period).val(val);
-            updateFields(period, val);
+            updateDateFields(period, val);
         }
     });
 
     $datepicker.on('click', '.period.add', function() {
         $(this).addClass('active').removeClass('add').next('div').addClass('add');
-        updateFields($(this).data('period'), $(this).find('[data-date').val());
+        updateDateFields($(this).data('period'), $(this).find('[data-date').val());
     });
 
     $datepicker.on('click', '.period.active>div>span', function() {
         $(this).closest('.period').css('border-color', 'inherit').removeClass('active').addClass('add').nextAll('div').css('border-color', 'inherit').removeClass('active').removeClass('add');
         var period = $(this).closest('.period').data('period');
-        $('.hidden-dates input[name="date_' + period + '"]').val(null).nextAll('input').val(null);
+        $('.date-fields input[name="date_' + period + '"]').val(null).nextAll('input').val(null);
     });
 
     $datepicker.on('mouseenter', '.period.active>div>span', function() {
@@ -93,14 +93,14 @@ function CreateEditEvent() {
     });
 
     $datepicker.on('input', '#year', function() {
-        updateFields('year', this.value);
+        updateDateFields('year', this.value);
     });
 
     $datepicker.on('change', 'select', function() {
-        updateFields($(this).attr('id'), this.value);
+        updateDateFields($(this).attr('id'), this.value);
     });
 
-    function updateFields(period, value) {
+    function updateDateFields(period, value) {
         if (period == 'year') {
             $('input[name="date_year"]').val(value);
         } else if (period == 'time' || period == 'time_min') {
@@ -223,13 +223,15 @@ function CreateEditEvent() {
             encode: true,
         }).done(function(response) {
             $.modal.close();
-            loadEvents();
-            $.ajax({
-                type: 'PUT',
-                url: '/timelines/' + response.timeline_id + '/reorder',
-                dataType: 'json',
-                encode: true
-            });
+            if (response.loadEvents) {
+                loadEvents();
+                $.ajax({
+                    type: 'PUT',
+                    url: '/timelines/' + response.timeline_id + '/reorder',
+                    dataType: 'json',
+                    encode: true
+                });
+            }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             //console.log(jqXHR.responseText);
