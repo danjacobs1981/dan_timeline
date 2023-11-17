@@ -198,7 +198,20 @@
         </div>
     </div>
     <p>Adding a date is optional. Complete as much (or as little) of the date as required.</p>
+    
+    @isset($timezone)
+        <p class="info" style="display: none;"><i class="fa-regular fa-clock"></i><span>This event has a timezone of <strong>{{ $timezone }}</strong> based on its location <a {{ $date ? 'href='.route('timelines.events.edit.location', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]).' data-modal data-modal-class=modal-edit-event-location data-modal-size=modal-lg data-modal-showclose=false data-modal-clickclose=false' : 'href=#event-map-tab class=tab'}}>Edit Location / Timezone</a></span></p>
+    @else
+        <p class="info" style="display: none;"><i class="fa-regular fa-clock"></i><span>No location has been set, therefore the timezone is defaulted to <strong>Coordinated Universal Time (UTC)</strong> <a {{ $date ? 'href='.route('timelines.events.edit.location', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]).' data-modal data-modal-class=modal-edit-event-location data-modal-size=modal-lg data-modal-showclose=false data-modal-clickclose=false' : 'href=#event-map-tab class=tab'}}>Add Location / Timezone</a></span>
+    @endisset
+
 </div>
+
+@if($date)
+    <!-- if location change then will need these fields (plus more) passed from the location modal
+    <input type="hidden" name="location_lat" />
+    <input type="hidden" name="location_lng" />--->
+@endif
 
 <div class="date-fields">
     <input type="hidden" name="date_year" />

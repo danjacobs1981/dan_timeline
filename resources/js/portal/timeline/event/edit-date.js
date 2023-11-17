@@ -41,14 +41,15 @@ function EditEventDate() {
         }
     });
 
-    $datepicker.on('click', '.period.add', function() {
+    $datepicker.on('click', '.period.add', function() { // add
         $(this).addClass('active').removeClass('add').next('div').addClass('add');
         updateDateFields($(this).data('period'), $(this).find('[data-date').val());
     });
 
-    $datepicker.on('click', '.period.active>div>span', function() {
+    $datepicker.on('click', '.period.active>div>span', function() { // remove
         $(this).closest('.period').css('border-color', 'inherit').removeClass('active').addClass('add').nextAll('div').css('border-color', 'inherit').removeClass('active').removeClass('add');
         var period = $(this).closest('.period').data('period');
+        $datepicker.find('p.info').hide();
         $('.date-fields input[name="date_' + period + '"]').val(null).nextAll('input').val(null);
     });
 
@@ -91,6 +92,7 @@ function EditEventDate() {
         } else if (period == 'time' || period == 'time_min') {
             $('input[name="date_time"]').val($('#time').val() + ':' + $('#time_min').val());
             $('input[name="date_time_ampm"]').val($('#time_ampm').val());
+            $datepicker.find('p.info').show();
         } else {
             $('input[name="date_' + period + '"]').val(value);
         }

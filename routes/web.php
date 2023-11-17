@@ -56,6 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             // crud of timeline events
             Route::get('/timelines/{timeline}/events/{event}/edit/date', 'Portal\TimelineEventController@showModalDate')->name('timelines.events.edit.date');
+            Route::get('/timelines/{timeline}/events/{event}/edit/location', 'Portal\TimelineEventController@showModalLocation')->name('timelines.events.edit.location');
             Route::resource('timelines.events', Portal\TimelineEventController::class);
             
             // crud of profile

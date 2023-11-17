@@ -98,8 +98,8 @@
                                     <option value="saab">Saab</option>
                                     <option value="mercedes">Mercedes</option>
                                     <option value="audi">Audi</option>
-                                  </select>
-                                  <p>Helpful line of text goes along here.</p>
+                                </select>
+                                <p>Helpful line of text goes along here.</p>
                             </div>
     
                             <div class="control control--textarea">

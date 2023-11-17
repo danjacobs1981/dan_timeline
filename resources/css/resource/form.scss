@@ -49,6 +49,43 @@ input {
         font-size: 0.813rem;
         margin: 0.5rem 0 0;
         color: var(--greyMedium);
+        &:first-of-type {
+            margin-top: 0.75rem!important;
+        }
+        &.info {
+            margin-top: 0.75rem;
+            font-size: 0.938rem;
+            background-color: var(--info);
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            display: inline-flex;
+            gap: 0.5rem;
+            color: #fff;
+            line-height: 1.438rem;
+            &>i {
+                font-size: 1.125rem;
+                min-width: 1.438rem;
+                text-align: center;
+                position: relative;
+                top: 2px;
+            }
+            &>span {
+                &>a,
+                &>em {
+                    background: #fff;
+                    color: var(--info);
+                    font-style: normal;
+                    border-radius: 0.25rem;
+                    padding: 0.25rem 0.375rem;
+                    font-size: 0.875rem;
+                    line-height: 0.938rem;
+                    display: inline-block;
+                    margin-left: 0.5rem;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
+        }
     }
     &--datepicker {
         &>div {
@@ -204,7 +241,9 @@ input {
             }
         }
         &>p {
-            margin-top: 1.25rem;
+            &:first-of-type {
+                margin-top: 1rem!important;
+            }
         }
     }
     &>input,
@@ -254,6 +293,12 @@ input {
         width: fit-content;
         color: #000;
         font-size: 0.906rem;
+        &>em {
+            cursor: pointer;
+            color: var(--link);
+            text-decoration: underline;
+            font-style: normal;
+        }
         &>i {
             font-size: 12px;
             position: absolute;
@@ -276,7 +321,7 @@ input {
         #{$radio} & {
             position: relative;
             margin-bottom: 0.375rem;
-            padding: 0.25rem 0 0.125rem 1.875rem;
+            padding: 0.25rem 0 0.375rem 1.875rem;
             cursor: pointer;
             line-height: 1;
             &:last-child {

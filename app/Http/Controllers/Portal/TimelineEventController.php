@@ -88,8 +88,9 @@ class TimelineEventController extends Controller
                         'date_unix' => 'nullable|date',
                         'location_lat' => 'nullable',
                         'location_lng' => 'nullable',
-                        'location_geo_street' => 'boolean',
-                        'location_show' => 'boolean',
+                        'location_show' => 'integer|between:0,2',
+                        'location_geo' => 'nullable|integer|between:1,5',
+                        'location_zoom' => 'nullable|integer|between:3,19',
                     ],
                     [   
                         'title.required' => 'Please enter a title',
@@ -97,51 +98,6 @@ class TimelineEventController extends Controller
                         'date_unix.date' => 'Please enter a valid date'
                     ]
                 );
-
-                // get geo location details
-                if ($data['location_lat'] && $data['location_lng']) {
-                    $location = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.env('VITE_GOOGLE_API'));
-                    if ($location->status == 'OK') {
-                        $street = '';
-                        $city = '';
-                        $country = '';
-                        // street
-                        foreach ($location->results as $result) {
-                            foreach ($result->address_components as $address) {
-                                if (in_array('route', $address->types)) {
-                                    $street = $address->long_name;
-                                }
-                            }
-                        }
-                        // city
-                        foreach ($location->results as $result) {
-                            foreach ($result->address_components as $address) {
-                                if (in_array('locality', $address->types)) {
-                                    $city = $address->long_name;
-                                }
-                            }
-                        }
-                        // country
-                        foreach ($location->results as $result) {
-                            foreach ($result->address_components as $address) {
-                                if (in_array('country', $address->types)) {
-                                    $country = $address->long_name;
-                                }
-                            }
-                        }
-                        $location_geo = '';
-                        if (($data['location_geo_street'] && ($street != '' && $street != 'Unnamed Road')) && $city != '' && $country != '') {
-                            $location_geo = $street.', '.$city.', '.$country;
-                        } else if ($city != '' && $country != '') {
-                            $location_geo = $city.', '.$country;
-                        } else if ($country != '') {
-                            $location_geo = $country;
-                        }
-                        if ($location_geo != '') {
-                            $data['location_geo'] = $location_geo;
-                        }
-                    }
-                }
 
                 // get time details
                 if ($data['date_unix']) {
@@ -151,19 +107,101 @@ class TimelineEventController extends Controller
                         $data['date_time'] = Carbon::parse($request->date_time.' '.$request->date_time_ampm)->format('H:i'); // converts to 24 hour
                         $data['location_tz'] = 'Coordinated Universal Time'; // time exists so set UTC as default timezone
                     }
-                    if ($data['date_time'] && $data['location_lat'] && $data['location_lng']) {
-                        $timezone = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.env('VITE_GOOGLE_API'));
-                        if ($timezone->status == 'OK') {
-                            $data['date_unix_gmt'] = $data['date_unix'] + (($timezone->dstOffset + $timezone->rawOffset) * -1);
-                            $data['location_tz'] = $timezone->timeZoneId; // and then overrides timezone if successful
-                        } else {
-                            $data['location_tz_error'] = 1; 
-                        }
-                    }
                 } else {
                     $data['date_month'] = null;
                     $data['date_day'] = null;
                     $data['date_time'] = null;
+                }
+
+                // get geo location details
+                if ($data['location_show'] && $data['location_lat'] && $data['location_lng']) {
+                    // if a time is set then get a timezone
+                    if ($data['date_time']) {
+                        $timezone_json = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.env('VITE_GOOGLE_API'));
+                        if ($timezone_json->status == 'OK') {
+                            $data['date_unix_gmt'] = $data['date_unix'] + (($timezone_json->dstOffset + $timezone_json->rawOffset) * -1);
+                            $data['location_tz'] = str_replace('_', ' ', $timezone_json->timeZoneId); // and then overrides timezone if successful
+                            dd($data['location_tz']);
+                        } else {
+                            $data['location_tz_error'] = 1; 
+                        }
+                    }         
+                    // only want geocode details        
+                    if ($data['location_show'] == 1) {
+                        $geocode_json = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.env('VITE_GOOGLE_API'));
+                        if ($geocode_json->status == 'OK') {
+                            $building = null;
+                            $street = null;
+                            $city = null;
+                            $region = null;
+                            $country = null;
+                            foreach ($location_json->results as $result) {
+                                foreach ($result->address_components as $address) {
+                                    if (in_array('premise', $address->types)) {
+                                        $building = $address->long_name;
+                                    }
+                                    if (in_array('route', $address->types)) {
+                                        $street = $address->long_name;
+                                    }
+                                    if (in_array('locality', $address->types)) {
+                                        $city = $address->long_name;
+                                    } else if (in_array('postal_town', $address->types)) {
+                                        $city = $address->long_name;
+                                    } else if (in_array('administrative_area_level_3', $address->types)) {
+                                        $city = $address->long_name;
+                                    }
+                                    if (in_array('administrative_area_level_2', $address->types)) {
+                                        $region = $address->long_name;
+                                    } else if (in_array('administrative_area_level_1', $address->types)) {
+                                        $region = $address->long_name;
+                                    }
+                                    if (in_array('country', $address->types)) {
+                                        $country = $address->long_name;
+                                    }
+                                }
+                            }
+                            $data['location_geo_building'] = $building;
+                            $data['location_geo_street'] = $street;
+                            $data['location_geo_city'] = $city;
+                            $data['location_geo_region'] = $region;
+                            $data['location_geo_country'] = $country;
+                            // build up $data['location'] based on $data['location_geo'] value
+                            $location_first = null;
+                            $location_second = null;
+                            if ($data['location_geo'] == 1) {
+                                $location_first = firstNonEmpty([$building, $street]);
+                                if (!$location_first || $location_first == 'Unnamed Road') {
+                                    $location_first = firstNonEmpty([$city, $region]);
+                                } else {
+                                    $location_second = firstNonEmpty([$city, $region]);
+                                }
+                            } else if ($data['location_geo'] == 2) {
+                                $location_first = firstNonEmpty([$street, $city]);
+                                if (!$location_first || $location_first == 'Unnamed Road') {
+                                    $location_first = $region;
+                                } else {
+                                    $location_second = $region;
+                                }
+                            } else if ($data['location_geo'] == 3) {
+                                $location_first = firstNonEmpty([$city, $region]);
+                            } else if ($data['location_geo'] == 4) {
+                                $location_first = $region;
+                            }
+                            $location = null;
+                            if ($location_first && $location_second) {
+                                $location = $location_first.', '.$location_second;
+                            } else if ($location_first || $location_second) {
+                                $location = firstNonEmpty([$location_first, $location_second]);
+                            }
+                            if ($location && $country) {
+                                $location = $location.', '.$country;
+                            } else if ($country) {
+                                $location = $country;
+                            }
+                            //dd($location);
+                            $data['location'] = $location;
+                        }
+                    }
                 }
 
                 // reorder items during its section & period
@@ -434,6 +472,24 @@ class TimelineEventController extends Controller
 
     }
 
+    public function showModalLocation(Timeline $timeline, Event $event)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $modal_title = 'Event Location';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Done');
+            $route = 'layouts.portal.snippets.edit-event-location';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
+
+        } else {
+
+            abort(401);
+
+        }
+
+    }
+
 }
 
 function getDateType($request) {
@@ -506,3 +562,12 @@ function reorderTime($timeline_id, $events, &$data) {
         return $after_time['order_dt']; 
     }  
 }
+
+function firstNonEmpty(array $list) {
+    foreach ($list as $value) {
+      if ($value) {
+        return $value;
+      }
+    }
+    return null;
+  }

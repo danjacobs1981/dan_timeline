@@ -2,6 +2,8 @@
 
 <div id="timelineEventEditDate">
 
+    <h6>Event: {{ $event->title }}</h6>
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -29,7 +31,7 @@
         @csrf
         @method('put')
 
-        @include('layouts.portal.snippets.date-picker')
+        @include('layouts.portal.snippets.form-date', [ 'date' => true, 'timezone' => isset($event) ? $event->location_tz : null ])
 
     </form>
 
