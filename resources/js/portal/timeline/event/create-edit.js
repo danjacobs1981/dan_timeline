@@ -28,6 +28,10 @@ function CreateEditEvent() {
     }
 
     // DATE PICKER 
+
+    var lat = $('input[name="location_lat"]').val();
+    var lng = $('input[name="location_lng"]').val();
+
     var $datepicker = $('.control--datepicker');
     var predate = $datepicker.data('predate').toString();
     var daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -107,7 +111,11 @@ function CreateEditEvent() {
         } else if (period == 'time' || period == 'time_min') {
             $('input[name="date_time"]').val($('#time').val() + ':' + $('#time_min').val());
             $('input[name="date_time_ampm"]').val($('#time_ampm').val());
-            $datepicker.find('p.info').show();
+            if ($('input[name="location_show"]').val() == 0) {
+                setInfoTimezone(false);
+            } else {
+                setInfoTimezone(true);
+            }
         } else {
             $('input[name="date_' + period + '"]').val(value);
         }
@@ -118,7 +126,7 @@ function CreateEditEvent() {
     var mapLoaded = 0;
     var mapTab = 0;
 
-    if (!isLatLng()) {
+    if (!hasInputValue('location_lat')) {
         $('input:radio[name="location_show_picker"][value="0"]').prop('checked', true);
         $('input[name="location_show"]').val(0);
     }
@@ -142,13 +150,20 @@ function CreateEditEvent() {
                 loadMap();
             }
             $('.eventMap-map').show();
-            if (value == 1 && isLatLng()) {
-                $('.eventMap-map-options').show();
-            } else {
-                $('.eventMap-map-options').hide();
+            if (hasInputValue('location_lat')) {
+                setInfoTimezone(true);
+                if (value == 1) {
+                    if (!$('input:radio[name="location_geo"]').is(":checked")) {
+                        $('input:radio[name="location_geo"][value="3"]').prop('checked', true);
+                    }
+                    $('.eventMap-map-options').show();
+                } else {
+                    $('.eventMap-map-options').hide();
+                }
             }
         } else {
             $('.eventMap-map').hide();
+            setInfoTimezone(false);
         }
         $('input[name="location_show"]').val(value);
     }
@@ -157,11 +172,51 @@ function CreateEditEvent() {
         return $('input[name="location_show"]').val();
     }
 
-    function isLatLng() {
-        if ($('input[name="location_lat"]').val() != '') {
+    function hasInputValue(name) {
+        if ($('input[name="' + name + '"]').val() != '') {
             return true;
         } else {
             return false;
+        }
+    }
+
+    function changedLatLng() {
+        if ($('input[name="location_lat"]').val() != lat || $('input[name="location_lng"]').val() != lng) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function setZoomLevel(zoom) {
+        var value = 5;
+        if (zoom >= 17) {
+            value = 1;
+        } else if (zoom >= 15) {
+            value = 2;
+        } else if (zoom >= 10) {
+            value = 3;
+        } else if (zoom >= 8) {
+            value = 4;
+        }
+        $('input:radio[name="location_geo"][value="' + value + '"]').prop('checked', true);
+        $('select[name="location_zoom"]').val(Math.round(zoom));
+    }
+
+    function setInfoTimezone(info) {
+        if ($('input[name="date_time"]').val()) {
+            $datepicker.find('p.info').hide();
+            if (!info) {
+                $datepicker.find('p.info[data-current="none"]').show();
+            } else {
+                if (hasInputValue('location_tz') && !changedLatLng()) {
+                    $datepicker.find('p.info[data-current="timezone"]').show();
+                } else if (hasInputValue('location_lat')) {
+                    $datepicker.find('p.info[data-current="location"]').show();
+                } else {
+                    $datepicker.find('p.info[data-current="none"]').show();
+                }
+            }
         }
     }
 
@@ -175,7 +230,7 @@ function CreateEditEvent() {
 
         var marker;
 
-        if (isLatLng()) {
+        if (hasInputValue('location_lat')) {
             mapCenter = { lat: parseFloat($('input[name="location_lat"]').val()), lng: parseFloat($('input[name="location_lng"]').val()) };
             mapZoom = parseInt($('select[name="location_zoom"]').val());
         }
@@ -242,7 +297,7 @@ function CreateEditEvent() {
                     icon: icon
                 });
 
-                if (isLatLng()) {
+                if (hasInputValue('location_lat')) {
                     //console.log(mapCenter);
                     marker.setPosition(mapCenter);
                     marker.setVisible(true);
@@ -254,6 +309,7 @@ function CreateEditEvent() {
 
                 google.maps.event.addListener(marker, 'dragend', function() {
                     setLatLng(marker);
+                    setInfoTimezone(true);
                 });
 
                 autocomplete.addListener('place_changed', () => {
@@ -287,6 +343,8 @@ function CreateEditEvent() {
                     setZoomLevel(map.getZoom());
                     setLatLng(marker);
 
+                    setInfoTimezone(true);
+
                     if (getLocationShow() == 1) {
                         $('.eventMap-map-options').show();
                     }
@@ -315,28 +373,15 @@ function CreateEditEvent() {
                     setLatLng(marker);
                     if (getLocationShow() == 1) {
                         if (!$('input:radio[name="location_geo"]').is(":checked")) {
-                            setZoomLevel(parseInt($('select[name="location_zoom"]').val()))
+                            setZoomLevel(parseInt($('select[name="location_zoom"]').val()));
                         }
                         $('.eventMap-map-options').show();
                     }
+                    setInfoTimezone(true);
                     google.maps.event.addListener(marker, 'dragend', function() {
                         setLatLng(marker);
+                        setInfoTimezone(true);
                     });
-                }
-
-                function setZoomLevel(zoom) {
-                    var value = 5;
-                    if (zoom >= 17) {
-                        value = 1;
-                    } else if (zoom >= 15) {
-                        value = 2;
-                    } else if (zoom >= 10) {
-                        value = 3;
-                    } else if (zoom >= 8) {
-                        value = 4;
-                    }
-                    $('input:radio[name="location_geo"][value="' + value + '"]').prop('checked', true);
-                    $('select[name="location_zoom"]').val(Math.round(zoom));
                 }
 
                 function setLatLng(marker) {
@@ -363,13 +408,18 @@ function CreateEditEvent() {
         }).done(function(response) {
             $.modal.close();
             if (response.loadEvents) {
-                loadEvents();
-                $.ajax({
-                    type: 'PUT',
-                    url: '/timelines/' + response.timeline_id + '/reorder',
-                    dataType: 'json',
-                    encode: true
-                });
+                loadEvents(true, response.timeline_id, response.event_id);
+            } else {
+                if (response.event_id) {
+                    var $event = $('#events').find('.event[data-id="' + response.event_id + '"]');
+                    $event.addClass('highlight');
+                    setTimeout(function() {
+                        $event.removeClass('highlight');
+                    }, 8000);
+                    if (response.event_title) {
+                        $event.find('.details>span').text(response.event_title);
+                    }
+                }
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {

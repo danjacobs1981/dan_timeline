@@ -6,7 +6,7 @@ var tags = [];
 PrivacyShare();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-privacy-share')) {
+    if (modal['options']['modalClass'].includes('modal-timeline-privacy-share')) {
         //console.log("PRIVACY MODAL");
         PrivacyShare();
         //event.stopImmediatePropagation();
@@ -31,8 +31,8 @@ function PrivacyShare() {
 }
 
 // update privacy share ajax
-$(document).on('click', '.modal-privacy-share>.modal-buttons>button', function() {
-    var timeline_id = $('.modal-privacy-share input[name="timeline-id"]').val();
+$(document).on('click', '.modal-timeline-privacy-share>.modal-buttons>button', function() {
+    var timeline_id = $('.modal-timeline-privacy-share input[name="timeline_id"]').val();
     var data = {
         'data': tags
     }

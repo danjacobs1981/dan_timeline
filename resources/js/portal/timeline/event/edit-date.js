@@ -12,6 +12,8 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function EditEventDate() {
 
+    $('.modal-buttons>button').prop("disabled", true);
+
     // DATE PICKER 
     var $datepicker = $('.control--datepicker');
     var predate = $datepicker.data('predate').toString();
@@ -37,13 +39,13 @@ function EditEventDate() {
                 $datepicker.find('.period.' + period).removeClass('add').addClass('active').next('div').addClass('add');
             }
             $('#' + period).val(val);
-            updateDateFields(period, val);
+            updateDateFields(period, val, 0);
         }
     });
 
     $datepicker.on('click', '.period.add', function() { // add
         $(this).addClass('active').removeClass('add').next('div').addClass('add');
-        updateDateFields($(this).data('period'), $(this).find('[data-date').val());
+        updateDateFields($(this).data('period'), $(this).find('[data-date').val(), 1);
     });
 
     $datepicker.on('click', '.period.active>div>span', function() { // remove
@@ -79,14 +81,14 @@ function EditEventDate() {
     });
 
     $datepicker.on('input', '#year', function() {
-        updateDateFields('year', this.value);
+        updateDateFields('year', this.value, 1);
     });
 
     $datepicker.on('change', 'select', function() {
-        updateDateFields($(this).attr('id'), this.value);
+        updateDateFields($(this).attr('id'), this.value, 1);
     });
 
-    function updateDateFields(period, value) {
+    function updateDateFields(period, value, run) {
         if (period == 'year') {
             $('input[name="date_year"]').val(value);
         } else if (period == 'time' || period == 'time_min') {
@@ -95,6 +97,9 @@ function EditEventDate() {
             $datepicker.find('p.info').show();
         } else {
             $('input[name="date_' + period + '"]').val(value);
+        }
+        if (run) {
+            $('.modal-buttons>button').prop("disabled", false);
         }
     }
 
@@ -108,20 +113,17 @@ function EditEventDate() {
             dataType: 'json',
             encode: true,
         }).done(function(response) {
-            $.modal.close();
             if (response.loadEvents) {
-                loadEvents();
-                $.ajax({
-                    type: 'PUT',
-                    url: '/timelines/' + response.timeline_id + '/reorder',
-                    dataType: 'json',
-                    encode: true
-                });
+                $.modal.close();
+                loadEvents(true, response.timeline_id, response.event_id);
+            } else {
+                // show error that date hasn't changed
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             //console.log(jqXHR.responseText);
             var errorData = JSON.parse(jqXHR.responseText);
+            console.log(errorData);
             mapErrorsToForm(errorData.errors);
             //console.log(errorData);
             //console.log(textStatus);

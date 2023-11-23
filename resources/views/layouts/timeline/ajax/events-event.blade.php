@@ -31,9 +31,9 @@
                                 {{ $event->title }}
                             </h3>
                             <div itemprop="location" itemscope itemtype="https://schema.org/Place">
-                                @if($event->location_geo)
+                                @if($event->location_show == 1 && $event->location)
                                 <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                    <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location_geo }}</span></span>
+                                    <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span></span>
                                 </p>
                                 @endif
                                 <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>

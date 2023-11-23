@@ -32,6 +32,7 @@ export default defineConfig({
                 'resources/js/portal/timeline/privacy-share.js',
                 'resources/js/portal/timeline/event/create-edit.js',
                 'resources/js/portal/timeline/event/edit-date.js',
+                'resources/js/portal/timeline/event/delete.js',
             ],
             refresh: true,
         }),

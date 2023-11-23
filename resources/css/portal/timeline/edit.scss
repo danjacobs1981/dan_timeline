@@ -328,18 +328,23 @@ body>main {
                 & .event {
                     display: flex;
                     align-items: stretch;
-                    background: #fff;
+                    background: var(--greyLight);
                     position: relative;
                     z-index: 1;
                     border-radius: 0.5rem;
                     border: 1px solid var(--greyMedium);
                     margin-bottom: 1rem;
                     overflow: hidden;
+                    box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
+                    &.highlight {
+                        animation-duration: 7s;
+                        animation-name: highlighter;
+                    }
                     &--ghost {
-                        background: rgb(235, 247, 255);
+                        background: var(--highlight);
                         &>div {
                             &.handle {
-                                background: var(--greyDark)!important;
+                                background: var(--greyMedium)!important;
                                 color: #fff;
                             }
                         }
@@ -370,10 +375,13 @@ body>main {
                                         padding: 0.25rem 0.375rem;
                                         border-radius: 0.25rem;
                                         font-size: 0.875rem;
-                                        border: 1px solid var(--grey);
+                                        border: 1px solid var(--greyMedium);
                                         color: var(--link);
                                         cursor: pointer;
                                         text-decoration: none;
+                                        &:hover {
+                                            background: var(--greyVeryLight);
+                                        }
                                         &>i {
                                             margin-right: 0.375rem;
                                         }
@@ -387,13 +395,18 @@ body>main {
                         &.handle {
                             min-width: 2rem;
                             max-width: 2rem;
-                            background: var(--greyLight);
+                            /*background: var(--greyLight);*/
+                            border-left: 1px solid var(--greyMedium);
                             align-items: center;
                             justify-content: center;
                             font-size: 1rem;
                             min-height: 100%;
                             cursor: move;
                             display: none;
+                            &:hover {
+                                background: var(--greyMedium);
+                                color: #fff;
+                            }
                         }
                     }
                 }
@@ -683,7 +696,8 @@ body>main {
 /* custom modals */
 
 .modal {
-    &-delete {
+    &-timeline-delete,
+    &-timeline-event-delete {
         &>.modal-buttons {
             &>.btn {
                 background: var(--danger);
@@ -692,5 +706,17 @@ body>main {
                 }
             }
         }
+    }
+}
+
+@keyframes highlighter {
+    0% {
+        background-color: var(--highlight);
+    }
+    50% {
+        background-color: var(--highlight);
+    }
+    100% {
+        background-color: var(--greyLight);
     }
 }

@@ -17,7 +17,7 @@
             @foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event)
                 @if($loop->first)
                     <summary>
-                        <i class="fa-regular fa-square-caret-down"></i>
+                        <i class="fa-regular fa-square-caret-right"></i>
                         <span>{{ $event->date_year }}</span> 
                         <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
                         <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $event->date_year ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
@@ -35,7 +35,7 @@
                     @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event)
                         @if($loop->first)
                             <summary>
-                                <i class="fa-regular fa-square-caret-down"></i>
+                                <i class="fa-regular fa-square-caret-right"></i>
                                 <span>{{ $carbon::parse($event->date_unix)->format('F') }}</span>
                                 <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
                                 <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
@@ -53,7 +53,7 @@
                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                 @if($loop->first)
                                     <summary>
-                                        <i class="fa-regular fa-square-caret-down"></i>
+                                        <i class="fa-regular fa-square-caret-right"></i>
                                         <span>{{ $carbon::parse($event->date_unix)->format('jS (l)') }}</span>
                                         <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
                                         <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n|j') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
@@ -72,7 +72,7 @@
                                         @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
                                             @if($loop->first)
                                                 <summary>
-                                                    <i class="fa-regular fa-square-caret-down"></i>
+                                                    <i class="fa-regular fa-square-caret-right"></i>
                                                     <span>{{ $carbon::parse($event->date_time)->format('h:ia') }} <em>({{ $event->location_tz }})</em></span>
                                                     <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
                                                     <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n|j|h|i|a') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">

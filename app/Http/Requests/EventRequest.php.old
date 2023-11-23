@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class EventRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'date_year' => 'nullable|integer|digits:4|max:9999',
+            'date_month' => 'nullable|numeric|between:1,12',
+            'date_day' => 'nullable|numeric|between:1,31',
+            'date_time' => 'nullable|date_format:h:i',
+            'date_unix' => 'nullable|date',
+            'location_lat' => 'nullable',
+            'location_lng' => 'nullable',
+            'location_show' => 'integer|between:0,2',
+            'location_geo' => 'nullable|integer|between:1,5',
+            'location_zoom' => 'nullable|integer|between:3,19',
+        ]
+        + ($this->isMethod('POST') ? $this->store() : $this->update());
+    }
+
+    // below rules are specific for either 'store' or 'update'
+
+    protected function store()
+    {
+        return [
+    
+        ];
+    }
+    
+    protected function update()
+    {
+        return [
+
+        ];
+    }
+
+}

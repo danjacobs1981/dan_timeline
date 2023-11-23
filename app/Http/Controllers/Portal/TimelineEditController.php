@@ -359,7 +359,7 @@ class TimelineEditController extends Controller
 
             $privateUsers = $timeline->privateUsers->toJson();
 
-            $modal_title = 'Share timeline privately';
+            $modal_title = 'Share Timeline Privately';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Save');
             $route = 'layouts.portal.snippets.edit-privacy-share';
             return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'privateUsers'));
@@ -379,7 +379,7 @@ class TimelineEditController extends Controller
 
             $event_count = $timeline->events->count();
 
-            $modal_title = 'Delete timeline';
+            $modal_title = 'Delete Timeline';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Timeline', 'form' => 'formDelete');
             $route = 'layouts.portal.snippets.edit-delete';
             return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event_count'));

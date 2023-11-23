@@ -50,7 +50,7 @@
                     Privately shared with {{ $privateUsers->first()->value }}
                 @endif
             </p>
-            <a class="btn" href="{{ route('timeline.privacy-share.showModal', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false" data-modal-class="modal-privacy-share">
+            <a class="btn" href="{{ route('timelines.privacy-share.showModal', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false" data-modal-class="modal-timeline-privacy-share">
                 {{ $privateUsers->count() ? 'Edit' : 'Add' }}
             </a>
         </div>

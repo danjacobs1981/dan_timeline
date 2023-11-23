@@ -59,7 +59,7 @@
                             <a href="#collaborators-tab">Collaborators</a>
                         </li>
                         <li>
-                            <a href="#more-tab">More</a>
+                            <a href="#delete-tab">Delete</a>
                         </li>
                     </ul>
 
@@ -156,15 +156,15 @@
 
                     </section>
 
-                    <section id="more-tab" class="edit__tab" style="display:none;">
+                    <section id="delete-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineMore">
+                        <div class="timelineDelete">
 
-                            <p>Further timeline settings.</p>
+                            <p>Delete your timeline.</p>
 
                             <div class="control control--textbox">
                                 <label class="control__label" for="title">Delete Timeline</label>
-                                <a href="{{ route('timeline.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                                <a href="{{ route('timelines.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                                     <i class="fa-regular fa-trash-can"></i>Delete
                                 </a>                            
                                 <p>Deleting a timeline cannot be undone.</p>
@@ -189,7 +189,7 @@
                     <header>
                         <div>
                             <span>Loading events...</span>
-                            <em><i class="fa-regular fa-square-caret-down"></i>Expand all dates</li></em>
+                            <em><i class="fa-regular fa-square-caret-right"></i>Expand all dates</li></em>
                         </div>
                         <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                             <i class="fa-solid fa-circle-plus"></i>Add Event

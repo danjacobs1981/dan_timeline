@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Sortable from 'sortablejs';
 
 // needs to be global function as called from a modal
-window.loadEvents = function() {
+window.loadEvents = function(reload, timeline_id, event_id) {
     $('#events-tab #events').html();
     $('#events-tab .loading').show();
     $.ajax({
@@ -37,8 +37,31 @@ window.loadEvents = function() {
                         },
                     });
                 });
-
-
+                // highlights new/edited event
+                if (event_id) {
+                    var $event = $('#events').find('.event[data-id="' + event_id + '"]');
+                    $event.addClass('highlight');
+                    setTimeout(function() {
+                        $event.removeClass('highlight');
+                    }, 8000);
+                    if (reload) {
+                        $event.closest('.time').prop('open', true);
+                        $event.closest('.day').prop('open', true);
+                        $event.closest('.month').prop('open', true);
+                        $event.closest('.year').prop('open', true);
+                    }
+                }
+                if (timeline_id) {
+                    if (reload) { // reload means date/time change
+                        // processes/reorders in the background
+                        $.ajax({
+                            type: 'PUT',
+                            url: '/timelines/' + timeline_id + '/reorder',
+                            dataType: 'json',
+                            encode: true
+                        });
+                    }
+                }
             });
         }
     });
@@ -46,7 +69,7 @@ window.loadEvents = function() {
 
 var topHeight = getTopHeight();
 setLayout();
-loadEvents();
+loadEvents(false, null, null);
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();
@@ -59,7 +82,7 @@ $('#events-tab header>div>em').on('click', function() {
     var $detailsActive = $(this).hasClass('active');
     if ($detailsActive == true) {
         $details.prop('open', false);
-        $(this).html('<i class="fa-regular fa-square-caret-down"></i>Expand all dates').toggleClass('active');
+        $(this).html('<i class="fa-regular fa-square-caret-right"></i>Expand all dates').toggleClass('active');
     } else if (($detailsOpen == true) && ($detailsActive == false)) {
         $details.prop('open', true);
         $(this).html('<i class="fa-regular fa-square-caret-up"></i>Contract all dates').toggleClass('active');

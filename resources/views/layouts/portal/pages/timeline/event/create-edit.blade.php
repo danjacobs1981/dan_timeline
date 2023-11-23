@@ -1,5 +1,9 @@
 @inject('carbon', 'Carbon\Carbon')
 
+@if(isset($event))
+    <meta name="event" content="{{ $event->id }}">
+@endif
+
 <div id="timelineEventCreateEdit">
 
     <header>
@@ -20,9 +24,11 @@
             <li>
                 <a href="#event-comments-tab">Comments</a>
             </li>
-            <li>
-                <a href="#event-more-tab">More</a>
-            </li>
+            @if(isset($event))
+                <li>
+                    <a href="#event-delete-tab">Delete</a>
+                </li>
+            @endif
         </ul>
 
     </header>
@@ -42,7 +48,7 @@
         <form id="formEventCreateEdit" method="post" action="{{ isset($event) ? route('timelines.events.update', [ 'timeline' => $timeline, 'event' => $event ]) : route('timelines.events.store', [ 'timeline' => $timeline ]) }}">
 
             @php
-                $location_zoom = 10;
+                $location_zoom = null;
                 $location_geo = null;
                 if (isset($event)) {
                     $location_zoom = $event->location_zoom;
@@ -130,7 +136,7 @@
                                 <div class="control control--radio">
                                     <span class="control__label">What address level does this marker best represent?</span>
                                     <label class="control__label">Building / Premise
-                                        <input type="radio" value="1" name="location_geo {{ old('location_geo') == '1' ||  ($location_geo == '1')? 'checked' : '' }}"/>
+                                        <input type="radio" value="1" name="location_geo" {{ old('location_geo') == '1' ||  ($location_geo == '1')? 'checked' : '' }}/>
                                         <div></div>
                                     </label>
                                     <label class="control__label">Street / Road
@@ -183,6 +189,8 @@
 
                         </div>
 
+                        <input type="hidden" name="location_tz" value="{{ old('location_tz', isset($event) ? $event->location_tz : '') }}" />
+
                         <input type="hidden" name="location_lat" value="{{ old('location_lat', isset($event) ? $event->location_lat : '') }}" />
                         <input type="hidden" name="location_lng" value="{{ old('location_lng', isset($event) ? $event->location_lng : '') }}" />
 
@@ -210,11 +218,25 @@
 
             </section>
 
-            <section id="event-more-tab" class="event__tab" style="display:none;">
+            @if(isset($event))
+                <section id="event-delete-tab" class="event__tab" style="display:none;">
 
-                more
+                    <div class="eventDelete">
 
-            </section>
+                        <p>Delete this event.</p>
+
+                        <div class="control control--textbox">
+                            <label class="control__label" for="title">Delete Event</label>
+                            <a href="{{ route('timelines.events.delete.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-event-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                                <i class="fa-regular fa-trash-can"></i>Delete
+                            </a>                            
+                            <p>Deleting an event cannot be undone.</p>
+                        </div>
+
+                    </div>
+
+                </section>
+            @endif
 
         </form>
         
