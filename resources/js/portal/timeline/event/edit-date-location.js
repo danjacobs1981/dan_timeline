@@ -1,16 +1,16 @@
 import $ from 'jquery';
 
-CreateEditEvent();
+EditEventDateLocation();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-event')) {
-        //console.log("CREATE MODAL");
-        CreateEditEvent();
+    if (modal['options']['modalClass'].includes('modal-edit-event-date')) {
+        //console.log("DATE MODAL");
+        EditEventDateLocation();
         //event.stopImmediatePropagation();
     }
 });
 
-function CreateEditEvent() {
+function EditEventDateLocation() {
 
     // tabs
     openTab('#' + $('section.event__tab:first').attr('id'));
@@ -26,7 +26,7 @@ function CreateEditEvent() {
         $(activeTab).show();
     }
 
-    var $form = $('#formEventCreateEdit');
+    var $form = $('#formEventEditDate');
 
     $form.on('submit', function(e) {
         $.ajax({
@@ -36,25 +36,17 @@ function CreateEditEvent() {
             dataType: 'json',
             encode: true,
         }).done(function(response) {
-            $.modal.close();
             if (response.loadEvents) {
+                $.modal.close();
                 loadEvents(true, response.timeline_id, response.event_id);
             } else {
-                if (response.event_id) {
-                    var $event = $('#events').find('.event[data-id="' + response.event_id + '"]');
-                    $event.addClass('highlight');
-                    setTimeout(function() {
-                        $event.removeClass('highlight');
-                    }, 8000);
-                    if (response.event_title) {
-                        $event.find('.details>span').text(response.event_title);
-                    }
-                }
+                // show error that date hasn't changed
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             //console.log(jqXHR.responseText);
             var errorData = JSON.parse(jqXHR.responseText);
+            console.log(errorData);
             mapErrorsToForm(errorData.errors);
             //console.log(errorData);
             //console.log(textStatus);
@@ -80,25 +72,8 @@ function CreateEditEvent() {
         });
     }
 
-}
-
-
-
-
-
-
-/*let map;
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById("gmap"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
-        mapTypeId: "roadmap",
-        disableDefaultUI: true,
-        options: {
-            gestureHandling: 'greedy'
-        }
+    $(document).on('click', '.modal-edit-event-location>.modal-buttons>button', function() {
+        console.log("yo");
     });
-}
 
-window.initMap = initMap;*/
+}

@@ -1,4 +1,4 @@
-<div class="event" data-id="{{ $event->id }}">
+<div class="event" data-id="{{ $event->id }}" data-local="{{ $local }}">
     <div class="details">
         <span>
             {{ $event->title }}
@@ -10,8 +10,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('timelines.events.edit.date', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]) }}" data-modal data-modal-class="modal-edit-event-date" data-modal-size="modal-lg" data-modal-showclose="false" data-modal-clickclose="false">
-                    <i class="fa-regular fa-calendar-days"></i>Change <span>Event</span> Date
+                <a href="{{ route('timelines.events.edit.date', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]) }}" data-modal data-modal-full data-modal-scroll data-modal-class="modal-edit-event-date" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
+                    <i class="fa-regular fa-calendar-days"></i><span>Quick</span> Change Date
                 </a>
             </li>
         </ul>

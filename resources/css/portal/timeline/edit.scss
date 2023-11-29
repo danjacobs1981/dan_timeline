@@ -95,56 +95,6 @@ body>main {
                         }
                     }
                 }
-                &>ul {
-                    display: flex;
-                    margin: 0;
-                    list-style: none;
-                    padding: 0 1rem;
-                    border-bottom: 1px solid var(--grey);
-                    overflow-x: auto;
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                    &::before,
-                    &::after {
-                        content: "";
-                        width: 1rem;
-                        height: 30px;
-                        position: absolute;
-                        bottom: 1px;
-                        z-index: 2;
-                    }
-                    &::before {
-                        left: 0;
-                        background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
-                    }
-                    &::after {
-                        right: 0;
-                        background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
-                    }
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-                    &>li {
-                        margin: 0.5rem 1.5rem 0 0;
-                        white-space: nowrap;
-                        &:last-child {
-                            margin-right: 0;
-                        }
-                        &>a {
-                            display: inline-block;
-                            padding: 0.375rem 0;
-                            color: var(--greyDark);
-                            text-decoration: none;
-                            border-bottom: 3px solid #fff;
-                            font-weight: 500;
-                            &.active,
-                            &:hover {
-                                color: #000;
-                                border-color: var(--link);
-                            }
-                        }
-                    }
-                }
             }
             &>section {
                 /*padding: 1rem;*/
@@ -580,19 +530,6 @@ body>main {
                 width: 100%;
                 /*box-shadow: 5px 0 0 rgba(0, 0, 0, 0.15);*/
                 z-index: 1;
-                &>header {
-                    &>ul {
-                        &::before,
-                        &::after {
-                            content: none;
-                        }
-                        &>li {
-                            &:nth-child(2) {
-                                display: none;
-                            }
-                        }
-                    }
-                }
                 &>section {
                     margin-top: 0;
                     overflow-y: scroll;
@@ -686,6 +623,74 @@ body>main {
                             margin-right: 2rem;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+
+/* tabs */
+
+.tabs {
+    display: flex;
+    margin: 0;
+    list-style: none;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--grey);
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::before,
+    &::after {
+        content: "";
+        width: 1rem;
+        height: 30px;
+        position: absolute;
+        bottom: 1px;
+        z-index: 2;
+    }
+    &::before {
+        left: 0;
+        background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
+    }
+    &::after {
+        right: 0;
+        background-image: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 255, 255, 1));
+    }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    &>li {
+        margin: 0.5rem 1.5rem 0 0;
+        white-space: nowrap;
+        &:last-child {
+            margin-right: 0;
+        }
+        &>a {
+            display: inline-block;
+            padding: 0.375rem 0;
+            color: var(--greyDark);
+            text-decoration: none;
+            border-bottom: 3px solid #fff;
+            font-weight: 500;
+            &.active,
+            &:hover {
+                color: #000;
+                border-color: var(--link);
+            }
+        }
+    }
+    @media (min-width: 1200px) {
+        &::before,
+        &::after {
+            content: none;
+        }
+        &.tabs--timeline {
+            &>li {
+                /* events tab */
+                &:nth-child(2) {
+                    display: none;
                 }
             }
         }

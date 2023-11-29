@@ -53,8 +53,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::put('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@privacy');
             Route::put('/timelines/{timeline}/privacy/share', 'Portal\TimelineEditController@privacyShare');
 
-             // timeline events reordering
-            Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorderEvents');
+            Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorder'); // timeline single dragged event reordering
+            Route::put('/timelines/{timeline}/process', 'Portal\TimelineEditController@process'); // timeline processing (complete reordering & differences etc)
 
             // crud of events
             Route::resource('timelines.events', Portal\TimelineEventController::class);

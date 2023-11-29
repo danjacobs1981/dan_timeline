@@ -213,6 +213,8 @@ class TimelineEventController extends Controller
 
                 $date_type = getDateType($request);
 
+                //dd($date_type);
+
                 if ($request->date) { // only updating date
 
                     $data = $request->validate(
@@ -234,6 +236,9 @@ class TimelineEventController extends Controller
                     );
 
                     $dateChange = updateDateMap($date_type, $timeline, $data, $event, $request);
+
+                    // other data
+                    $data['date_type'] = $date_type;
 
                     //dd($dateChange);
 
@@ -494,123 +499,137 @@ function updateDateMap($date_type, $timeline, &$data, $event, $request) {
     }
     if ($data['date_unix']) {
         $data['date_unix'] = Carbon::parse($data['date_unix'])->timestamp;
-        // if map changed from on to off (update to UTC tz)
-        if ($mapChangeOff) {
+        $data['date_unix_gmt'] = $data['date_unix'];
+        if ($mapChangeOff) {// if map changed from on to off (update to UTC tz)
             if ($data['date_time']) {
-                $data['date_unix_gmt'] = $data['date_unix'];
                 $data['date_time'] = Carbon::parse($data['date_time'].' '.$request->date_time_ampm)->format('H:i'); // converts to 24 hour
                 $data['location_tz'] = 'Coordinated Universal Time'; // time exists so set UTC as default timezone
                 $dateChange = true;
             }
-        }
-        // if map changed from off to on (use lat/lng to get tz)
-        // if map marker has changed (use lat/lng to get tz)
-        if ($data['date_time'] && ($mapChangeOn || $markerChange)) {   
-            $data['date_unix_gmt'] = $data['date_unix'];
+        } else if ($data['date_time'] && ($mapChangeOn || $markerChange)) {// if map changed from off to on OR if map marker has changed (use lat/lng to get tz)
             $data['location_tz'] = 'Coordinated Universal Time';
             getTimezone($data);
             $dateChange = true;
-        }
-        // if time has changed
-        if ($data['date_unix'] != $event->date_unix) {
-            $data['date_unix_gmt'] = $data['date_unix'];
+        } else if ($data['date_year'] != $event->date_year || $data['date_month'] != $event->date_month || $data['date_day'] != $event->date_day || $data['date_time'] != $event->date_time) {// if time has changed
+            if ($data['date_time']) {
+                $data['location_tz'] = 'Coordinated Universal Time';
+                if ($data['location_show'] > 0) {
+                    getTimezone($data);
+                }
+            }
             $dateChange = true;
         }
-        if ($dateChange) {
-            // now do reorder stuff
-            $events = $timeline->events;
-            reorderAll($date_type, $timeline->id, $events, $data);
+
+    } else { // date_type is null
+        if ($date_type != $event->date_type) { // its changed to null
+            $dateChange = true;
         }
     }
+    if ($dateChange) {
+        // now do reorder stuff
+        $events = $timeline->events;
+        reorderAll($date_type, $timeline->id, $events, $data);
+    }
+    //dd($dateChange);
     return $dateChange;
 }
 
 function reorderAll($date_type, $timeline_id, $events, &$data) {
-    if ($date_type == 1) {
+    if ($date_type == 1) { // year
         // YEAR
         $exists_year = $events->where('date_year', $data['date_year'])->sortByDesc('order_ym')->first();
-        if ($exists_year === null) {
-            $data['order_ny'] = reorderYear($timeline_id, $events, $data);
-            $data['order_ym'] = 1;
-        } else {
-            $data['order_ny'] = $exists_year['order_ny'];
-            $data['order_ym'] = $exists_year['order_ym'] + 1;
+        if ($exists_year === null) { // therefore create a new year
+            $data['order_ny'] = reorderNoneYear($timeline_id, $events, $data); // and put year before or after existing items
+            $data['order_ym'] = 1; // order is the first ym
+        } else { // adding a year item within year
+            $data['order_ny'] = $exists_year['order_ny']; // order stays the same
+            $data['order_ym'] = $exists_year['order_ym'] + 1; // this event gets added to the existing
         }
-    } else if ($date_type == 2) {
+    } else if ($date_type == 2) { // month
         // YEAR
         $exists_year = $events->where('date_year', $data['date_year'])->sortByDesc('order_ym')->first();
-        if ($exists_year === null) {
-            $data['order_ny'] = reorderYear($timeline_id, $events, $data);
-            $data['order_ym'] = 1;
-            $data['order_md'] = 1;
-        } else {
+        if ($exists_year === null) { // therefore create a new year
+            $data['order_ny'] = reorderNoneYear($timeline_id, $events, $data); // and put year before or after existing year entries
+            $data['order_ym'] = 1; // order is the first ym
+            $data['order_md'] = 1; // order is the first md
+        } else { // adding a year item within year
+            $data['order_ny'] = $exists_year['order_ny']; // order stays the same 
             // MONTH
-            $data['order_ny'] = $exists_year['order_ny']; 
             $exists_month = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->sortByDesc('order_md')->first();
-            if ($exists_month === null) {
-                $data['order_ym'] = reorderMonth($timeline_id, $events, $data);
-                $data['order_md'] = 1;
-            } else {
-                $data['order_ym'] = $exists_month['order_ym']; 
-                $data['order_md'] = $exists_month['order_md'] + 1; 
+            if ($exists_month === null) { // therefore create a new month
+                $data['order_ym'] = reorderYearMonth($timeline_id, $events, $data); // and put month before or after existing month entries
+                $data['order_md'] = 1; // order is the first md
+            } else { // adding a month item within month
+                $data['order_ym'] = $exists_month['order_ym']; // order stays the same 
+                $data['order_md'] = $exists_month['order_md'] + 1; // this event gets added to the existing 
             }
         }
-    } else if ($date_type == 3) {
+    } else if ($date_type == 3) { // day
         // YEAR
         $exists_year = $events->where('date_year', $data['date_year'])->sortByDesc('order_ym')->first();
-        if ($exists_year === null) {
-            $data['order_ny'] = reorderYear($timeline_id, $events, $data);
-            $data['order_ym'] = 1;
-            $data['order_md'] = 1;
-            $data['order_dt'] = 1;
-        } else {
+        if ($exists_year === null) { // therefore create a new year
+            $data['order_ny'] = reorderNoneYear($timeline_id, $events, $data); // and put year before or after existing year entries
+            $data['order_ym'] = 1; // order is the first ym
+            $data['order_md'] = 1; // order is the first md
+            $data['order_dt'] = 1; // order is the first dt
+        } else { // adding a year item within year
+            $data['order_ny'] = $exists_year['order_ny']; // order stays the same  
             // MONTH
-            $data['order_ny'] = $exists_year['order_ny']; 
             $exists_month = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->sortByDesc('order_md')->first();
-            if ($exists_month === null) {
-                $data['order_ym'] = reorderMonth($timeline_id, $events, $data);
-                $data['order_md'] = 1;
-                $data['order_dt'] = 1;
-            } else {
+            if ($exists_month === null) { // therefore create a new month
+                $data['order_ym'] = reorderYearMonth($timeline_id, $events, $data); // and put month before or after existing month entries
+                $data['order_md'] = 1; // order is the first md
+                $data['order_dt'] = 1; // order is the first dt
+            } else { // adding a month item within month
+                $data['order_ym'] = $exists_month['order_ym']; // order stays the same 
                 // DAY
-                $data['order_ym'] = $exists_month['order_ym']; 
                 $exists_day = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->sortByDesc('order_dt')->first();
-                if ($exists_day === null) {
-                    $data['order_md'] = reorderDay($timeline_id, $events, $data);
-                    $data['order_dt'] = 1;
-                } else {
-                    $data['order_md'] = $exists_day['order_md']; 
-                    $data['order_dt'] = $exists_day['order_dt'] + 1; 
+                if ($exists_day === null) { // therefore create a new day
+                    $data['order_md'] = reorderMonthDay($timeline_id, $events, $data); // and put day before or after existing day entries
+                    $data['order_dt'] = 1; // order is the first dt
+                } else { // adding a day item within day
+                    $data['order_md'] = $exists_day['order_md']; // order stays the same  
+                    $data['order_dt'] = $exists_day['order_dt'] + 1; // this event gets added to the existing  
                 }
             }
         }
-    } else if ($date_type == 4) {
+    } else if ($date_type == 4) { // time
         // YEAR
         $exists_year = $events->where('date_year', $data['date_year'])->sortByDesc('order_ym')->first();
-        if ($exists_year === null) {
-            $data['order_ny'] = reorderYear($timeline_id, $events, $data);
+        if ($exists_year === null) { // therefore create a new year
+            $data['order_ny'] = reorderNoneYear($timeline_id, $events, $data); // and put year before or after existing year entries
             $data['order_ym'] = 1;
             $data['order_md'] = 1;
             $data['order_dt'] = 1;
-        } else {
-            // MONTH
+            $data['order_t'] = 1;
+        } else { // adding a year item within year
             $data['order_ny'] = $exists_year['order_ny']; 
+            // MONTH
             $exists_month = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->sortByDesc('order_md')->first();
-            if ($exists_month === null) {
-                $data['order_ym'] = reorderMonth($timeline_id, $events, $data);
+            if ($exists_month === null) { // therefore create a new month
+                $data['order_ym'] = reorderYearMonth($timeline_id, $events, $data); // and put month before or after existing month entries
                 $data['order_md'] = 1;
                 $data['order_dt'] = 1;
-            } else {
-                // DAY
+                $data['order_t'] = 1;
+            } else { // adding a month item within month
                 $data['order_ym'] = $exists_month['order_ym']; 
+                // DAY
                 $exists_day = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->sortByDesc('order_dt')->first();
-                if ($exists_day === null) {
-                    $data['order_md'] = reorderDay($timeline_id, $events, $data);
+                if ($exists_day === null) { // therefore create a new day
+                    $data['order_md'] = reorderMonthDay($timeline_id, $events, $data); // and put day before or after existing day entries
                     $data['order_dt'] = 1;
-                } else {
-                    // TIME
+                    $data['order_t'] = 1;
+                } else { // adding a day item within day
                     $data['order_md'] = $exists_day['order_md']; 
-                    $data['order_dt'] = reorderTime($timeline_id, $events, $data);    
+                    // TIME
+                    $exists_time = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->where('date_unix', $data['date_unix'])->where('date_unix_gmt', $data['date_unix_gmt'])->sortByDesc('order_dt')->first();
+                    if ($exists_time === null) { // therefore create a new time
+                        $data['order_dt'] = reorderDayTime($timeline_id, $events, $data);  
+                        $data['order_t'] = 1;
+                    } else { // adding a time within a time
+                        $data['order_dt'] = $exists_time['order_dt'];
+                        $data['order_t'] = $exists_time['order_t'] + 1;  // this event gets added to the existing 
+                    }
                 }
             }
         }
@@ -619,7 +638,7 @@ function reorderAll($date_type, $timeline_id, $events, &$data) {
     }
 }
 
-function reorderYear($timeline_id, $events, &$data) {
+function reorderNoneYear($timeline_id, $events, &$data) {
     $latest_year = $events->whereNotNull('date_year')->max('date_year');
     if ($data['date_year'] >= $latest_year) { // event happens after
         return $events->max('order_ny') + 1;
@@ -630,7 +649,7 @@ function reorderYear($timeline_id, $events, &$data) {
     }
 }
 
-function reorderMonth($timeline_id, $events, &$data) {
+function reorderYearMonth($timeline_id, $events, &$data) {
     $latest_month = $events->where('date_year', $data['date_year'])->whereNotNull('date_month')->max('date_month');
     if ($data['date_month'] >= $latest_month) { // event happens after
         return $events->where('date_year', $data['date_year'])->max('order_ym') + 1;
@@ -641,7 +660,7 @@ function reorderMonth($timeline_id, $events, &$data) {
     }
 }
 
-function reorderDay($timeline_id, $events, &$data) {
+function reorderMonthDay($timeline_id, $events, &$data) {
     $latest_day = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->whereNotNull('date_day')->max('date_day');
     if ($data['date_day'] >= $latest_day) { // event happens after
         return $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->max('order_md') + 1;
@@ -652,11 +671,11 @@ function reorderDay($timeline_id, $events, &$data) {
     }
 }
 
-function reorderTime($timeline_id, $events, &$data) {
+function reorderDayTime($timeline_id, $events, &$data) {
     $latest_time = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->whereNotNull('date_time')->max('date_unix_gmt');
-    if ($latest_time <= $data['date_unix_gmt']) { 
+    if ($data['date_unix_gmt'] >= $latest_time) { // event happens after 
         return $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->max('order_dt') + 1;
-    } else { 
+    } else { // event happens before 
         $after_time = $events->where('date_year', $data['date_year'])->where('date_month', $data['date_month'])->where('date_day', $data['date_day'])->whereNotNull('date_time')->where('date_unix_gmt','>', $data['date_unix_gmt'])->sortBy('date_unix_gmt')->first();
         Event::where('timeline_id', $timeline_id)->where('date_year', $after_time['date_year'])->where('date_month', $after_time['date_month'])->where('date_day', $after_time['date_day'])->where('order_dt','>=', $after_time['order_dt'])->increment('order_dt');
         return $after_time['order_dt']; 

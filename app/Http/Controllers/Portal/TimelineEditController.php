@@ -144,10 +144,66 @@ class TimelineEditController extends Controller
         
     }
 
-    public function reorderEvents(Timeline $timeline)
+    public function reorder(Timeline $timeline, Request $request)
     {
 
-        // ajax for reordering of events
+        // ajax for reordering a dragged event
+        if($request->ajax()){
+
+            if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+                $id = $request->id;
+                $local = $request->local;
+                $local_after = $request->boolean('local_after');
+
+                // get event and it's date_type
+                $event = Event::select('date_type')->where('id', $id)->first();
+
+                //dd($event->date_type);
+
+                $order_date = 'order_ny';
+
+                if ($event->date_type == 1) {
+                    $order_date = 'order_ym';
+                } else if ($event->date_type == 2) {
+                    $order_date = 'order_md';
+                } else if ($event->date_type == 3) {
+                    $order_date = 'order_dt';
+                } else if ($event->date_type == 4) {
+                    $order_date = 'order_t';
+                }
+
+                if ($local_after == 'true') { 
+                    $local = $local + 1;
+                }
+
+                Event::where('timeline_id', $timeline->id)->where($order_date,'>=', $local)->increment($order_date);
+                Event::find($id)->update([$order_date => $local]);
+
+                return response()->json([
+                    'status'=> 200,
+                    'message' => 'Event reordered',
+                    'timeline_id' => $timeline->id,
+                    'event_id' => $id,
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status'=> 401,
+                    'message' => 'Authentication error',
+                ]);
+
+            }
+
+        }
+        
+    }
+
+    public function process(Timeline $timeline)
+    {
+
+        // ajax for processing of events
         if ($timeline) {
 
             //dd($timeline->events); // collection
@@ -270,8 +326,8 @@ class TimelineEditController extends Controller
                                                 $prevDate = $dt;
                                             
                                             } else {
-                                                    
-                                                foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event) {
+
+                                                foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_t')->unique('order_t') as $event) {
                                                     
                                                     $dt = Carbon::createFromTimestamp($event->date_unix);
                                                     $dt_gmt = Carbon::createFromTimestamp($event->date_unix_gmt);
@@ -279,7 +335,6 @@ class TimelineEditController extends Controller
                                                     $period = $difference = null;
                                                     
                                                     // DURING YEAR, IN MONTH, ON DAY, AT TIME
-        
         
                                                     $period = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
                                                     $period_short = 'At '.$dt->format('h:ia \o\n D jS \o\f M, Y');

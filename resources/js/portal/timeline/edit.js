@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 
+var closestLocal;
+var closestLocalAfter;
+
 // needs to be global function as called from a modal
 window.loadEvents = function(reload, timeline_id, event_id) {
     $('#events-tab #events').html();
@@ -13,9 +16,10 @@ window.loadEvents = function(reload, timeline_id, event_id) {
             $('#events-tab #events').html(data['events_html']).promise().done(function() {
                 $('#events-tab header>div>span').text(data['events_count']);
                 $('#events-tab .loading').fadeOut();
-                //console.log("events loaded");
+                // https://www.codehim.com/demo/jquery-sortable-js/
+                // https://github.com/SortableJS/Sortable
                 $('.sortable').each(function(index, value) {
-                    var sortable = new Sortable(this, {
+                    new Sortable(this, {
                         handle: '.handle',
                         animation: 150,
                         ghostClass: 'event--ghost',
@@ -24,16 +28,33 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                         },
                         onMove: function(evt) {
                             //console.log(evt.dragged.dataset.id);
-                            //console.log(evt.related.dataset.id);
-                            //previousEvent = evt.related.dataset.id;
-
+                            closestLocal = evt.related.dataset.local;
+                            closestLocalAfter = evt.willInsertAfter;
                         },
                         onEnd: function(evt) {
-                            //var url = '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events/' + evt.item.dataset.id + '/edit/date';
-                            //$('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url + '/' + previousEvent).trigger('click');
-                            //$('div[data-id="' + evt.item.dataset.id + '"] a.change-date').attr('href', url);
-                            //console.log(evt.item.dataset.id);
-                            //console.log('dropped past: ' + previousEvent);
+                            //console.log('my id: ' + evt.item.dataset.id);
+                            //console.log('local: ' + closestLocal + ' | put after:' + closestLocalAfter);
+                            $('#events-tab .loading').show();
+                            var data = {
+                                'id': evt.item.dataset.id,
+                                'local': closestLocal,
+                                'local_after': closestLocalAfter,
+                            }
+                            console.log(data);
+                            $.ajax({
+                                url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/reorder',
+                                type: 'PUT',
+                                data: data,
+                                dataType: 'json',
+                                encode: true,
+                                success: function(response) {
+                                    //console.log(response);
+                                    loadEvents(true, response.timeline_id, response.event_id);
+                                },
+                                error: function(xhr) {
+                                    console.log(xhr.responseText);
+                                }
+                            });
                         },
                     });
                 });
@@ -56,13 +77,16 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                         // processes/reorders in the background
                         $.ajax({
                             type: 'PUT',
-                            url: '/timelines/' + timeline_id + '/reorder',
+                            url: '/timelines/' + timeline_id + '/process',
                             dataType: 'json',
                             encode: true
                         });
                     }
                 }
             });
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
         }
     });
 }
@@ -104,26 +128,23 @@ if ($(window.location.hash).length) {
     openTab('#' + $('section.edit__tab:first').attr('id'));
 }
 
-$('.edit__section header>ul a, a.tab').on('click', function() {
+$('header>ul.tabs--timeline a, a.tab').on('click', function() {
     openTab($(this).attr('href'));
 });
 
 function openTab(id) {
-    $('.edit__section header>ul a').removeClass('active');
-    $('.edit__section header>ul a[href="' + id + '"]').addClass('active');
+    $('header>ul.tabs--timeline a').removeClass('active');
+    $('header>ul.tabs--timeline a[href="' + id + '"]').addClass('active');
     $('section.edit__tab').hide();
     var activeTab = $(id);
-
     $('html, body').animate({
         scrollTop: $('.edit__tab').offset().top
     }, 50);
-
     /*if (screenSize > 2) {
         $(activeTab).scrollTop(0);
     } else {
         $(activeTab).scrollTop(200);
     }*/
-
     $(activeTab).show();
 }
 

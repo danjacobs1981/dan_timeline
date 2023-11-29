@@ -11,7 +11,7 @@
 
     <meta name="timeline" content="{{ $timeline->id }}">
 
-    <div class="edit">
+    <div id="timelineEdit" class="edit">
 
         <section class="edit__section">
 
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     
-                    <ul>
+                    <ul class="tabs tabs--timeline">
                         <li>
                             <a href="#settings-tab">Settings</a>
                         </li>

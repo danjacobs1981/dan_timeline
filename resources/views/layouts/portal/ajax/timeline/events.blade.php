@@ -3,17 +3,18 @@
 @php 
     $prev_date_unix = null;
     $prev_date_unix_gmt = null;
+    $local = null;
 @endphp
 
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  
     @foreach ($events->unique('order_ny') as $event)
         @if($event->date_year === null)
-            @include('layouts.portal.ajax.timeline.events-event', [ 'date' => '<span>(no date)</span>' ])
+            @include('layouts.portal.ajax.timeline.events-event', [ 'local' => $event->order_ny ])
         @else
             @php
                 $total = $events->where('date_year', $event->date_year)->unique('order_ym')->count();
             @endphp
-            <details class="year{{ $total > 1 ? ' sortable' : '' }}">
+            <details data-local="{{ $event->order_ny }}" class="year{{ $total > 1 ? ' sortable' : '' }}">
             @foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event)
                 @if($loop->first)
                     <summary>
@@ -26,12 +27,12 @@
                     </summary>
                 @endif
                 @if($event->date_month === null)
-                    @include('layouts.portal.ajax.timeline.events-event')
+                    @include('layouts.portal.ajax.timeline.events-event', [ 'local' => $event->order_ym ])
                 @else
                     @php
                         $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->unique('order_md')->count();
                     @endphp
-                    <details class="month{{ $total > 1 ? ' sortable' : '' }}">
+                    <details data-local="{{ $event->order_ym }}" class="month{{ $total > 1 ? ' sortable' : '' }}">
                     @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event)
                         @if($loop->first)
                             <summary>
@@ -44,12 +45,12 @@
                             </summary>
                         @endif
                         @if($event->date_day === null)
-                            @include('layouts.portal.ajax.timeline.events-event')
+                            @include('layouts.portal.ajax.timeline.events-event', [ 'local' => $event->order_md ])
                         @else
                             @php
                                 $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->unique('order_dt')->count();
                             @endphp
-                            <details class="day{{ $total > 1 ? ' sortable' : '' }}">
+                            <details data-local="{{ $event->order_md }}" class="day{{ $total > 1 ? ' sortable' : '' }}">
                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                 @if($loop->first)
                                     <summary>
@@ -62,14 +63,13 @@
                                     </summary>
                                 @endif
                                 @if($event->date_time === null)
-                                    @include('layouts.portal.ajax.timeline.events-event')
+                                    @include('layouts.portal.ajax.timeline.events-event', [ 'local' => $event->order_dt ])
                                 @else
-                                    @if($prev_date_unix != $event->date_unix || $prev_date_unix_gmt != $event->date_unix_gmt)
-                                        @php
-                                            $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->unique('order_dt')->count();
-                                        @endphp
-                                        <details class="time{{ $total > 1 ? ' sortable' : '' }}">
-                                        @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
+                                    @php
+                                        $total = $events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->unique('order_t')->count();
+                                    @endphp
+                                    <details data-local="{{ $event->order_dt }}" class="time{{ $total > 1 ? ' sortable' : '' }}">
+                                        @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_t')->unique('order_t') as $event)
                                             @if($loop->first)
                                                 <summary>
                                                     <i class="fa-regular fa-square-caret-right"></i>
@@ -80,10 +80,9 @@
                                                     </a>
                                                 </summary>
                                             @endif
-                                            @include('layouts.portal.ajax.timeline.events-event')
+                                            @include('layouts.portal.ajax.timeline.events-event', [ 'local' => $event->order_t ])
                                         @endforeach
-                                        </details>
-                                    @endif
+                                    </details>
                                     @php
                                         $prev_date_unix = $event->date_unix;
                                         $prev_date_unix_gmt = $event->date_unix_gmt;

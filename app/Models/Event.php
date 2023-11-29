@@ -65,7 +65,6 @@ class Event extends Model
         'timeline_id', 
         'title', 
         'date_type', 
-        'date_none', 
         'date_year', 
         'date_month', 
         'date_day', 
@@ -92,6 +91,7 @@ class Event extends Model
         'order_ym',
         'order_md',
         'order_dt',
+        'order_t',
         'order_overall',
     ];
 

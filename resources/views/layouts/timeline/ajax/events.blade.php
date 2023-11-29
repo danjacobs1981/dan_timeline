@@ -101,7 +101,7 @@
                                         </section>
                                     @else
                                         <section class="time">
-                                            @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_dt')->unique('order_dt') as $event)
+                                            @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_t')->unique('order_t') as $event)
                                                 @if($loop->first)
                                                     <?php $dt = $carbon::createFromTimestamp($event->date_unix) ?>
                                                     <div class="event-title" data-period="{{ $event->period }}" data-periodshort="{{ $event->period_short }}" data-order="{{ $periodCount++ }}">

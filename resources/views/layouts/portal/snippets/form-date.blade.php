@@ -200,21 +200,12 @@
     <p>Adding a date is optional. Complete as much (or as little) of the date as required.</p>
     
     @isset($timezone)
-        <p class="info" data-current="timezone" style="display: none;"><i class="fa-regular fa-clock"></i><span>This event has a timezone of <strong>{{ $timezone }}</strong> based on its location <a {{ $date ? 'href='.route('timelines.events.edit.location', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]).' data-modal data-modal-class=modal-edit-event-location data-modal-size=modal-lg data-modal-showclose=false data-modal-clickclose=false' : 'href=#event-map-tab class=tab'}}>Edit Location / Timezone</a></span></p>
+        <p class="info" data-current="timezone" style="display: none;"><i class="fa-regular fa-clock"></i><span>This event has a timezone of <strong>{{ $timezone }}</strong> based on its location <a href="#event-map-tab" class="tab">Edit Location / Timezone</a></span></p>
     @endisset
-    <p class="info" data-current="none" style="display: none;"><i class="fa-regular fa-clock"></i><span>No location has been set, therefore the timezone is defaulted to <strong>Coordinated Universal Time (UTC)</strong> <a {{ $date ? 'href='.route('timelines.events.edit.location', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]).' data-modal data-modal-class=modal-edit-event-location data-modal-size=modal-lg data-modal-showclose=false data-modal-clickclose=false' : 'href=#event-map-tab class=tab'}}>Add Location / Timezone</a></span>
-    <p class="info" data-current="location" style="display: none;"><i class="fa-regular fa-clock"></i><span>The timezone will be based on the location set <a {{ $date ? 'href='.route('timelines.events.edit.location', [ 'timeline' => $event->timeline_id, 'event' => $event->id ]).' data-modal data-modal-class=modal-edit-event-location data-modal-size=modal-lg data-modal-showclose=false data-modal-clickclose=false' : 'href=#event-map-tab class=tab'}}>Edit Location / Timezone</a></span>
+    <p class="info" data-current="none" style="display: none;"><i class="fa-regular fa-clock"></i><span>No location has been set, therefore the timezone is defaulted to <strong>Coordinated Universal Time (UTC)</strong> <a href="#event-map-tab" class="tab">Add Location / Timezone</a></span>
+    <p class="info" data-current="location" style="display: none;"><i class="fa-regular fa-clock"></i><span>The timezone will be based on the location set <a href="#event-map-tab" class="tab">Edit Location / Timezone</a></span>
 
 </div>
-
-@if($date)
-    <!-- these fields are updated from the location modal --->
-    <input type="hidden" name="location_lat" value="{{ old('location_lat', $event->location_lat) }}" />
-    <input type="hidden" name="location_lng" value="{{ old('location_lng', $event->location_lng) }}" />
-    <input type="hidden" name="location_show" value="{{ old('location_show', $event->location_show) }}" />
-    <input type="hidden" name="location_geo" value="{{ old('location_geo', $event->location_geo) }}" />
-    <input type="hidden" name="location_zoom" value="{{ old('location_zoom', $event->location_zoom) }}" />
-@endif
 
 <div class="date-fields">
     <input type="hidden" name="date_year" />
