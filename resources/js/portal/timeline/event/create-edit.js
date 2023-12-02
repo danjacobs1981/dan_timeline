@@ -1,4 +1,5 @@
 import $ from 'jquery';
+//import guillotine from 'guillotine';
 
 CreateEditEvent();
 
@@ -11,6 +12,9 @@ $(document).on($.modal.OPEN, function(event, modal) {
 });
 
 function CreateEditEvent() {
+
+    /*var picture = $('#thepicture');  // Must be already loaded or cached!
+picture.guillotine({width: 400, height: 300});*/
 
     // tabs
     openTab('#' + $('section.event__tab:first').attr('id'));

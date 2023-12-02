@@ -34,27 +34,29 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                         onEnd: function(evt) {
                             //console.log('my id: ' + evt.item.dataset.id);
                             //console.log('local: ' + closestLocal + ' | put after:' + closestLocalAfter);
-                            $('#events-tab .loading').show();
-                            var data = {
-                                'id': evt.item.dataset.id,
-                                'local': closestLocal,
-                                'local_after': closestLocalAfter,
+                            if (typeof closestLocal != 'undefined') {
+                                $('#events-tab .loading').show();
+                                var data = {
+                                        'id': evt.item.dataset.id,
+                                        'local': closestLocal,
+                                        'local_after': closestLocalAfter,
+                                    }
+                                    //console.log(data);
+                                $.ajax({
+                                    url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/reorder',
+                                    type: 'PUT',
+                                    data: data,
+                                    dataType: 'json',
+                                    encode: true,
+                                    success: function(response) {
+                                        //console.log(response);
+                                        loadEvents(true, response.timeline_id, response.event_id);
+                                    },
+                                    error: function(xhr) {
+                                        console.log(xhr.responseText);
+                                    }
+                                });
                             }
-                            console.log(data);
-                            $.ajax({
-                                url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/reorder',
-                                type: 'PUT',
-                                data: data,
-                                dataType: 'json',
-                                encode: true,
-                                success: function(response) {
-                                    //console.log(response);
-                                    loadEvents(true, response.timeline_id, response.event_id);
-                                },
-                                error: function(xhr) {
-                                    console.log(xhr.responseText);
-                                }
-                            });
                         },
                     });
                 });

@@ -92,7 +92,7 @@
                             <p>Give a summary of what your timeline is about.</p>
 
                             <div class="control control--select">
-                                <label class="control__label" for="select">Dropdown</label>
+                                <label class="control__label" for="select">Test Dropdown</label>
                                 <select name="select" id="select">
                                     <option value="volvo">Volvo</option>
                                     <option value="saab">Saab</option>
@@ -103,8 +103,8 @@
                             </div>
     
                             <div class="control control--textarea">
-                                <label class="control__label" for="textarea">Textarea</label>
-                                <textarea id="textarea" name="textarea" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                                <label class="control__label" for="textarea">Test Textarea</label>
+                                <textarea id="textarea" name="textarea" rows="4" cols="50">Blah blah blah</textarea>
                                 <p>Helpful line of text goes along here.</p>
                             </div>
     

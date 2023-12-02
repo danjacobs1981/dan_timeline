@@ -3,23 +3,23 @@
 @section('content')
     
     @auth
-    <h1>logged in</h1>
-    <p class="lead">you're logged in - Only authenticated users can access this section.</p>
-    <a href="{{ route('logout.perform') }}">log out</a> | 
-    <a href="{{ route('dashboard.show') }}">dashboard</a>
+    <h1>Homepage / Logged in</h1>
+    <p>(you're logged in - only authenticated users can access this section)</p>
+    <p><a href="{{ route('logout.perform') }}">Log out</a> | <a href="{{ route('dashboard.show') }}">Go to your Dashboard</a></p>
     @endauth
 
     @guest
     <h1>Homepage</h1>
-    <p class="lead">You're viewing the home page. you're not logged in - Please login to view the restricted data - can't see this if you're logged in</p>
-    <a data-modal data-modal-class="bob" data-modal-size="modal-lg" data-modal-showclose="false" href="{{ route('login.showModal') }}">Login (modal)</a>
-    <a data-modal href="{{ route('register.showModal') }}">Register (modal)</a>
-    <hr/>
+    <p>You're viewing the home page. You're not logged in - please login to view the restricted data (can't see this if you're logged in)</p>
+    <p><a data-modal data-modal-class="" data-modal-size="modal-lg" data-modal-showclose="false" href="{{ route('login.showModal') }}">Login (modal)</a> | <a data-modal href="{{ route('register.showModal') }}">Register (modal)</a></p>
     @endguest
 
     <div>
-        everyone can see this:
-        <h3>timelines list:</h3>
+        <br>
+        <hr>
+        <br>
+        (everyone can see this)
+        <h3>Public Timelines List:</h3>
         @include('layouts.web.snippets.list-timelines')
     </div>
 

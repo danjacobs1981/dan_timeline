@@ -77,12 +77,27 @@
                 
                     @include('layouts.portal.snippets.form-date', [ 'date' => false, 'timezone' => isset($event) ? $event->location_tz : null ])
 
-                    <div class="control">
+                    <!---<div class="control control--image">
                         <span class="control__label">Event Image</span>
-                        image
-                        <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
-                    </div>
-                
+                        <input type="file" id="" name="" accept=".jpeg, .png, .jpg">
+                        <div>
+                            <div class="thumbnail">
+                                <strong>
+                                    Thumbnail Version
+                                </strong>
+                                <div style="background-image:url({{ Vite::asset('resources/images/test/cover6.jpg') }});"></div>
+                                <p>This thumbnail version of the image appears on the event.</p>
+                            </div>
+                            <div class="larger">
+                                <strong>
+                                    Larger Version
+                                </strong>
+                                <div style="background-image:url({{ Vite::asset('resources/images/test/cover6.jpg') }});"></div>
+                                <p>The larger version of the image appears once "Read more" is clicked.</p>
+                            </div>
+                        </div>
+                    </div>--->
+
                     <div class="control control--textarea">
                         <label class="control__label" for="description">Event Description</label>
                         <textarea id="textarea" name="description" rows="4" cols="50"></textarea>

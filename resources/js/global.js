@@ -1,6 +1,6 @@
 //import './bootstrap';
 import $ from 'jquery';
-import ScrollMagic from 'scrollmagic';
+//import ScrollMagic from 'scrollmagic';
 import modal from 'jquery-modal';
 import.meta.glob([
     '../images/**'

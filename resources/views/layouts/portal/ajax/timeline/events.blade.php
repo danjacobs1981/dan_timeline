@@ -3,7 +3,6 @@
 @php 
     $prev_date_unix = null;
     $prev_date_unix_gmt = null;
-    $local = null;
 @endphp
 
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  

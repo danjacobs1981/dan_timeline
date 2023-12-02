@@ -148,7 +148,7 @@
             <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>
             <div></div>
         </label>
-        <p>Feature this timeline on your profile page.</p>
+        <p>Feature this timeline on your <a href="{{ route('profile.show', ['username' => auth()->user()->username ]) }}" target="_blank">profile</a> page - requires the timeline visibility to be public.</p>
     </div>
 
     <!---

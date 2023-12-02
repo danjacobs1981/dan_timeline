@@ -105,7 +105,7 @@
 		</li>
 		@auth
 		<li class="nav-notifications">
-			<a href="{{ route('logout.perform') }}" title="TEMP LOGOUT">
+			<a href="#" title="Notifications">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>
