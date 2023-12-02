@@ -14,6 +14,6 @@
     <br>
     <a href="{{ route('timelines.index') }}">See all your timelines</a>
     <br>
-    <strong><a href="{{ route('timelines.index') }}">Create a timeline</a></strong>
+    <strong><a href="{{ route('timelines.create') }}">Create a timeline</a></strong>
     
 @endsection
