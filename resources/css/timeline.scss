@@ -359,7 +359,6 @@ body {
         }
         &__body {
             margin-top: 60px;
-            position: sticky;
             height: calc(100vh - 137.391px);
             #{$map} & {
                 display: flex;
@@ -875,7 +874,7 @@ body {
                         &>div {
                             &>[itemprop="name"] {
                                 margin: 0.125rem 0.75rem 0 0;
-                                font-size: 1.188rem;
+                                font-size: 1.219rem;
                             }
                             &>[itemprop="location"] {
                                 margin-top: 0.375rem;
@@ -890,6 +889,25 @@ body {
                             min-width: 100px;
                             width: 100px;
                             height: 100px;
+                            background: var(--greyLight);
+                        }
+                    }
+                }
+                &-body {
+                    & p {
+                        font-size: 0.938rem;
+                    }
+                    &>[itemprop="description"] {
+                        &>span {
+                            font-size: 0.938rem;
+                        }
+                    }
+                    &>.event-sources {
+                        &>h4 {
+                            font-size: 1.156rem;
+                        }
+                        &>ul {
+                            font-size: 0.938rem;
                         }
                     }
                 }
@@ -922,21 +940,57 @@ body {
             }
             & .event {
                 &-header {
+                    &>ul {
+                        margin-right: 136px;
+                    }
                     &>div {
                         &>div {
                             &>[itemprop="name"] {
                                 margin: 0.125rem 1rem 0 0;
-                                font-size: 1.313rem;
+                                font-size: 1.375rem;
                                 line-height: 1.5rem;
                             }
                             &>span {
                                 margin-top: 0.5rem;
+                                font-size: 1rem;
                             }
                         }
                         &>img {
                             min-width: 120px;
                             width: 120px;
                             height: 120px;
+                            position: absolute;
+                            top: 1rem;
+                            right: 1rem;
+                        }
+                    }
+                }
+                &-body {
+                    & p {
+                        font-size: 1rem;
+                    }
+                    &>[itemprop="description"] {
+                        &>span {
+                            font-size: 1rem;
+                        }
+                    }
+                    &>.event-sources {
+                        &>h4 {
+                            font-size: 1.188rem;
+                        }
+                        &>ul {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+            & .event--open {
+                & .event-header {
+                    &>div {
+                        &>img {
+                            position: relative;
+                            top: inherit;
+                            right: inherit;
                         }
                     }
                 }
@@ -1001,6 +1055,7 @@ body {
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap;
             &>li {
                 white-space: nowrap;
                 text-transform: uppercase;
@@ -1035,7 +1090,7 @@ body {
                     font-size: 1.094rem;
                 }
                 &>[itemprop="location"] {
-                    margin-top: 0.375rem;
+                    margin: 0.375rem 0.75rem 0 0;
                     font-size: 0.875rem;
                     cursor: pointer;
                     &>p {
@@ -1050,7 +1105,7 @@ body {
                 }
                 &>span {
                     display: inline-block;
-                    margin-top: 0.375rem;
+                    margin-top: 0.5rem;
                     color: var(--link);
                     font-size: 0.875rem;
                     cursor: pointer;
@@ -1074,6 +1129,7 @@ body {
                 -o-object-fit: cover;
                 object-fit: cover;
                 margin: 0 0 0 auto;
+                cursor: pointer;
             }
         }
     }
@@ -1084,7 +1140,67 @@ body {
         }
         padding: 0 1rem;
         & p {
+            font-size: 0.938rem;
+            font-size: 0.875rem;
             margin: 0 0 0.5rem;
+        }
+        &>[itemprop="description"] {
+            margin-bottom: 1rem;
+            &>span {
+                display: inline-block;
+                color: var(--link);
+                font-size: 0.875rem;
+                cursor: pointer;
+                &>i {
+                    font-size: 0.563rem;
+                    margin-left: 0.25rem;
+                    position: relative;
+                    top: -1px;
+                }
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        &>.event-sources {
+            border-top: 1px solid var(--grey);
+            padding-top: 1rem;
+            &>h4 {
+                font-size: 1.063rem;
+            }
+            &>ul {
+                list-style: none;
+                margin: 0.75rem 0 1rem;
+                padding: 0;
+                font-size: 0.875rem;
+                &>li {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 0.375rem;
+                    &>i {
+                        min-width: 1.5rem;
+                        text-align: center;
+                        padding-right: 0.25rem;
+                        font-size: 1rem;
+                        &.source-verified {
+                            margin: auto 0;
+                            min-width: 1.125rem;
+                            min-height: 1.125rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: var(--success);
+                            border-radius: 100%;
+                            color: #fff;
+                            padding: 0;
+                            font-size: 0.625rem;
+                        }
+                    }
+                    &>a {
+                        margin-right: 0.375rem;
+                    }
+                }
+            }
         }
     }
     &-footer {
@@ -1095,7 +1211,9 @@ body {
     }
     &-resources {
         #{$open} & {
-            display: none;
+            & li.event-source {
+                display: none;
+            }
         }
         margin: 0.25rem 0 0;
         padding: 0;
@@ -1109,7 +1227,7 @@ body {
             border-radius: 0.25rem;
             margin: 0 0.5rem 0.25rem 0;
             font-size: 0.875rem;
-            border: 1px solid var(--grey);
+            border: 1px solid var(--link);
             color: var(--link);
             cursor: pointer;
             line-height: 1.25rem;

@@ -906,6 +906,9 @@ h6 {
         border-bottom: 1px solid #d3d3d3;
         padding: 10.5px 1rem;
         z-index: 2;
+        &>strong {
+            font-size: 1.125rem;
+        }
     }
     &__close {
         cursor: pointer;
@@ -950,6 +953,9 @@ h6 {
         }
         &__header {
             padding: 11.5px 1rem;
+            &>strong {
+                font-size: 1.25rem;
+            }
         }
         &__body {
             padding: 1rem;

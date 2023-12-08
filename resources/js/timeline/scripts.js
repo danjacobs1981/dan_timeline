@@ -198,7 +198,7 @@ $('.dropdown-toggle input[type="checkbox"]').on('change', function() {
 });
 
 /* events */
-$('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .event-subheader > li', function() {
+$('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .event-subheader > li, .event img', function() {
     var $event = $(this).closest('.event');
     if ($event.hasClass('event--open')) {
         $event.removeClass('event--open');

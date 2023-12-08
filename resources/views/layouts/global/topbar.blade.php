@@ -11,7 +11,7 @@
 		<div class="nav-menu-section">
 			<nav class="reveal__wrapper">
 				<div class="reveal__header">
-					<h3>Menu</h3>
+					<strong>Menu</strong>
 					<span class="fa-stack reveal__close">
 						<i class="fa-solid fa-circle fa-stack-2x"></i>
 						<i class="fa-solid fa-xmark fa-stack-1x"></i>

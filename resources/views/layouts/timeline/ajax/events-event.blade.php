@@ -1,8 +1,5 @@
 
-<div itemscope itemtype="https://schema.org/Event" class="event-item" data-order="{{ $event->order_overall }}">
-    <!--<h2 itemprop="startDate" content="{{ $event->date_iso }}">
-        {!! $event->date_html !!}
-    </h2>-->
+<div itemscope itemtype="https://schema.org/Event" class="event-item" data-order="{{ $event->order_overall }}" data-id="{{ $event->id }}">
     <div class="event">
         <div class="event-wrapper">
             <div>
@@ -13,16 +10,16 @@
                 <div class="event-header">
                     <ul class="event-subheader">
                         <li>
-                            Order: {{ $event->order_overall }}
+                            Verified
                         </li>
                         <li>
-                            Date Type: {{ $event->date_type }}
+                            Another Highlight
                         </li>
                         <li>
-                            ID: {{ $event->id }}
+                            Important
                         </li>
                         <li>
-                            TZ: {{ $event->location_tz }}
+                            Theory
                         </li>
                     </ul>
                     <div>
@@ -32,34 +29,41 @@
                             </h3>
                             <div itemprop="location" itemscope itemtype="https://schema.org/Place">
                                 @if($event->location_show == 1 && $event->location)
-                                <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                    <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span></span>
-                                </p>
+                                    <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                                        <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span></span>
+                                    </p>
+                                    <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>
                                 @endif
-                                <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>
                             </div>
+                            @if($event->description)
                             <span class="event-read">
                                 Read more<i class="fas fa-chevron-right"></i>
-                            </span>                                    
+                            </span>   
+                            @endif                                 
                         </div>
                         @if($event->image)
-                            <style>img[data-id="{{ $event->id }}"]{object-position:{{ $event->image_thumbnail }};}.event--open img[data-id="{{ $event->id }}"]{object-position: {{ $event->image_large }};}</style>
-                            <img data-id="{{ $event->id }}" itemprop="image" src="{{ asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image) }}" alt="{{ html_entity_decode($event->title) }}" />
+                            <style>.events--md .event-item[data-id="{{ $event->id }}"] .event-header{min-height: 136px;} .event-item[data-id="{{ $event->id }}"] img{object-position:{{ $event->image_thumbnail }};}.event--open .event-item[data-id="{{ $event->id }}"] img{object-position: {{ $event->image_large }};}</style>
+                            <img itemprop="image" src="{{ asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image) }}" alt="{{ html_entity_decode($event->title) }}" />
                         @endif
                     </div>
                 </div>
                 <div class="event-body">
-                    <div itemprop="description">
-                        {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $event->description))).'</p>') !!}
-                    </div>
+                    @if($event->description)
+                        <div itemprop="description">
+                            {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $event->description))).'</p>') !!}
+                            <span class="event-read">
+                                Read less<i class="fas fa-chevron-up"></i>
+                            </span> 
+                        </div> 
+                    @endif 
                     <div class="event-sources">
                         <h4>Sources</h4>
                         <ul>
                             <li>
-                                <i class="far fa-window-maximize"></i><a href="#" target="_blank">NY Post article</a>
+                                <i class="far fa-window-maximize"></i><a href="#" target="_blank">NY Post article</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
                             </li>
                             <li>
-                                <i class="fab fa-youtube"></i><a href="#" target="_blank">Van is captured on video in very high quality</a><i class="fas fa-check event-verified"></i>
+                                <i class="fab fa-youtube"></i><a href="#" target="_blank">Van is captured on video in very high quality and very long words go here</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
                             </li>
                             <li>
                                 <i class="fab fa-tiktok"></i><a href="#" target="_blank">TikTok videos uploaded</a>
@@ -73,9 +77,11 @@
                     <li class="event-source">
                         <i class="far fa-file-alt"></i>3 sources
                     </li>
-                    <li class="event-map">
-                        <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
-                    </li>
+                    @if($event->location_show == 1 && $event->location)
+                        <li class="event-map">
+                            <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
+                        </li>
+                    @endif
                 </ul>
                 <ul class="event-options">
                     <li class="event-comments" data-reveal="comments">
