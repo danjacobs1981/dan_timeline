@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Portal;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Timeline;
 use App\Models\Event;
 use Carbon\Carbon;
 
+use Image;
 
 class TimelineEventController extends Controller
 {
@@ -31,6 +34,10 @@ class TimelineEventController extends Controller
             'location_geo' => 'nullable|integer|between:1,5',
             'location_zoom' => 'nullable|integer|between:3,19',
             'location_tz' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:4096',
+            'image_thumbnail' => 'nullable',
+            'image_large' => 'nullable',
+            'description' => 'nullable|max:1000',
         ];
     }
 
@@ -137,9 +144,29 @@ class TimelineEventController extends Controller
                 
 
                 // other data
+
+                // image
+                $image_name = null;
+                if ($request->hasFile('image')) {
+                    $image = $request->image;
+                    $image_name = time().'_'.$image->getClientOriginalName();
+                }
+                
+                $data['image'] = $image_name;
+                $data['description'] = strip_tags($data['description']);
                 $data['date_type'] = $date_type;
                 $data['id'] = helperUniqueId('events');
                 $data['timeline_id'] = $timeline_id;
+
+                // resize & move image
+                if ($image_name) {
+                    $path = 'public/images/timeline/'.$timeline_id.'/'.$data["id"].'/';
+                    $file_extension = $image->getClientOriginalExtension();
+                    $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode($file_extension);
+                    Storage::put($path.$image_name, (string)$image_file);
+                }
                 
                 //dd($data);
 
@@ -267,7 +294,39 @@ class TimelineEventController extends Controller
                     //dd("full event update");
 
                     // other data
+
+                    $data['description'] = strip_tags($data['description']);
                     $data['date_type'] = $date_type;
+
+                    $image_delete = 0;
+
+                    $data['image'] = $event->image;
+
+                    if ($event->image && $request->image_delete) {
+                        $image_delete = 1;
+                        $data['image'] = null;
+                    }
+
+                    // image
+                    if ($request->hasFile('image')) {
+                        $image = $request->image;
+                        $data['image'] = time().'_'.$image->getClientOriginalName();
+                        $path = 'public/images/timeline/'.$timeline_id.'/'.$event->id.'/';
+                        $file_extension = $image->getClientOriginalExtension();
+                        $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->encode($file_extension);
+                        Storage::put($path.$data['image'], (string)$image_file);
+                        $image_delete = 1;
+                    }
+
+                    // delete old image
+                    if ($image_delete) {
+                        $old_image_path = 'public/images/timeline/'.$timeline_id.'/'.$event->id.'/'.$event->image;
+                        if (Storage::exists($old_image_path)) {
+                            Storage::delete($old_image_path);
+                        }
+                    }
 
                     // update the event
                     Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);

@@ -77,31 +77,52 @@
                 
                     @include('layouts.portal.snippets.form-date', [ 'date' => false, 'timezone' => isset($event) ? $event->location_tz : null ])
 
-                    <!---<div class="control control--image">
-                        <span class="control__label">Event Image</span>
-                        <input type="file" id="" name="" accept=".jpeg, .png, .jpg">
-                        <div>
-                            <div class="thumbnail">
-                                <strong>
-                                    Thumbnail Version
-                                </strong>
-                                <div style="background-image:url({{ Vite::asset('resources/images/test/cover6.jpg') }});"></div>
-                                <p>This thumbnail version of the image appears on the event.</p>
+                    <div class="control control--image control--select {{ isset($event->image) ? 'control--image-exists' : '' }}">
+                        <label class="control__label" for="image">Event Image</label>
+                        <input type="file" id="image" name="image" accept=".jpeg, .png, .jpg, .gif">
+                        <input type="hidden" name="image_delete" value="0">
+                        <div class="image-preview">
+                            <a href="#" class="btn btn-danger">
+                                Remove / Replace Image
+                            </a>
+                            <div>
+                                <div class="thumbnail">
+                                    <strong>
+                                        Thumbnail Version
+                                    </strong>
+                                    <div class="input-event-image" style="{{ isset($event->image) ? 'background-image:url('.asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image).');background-position:'.$event->image_thumbnail.';' : '' }}"></div>
+                                </div>
                             </div>
-                            <div class="larger">
-                                <strong>
-                                    Larger Version
-                                </strong>
-                                <div style="background-image:url({{ Vite::asset('resources/images/test/cover6.jpg') }});"></div>
-                                <p>The larger version of the image appears once "Read more" is clicked.</p>
+                            <select name="image_thumbnail" data-image="thumbnail">
+                                <option data-type="tall" value="50% 0" {{ old('image_thumbnail') == '50% 0' || (isset($event) && $event->image_thumbnail == '50% 0') ? 'selected' : '' }}>Top</option>
+                                <option data-type="tall" value="50% 50%" {{ old('image_thumbnail') == '50% 50%' || (isset($event) && $event->image_thumbnail == '50% 50%') ? 'selected' : '' }}>Middle</option>
+                                <option data-type="tall" value="50% 100%" {{ old('image_thumbnail') == '50% 100%' || (isset($event) && $event->image_thumbnail == '50% 100%') ? 'selected' : '' }}>Bottom</option>
+                                <option data-type="wide" value="0 50%" {{ old('image_thumbnail') == '0 50%' || (isset($event) && $event->image_thumbnail == '0 50%') ? 'selected' : '' }}>Left</option>
+                                <option data-type="wide" value="50% 50%" {{ old('image_thumbnail') == '50% 50%' || (isset($event) && $event->image_thumbnail == '50% 50%') ? 'selected' : '' }}>Middle</option>
+                                <option data-type="wide" value="100% 50%" {{ old('image_thumbnail') == '100% 50%' || (isset($event) && $event->image_thumbnail == '100% 50%') ? 'selected' : '' }}>Right</option>
+                            </select>
+                            <div>
+                                <div class="larger">
+                                    <strong>
+                                        Larger Version
+                                    </strong>
+                                    <div class="input-event-image" style="{{ isset($event->image) ? 'background-image:url('.asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image).');background-position:'.$event->image_large.';' : '' }}"></div>
+                                </div>
                             </div>
+                            <select name="image_large" data-image="larger">
+                                <option value="50% 0" {{ old('image_large') == '50% 0' || (isset($event) && $event->image_large == '50% 0') ? 'selected' : '' }}>Top</option>
+                                <option value="50% 50%" {{ old('image_large') == '50% 50%' || (isset($event) && $event->image_large == '50% 50%') ? 'selected' : '' }}>Middle</option>
+                                <option value="50% 100%" {{ old('image_large') == '50% 100%' || (isset($event) && $event->image_large == '50% 100%') ? 'selected' : '' }}>Bottom</option>
+                            </select>
                         </div>
-                    </div>--->
+                    </div>
 
                     <div class="control control--textarea">
                         <label class="control__label" for="description">Event Description</label>
-                        <textarea id="textarea" name="description" rows="4" cols="50"></textarea>
+                        <textarea id="description" name="description" rows="4" cols="50">{{ old('description', isset($event) ? $event->description : '') }}</textarea>
                         <p>This text is revealed once "Read more" is clicked.</p>
+                        <p>New lines are converted to paragraphs.</p>
+                        <p>HTML tags are not allowed and are automatically removed.</p>
                     </div>
 
                 </div>

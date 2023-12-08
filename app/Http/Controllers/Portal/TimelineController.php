@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Timeline;
 
@@ -122,6 +125,11 @@ class TimelineController extends Controller
     {
         
         if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            // deletes timeline event images
+            if (Storage::exists('public/images/timeline/'.$timeline->id)) {
+                Storage::deleteDirectory('public/images/timeline/'.$timeline->id);
+            }
 
             $timeline->delete(); 
             

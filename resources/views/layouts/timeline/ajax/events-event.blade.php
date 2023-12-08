@@ -42,17 +42,15 @@
                                 Read more<i class="fas fa-chevron-right"></i>
                             </span>                                    
                         </div>
-                        <img itemprop="image" src="https://images.pexels.com/photos/8971436/pexels-photo-8971436.jpeg" />
+                        @if($event->image)
+                            <style>img[data-id="{{ $event->id }}"]{object-position:{{ $event->image_thumbnail }};}.event--open img[data-id="{{ $event->id }}"]{object-position: {{ $event->image_large }};}</style>
+                            <img data-id="{{ $event->id }}" itemprop="image" src="{{ asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image) }}" alt="{{ html_entity_decode($event->title) }}" />
+                        @endif
                     </div>
                 </div>
                 <div class="event-body">
                     <div itemprop="description">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                        <p>
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
+                        {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $event->description))).'</p>') !!}
                     </div>
                     <div class="event-sources">
                         <h4>Sources</h4>

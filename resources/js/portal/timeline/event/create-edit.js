@@ -1,5 +1,5 @@
 import $ from 'jquery';
-//import guillotine from 'guillotine';
+
 
 CreateEditEvent();
 
@@ -13,8 +13,58 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function CreateEditEvent() {
 
-    /*var picture = $('#thepicture');  // Must be already loaded or cached!
-picture.guillotine({width: 400, height: 300});*/
+    // add image
+    $('input[type=file]').on('change', function() {
+        $(this).hide();
+        $(this).next().filter('.control__error').remove();
+        $('input[name="image_delete"]').val(0);
+        var file = this.files[0];
+        displayPreview(file);
+    });
+
+    // remove image
+    $('.image-preview>a').on('click', function(e) {
+        e.preventDefault();
+        $('input[type="file"]').val('').show();
+        $('input[name="image_delete"]').val(1);
+        $('.image-preview').hide();
+    });
+
+    // position bg image
+    $('.image-preview select').on('change', function() {
+        $('.' + $(this).data('image') + ' .input-event-image').css('background-position', $(this).val());
+    });
+
+    function displayPreview(files) {
+        var reader = new FileReader();
+        var img = new Image();
+        reader.onload = function(e) {
+            img.src = e.target.result;
+            // file size in kb
+            var fileSize = Math.round(files.size / 1024);
+            if (fileSize > 4096) {
+                $('input[type="file"]').val('').show();
+                $('input[name="image_delete"]').val(1);
+                $('input[type=file]').after('<span class="control__error">The file size is too large (' + fileSize + 'kb) - please use a different image.</span>');
+            } else {
+                img.onload = function() {
+                    $('.input-event-image').css('background-image', 'url(' + img.src + ')');
+                    $('.image-preview select, .image-preview select>option').show();
+                    $('.image-preview select').val('50% 50%').trigger('change');
+                    if (this.width == this.height) { // square
+                        $('select[name="image_thumbnail"]').val('50% 50%').trigger('change').hide();
+                    } else if (this.width > this.height) { // wide
+                        $('select[name="image_thumbnail"]>option[data-type="tall"]').hide();
+                    } else { // tall
+                        $('select[name="image_thumbnail"]>option[data-type="wide"]').hide();
+                    }
+                    $('.image-preview').show();
+                };
+
+            }
+        };
+        reader.readAsDataURL(files);
+    }
 
     // tabs
     openTab('#' + $('section.event__tab:first').attr('id'));
@@ -33,12 +83,17 @@ picture.guillotine({width: 400, height: 300});*/
     var $form = $('#formEventCreateEdit');
 
     $form.on('submit', function(e) {
+        let data = new FormData(this);
+        if (document.getElementById('image').files.length != 0) {
+            data.append('image', document.getElementById('image').files[0]); // image upload
+        }
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
-            data: $(this).serialize(),
-            dataType: 'json',
-            encode: true,
+            data: data,
+            contentType: false,
+            processData: false,
+            cache: false,
         }).done(function(response) {
             $.modal.close();
             if (response.loadEvents) {
@@ -57,8 +112,8 @@ picture.guillotine({width: 400, height: 300});*/
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            //console.log(jqXHR.responseText);
             var errorData = JSON.parse(jqXHR.responseText);
+            //console.log(jqXHR.responseText);
             mapErrorsToForm(errorData.errors);
             //console.log(errorData);
             //console.log(textStatus);
