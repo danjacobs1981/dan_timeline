@@ -165,7 +165,7 @@ class TimelineEventController extends Controller
                     $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
                         $constraint->aspectRatio();
                     })->encode($file_extension);
-                    Storage::put($path.$image_name, (string)$image_file);
+                    Storage::put($path.$image_name, (string)$image_file, 'public');
                 }
                 
                 //dd($data);
@@ -316,7 +316,7 @@ class TimelineEventController extends Controller
                         $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
                             $constraint->aspectRatio();
                         })->encode($file_extension);
-                        Storage::put($path.$data['image'], (string)$image_file);
+                        Storage::put($path.$data['image'], (string)$image_file, 'public');
                         $image_delete = 1;
                     }
 
