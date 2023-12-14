@@ -160,7 +160,7 @@ class TimelineEventController extends Controller
 
                 // resize & move image
                 if ($image_name) {
-                    $path = 'public/images/timeline/'.$timeline_id.'/'.$data["id"].'/';
+                    $path = 'images/timeline/'.$timeline_id.'/'.$data["id"].'/';
                     $file_extension = $image->getClientOriginalExtension();
                     $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
                         $constraint->aspectRatio();
@@ -311,7 +311,7 @@ class TimelineEventController extends Controller
                     if ($request->hasFile('image')) {
                         $image = $request->image;
                         $data['image'] = time().'_'.$image->getClientOriginalName();
-                        $path = 'public/images/timeline/'.$timeline_id.'/'.$event->id.'/';
+                        $path = 'images/timeline/'.$timeline_id.'/'.$event->id.'/';
                         $file_extension = $image->getClientOriginalExtension();
                         $image_file = Image::make($image)->resize(800, 800, function ($constraint) {
                             $constraint->aspectRatio();
@@ -322,7 +322,7 @@ class TimelineEventController extends Controller
 
                     // delete old image
                     if ($image_delete) {
-                        $old_image_path = 'public/images/timeline/'.$timeline_id.'/'.$event->id.'/'.$event->image;
+                        $old_image_path = 'images/timeline/'.$timeline_id.'/'.$event->id.'/'.$event->image;
                         if (Storage::exists($old_image_path)) {
                             Storage::delete($old_image_path);
                         }
