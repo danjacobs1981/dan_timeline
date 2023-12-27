@@ -16,6 +16,14 @@ $.ajaxSetup({
     }
 });
 
+$(document).ajaxComplete(function(event, xhr, settings) {
+    // 419 - unknow status
+    // 403 - access denied
+    if (xhr.status == 403 || xhr.status == 419) {
+        window.location.href = '/login';
+    }
+});
+
 // global variables
 window.screenSize = getScreenSize();
 window.isTouch = testTouch();

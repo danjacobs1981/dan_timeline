@@ -60,13 +60,13 @@
                         <h4>Sources</h4>
                         <ul>
                             <li>
-                                <i class="far fa-window-maximize"></i><a href="#" target="_blank">NY Post article</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
+                                <i class="far fa-window-maximize"></i><a href="#" target="_blank" rel=”nofollow”>NY Post article</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
                             </li>
                             <li>
-                                <i class="fab fa-youtube"></i><a href="#" target="_blank">Van is captured on video in very high quality and very long words go here</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
+                                <i class="fab fa-youtube"></i><a href="#" target="_blank" rel=”nofollow”>Van is captured on video in very high quality and very long words go here</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
                             </li>
                             <li>
-                                <i class="fab fa-tiktok"></i><a href="#" target="_blank">TikTok videos uploaded</a>
+                                <i class="fab fa-tiktok"></i><a href="#" target="_blank" rel=”nofollow”>TikTok videos uploaded</a>
                             </li>
                         </ul>
                     </div>
@@ -77,6 +77,7 @@
                     <li class="event-source">
                         <i class="far fa-file-alt"></i>3 sources
                     </li>
+                    <!---{{ $event->sources}}--->
                     @if($event->location_show == 1 && $event->location)
                         <li class="event-map">
                             <i class="fas fa-map-marker-alt"></i>View <span>on</span> map

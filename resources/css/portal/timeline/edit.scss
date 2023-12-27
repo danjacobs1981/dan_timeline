@@ -288,7 +288,7 @@ body>main {
                     box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
                     &.highlight {
                         animation-duration: 7s;
-                        animation-name: highlighter;
+                        animation-name: event-highlighter;
                     }
                     &--ghost {
                         background: var(--highlight);
@@ -329,6 +329,7 @@ body>main {
                                         color: var(--link);
                                         cursor: pointer;
                                         text-decoration: none;
+                                        line-height: 1;
                                         &:hover {
                                             background: var(--greyVeryLight);
                                         }
@@ -701,8 +702,7 @@ body>main {
 /* custom modals */
 
 .modal {
-    &-timeline-delete,
-    &-timeline-event-delete {
+    &-delete {
         &>.modal-buttons {
             &>.btn {
                 background: var(--danger);
@@ -714,7 +714,7 @@ body>main {
     }
 }
 
-@keyframes highlighter {
+@keyframes event-highlighter {
     0% {
         background-color: var(--highlight);
     }

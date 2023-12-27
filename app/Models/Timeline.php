@@ -27,7 +27,7 @@ class Timeline extends Model
     ];
     
     /**
-     * Get the events for the timeline.
+     * Get all events for the timeline.
     */
     public function events()
     {
@@ -35,7 +35,15 @@ class Timeline extends Model
     }
 
     /**
-     * Get the tags for the timeline.
+     * Get all sources for the timeline.
+    */
+    public function sources()
+    {
+        return $this->hasMany(Source::class);
+    }
+
+    /**
+     * Get all tags for the timeline.
     */
     public function tags()
     {

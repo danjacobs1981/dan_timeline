@@ -21,6 +21,20 @@ class Event extends Model
     }
 
     /**
+     * The sources that belong to the event.
+     */
+    public function sources()
+    {
+        return $this->belongsToMany(Source::class, 'source_event');
+    }
+
+    // just the IDs of the sources
+    public function sourcesIDs()
+    {
+        return $this->sources()->allRelatedIds();
+    }
+
+    /**
      * The tags that belong to the event.
      */
     public function tags()

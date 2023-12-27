@@ -17,6 +17,7 @@ export default defineConfig({
                 'resources/css/portal.scss',
                 'resources/css/portal/timeline/edit.scss',
                 'resources/css/portal/timeline/event/create-edit.scss',
+                'resources/css/portal/timeline/source/create-edit.scss',
                 'resources/css/resource/form.scss',
                 'resources/css/plugin/tagify.css',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
@@ -34,6 +35,8 @@ export default defineConfig({
                 'resources/js/portal/timeline/event/edit-date-location.js',
                 'resources/js/portal/timeline/event/form-date-location.js',
                 'resources/js/portal/timeline/event/delete.js',
+                'resources/js/portal/timeline/source/create-edit.js',
+                'resources/js/portal/timeline/source/delete.js',
             ],
             refresh: true,
         }),

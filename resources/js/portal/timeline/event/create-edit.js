@@ -1,6 +1,5 @@
 import $ from 'jquery';
 
-
 CreateEditEvent();
 
 $(document).on($.modal.OPEN, function(event, modal) {
@@ -12,6 +11,17 @@ $(document).on($.modal.OPEN, function(event, modal) {
 });
 
 function CreateEditEvent() {
+
+    // sources
+    var event_id = null;
+    if ($('meta[name="event"]').length) {
+        event_id = $('meta[name="event"]').attr('content');
+    }
+    loadSources(null, event_id, []);
+
+    $('#eventSources a[data-modal-class="modal-create-edit-source"]').on('click', function() {
+        source_url = $('input#eventSourceURL').val();
+    });
 
     // add image
     $('input[type=file]').on('change', function() {
@@ -87,6 +97,7 @@ function CreateEditEvent() {
         if (document.getElementById('image').files.length != 0) {
             data.append('image', document.getElementById('image').files[0]); // image upload
         }
+        sourcesArray.forEach((item) => data.append("sources[]", item))
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -140,24 +151,3 @@ function CreateEditEvent() {
     }
 
 }
-
-
-
-
-
-
-/*let map;
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById("gmap"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
-        mapTypeId: "roadmap",
-        disableDefaultUI: true,
-        options: {
-            gestureHandling: 'greedy'
-        }
-    });
-}
-
-window.initMap = initMap;*/

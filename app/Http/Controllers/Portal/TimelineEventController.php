@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Timeline;
 use App\Models\Event;
+use App\Models\Source;
 use Carbon\Carbon;
 
 use Image;
@@ -134,16 +135,10 @@ class TimelineEventController extends Controller
                     }
                 }
 
-                //dd($data);
-
-                // reorder items during its section & period
-
                 $events = $timeline->events;
 
+                // reorder items during its section & period
                 reorderAll($date_type, $timeline_id, $events, $data);
-                
-
-                // other data
 
                 // image
                 $image_name = null;
@@ -151,8 +146,9 @@ class TimelineEventController extends Controller
                     $image = $request->image;
                     $image_name = time().'_'.$image->getClientOriginalName();
                 }
-                
                 $data['image'] = $image_name;
+
+                // other data
                 $data['description'] = strip_tags($data['description']);
                 $data['date_type'] = $date_type;
                 $data['id'] = helperUniqueId('events');
@@ -167,11 +163,17 @@ class TimelineEventController extends Controller
                     })->encode($file_extension);
                     Storage::put($path.$image_name, (string)$image_file, 'public');
                 }
-                
-                //dd($data);
 
                 // add the event
-                Event::create($data);
+                $event = new Event;
+                $event->create($data);
+
+                // sources
+                if ($request->sources_changed) {
+                    // add new ones
+                    //$event = new Event;
+                    $event->sources()->attach($request->sources, ['event_id' => $data['id'], 'timeline_id' => $timeline_id]);
+                }
 
                 return response()->json([
                     'status'=> 200,
@@ -210,6 +212,9 @@ class TimelineEventController extends Controller
     {
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            // get any sources that have been added
+            //$sources = $event->sourcesIDs()->all();
 
             $modal_title = 'Edit Event';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Update Event', 'form' => 'formEventCreateEdit');
@@ -267,11 +272,9 @@ class TimelineEventController extends Controller
                     // other data
                     $data['date_type'] = $date_type;
 
-                    //dd($dateChange);
-
                     // update the event
-                    Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);
-                    //Event::update($data);
+                    $event->update($data);
+                    //Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);
 
                     return response()->json([
                         'status'=> 200,
@@ -285,29 +288,24 @@ class TimelineEventController extends Controller
                 } else { // full event update
 
                     $data = $request->validate($this->rules);
-
+                    
                     $dateChange = updateDateMap($date_type, $timeline, $data, $event, $request);
 
-                    //dd($dateChange);
-                    //dd($data);
+                    // sources
+                    if ($request->sources_changed) {
+                        // remove existing sources based on event id
+                        $event->sources()->detach();
+                        // add new ones - 'sync' removes any that aren't in the array
+                        $event->sources()->attach($request->sources, ['timeline_id' => $timeline_id]);
+                    }
 
-                    //dd("full event update");
-
-                    // other data
-
-                    $data['description'] = strip_tags($data['description']);
-                    $data['date_type'] = $date_type;
-
+                    // image
                     $image_delete = 0;
-
                     $data['image'] = $event->image;
-
                     if ($event->image && $request->image_delete) {
                         $image_delete = 1;
                         $data['image'] = null;
                     }
-
-                    // image
                     if ($request->hasFile('image')) {
                         $image = $request->image;
                         $data['image'] = time().'_'.$image->getClientOriginalName();
@@ -319,7 +317,6 @@ class TimelineEventController extends Controller
                         Storage::put($path.$data['image'], (string)$image_file, 'public');
                         $image_delete = 1;
                     }
-
                     // delete old image
                     if ($image_delete) {
                         $old_image_path = 'public/images/timeline/'.$timeline_id.'/'.$event->id.'/'.$event->image;
@@ -328,9 +325,13 @@ class TimelineEventController extends Controller
                         }
                     }
 
+                    // other data
+                    $data['description'] = strip_tags($data['description']);
+                    $data['date_type'] = $date_type;
+
                     // update the event
-                    Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);
-                    //Event::update($data);
+                    $event->update($data);
+                    //Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);
 
                     return response()->json([
                         'status'=> 200,
@@ -360,9 +361,9 @@ class TimelineEventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): never
     {
-        //
+        abort(404);
     }
 
     public function showModalDate(Timeline $timeline, Event $event)

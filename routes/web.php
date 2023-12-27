@@ -40,14 +40,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             Route::get('/dashboard', 'Portal\DashboardController@index')->name('dashboard.show');
 
-            // crud of timelines
+            // crud of TIMELINES
             Route::resource('timelines', Portal\TimelineController::class);
 
             // timeline editing modals
             Route::get('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@showModalPrivacy')->name('timelines.privacy.showModal');
             Route::get('/timelines/{timeline}/privacy/share', 'Portal\TimelineEditController@showModalPrivacyShare')->name('timelines.privacy-share.showModal');
             Route::get('/timelines/{timeline}/delete', 'Portal\TimelineEditController@showModalDelete')->name('timelines.delete.showModal');
-            
+
             // ajax routes for timeline actions (background saving)
             Route::put('/timelines/{timeline}/settings', 'Portal\TimelineEditController@settings');
             Route::put('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@privacy');
@@ -56,7 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::put('/timelines/{timeline}/reorder', 'Portal\TimelineEditController@reorder'); // timeline single dragged event reordering
             Route::put('/timelines/{timeline}/process', 'Portal\TimelineEditController@process'); // timeline processing (complete reordering & differences etc)
 
-            // crud of events
+            // crud of EVENTS
             Route::resource('timelines.events', Portal\TimelineEventController::class);
 
             // quick change event date & location
@@ -68,10 +68,22 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             // ajax routes for event actions (background saving)
             Route::put('/timelines/{timeline}/events/{event}/delete', 'Portal\TimelineEventEditController@delete');
+
+            // crud of SOURCES
+            Route::resource('timelines.sources', Portal\TimelineSourceController::class);
+
+            // source editing modals
+            Route::get('/timelines/{timeline}/sources/{source}/delete', 'Portal\TimelineSourceEditController@showModalDelete')->name('timelines.sources.delete.showModal');
+
+            // ajax routes for event actions (background saving)
+            Route::put('/timelines/{timeline}/sources/{source}/delete', 'Portal\TimelineSourceEditController@delete');
             
-            // crud of profile
+            // crud of PROFILES
             Route::singleton('profile', Portal\ProfileController::class);
-            
+
+            // other
+            Route::get('/retrieve/title', 'Portal\RetrieveController@title');
+
         });
 
     });

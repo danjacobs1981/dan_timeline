@@ -93,9 +93,83 @@ window.loadEvents = function(reload, timeline_id, event_id) {
     });
 }
 
+window.sourcesArray = [];
+
+window.loadSources = function(source_id, event_id, sourcesArrayExists) {
+    $('.sources-list').html();
+    $('.sources-loading').show();
+    var data = { event_id: event_id };
+    $.ajax({
+        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/sources',
+        type: 'GET',
+        data: data,
+        dataType: 'json',
+        success: function(data) {
+            $('.sources-list').html(data['sources_html']).promise().done(function() {
+                $('.sources-intro').text(data['sources_count']);
+                if ($('#eventSources').length) {
+                    if ($.isEmptyObject(sourcesArrayExists)) {
+                        sourcesArray = data.sources_added;
+                    } else {
+                        sourcesArray = sourcesArrayExists;
+                    }
+                    // to do: remove all from current list, iterate through array and clone items back up
+                    //console.log(sourcesArray);
+                    var add = '<a href="#" class="add"><i class="fa-solid fa-circle-plus"></i><span>Add to Event</span></a>';
+                    var remove = '<a href="#" class="remove"><i class="fa-solid fa-circle-minus"></i><span>Remove from Event</span></a>';
+                    $('#eventSources .sources-list li').each(function() {
+                        var source_id = $(this).data('id');
+                        if ($.inArray(source_id, sourcesArray) !== -1) {
+                            $(this).children('div').prepend(remove);
+                        } else {
+                            $(this).children('div').prepend(add);
+                        }
+                    });
+                    $('#timelineEventCreateEdit').on('click', '#eventSources .sources-list li>div>a', function(e) {
+                        var source_id = $(this).closest('li').data('id');
+                        if ($(this).hasClass('add')) {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                            sourcesArray.push(source_id);
+                            $(this).replaceWith(remove);
+
+                            var clone = $('#eventSources .sources-list li[data-id="' + source_id + '"]').clone();
+                            $('.sources-list-current ul').append(clone);
+
+                        } else if ($(this).hasClass('remove')) {
+                            e.preventDefault();
+                            e.stopImmediatePropagation();
+                            var i = $.inArray(source_id, sourcesArray);
+                            if (i >= 0) {
+                                sourcesArray.splice(i, 1);
+                            }
+                            $(this).replaceWith(add);
+                        }
+                        $('input[name="sources_changed"]').val(1);
+                        //console.log(sourcesArray);
+                    });
+                }
+                $('.sources-loading').fadeOut();
+                // highlights new/edited source
+                if (source_id) {
+                    var $source = $('.sources-list').find('.source[data-id="' + source_id + '"]');
+                    $source.addClass('highlight');
+                    setTimeout(function() {
+                        $source.removeClass('highlight');
+                    }, 8000);
+                }
+            });
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
 var topHeight = getTopHeight();
 setLayout();
 loadEvents(false, null, null);
+loadSources(null, null, []);
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();
@@ -116,6 +190,12 @@ $('#events-tab header>div>em').on('click', function() {
         $details.prop('open', true);
         $(this).html('<i class="fa-regular fa-square-caret-up"></i>Contract all dates').toggleClass('active');
     };
+});
+
+// sources
+window.source_url = null;
+$('#timelineSources a[data-modal-class="modal-create-edit-source"]').on('click', function() {
+    source_url = $('input#timelineSourceURL').val();
 });
 
 // header tabs
@@ -161,6 +241,10 @@ $('.visibility-options>span>a').on('click', function(e) {
     e.preventDefault();
     $('.visibility-options').hide();
 });
+
+// resources
+
+
 
 // layout functions
 

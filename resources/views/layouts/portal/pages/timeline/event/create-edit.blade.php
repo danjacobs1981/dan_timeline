@@ -16,7 +16,7 @@
                 <a href="#event-map-tab">Map / Location</a>
             </li>
             <li>
-                <a href="#event-resources-tab">Resources</a>
+                <a href="#event-sources-tab">Sources</a>
             </li>
             <li>
                 <a href="#event-tags-tab">Tags / Filters</a>
@@ -68,6 +68,8 @@
             <section id="event-details-tab" class="event__tab" style="display:none;">
 
                 <div class="eventDetails">
+
+                    <p>Details about the event.</p>
     
                     <div class="control control--textbox">
                         <label class="control__label" for="title">Event Title</label>
@@ -133,28 +135,42 @@
 
                 <div class="eventMap">
 
+                    <p>Choose whether to add a marker on the map for this event.</p>
+
                     @include('layouts.portal.snippets.form-location', [ 'date' => false ])
 
                 </div>
 
             </section>
         
-            <section id="event-resources-tab" class="event__tab" style="display:none;">
+            <section id="event-sources-tab" class="event__tab" style="display:none;">
 
-                resources
+                @include('layouts.portal.snippets.edit-sources', [ 'placement' => 'event' ])
 
             </section>
 
             <section id="event-tags-tab" class="event__tab" style="display:none;">
 
-                tags
+                <div class="eventTags">
 
+                    <p>Tag your events so they can be easily filtered.</p>
+
+                    
+
+                </div>
             </section>
 
             <section id="event-comments-tab" class="event__tab" style="display:none;">
 
-                comments
+                <div class="eventComments">
 
+                    <p>Moderate any comments that have been left on this event.</p>
+
+                    <p>todo: Note: commenting has been turned off for all events.</p>
+
+                    <p>todo: Give options to turn on/off comments here.</p>
+
+                </div>
             </section>
 
             @if(isset($event))
@@ -166,7 +182,7 @@
 
                         <div class="control control--textbox">
                             <label class="control__label" for="title">Delete Event</label>
-                            <a href="{{ route('timelines.events.delete.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-event-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                            <a href="{{ route('timelines.events.delete.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-event-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                                 <i class="fa-regular fa-trash-can"></i>Delete
                             </a>                            
                             <p>Deleting an event cannot be undone.</p>

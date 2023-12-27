@@ -20,6 +20,11 @@
         height: calc(100vh - 156px);
         & section {
             padding: 1rem;
+            &>div {
+                &>p {
+                    margin: 0 0 1rem;
+                }
+            }
             & .eventDetails {}
             & .eventMap {
                 &-map {

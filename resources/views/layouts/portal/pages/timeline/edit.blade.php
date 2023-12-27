@@ -29,7 +29,7 @@
                                 <a href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}" target="_blank">
                                     <i class="fa-regular fa-window-restore"></i> <span>View Timeline</span>
                                 </a>
-                                <a href="{{ route('timelines.index') }}" class="link-outline">
+                                <a href="{{ route('timelines.index') }}">
                                     <i class="fa-solid fa-chevron-left"></i> <span>Exit Editing</span><!-- (gives a warning if something isn't saved) -->
                                 </a>
                             </ul>
@@ -50,7 +50,7 @@
                             <a href="#tags-tab">Tags / Filters</a>
                         </li>
                         <li>
-                            <a href="#resources-tab">Resources</a>
+                            <a href="#sources-tab">Sources</a>
                         </li>
                         <li>
                             <a href="#comments-tab">Comments</a>
@@ -126,13 +126,9 @@
 
                     </section>
 
-                    <section id="resources-tab" class="edit__tab" style="display:none;">
+                    <section id="sources-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineResources">
-
-                            <p>Listing of all resources that can be added to individual events.</p>
-
-                        </div>
+                        @include('layouts.portal.snippets.edit-sources', [ 'placement' => 'timeline', 'sources' => null ])
 
                     </section>
 
@@ -162,9 +158,9 @@
 
                             <p>Delete your timeline.</p>
 
-                            <div class="control control--textbox">
-                                <label class="control__label" for="title">Delete Timeline</label>
-                                <a href="{{ route('timelines.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                            <div class="control">
+                                <span class="control__label">Delete Timeline</span>
+                                <a href="{{ route('timelines.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                                     <i class="fa-regular fa-trash-can"></i>Delete
                                 </a>                            
                                 <p>Deleting a timeline cannot be undone.</p>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Timeline;
 use App\Models\Event;
+use App\Models\Source;
 use App\Models\Tag;
 use App\Models\Share;
 
@@ -46,15 +47,12 @@ class TimelineController extends Controller
 
         }
 
-
-        
-        
-
     }
 
     public function events(Timeline $timeline, Request $request) 
     {
 
+        //dd(Event::sources()->get());
         
 
         /*
@@ -132,7 +130,7 @@ class TimelineController extends Controller
 
         } else {
 
-            $events_html = 'No results';
+            $events_html = 'No events';
             $events_count = 0;
 
         }
