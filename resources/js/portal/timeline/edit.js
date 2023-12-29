@@ -113,11 +113,17 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
                     } else {
                         sourcesArray = sourcesArrayExists;
                     }
-                    // to do: remove all from current list, iterate through array and clone items back up
+                    $('.sources-current-intro>span').text(sourcesArray.length);
+                    $('.sources-list-current li').remove();
+                    $.each(sourcesArray, function(index, value) {
+                        var clone = $('#eventSources .sources-list li[data-id="' + value + '"]').clone();
+                        $('.sources-list-current ul').append(clone);
+                        $('.sources-list li[data-id="' + value + '"]').hide();
+                    });
                     //console.log(sourcesArray);
                     var add = '<a href="#" class="add"><i class="fa-solid fa-circle-plus"></i><span>Add to Event</span></a>';
                     var remove = '<a href="#" class="remove"><i class="fa-solid fa-circle-minus"></i><span>Remove from Event</span></a>';
-                    $('#eventSources .sources-list li').each(function() {
+                    $('#eventSources .sources-list li, #eventSources .sources-list-current li').each(function() {
                         var source_id = $(this).data('id');
                         if ($.inArray(source_id, sourcesArray) !== -1) {
                             $(this).children('div').prepend(remove);
@@ -125,27 +131,31 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
                             $(this).children('div').prepend(add);
                         }
                     });
-                    $('#timelineEventCreateEdit').on('click', '#eventSources .sources-list li>div>a', function(e) {
-                        var source_id = $(this).closest('li').data('id');
-                        if ($(this).hasClass('add')) {
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
-                            sourcesArray.push(source_id);
-                            $(this).replaceWith(remove);
-
-                            var clone = $('#eventSources .sources-list li[data-id="' + source_id + '"]').clone();
-                            $('.sources-list-current ul').append(clone);
-
-                        } else if ($(this).hasClass('remove')) {
-                            e.preventDefault();
-                            e.stopImmediatePropagation();
-                            var i = $.inArray(source_id, sourcesArray);
-                            if (i >= 0) {
-                                sourcesArray.splice(i, 1);
+                    $('#timelineEventCreateEdit').on('click', '#eventSources li>div>a', function(e) {
+                        if ($(this).hasClass('add') || $(this).hasClass('remove')) {
+                            var source_id = $(this).closest('li').data('id');
+                            $('input[name="sources_changed"]').val(1);
+                            if ($(this).hasClass('add')) {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+                                sourcesArray.push(source_id);
+                                $(this).replaceWith(remove);
+                                var clone = $('#eventSources .sources-list li[data-id="' + source_id + '"]').clone();
+                                $('.sources-list-current ul').append(clone);
+                                $('.sources-list li[data-id="' + source_id + '"]').hide();
+                            } else if ($(this).hasClass('remove')) {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+                                var i = $.inArray(source_id, sourcesArray);
+                                if (i >= 0) {
+                                    sourcesArray.splice(i, 1);
+                                }
+                                $('.sources-list-current li[data-id="' + source_id + '"]').remove();
+                                $('.sources-list li[data-id="' + source_id + '"]>div>a.remove').replaceWith(add);
+                                $('.sources-list li[data-id="' + source_id + '"]').show();
                             }
-                            $(this).replaceWith(add);
+                            $('.sources-current-intro>span').text(sourcesArray.length);
                         }
-                        $('input[name="sources_changed"]').val(1);
                         //console.log(sourcesArray);
                     });
                 }

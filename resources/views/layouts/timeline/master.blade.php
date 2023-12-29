@@ -20,10 +20,6 @@
 
     @include('layouts.global.action')
 
-    @push('scripts')
-        @vite('resources/js/timeline/scripts.js')
-    @endpush
-
     @include('layouts.global.scripts')
 
 </body>

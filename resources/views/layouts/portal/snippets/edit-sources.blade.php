@@ -6,6 +6,7 @@
         <p>Add sources to this event.</p>
         <div class="control control--list">
             <span class="control__label">Event Sources</span>
+            <p class="sources-current-intro">There are <span>0</span> source(s) featured on this event.</p>
             <div class="sources-list-current">
                 <ul>
                 </ul>
@@ -26,7 +27,7 @@
     </div>
 
     <div class="control control--list">
-        <span class="control__label">All Available Sources</span>
+        <span class="control__label">All Sources</span>
         <p class="sources-intro">Loading...</p>
         <div class="loading sources-loading">
             <div class="dots"><div></div><div></div><div></div><div></div></div>

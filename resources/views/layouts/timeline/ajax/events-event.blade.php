@@ -55,29 +55,28 @@
                                 Read less<i class="fas fa-chevron-up"></i>
                             </span> 
                         </div> 
-                    @endif 
-                    <div class="event-sources">
-                        <h4>Sources</h4>
-                        <ul>
-                            <li>
-                                <i class="far fa-window-maximize"></i><a href="#" target="_blank" rel=”nofollow”>NY Post article</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
-                            </li>
-                            <li>
-                                <i class="fab fa-youtube"></i><a href="#" target="_blank" rel=”nofollow”>Van is captured on video in very high quality and very long words go here</a><i class="fas fa-check source-verified" title="Source has been verified"></i>
-                            </li>
-                            <li>
-                                <i class="fab fa-tiktok"></i><a href="#" target="_blank" rel=”nofollow”>TikTok videos uploaded</a>
-                            </li>
-                        </ul>
-                    </div>
+                    @endif
+                    @if($event->sources->count())
+                        <div class="event-sources">
+                            <h4>Sources</h4>
+                            <ul>
+                                @foreach($event->sources as $source) 
+                                    <li>
+                                        <i class="{{ $source->fa_icon }}"></i><a href="{{ $source->url }}" target="_blank" rel="nofollow">{{ $source->title }}</a><!--<i class="fas fa-check source-verified" title="Source has been verified"></i>-->
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="event-footer">
                 <ul class="event-resources">
-                    <li class="event-source">
-                        <i class="far fa-file-alt"></i>3 sources
-                    </li>
-                    <!---{{ $event->sources}}--->
+                    @if($event->sources->count())
+                        <li class="event-source">
+                            <i class="far fa-file-alt"></i>{{ $event->sources->count() > 1 ? $event->sources->count().' sources' : '1 source' }}
+                        </li>
+                    @endif
                     @if($event->location_show == 1 && $event->location)
                         <li class="event-map">
                             <i class="fas fa-map-marker-alt"></i>View <span>on</span> map

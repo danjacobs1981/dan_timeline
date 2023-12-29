@@ -2,14 +2,26 @@ import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
 //import { getScreenSize } from './../global.js';
 
+window.classEvents = function() {
+    $('.events').removeClass('events--sm events--md events--lg');
+    if ($('.events').width() > 499) {
+        $('.events').addClass('events--sm');
+    }
+    if ($('.events').width() > 579) {
+        $('.events').addClass('events--md');
+    }
+}
+
 var topHeight = getTopHeight();
 setLayout();
+classEvents();
 loadEvents(null, false);
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();
     setLayout();
     setEventElements();
+    classEvents();
 });
 
 $(window).on('load', function() {

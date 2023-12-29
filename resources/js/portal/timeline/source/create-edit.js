@@ -17,7 +17,7 @@ function CreateEditSource() {
     var $input_title = $('#formSourceCreateEdit input[name="title"]');
 
     if (source_url) {
-        $('input#source').val('');
+        $('input#timelineSourceURL, input#eventSourceURL').val('');
         $input_url.val(source_url);
         autoFillTitle(source_url);
         source_url = null;

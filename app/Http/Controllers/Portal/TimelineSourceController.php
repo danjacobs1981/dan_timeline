@@ -44,7 +44,7 @@ class TimelineSourceController extends Controller
         if ($timeline_sources->count()) {
 
             $sources_html = view('layouts.portal.ajax.timeline.sources', ['timeline_sources' => $timeline_sources])->render();
-            $sources_count = $timeline_sources->count().' sources';
+            $sources_count = 'A total of '.$timeline_sources->count().' source(s) are available.';
 
         } else {
 

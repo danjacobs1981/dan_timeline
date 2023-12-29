@@ -1,5 +1,9 @@
 @extends('layouts.timeline.master')
 
+@push('scripts')
+    @vite('resources/js/timeline/scripts.js')
+@endpush
+
 @section('content')
 
     <section class="timeline {{ $timeline->map ? 'timeline--map' : '' }}">

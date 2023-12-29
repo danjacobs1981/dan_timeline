@@ -3,13 +3,6 @@ import $ from 'jquery';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
 
-eventsClass();
-
-$(window).on('resize', function() {
-    eventsClass();
-    /*setMap();*/
-});
-
 /* map */
 
 let map;
@@ -93,22 +86,12 @@ window.initMap = initMap;*/
     }
 }*/
 
-function eventsClass() {
-    $('.events').removeClass('events--sm events--md events--lg');
-    if ($('.events').width() > 499) {
-        $('.events').addClass('events--sm');
-    }
-    if ($('.events').width() > 579) {
-        $('.events').addClass('events--md');
-    }
-}
-
 $('article').resizable({
     handleSelector: '.splitter',
     resizeHeight: false,
     onDrag: function() {
         /* give article a class dependent of width */
-        eventsClass();
+        classEvents();
     }
 });
 

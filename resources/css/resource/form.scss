@@ -294,6 +294,7 @@ input {
             list-style: none;
             padding: 0;
             margin: 1rem -1rem 0;
+            border-top: 1px solid var(--greyLight);
             &>li {
                 display: flex;
                 flex-direction: column;
@@ -305,9 +306,6 @@ input {
                 }
                 &:hover {
                     background: var(--greyVeryLight);
-                }
-                &:first-child {
-                    border-top: 1px solid var(--greyLight);
                 }
                 &>span {
                     display: block;
