@@ -38,11 +38,11 @@ function getTopHeight() {
 
 function setLayout() {
     if (screenSize > 2) {
-        $('.timeline__body').css({
+        $('.timeline--map .timeline__body').css({
             'height': 'calc(100vh - ' + topHeight + 'px)'
         });
     } else {
-        $('.timeline__body').css({
+        $('.timeline--map .timeline__body').css({
             'height': 'auto'
         });
     }

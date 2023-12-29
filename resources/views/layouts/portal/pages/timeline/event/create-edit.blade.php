@@ -135,7 +135,7 @@
 
                 <div class="eventMap">
 
-                    <p>Choose whether to add a marker on the map for this event.</p>
+                    <p>Choose whether to add a marker on the map for the event.</p>
 
                     @include('layouts.portal.snippets.form-location', [ 'date' => false ])
 
@@ -153,7 +153,7 @@
 
                 <div class="eventTags">
 
-                    <p>Tag your events so they can be easily filtered.</p>
+                    <p>Tag the event so it can be easily filtered.</p>
 
                     
 
@@ -164,7 +164,7 @@
 
                 <div class="eventComments">
 
-                    <p>Moderate any comments that have been left on this event.</p>
+                    <p>Moderate any comments that have been left on the event.</p>
 
                     <p>todo: Note: commenting has been turned off for all events.</p>
 
@@ -178,7 +178,7 @@
 
                     <div class="eventDelete">
 
-                        <p>Delete this event.</p>
+                        <p>Delete the event.</p>
 
                         <div class="control control--textbox">
                             <label class="control__label" for="title">Delete Event</label>

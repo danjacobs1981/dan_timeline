@@ -17,7 +17,7 @@
     }
     &>section {
         overflow-y: auto;
-        height: calc(100vh - 156px);
+        height: calc(100vh - 161px);
         & section {
             padding: 1rem;
             &>div {
@@ -44,7 +44,7 @@
     }
     @media (min-width: 768px) {
         &>section {
-            height: calc(100vh - 189px);
+            height: calc(100vh - 194px);
         }
     }
     @media (min-width: 992px) {}

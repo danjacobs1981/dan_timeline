@@ -3,10 +3,10 @@
     @if($placement == 'timeline')
         <p>Sources that can be added to individual events to give them more clarity and weight.</p>
     @elseif($placement == 'event')
-        <p>Add sources to this event.</p>
+        <p>Add sources to the event.</p>
         <div class="control control--list">
             <span class="control__label">Event Sources</span>
-            <p class="sources-current-intro">There are <span>0</span> source(s) featured on this event.</p>
+            <p class="sources-current-intro">There are <span>0</span> source(s) currently featured on this event.</p>
             <div class="sources-list-current">
                 <ul>
                 </ul>

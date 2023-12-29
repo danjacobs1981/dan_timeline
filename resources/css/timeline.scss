@@ -359,7 +359,7 @@ body {
         }
         &__body {
             margin-top: 60px;
-            height: calc(100vh - 137.391px);
+            /*height: calc(100vh - 137.391px);*/
             #{$map} & {
                 display: flex;
                 &>article {
