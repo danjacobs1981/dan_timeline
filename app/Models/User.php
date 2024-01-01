@@ -56,11 +56,27 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the timelines for the user.
+     * Get the timelines owned by the user.
      */
     public function timelines()
     {
         return $this->hasMany(Timeline::class);
+    }
+
+    /**
+     * Get the timelines that have been 'liked' by the user.
+    */
+    public function timelinesLiked()
+    {
+        return $this->belongsToMany(Timeline::class, 'likes', 'user_id', 'timeline_id');
+    }
+
+    /**
+     * Get the timelines that have been 'saved' by the user.
+    */
+    public function timelinesSaved()
+    {
+        return $this->belongsToMany(Timeline::class, 'saves', 'user_id', 'timeline_id');
     }
 
 }

@@ -12,7 +12,6 @@ class HomeController extends Controller
     {
 
         $timelines = Timeline::where('privacy', 3)->take(10)->get();
-        // will need to join other tables like user etc ?
 
         return view('layouts.web.pages.home')->with('timelines', $timelines);
 

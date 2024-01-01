@@ -1,6 +1,6 @@
-@if(count($timelines))
+@if(count(auth()->user()->timelines))
     <ul>
-        @foreach($timelines as $timeline)
+        @foreach(auth()->user()->timelines as $timeline)
             <li>
                 {{ $timeline->title }} 
                 <ul>

@@ -35,6 +35,38 @@ class Timeline extends Model
     }
 
     /**
+     * Get all likes for the timeline.
+    */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likesCount()
+    {
+        return $this->likes()->count();
+    }
+
+    public function likedByUser()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
+    /**
+     * Get all saves for the timeline.
+    */
+    public function saves()
+    {
+        return $this->hasMany(Save::class);
+
+    }
+
+    public function savedByUser()
+    {
+        return $this->saves()->where('user_id', auth()->id())->exists();
+    }
+
+    /**
      * Get all sources for the timeline.
     */
     public function sources()

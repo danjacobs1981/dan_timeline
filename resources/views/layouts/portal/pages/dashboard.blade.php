@@ -15,5 +15,13 @@
     <a href="{{ route('timelines.index') }}">See all your timelines</a>
     <br>
     <strong><a href="{{ route('timelines.create') }}">Create a timeline</a></strong>
+    <hr/> 
+    <br>
+    <br>
+    <h3>Liked Timelines list</h3>
+    @include('layouts.portal.snippets.list-timelines-liked')
+    <br>
+    <br>
+
     
 @endsection

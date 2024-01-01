@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 use App\Models\Timeline;
@@ -9,6 +10,7 @@ use App\Models\Event;
 use App\Models\Source;
 use App\Models\Tag;
 use App\Models\Share;
+use App\Models\Like;
 
 use App\Mail\AmazonSESMail;
 use Illuminate\Support\Facades\Mail;
@@ -20,9 +22,6 @@ class TimelineController extends Controller
     
     public function show(Timeline $timeline, Request $request) 
     {
-
-        //dd(Auth::check());
-        // updateTimeline($timeline->id);
 
         // Mail::to('success@simulator.amazonses.com')->send(new AmazonSESMail());
 
@@ -38,7 +37,7 @@ class TimelineController extends Controller
                 // this will also add the class "event-start" if an initial event has been selected
             }
 
-            return view('layouts.timeline.pages.timeline', ['timeline' => $timeline, 'username' => $timeline->user->username, 'temp_map' => 1, 'temp_comments' => 1, 'temp_filters' => 1, 'temp_tags' => 1]);
+            return view('layouts.timeline.pages.timeline', ['timeline' => $timeline, 'temp_filters' => 1, 'temp_tags' => 1]);
 
         } else {
 
@@ -52,45 +51,7 @@ class TimelineController extends Controller
     public function events(Timeline $timeline, Request $request) 
     {
 
-        //dd(Event::sources()->get());
-        
-
-        /*
-        // get event ids belonging to tag
-        //$tag_events = Tag::find(12345)->events->where('timeline_id', $timeline_id)->pluck('id')->toArray();
-        $tag_events = Tag::with('events')->findMany([12345,67890])->where('timeline_id', $timeline_id)->pluck('id')->toArray();
-        dd($tag_events);
-        */
-
-        /*
-        // get tags belonging to event
-        $event_tags = Event::find(72117)->tags->where('timeline_id', $timeline_id)->toArray();
-        dd($event_tags);
-        */
-        
-
-        // if share_id etc
-
-        
-
-        /*if ($selectedTags) {
-            $tags = Tag::whereIn('id', $selectedTags)->where('timeline_id', $timeline_id)->get();
-            if($tags) {
-                $events = $tags->events;
-                dd($events);
-                $events_ids = array();
-                foreach ($events as $event) {
-                    array_push($events_ids, $event->id);
-                }      
-                $timeline_events = Timeline::find($timeline_id)->events->whereIn('id', $events_ids);           
-            } else {
-                $timeline_events = Timeline::find($timeline_id)->events;
-            }
-        } else {
-            $timeline_events = Timeline::find($timeline_id)->events;
-        }*/
-        
-        $selectedTags = array();
+        /*$selectedTags = array();
 
         if($request->share) {
             $share = Share::find($request->share)->where('timeline_id', $timeline->id)->first();
@@ -120,79 +81,74 @@ class TimelineController extends Controller
             $timeline_events = $timeline->events->whereIn('id', $events_ids); 
         } else {
             $timeline_events = $timeline->events;
-        }
+        }*/
 
-        if ($timeline_events->count()) {
-
-            //$event_first = $timeline_events->sortBy('order_ny')->first()->id;
-            $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
-            $events_count = $timeline_events->count();
-
-        } else {
-
-            $events_html = 'No events';
-            $events_count = 0;
-
-        }
-
-        return response()->json(array(
-            'success' => true,
-            'events_html' => $events_html,
-            'events_count' => $events_count
-        ));
-
+        if ($request->ajax()){
         
-        /*$array = [];
-        $counter = 1;
+            $timeline_events = $timeline->events;
 
-        // create JSON
-        foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events) {
-            foreach ($events->unique('order_ny') as $event) {
-                if($event->date_year === null) {
-                    $array[$counter++] = $event->toArray();
+            if ($timeline_events->count()) {
+
+                $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
+                $events_count = $timeline_events->count();
+
+            } else {
+
+                $events_html = 'No events';
+                $events_count = 0;
+
+            }
+
+            return response()->json(array(
+                'success' => true,
+                'events_html' => $events_html,
+                'events_count' => $events_count
+            ));
+
+        }
+
+    }
+
+    public function like(Timeline $timeline, Request $request) 
+    {
+
+        if ($request->ajax()){
+
+            if (auth()->check()) {
+
+                // check if already liked
+                if ($timeline->likedByUser()) {
+
+                    $timeline->likes()->where('user_id', auth()->id())->where('timeline_id', $timeline->id)->delete();
+                    $like = false;
+
                 } else {
 
-                    $array[$event->date_year] = [];
-
-                    foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event) {
-
-                        
-
-                        if($event->date_month === null) {
-
-                            $array[$event->date_year] = $event->toArray();
-                            
-                        } else {
-                            foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event) {
-
-                                
-
-                                if($event->date_day === null) {
-                                    $array[$event->date_year][$event->date_month] = $event->toArray();
-                                } else {
-                                    foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event) {
-
-                                        
-                                        
-                                        if($event->date_time === null) {
-                                            $array[$event->date_year][$event->date_month][$event->date_day] = $event->toArray();
-                                        } else {
-                                            $array[$event->date_year][$event->date_month][$event->date_day][$event->date_unix_gmt] = $event->toArray();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-
-                    }
+                    Like::create(['timeline_id' => $timeline->id, 'user_id' => auth()->id()]);
+                    $like = true;
+                    
                 }
+
+                return response()->json(array(
+                    'success' => true,
+                    'like' => $like
+                ));
+
+            } else {
+
+                // show modal
+                return response()->json(array(
+                    'success' => false
+                ));
+
             }
+
         }
 
-        //dd(json_encode($array));
+    }
 
-        return response()->json($array);*/
+    public function save(Timeline $timeline) 
+    {
 
         
 

@@ -21,7 +21,7 @@ class ProfileController extends Controller
 
         } else {
 
-            // error "private timeline" page
+            // error page - profile not exist
             return view('errors.profile');
 
         }

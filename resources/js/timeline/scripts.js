@@ -50,24 +50,28 @@ function setLayout() {
 
 function loadEvents(share, tags) {
     $.ajax({
-        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
-        data: { 'share': share, 'tags': tags },
         type: 'GET',
+        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
         dataType: 'json',
-        success: function(data) {
-            $('.events-wrapper').html(data['events_html']).promise().done(function() {
-                //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
-                /*$('.timeline--map .timeline__body').css('height', 'auto');*/
-                scrollEvents();
-                /*setMap();*/
-                setEventElements();
-            });
-            if (data['events_count'] === 1) {
-                $('.filter__show').text('Show 1 result');
-            } else {
-                $('.filter__show').text('Show ' + data['events_count'] + ' results');
-            }
+        encode: true,
+    }).done(function(response) {
+        console.log(response.result);
+        $('.events-wrapper').html(response.events_html).promise().done(function() {
+            //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
+            /*$('.timeline--map .timeline__body').css('height', 'auto');*/
+            scrollEvents();
+            /*setMap();*/
+            setEventElements();
+        });
+        if (response.events_count === 1) {
+            $('.filter__show').text('Show 1 result');
+        } else {
+            $('.filter__show').text('Show ' + response.events_count + ' results');
         }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseText);
+    }).always(function() {
+        // Always run after .done() or .fail()
     });
 }
 
@@ -217,4 +221,20 @@ $('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .eve
     } else {
         $event.addClass('event--open');
     }
+});
+
+/* like */
+$('li.header__options-like').on('click', function() {
+    $.ajax({
+        type: 'POST',
+        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/like',
+        dataType: 'json',
+        encode: true,
+    }).done(function(response) {
+        console.log(response.result);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseText);
+    }).always(function() {
+        // Always run after .done() or .fail()
+    });
 });

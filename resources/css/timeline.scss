@@ -1,4 +1,5 @@
 body {
+    background: var(--greyVeryLight);
     &>main {
         padding: 0;
         max-width: none;
@@ -117,7 +118,7 @@ body {
         }
     }
     &__body {
-        background: var(--greyVeryLight);
+        /*background: var(--greyVeryLight);*/
         &>article {
             /*padding: 0.5rem;*/
             min-width: 100%;

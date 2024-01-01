@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
 
-    public function __construct()
+    /*public function __construct()
     {
       $this->middleware('auth')->only(['index']);
-    }
+    }*/
 
     public function index() 
     {
 
-        $user = auth()->user();
+        /*$user = auth()->user();
         $timelines = $user->timelines;
+        $likes = $user->likes;*/
 
-        return view('layouts.portal.pages.dashboard', compact('timelines'));
+        return view('layouts.portal.pages.dashboard');
         
     }
 

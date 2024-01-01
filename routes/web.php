@@ -98,5 +98,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/timeline/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
     Route::get('/timeline/{timeline}/tags', 'TimelineController@tags')->name('timeline.tags.ajax');
     Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
+    
+    Route::post('/timeline/{timeline}/like', 'TimelineController@like')->name('timeline.like.ajax');
+    Route::post('/timeline/{timeline}/save', 'TimelineController@save')->name('timeline.save.ajax');
 
 });

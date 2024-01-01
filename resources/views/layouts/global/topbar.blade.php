@@ -119,7 +119,7 @@
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>
 					<i class="fa-solid fa-user fa-stack-1x"></i>
-				</span><em>{{auth()->user()->username}}</em>
+				</span><em>{{ auth()->user()->username }}</em>
 			</a>
 		</li>
 		@endauth
