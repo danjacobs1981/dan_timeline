@@ -149,14 +149,6 @@ sup {
     &>i.fa-solid {
         display: none;
     }
-    &:hover {
-        &>i.fa-regular {
-            display: none;
-        }
-        &>i.fa-solid {
-            display: block;
-        }
-    }
     &>span {
         &>em {
             border-left: 1px solid var(--like)!important;
@@ -169,14 +161,6 @@ sup {
     background: var(--like)!important;
     &>i.fa-regular {
         display: none;
-    }
-    &:hover {
-        &>i.fa-regular {
-            display: block;
-        }
-        &>i.fa-solid {
-            display: none;
-        }
     }
     &>span {
         &>em {
@@ -193,14 +177,6 @@ sup {
     &>i.fa-solid {
         display: none;
     }
-    &:hover {
-        &>i.fa-regular {
-            display: none;
-        }
-        &>i.fa-solid {
-            display: block;
-        }
-    }
 }
 
 .colour-saved {
@@ -208,14 +184,6 @@ sup {
     background: var(--greyDark)!important;
     &>i.fa-regular {
         display: none;
-    }
-    &:hover {
-        &>i.fa-regular {
-            display: block;
-        }
-        &>i.fa-solid {
-            display: none;
-        }
     }
 }
 
