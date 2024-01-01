@@ -115,6 +115,21 @@ body {
                     display: none;
                 }
             }
+            &>li {
+                &>span {
+                    &>em {
+                        font-size: 0.781rem;
+                        font-style: normal;
+                        margin-left: 0.25rem;
+                        padding: 0 0 0 0.5rem;
+                        line-height: 27px;
+                        display: inline-block;
+                        border-left: 1px solid var(--greyDark);
+                        min-width: 20px;
+                        text-align: center;
+                    }
+                }
+            }
         }
     }
     &__body {

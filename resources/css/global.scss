@@ -143,8 +143,9 @@ sup {
 }
 
 .colour-like {
-    color: #fff!important;
-    background: var(--like)!important;
+    color: var(--like)!important;
+    background: #fff!important;
+    box-shadow: inset 0 0 0 2px var(--like);
     &>i.fa-solid {
         display: none;
     }
@@ -156,12 +157,16 @@ sup {
             display: block;
         }
     }
+    &>span {
+        &>em {
+            border-left: 1px solid var(--like)!important;
+        }
+    }
 }
 
 .colour-liked {
-    color: var(--like)!important;
-    background: #fff!important;
-    box-shadow: inset 0 0 0 2px var(--like);
+    color: #fff!important;
+    background: var(--like)!important;
     &>i.fa-regular {
         display: none;
     }
@@ -173,11 +178,18 @@ sup {
             display: none;
         }
     }
+    &>span {
+        &>em {
+            border-left: 1px solid #fff!important;
+            line-height: 31px!important;
+        }
+    }
 }
 
 .colour-save {
-    color: #fff!important;
-    background: var(--greyDark)!important;
+    color: var(--greyDark)!important;
+    background: #fff!important;
+    box-shadow: inset 0 0 0 2px var(--greyDark);
     &>i.fa-solid {
         display: none;
     }
@@ -192,9 +204,8 @@ sup {
 }
 
 .colour-saved {
-    color: var(--greyDark)!important;
-    background: #fff!important;
-    box-shadow: inset 0 0 0 2px var(--greyDark);
+    color: #fff!important;
+    background: var(--greyDark)!important;
     &>i.fa-regular {
         display: none;
     }
