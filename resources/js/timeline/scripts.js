@@ -55,7 +55,6 @@ function loadEvents(share, tags) {
         dataType: 'json',
         encode: true,
     }).done(function(response) {
-        console.log(response.result);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
             /*$('.timeline--map .timeline__body').css('height', 'auto');*/
@@ -229,9 +228,41 @@ $('li.header__options-like').on('click', function() {
         type: 'POST',
         url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/like',
         dataType: 'json',
-        encode: true,
     }).done(function(response) {
-        console.log(response.result);
+        if (response.success) {
+            var $like = $('.header__options-like');
+            if (response.like) {
+                $like.addClass('colour-liked').removeClass('colour-like').find('span').html('Liked <em>' + response.count + '</em>');
+            } else {
+                $like.addClass('colour-like').removeClass('colour-liked').find('span').html('Like <em>' + response.count + '</em>');
+            }
+        } else {
+            console.log("show modal");
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseText);
+    }).always(function() {
+        // Always run after .done() or .fail()
+    });
+});
+
+/* save */
+$('li.header__options-save').on('click', function() {
+    $.ajax({
+        type: 'POST',
+        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/save',
+        dataType: 'json',
+    }).done(function(response) {
+        if (response.success) {
+            var $save = $('.header__options-save');
+            if (response.save) {
+                $save.addClass('colour-saved').removeClass('colour-save').find('span').text('Saved');
+            } else {
+                $save.addClass('colour-save').removeClass('colour-saved').find('span').text('Save');
+            }
+        } else {
+            console.log("show modal");
+        }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
     }).always(function() {

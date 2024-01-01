@@ -11,6 +11,7 @@ use App\Models\Source;
 use App\Models\Tag;
 use App\Models\Share;
 use App\Models\Like;
+use App\Models\Save;
 
 use App\Mail\AmazonSESMail;
 use Illuminate\Support\Facades\Mail;
@@ -131,7 +132,8 @@ class TimelineController extends Controller
 
                 return response()->json(array(
                     'success' => true,
-                    'like' => $like
+                    'like' => $like,
+                    'count' => $timeline->likesCount(),
                 ));
 
             } else {
@@ -147,10 +149,41 @@ class TimelineController extends Controller
 
     }
 
-    public function save(Timeline $timeline) 
+    public function save(Timeline $timeline, Request $request) 
     {
 
-        
+        if ($request->ajax()){
+
+            if (auth()->check()) {
+
+                // check if already saved
+                if ($timeline->savedByUser()) {
+
+                    $timeline->saves()->where('user_id', auth()->id())->where('timeline_id', $timeline->id)->delete();
+                    $save = false;
+
+                } else {
+
+                    Save::create(['timeline_id' => $timeline->id, 'user_id' => auth()->id()]);
+                    $save = true;
+                    
+                }
+
+                return response()->json(array(
+                    'success' => true,
+                    'save' => $save,
+                ));
+
+            } else {
+
+                // show modal
+                return response()->json(array(
+                    'success' => false
+                ));
+
+            }
+
+        }
 
     }
 
