@@ -223,46 +223,38 @@ $('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .eve
 });
 
 /* like */
-$('li.header__options-like').on('click', function() {
+$('li.header__options-like, li.header__options-save').on('click', function() {
+    var $el = $(this);
+    $el.addClass('loading');
+    var type = 'like';
+    if ($el.hasClass('header__options-save')) {
+        type = 'save';
+    }
     $.ajax({
         type: 'POST',
-        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/like',
+        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/' + type,
         dataType: 'json',
     }).done(function(response) {
-        if (response.success) {
-            var $like = $('.header__options-like');
-            if (response.like) {
-                $like.addClass('colour-liked').removeClass('colour-like').find('span').html('Liked <em>' + response.count + '</em>');
+        window.setTimeout(function() {
+            $el.removeClass('loading');
+            if (response.success) {
+                if (response.increment) {
+                    if (type == 'like') {
+                        $el.addClass('colour-liked').removeClass('colour-like').find('span').html('Liked <em>' + response.count + '</em>');
+                    } else {
+                        $el.addClass('colour-saved').removeClass('colour-save').find('span').text('Saved');
+                    }
+                } else {
+                    if (type == 'like') {
+                        $el.addClass('colour-like').removeClass('colour-liked').find('span').html('Like <em>' + response.count + '</em>');
+                    } else {
+                        $el.addClass('colour-save').removeClass('colour-saved').find('span').text('Save');
+                    }
+                }
             } else {
-                $like.addClass('colour-like').removeClass('colour-liked').find('span').html('Like <em>' + response.count + '</em>');
+                console.log("show modal");
             }
-        } else {
-            console.log("show modal");
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR.responseText);
-    }).always(function() {
-        // Always run after .done() or .fail()
-    });
-});
-
-/* save */
-$('li.header__options-save').on('click', function() {
-    $.ajax({
-        type: 'POST',
-        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/save',
-        dataType: 'json',
-    }).done(function(response) {
-        if (response.success) {
-            var $save = $('.header__options-save');
-            if (response.save) {
-                $save.addClass('colour-saved').removeClass('colour-save').find('span').text('Saved');
-            } else {
-                $save.addClass('colour-save').removeClass('colour-saved').find('span').text('Save');
-            }
-        } else {
-            console.log("show modal");
-        }
+        }, 1000);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
     }).always(function() {

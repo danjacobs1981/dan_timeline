@@ -132,8 +132,8 @@ class TimelineController extends Controller
 
                 return response()->json(array(
                     'success' => true,
-                    'like' => $like,
-                    'count' => $timeline->likesCount(),
+                    'increment' => $like,
+                    'count' => convert($timeline->likesCount()),
                 ));
 
             } else {
@@ -171,7 +171,7 @@ class TimelineController extends Controller
 
                 return response()->json(array(
                     'success' => true,
-                    'save' => $save,
+                    'increment' => $save,
                 ));
 
             } else {
@@ -197,4 +197,17 @@ class TimelineController extends Controller
 
     }
 
+}
+
+function convert($n) {
+    if ($n < 1000) {
+        $n_format = number_format($n);
+    } else if ($n < 1000000) {
+        // Anything less than a million
+        $n_format = number_format($n / 1000, 3) . 'k';
+    } else {
+        // Anything less than a billion
+        $n_format = number_format($n / 1000000, 3) . 'M';
+    }
+    return $n_format;
 }

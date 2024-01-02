@@ -59,22 +59,22 @@
             @endif
 
             @if(auth()->check() && $timeline->likedByUser())
-                <li class="header__options-like colour-liked" data-popover="Click to Unlike" data-popover-position="top">
-                    <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Liked <em>{{ $timeline->likesCount() }}</em></span>
+                <li class="header__options-like colour-liked">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Liked <em>{{ $timeline->likesCount() }}</em></span>
                 </li>
             @else
-                <li class="header__options-like colour-like" data-popover="Click to Like" data-popover-position="top">
-                    <i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Like <em>{{ $timeline->likesCount() }}</em></span>
+                <li class="header__options-like colour-like">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Like <em>{{ $timeline->likesCount() }}</em></span>
                 </li>
             @endif
 
             @if(auth()->check() && $timeline->savedByUser())
-                <li class="header__options-save colour-saved" data-popover="Click to Unsave" data-popover-position="top">
-                    <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
+                <li class="header__options-save colour-saved">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
                 </li>
             @else
-                <li class="header__options-save colour-save" data-popover="Click to Save" data-popover-position="top">
-                    <i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Save</span>
+                <li class="header__options-save colour-save">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Save</span>
                 </li>
             @endif
 
