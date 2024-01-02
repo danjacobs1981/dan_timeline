@@ -60,7 +60,7 @@
 
             @if(auth()->check() && $timeline->likedByUser())
                 <li class="header__options-like colour-liked">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>Liked <em>{{ $timeline->likesCount() }}</em></span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart fa-bounce"></i><span>Liked <em>{{ $timeline->likesCount() }}</em></span>
                 </li>
             @else
                 <li class="header__options-like colour-like">
@@ -70,7 +70,7 @@
 
             @if(auth()->check() && $timeline->savedByUser())
                 <li class="header__options-save colour-saved">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark"></i><span>Saved</span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-bookmark"></i><i class="fa-solid fa-bookmark fa-bounce"></i><span>Saved</span>
                 </li>
             @else
                 <li class="header__options-save colour-save">

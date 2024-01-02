@@ -254,7 +254,7 @@ $('li.header__options-like, li.header__options-save').on('click', function() {
             } else {
                 console.log("show modal");
             }
-        }, 1000);
+        }, 500);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
     }).always(function() {
