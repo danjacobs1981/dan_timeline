@@ -70,7 +70,7 @@
 		</div>
 	</div>
     <a href="{{ route('home.show') }}" title="">
-		
+		<img src="{{ Vite::asset('resources/images/timelined-logo.svg') }}" alt="timelined.net"/>
     </a>
 	<div class="nav-search">
 		<input type="checkbox" id="nav_search" />

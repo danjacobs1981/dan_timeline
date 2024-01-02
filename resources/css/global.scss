@@ -708,10 +708,11 @@ h6 {
         }
     }
     &>a {
-        background: #ddd;
-        min-width: 102px;
+        min-width: 110px;
         height: 36px;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
     }
     &>.nav-search {
         margin-left: auto;
@@ -798,6 +799,12 @@ h6 {
             }
         }
     }
+    @media (min-width: 400px) {
+        &>a {
+            min-width: 130px;
+            max-width: none;
+        }
+    }
     @media (min-width: 576px) {
         &>.nav-search {
             margin-left: 0;
@@ -823,11 +830,9 @@ h6 {
         min-height: 60px;
         position: fixed;
         top: 0;
-        &>.nav-menu {
-            margin-right: 1rem;
-        }
         &>a {
             min-width: 160px;
+            margin-right: 1.5rem
         }
         &>.nav-search {
             &>.nav-search-section {
@@ -839,6 +844,9 @@ h6 {
     }
     @media (min-width: 992px) {
         /*padding: 0 1.25rem;*/
+        &>.nav-menu {
+            margin-right: 0.75rem;
+        }
         &>.nav-search {
             &>.nav-search-section {
                 &>div {
