@@ -98,7 +98,12 @@ window.sourcesArray = [];
 window.loadSources = function(source_id, event_id, sourcesArrayExists) {
     $('.sources-list').html();
     $('.sources-loading').show();
-    var data = { event_id: event_id };
+    var placement = 'timeline';
+    if (event_id) {
+        placement = 'event';
+    }
+    var sort = $('#' + placement + 'SourceSort').val();
+    var data = { event_id: event_id, sort: sort };
     $.ajax({
         url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/sources',
         type: 'GET',
@@ -106,56 +111,39 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
         dataType: 'json',
         success: function(data) {
             $('.sources-list').html(data['sources_html']).promise().done(function() {
-                $('.sources-intro').text(data['sources_count']);
-                if ($('#eventSources').length) {
-                    if ($.isEmptyObject(sourcesArrayExists)) {
-                        sourcesArray = data.sources_added;
+                $('.sources-intro').html(data['sources_count']);
+                if (event_id) {
+                    if ($.isEmptyObject(sourcesArrayExists) && $('input[name="sources_changed"]').val() == 0) {
+                        sourcesArray = data.sources_saved;
                     } else {
                         sourcesArray = sourcesArrayExists;
                     }
-                    $('.sources-current-intro>span').text(sourcesArray.length);
-                    $('.sources-list-current li').remove();
-                    $.each(sourcesArray, function(index, value) {
-                        var clone = $('#eventSources .sources-list li[data-id="' + value + '"]').clone();
-                        $('.sources-list-current ul').append(clone);
-                        $('.sources-list li[data-id="' + value + '"]').hide();
-                    });
+                    $('.sources-intro>span').text(sourcesArray.length);
                     //console.log(sourcesArray);
-                    var add = '<a href="#" class="add"><i class="fa-solid fa-circle-plus"></i><span>Add to Event</span></a>';
-                    var remove = '<a href="#" class="remove"><i class="fa-solid fa-circle-minus"></i><span>Remove from Event</span></a>';
-                    $('#eventSources .sources-list li, #eventSources .sources-list-current li').each(function() {
+                    $('.eventSources .sources-list li').each(function() {
                         var source_id = $(this).data('id');
                         if ($.inArray(source_id, sourcesArray) !== -1) {
-                            $(this).children('div').prepend(remove);
+                            $(this).addClass('active').prepend('<label class="control__label"><input type="checkbox" checked><div></div></label>');
                         } else {
-                            $(this).children('div').prepend(add);
+                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label>');
                         }
                     });
-                    $('#timelineEventCreateEdit').on('click', '#eventSources li>div>a', function(e) {
-                        if ($(this).hasClass('add') || $(this).hasClass('remove')) {
-                            var source_id = $(this).closest('li').data('id');
-                            $('input[name="sources_changed"]').val(1);
-                            if ($(this).hasClass('add')) {
-                                e.preventDefault();
-                                e.stopImmediatePropagation();
-                                sourcesArray.push(source_id);
-                                $(this).replaceWith(remove);
-                                var clone = $('#eventSources .sources-list li[data-id="' + source_id + '"]').clone();
-                                $('.sources-list-current ul').append(clone);
-                                $('.sources-list li[data-id="' + source_id + '"]').hide();
-                            } else if ($(this).hasClass('remove')) {
-                                e.preventDefault();
-                                e.stopImmediatePropagation();
-                                var i = $.inArray(source_id, sourcesArray);
-                                if (i >= 0) {
-                                    sourcesArray.splice(i, 1);
-                                }
-                                $('.sources-list-current li[data-id="' + source_id + '"]').remove();
-                                $('.sources-list li[data-id="' + source_id + '"]>div>a.remove').replaceWith(add);
-                                $('.sources-list li[data-id="' + source_id + '"]').show();
+                    $('#timelineEventCreateEdit').on('change', '.eventSources li input[type="checkbox"]', function(e) {
+                        e.stopImmediatePropagation();
+                        var $sourceEl = $(this).closest('li');
+                        var source_id = $sourceEl.data('id');
+                        if (this.checked) {
+                            sourcesArray.push(source_id);
+                            $sourceEl.addClass('active');
+                        } else {
+                            var i = $.inArray(source_id, sourcesArray);
+                            if (i >= 0) {
+                                sourcesArray.splice(i, 1);
                             }
-                            $('.sources-current-intro>span').text(sourcesArray.length);
+                            $sourceEl.removeClass('active');
                         }
+                        $('input[name="sources_changed"]').val(1);
+                        $('.sources-intro>span').text(sourcesArray.length);
                         //console.log(sourcesArray);
                     });
                 }
@@ -204,8 +192,12 @@ $('#events-tab header>div>em').on('click', function() {
 
 // sources
 window.source_url = null;
-$('#timelineSources a[data-modal-class="modal-create-edit-source"]').on('click', function() {
+$('.timelineSources a[data-modal-class="modal-create-edit-source"]').on('click', function() {
     source_url = $('input#timelineSourceURL').val();
+});
+
+$('#timelineSourceSort').on('change', function() {
+    loadSources(null, null, []);
 });
 
 // header tabs

@@ -25,40 +25,50 @@ class TimelineSourceController extends Controller
     public function index(Timeline $timeline, Request $request)
     {
 
-        //dd($request->placement);
-        /*$source_ids = null;
-        if($request->event_id) {
-            $source_ids = Event::where('timeline_id', $timeline->id)->find($request->event_id)->sourcesIDs()->toArray();
+        if ($request->ajax()){
+
+            // get sources that are saved to this event
+            $sources_saved = [];
+            if($request->event_id) {
+                //dd($event->sources()->find($request->event_id)->sourcesIDs()->all());
+                $sources_saved = Event::where('timeline_id', $timeline->id)->find($request->event_id)->sourcesIDs()->all();
+            }
+
+            if ($request->sort == 'za') {
+                $timeline_sources = $timeline->sources->sortByDesc('source', SORT_NATURAL|SORT_FLAG_CASE);
+            } else if ($request->sort == 'added') {
+                $timeline_sources = $timeline->sources->sortByDesc('created_at');
+            } else if ($request->sort == 'modified') {
+                $timeline_sources = $timeline->sources->sortByDesc('updated_at');
+            } else {
+                $timeline_sources = $timeline->sources->sortBy('source', SORT_NATURAL|SORT_FLAG_CASE);
+            }
+
+            if ($timeline_sources->count()) {
+
+                $sources_html = view('layouts.portal.ajax.timeline.sources', ['timeline_sources' => $timeline_sources])->render();
+
+                if (count($sources_saved)) {
+                    $sources_count = '<span>'.count($sources_saved).'</span> of '.$timeline_sources->count().' available sources currently selected.';
+                } else {
+                    $sources_count = 'A total of '.$timeline_sources->count().' source(s) are available.';
+                }
+
+            } else {
+
+                $sources_html = null;
+                $sources_count = 'Add a source to get started!';
+
+            }
+
+            return response()->json(array(
+                'success' => true,
+                'sources_html' => $sources_html,
+                'sources_count' => $sources_count,
+                'sources_saved' => $sources_saved
+            ));
+
         }
-        */
-
-        // get any sources that have been added
-        $sources_added = [];
-        if($request->event_id) {
-            //dd($event->sources()->find($request->event_id)->sourcesIDs()->all());
-            $sources_added = Event::where('timeline_id', $timeline->id)->find($request->event_id)->sourcesIDs()->all();
-        }
-
-        $timeline_sources = $timeline->sources;
-
-        if ($timeline_sources->count()) {
-
-            $sources_html = view('layouts.portal.ajax.timeline.sources', ['timeline_sources' => $timeline_sources])->render();
-            $sources_count = 'A total of '.$timeline_sources->count().' source(s) are available.';
-
-        } else {
-
-            $sources_html = null;
-            $sources_count = 'Add a source to get started!';
-
-        }
-
-        return response()->json(array(
-            'success' => true,
-            'sources_html' => $sources_html,
-            'sources_count' => $sources_count,
-            'sources_added' => $sources_added
-        ));
 
     }
 
@@ -98,19 +108,19 @@ class TimelineSourceController extends Controller
                 $data = $request->validate(
                     [
                         'url' => 'required|url:http,https',
-                        'title' => [
+                        'source' => [
                             'required',
                             'string',
                             'max:255',
                             Rule::unique('sources')->where(function ($query) use ($request){
                                 $query->where('url', $request['url']);
-                                $query->where('title', $request['title']);
+                                $query->where('source', $request['source']);
                             })
                         ],
                         'fa_icon' => 'nullable',
                     ],
                     $messages = [
-                        'title.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
+                        'source.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
                     ]
                 );
 
@@ -121,16 +131,16 @@ class TimelineSourceController extends Controller
                     $data['fa_icon'] = $icon;
                 }
 
-                $data['id'] = helperUniqueId('sources');
+                //$data['id'] = helperUniqueId('sources');
                 $data['timeline_id'] = $timeline_id;
 
                 // add the source
-                Source::create($data);
+                $id = Source::create($data)->id;
 
                 return response()->json([
                     'status'=> 200,
                     'message' => 'Source created successfully',
-                    'source_id' => $data['id']
+                    'source_id' => $id
                 ]);
 
             } else {
@@ -189,25 +199,25 @@ class TimelineSourceController extends Controller
 
                 $timeline_id = $timeline->id;
 
-                if ($request->title != $source->title || $request->url != $source->url) { // check something has changed
+                if ($request->source != $source->source || $request->url != $source->url) { // check something has changed
 
                     $data = $request->validate(
                         [
                             'url' => 'required|url:http,https',
-                            'title' => [
+                            'source' => [
                                 'required',
                                 'string',
                                 'max:255',
                                 Rule::unique('sources')->where(function ($query) use ($request, $source){
                                     $query->where('url', $request['url']);
-                                    $query->where('title', $request['title']);
+                                    $query->where('source', $request['source']);
                                     $query->where('id', '!=', $source->id);
                                 })
                             ],
                             'fa_icon' => 'nullable',
                         ],
                         $messages = [
-                            'title.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
+                            'source.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
                         ]
                     );
     

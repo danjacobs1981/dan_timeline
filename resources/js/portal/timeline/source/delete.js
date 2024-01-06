@@ -3,10 +3,11 @@ import $ from 'jquery';
 // source delete ajax
 $(document).on('click', '.modal-timeline-source-delete>.modal-buttons>button', function() {
 
-    var timeline_id = $('.modal-timeline-source-delete input[name="timeline_id"]').val();
-    var source_id = $('.modal-timeline-source-delete input[name="source_id"]').val();
+    var timeline_id = parseInt($('.modal-timeline-source-delete input[name="timeline_id"]').val());
+    var source_id = parseInt($('.modal-timeline-source-delete input[name="source_id"]').val());
 
     var event_id = null;
+
     if ($('meta[name="event"]').length) {
         event_id = $('meta[name="event"]').attr('content');
     }
@@ -21,6 +22,10 @@ $(document).on('click', '.modal-timeline-source-delete>.modal-buttons>button', f
             if (response.status === 200) {
                 $.modal.close();
                 $.modal.close();
+                var i = $.inArray(source_id, sourcesArray);
+                if (i >= 0) {
+                    sourcesArray.splice(i, 1);
+                }
                 loadSources(null, event_id, sourcesArray);
             } else {
                 // show "error!" for a few seconds

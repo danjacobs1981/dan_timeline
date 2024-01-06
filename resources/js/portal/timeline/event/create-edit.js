@@ -12,15 +12,16 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function CreateEditEvent() {
 
-    // sources
+
     var event_id = null;
     if ($('meta[name="event"]').length) {
-        event_id = $('meta[name="event"]').attr('content');
+        event_id = parseInt($('meta[name="event"]').attr('content'));
     }
-    loadSources(null, event_id, []);
 
-    $('#eventSources a[data-modal-class="modal-create-edit-source"]').on('click', function() {
-        source_url = $('input#eventSourceURL').val();
+    // sources
+    loadSources(null, event_id, []);
+    $('#eventSourceSort').on('change', function() {
+        loadSources(null, event_id, sourcesArray);
     });
 
     // add image

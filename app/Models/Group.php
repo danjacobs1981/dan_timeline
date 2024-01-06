@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Group extends Model
 {
 
     use HasFactory;
@@ -13,16 +13,15 @@ class Tag extends Model
     protected $fillable = [
         'id', 
         'timeline_id', 
-        'tag',
-        'group_id'
+        'group'
     ];
 
     /**
-     * The events that belong to the tag.
+     * The tags that belong to the group.
      */
-    public function events()
+    public function tags()
     {
-        return $this->belongsToMany(Event::class, 'tag_event');
+        return $this->belongsToMany(Tag::class);
     }
 
 }

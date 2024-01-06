@@ -62,7 +62,7 @@
                             <ul>
                                 @foreach($event->sources as $source) 
                                     <li>
-                                        <i class="{{ $source->fa_icon }}"></i><a href="{{ $source->url }}" target="_blank" rel="nofollow">{{ $source->title }}</a><!--<i class="fas fa-check source-verified" title="Source has been verified"></i>-->
+                                        <i class="{{ $source->fa_icon }}"></i><a href="{{ $source->url }}" target="_blank" rel="nofollow" title="">{{ $source->source }}</a><!--<i class="fas fa-check source-verified" title="Source has been verified"></i>-->
                                     </li>
                                 @endforeach
                             </ul>

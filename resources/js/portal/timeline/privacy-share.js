@@ -32,7 +32,7 @@ function PrivacyShare() {
 
 // update privacy share ajax
 $(document).on('click', '.modal-timeline-privacy-share>.modal-buttons>button', function() {
-    var timeline_id = $('.modal-timeline-privacy-share input[name="timeline_id"]').val();
+    var timeline_id = parseInt($('.modal-timeline-privacy-share input[name="timeline_id"]').val());
     var data = {
         'data': tags
     }

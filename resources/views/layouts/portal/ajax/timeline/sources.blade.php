@@ -1,12 +1,10 @@
 <ul>
-    @foreach($timeline_sources->sortBy('title', SORT_NATURAL|SORT_FLAG_CASE) as $source)  
+    @foreach($timeline_sources as $source)  
         <li class="source" data-id="{{ $source->id }}">
             <span>
                 <i class="{{ $source->fa_icon }}"></i>
                 <span>
-                    <a href="{{ route('timelines.sources.edit', [ 'timeline' => $source->timeline_id, 'source' => $source->id ]) }}" data-modal data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
-                        {{ $source->title }}
-                    </a>
+                    {{ $source->source }}
                 </span>
             </span>
             <div>

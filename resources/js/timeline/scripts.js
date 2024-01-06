@@ -252,9 +252,11 @@ $('li.header__options-like, li.header__options-save').on('click', function() {
                     }
                 }
             } else {
-                console.log("show modal");
+                $('#modal-signup').modal({
+                    modalClass: 'modal-login modal-md'
+                });
             }
-        }, 500);
+        }, 200);
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
     }).always(function() {

@@ -30,19 +30,29 @@
         @csrf
 
         @if(isset($source))
-            <p>This source features on <strong>{{ $event_count == 1 ? '1 event' : $event_count.' events' }}</strong>.</p>
+            <p>
+                This source currently features on <strong>{{ $event_count == 1 ? '1 event' : $event_count.' events' }}</strong>.
+            </p>
         @endif
 
         <div class="control control--textbox">
-            <label class="control__label" for="url">URL</label>
+            <label class="control__label" for="url">
+                URL
+            </label>
             <input type="text" name="url" id="url" placeholder="Enter the URL of the source" value="{{ old('url', isset($source) ? $source->url : '') }}"/>
-            <p>This can be a URL of a webpage, image, PDF, YouTube video, etc.</p>
+            <p>
+                This can be a URL of a webpage, image, PDF, YouTube video, etc.
+            </p>
         </div>
 
         <div class="control control--textbox">
-            <label class="control__label" for="title">Title</label>
-            <input type="text" name="title" id="title" value="{{ old('title', isset($source) ? $source->title : '') }}"/>
-            <p><a href="#" class="update-title">Auto-fill the title</a> by getting the page title from the URL above. This may not always work, so you may have to manually enter it!</p>
+            <label class="control__label" for="source">
+                Title
+            </label>
+            <input type="text" name="source" id="source" value="{{ old('source', isset($source) ? $source->source : '') }}"/>
+            <p>
+                <a href="#" class="update-title">Auto-fill the title</a> by getting the page title from the URL above. This may not always work, so you may have to manually enter it!
+            </p>
         </div>
 
         <!---<div class="control control--select">
@@ -66,7 +76,9 @@
 
     @if(isset($source))
         <div class="control">
-            <span class="control__label">Delete Source</span>
+            <span class="control__label">
+                Delete Source
+            </span>
             <a href="{{ route('timelines.sources.delete.showModal', [ 'timeline' => $timeline->id, 'source' => $source->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-source-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                 <i class="fa-regular fa-trash-can"></i>Delete
             </a>                            

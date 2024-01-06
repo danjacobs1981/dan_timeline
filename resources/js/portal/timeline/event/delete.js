@@ -2,8 +2,10 @@ import $ from 'jquery';
 
 // event delete ajax
 $(document).on('click', '.modal-timeline-event-delete>.modal-buttons>button', function() {
-    var timeline_id = $('.modal-timeline-event-delete input[name="timeline_id"]').val();
-    var event_id = $('.modal-timeline-event-delete input[name="event_id"]').val();
+
+    var timeline_id = parseInt($('.modal-timeline-event-delete input[name="timeline_id"]').val());
+    var event_id = parseInt($('.modal-timeline-event-delete input[name="event_id"]').val());
+
     $.ajax({
         type: 'PUT',
         url: '/timelines/' + timeline_id + '/events/' + event_id + '/delete',
@@ -23,4 +25,5 @@ $(document).on('click', '.modal-timeline-event-delete>.modal-buttons>button', fu
             console.log(xhr.responseText);
         }
     });
+
 });

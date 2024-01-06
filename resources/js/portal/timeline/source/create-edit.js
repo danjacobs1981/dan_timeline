@@ -14,7 +14,7 @@ $(document).on($.modal.OPEN, function(event, modal) {
 function CreateEditSource() {
 
     var $input_url = $('#formSourceCreateEdit input[name="url"]');
-    var $input_title = $('#formSourceCreateEdit input[name="title"]');
+    var $input_title = $('#formSourceCreateEdit input[name="source"]');
 
     if (source_url) {
         $('input#timelineSourceURL, input#eventSourceURL').val('');
@@ -28,14 +28,14 @@ function CreateEditSource() {
         autoFillTitle($input_url.val());
     });
 
-    $('#formSourceCreateEdit input[name="url"], #formSourceCreateEdit input[name="title"]').on('focus', function() {
+    $('#formSourceCreateEdit input[name="url"], #formSourceCreateEdit input[name="source"]').on('focus', function() {
         $('#formSourceCreateEdit .control__error').remove();
     });
 
     function autoFillTitle(url) {
         $('#formSourceCreateEdit .control__error').remove();
         if (isValidUrl(url)) {
-            $('#formSourceCreateEdit .control__label[for="title"]').append('<span style="font-weight:400;"> (loading...)</span>');
+            $('#formSourceCreateEdit .control__label[for="source"]').append('<span style="font-weight:400;"> (loading...)</span>');
             $input_title.attr('disabled', 'disabled');
             getTitle(url);
         } else {
@@ -60,7 +60,7 @@ function CreateEditSource() {
                     var $error = $('<p class="control__error">Cannot retrieve the page name - please manually type a title for this source.</p>');
                     $input_title.after($error);
                 }
-                $('#formSourceCreateEdit .control__label[for="title"]>span').remove();
+                $('#formSourceCreateEdit .control__label[for="source"]>span').remove();
                 $input_title.removeAttr('disabled');
             },
             error: function(e) {
@@ -75,6 +75,7 @@ function CreateEditSource() {
     }
 
     var event_id = null;
+
     if ($('meta[name="event"]').length) {
         event_id = $('meta[name="event"]').attr('content');
     }

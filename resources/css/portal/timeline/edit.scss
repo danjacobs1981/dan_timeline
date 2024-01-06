@@ -287,7 +287,7 @@ body>main {
                     overflow: hidden;
                     box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
                     &.highlight {
-                        animation-duration: 7s;
+                        animation-duration: 3s;
                         animation-name: event-highlighter;
                     }
                     &--ghost {

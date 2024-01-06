@@ -12,6 +12,14 @@ class Source extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'id', 
+        'timeline_id', 
+        'url', 
+        'source', 
+        'fa_icon',
+    ];
+
     /**
      * Get the timeline that owns the source.
      */
@@ -27,15 +35,5 @@ class Source extends Model
     {
         return $this->belongsToMany(Event::class, 'source_event');
     }
-
-    public $incrementing = false;
-
-    protected $fillable = [
-        'id', 
-        'timeline_id', 
-        'url', 
-        'title', 
-        'fa_icon',
-    ];
 
 }

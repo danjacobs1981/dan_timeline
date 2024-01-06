@@ -28,7 +28,7 @@ input {
         /*background: var(--greyVeryLight);*/
         border-color: var(--grey);
     }
-    &>span.control__label {
+    & span.control__label {
         padding-left: 0!important;
         margin-bottom: 0.75rem!important;
         font-weight: 500;
@@ -52,7 +52,33 @@ input {
             margin-right: 0.25rem;
         }
     }
-    &>p {
+    &__header {
+        display: flex;
+        flex-direction: column;
+        &>div {
+            &.control_sort {
+                font-size: 0.906rem;
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                margin-top: 1rem;
+                &>select {
+                    min-width: 9rem;
+                    max-width: 9rem;
+                    padding: 0.5rem;
+                    background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/Caret_down_font_awesome.svg) no-repeat right 0.6em center/1em;
+                    border-color: var(--grey);
+                    color: var(--greyDark);
+                }
+            }
+        }
+        @media (min-width: 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+    }
+    & p {
         font-size: 0.813rem;
         margin: 0.5rem 0 0;
         color: var(--greyMedium);
@@ -300,16 +326,26 @@ input {
                 flex-direction: column;
                 border-bottom: 1px solid var(--greyLight);
                 padding: 0.5rem 1rem;
+                position: relative;
+                &.active {
+                    background: var(--successLight);
+                }
                 &.highlight {
-                    animation-duration: 7s;
+                    animation-duration: 3s;
                     animation-name: list-highlighter;
                 }
-                &:hover {
-                    background: var(--greyVeryLight);
+                &>label {
+                    position: absolute!important;
+                    right: 2.5rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    padding: 0!important;
+                    margin: 0!important;
                 }
                 &>span {
                     display: block;
                     font-size: 0.969rem;
+                    margin-right: 2rem;
                     &>i {
                         min-width: 1.5rem;
                         font-size: 1.25rem;
@@ -331,12 +367,12 @@ input {
                         text-decoration: none;
                         display: inline-block;
                         line-height: 1;
-                        &.add {
+                        /*&.add {
                             color: var(--success);
                         }
                         &.remove {
                             color: var(--danger);
-                        }
+                        }*/
                         &:last-child {
                             margin-right: 0;
                         }
@@ -356,11 +392,17 @@ input {
                 &>li {
                     padding: 0.75rem 1rem;
                     align-items: center;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     flex-direction: row;
+                    &>label {
+                        position: initial!important;
+                        width: 2.5rem;
+                        margin-top: 6px;
+                    }
                     &>span {
                         display: flex;
                         align-items: center;
+                        margin: 0;
                         &>i {
                             min-width: 2.125rem;
                             font-size: 1.375rem;
@@ -371,7 +413,7 @@ input {
                         }
                     }
                     &>div {
-                        margin: 0;
+                        margin: 0 0 0 auto;
                         display: flex;
                     }
                 }
