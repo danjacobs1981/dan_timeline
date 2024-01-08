@@ -712,6 +712,11 @@ body>main {
             }
         }
     }
+    &-create-edit-source {
+        & form {
+            margin-bottom: 1.5rem;
+        }
+    }
 }
 
 @keyframes event-highlighter {

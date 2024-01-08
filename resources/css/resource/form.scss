@@ -24,6 +24,9 @@ input {
     padding: 1rem;
     border-radius: 0.5rem;
     position: relative;
+    &:last-of-type:not(.split .control) {
+        margin-bottom: 0.5rem;
+    }
     &:hover {
         /*background: var(--greyVeryLight);*/
         border-color: var(--grey);

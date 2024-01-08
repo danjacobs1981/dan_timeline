@@ -102,6 +102,7 @@
         justify-content: end;
         border-top: 2px solid var(--greyMedium);
         background: #fff;
+        z-index: 10;
         &>* {
             margin-left: 2rem;
         }
