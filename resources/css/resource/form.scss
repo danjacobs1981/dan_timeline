@@ -510,6 +510,9 @@ input {
             font-family: 'FontAwesome';
             width: 8rem;
         }
+        &[multiple] {
+            background: none;
+        }
     }
     &__error {
         color: var(--danger)!important;

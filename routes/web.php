@@ -84,6 +84,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // other
             Route::get('/retrieve/title', 'Portal\RetrieveController@title');
 
+            Route::group(['middleware' => 'god'], function () {
+                
+                Route::get('/god', 'Portal\GodController@index')->name('god.show');
+                Route::put('/god/users/{action}', 'Portal\GodController@users')->name('god.users');
+                Route::put('/god/timelines/{action}', 'Portal\GodController@timelines')->name('god.timelines');
+
+            });
+
         });
 
     });

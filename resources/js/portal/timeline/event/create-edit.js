@@ -116,7 +116,7 @@ function CreateEditEvent() {
                     $event.addClass('highlight');
                     setTimeout(function() {
                         $event.removeClass('highlight');
-                    }, 8000);
+                    }, 3000);
                     if (response.event_title) {
                         $event.find('.details>span').text(response.event_title);
                     }

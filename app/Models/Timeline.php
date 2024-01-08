@@ -19,11 +19,12 @@ class Timeline extends Model
         'map',
         'comments',
         'comments_event',
-        'filter',
+        'tagging',
         'social',
         'collab',
         'profile',
         'adverts',
+        'featured',
     ];
     
     /**

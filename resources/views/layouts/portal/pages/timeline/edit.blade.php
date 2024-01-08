@@ -47,7 +47,7 @@
                             <a href="#about-tab">About</a>
                         </li>
                         <li>
-                            <a href="#tags-tab">Tags / Filters</a>
+                            <a href="#tags-tab">Tagging</a>
                         </li>
                         <li>
                             <a href="#sources-tab">Sources</a>

@@ -66,7 +66,7 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                     $event.addClass('highlight');
                     setTimeout(function() {
                         $event.removeClass('highlight');
-                    }, 8000);
+                    }, 3000);
                     if (reload) {
                         $event.closest('.time').prop('open', true);
                         $event.closest('.day').prop('open', true);
@@ -111,19 +111,23 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
         dataType: 'json',
         success: function(data) {
             $('.sources-list').html(data['sources_html']).promise().done(function() {
-                $('.sources-intro').html(data['sources_count']);
+                $('.timelineSources .sources-intro').text(data['sources_count']);
                 if (event_id) {
+                    $('.eventSources .sources-intro').html(data['sources_count_saved']);
                     if ($.isEmptyObject(sourcesArrayExists) && $('input[name="sources_changed"]').val() == 0) {
                         sourcesArray = data.sources_saved;
                     } else {
                         sourcesArray = sourcesArrayExists;
                     }
-                    $('.sources-intro>span').text(sourcesArray.length);
+                    if (source_id) {
+                        sourcesArray.push(source_id);
+                    }
+                    $('.eventSources .sources-intro>span').text(sourcesArray.length);
                     //console.log(sourcesArray);
                     $('.eventSources .sources-list li').each(function() {
                         var source_id = $(this).data('id');
                         if ($.inArray(source_id, sourcesArray) !== -1) {
-                            $(this).addClass('active').prepend('<label class="control__label"><input type="checkbox" checked><div></div></label>');
+                            $(this).addClass('active').prepend('<label class="control__label"><input type="checkbox" checked><div></div></label>')
                         } else {
                             $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label>');
                         }
@@ -143,7 +147,7 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
                             $sourceEl.removeClass('active');
                         }
                         $('input[name="sources_changed"]').val(1);
-                        $('.sources-intro>span').text(sourcesArray.length);
+                        $('.eventSources .sources-intro>span').text(sourcesArray.length);
                         //console.log(sourcesArray);
                     });
                 }
@@ -154,7 +158,7 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
                     $source.addClass('highlight');
                     setTimeout(function() {
                         $source.removeClass('highlight');
-                    }, 8000);
+                    }, 3000);
                 }
             });
         },

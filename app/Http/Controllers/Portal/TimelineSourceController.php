@@ -27,10 +27,9 @@ class TimelineSourceController extends Controller
 
         if ($request->ajax()){
 
-            // get sources that are saved to this event
+            // if an event, get sources that are saved to this event
             $sources_saved = [];
             if($request->event_id) {
-                //dd($event->sources()->find($request->event_id)->sourcesIDs()->all());
                 $sources_saved = Event::where('timeline_id', $timeline->id)->find($request->event_id)->sourcesIDs()->all();
             }
 
@@ -44,20 +43,21 @@ class TimelineSourceController extends Controller
                 $timeline_sources = $timeline->sources->sortBy('source', SORT_NATURAL|SORT_FLAG_CASE);
             }
 
+            $sources_html = null;
+            $sources_count = 'Add a source to get started!';
+            $sources_count_saved = '<span>0</span> of 0 available sources currently selected.';
+
             if ($timeline_sources->count()) {
 
                 $sources_html = view('layouts.portal.ajax.timeline.sources', ['timeline_sources' => $timeline_sources])->render();
 
+                $sources_count = 'A total of '.$timeline_sources->count().' source(s) are available.';
+
                 if (count($sources_saved)) {
-                    $sources_count = '<span>'.count($sources_saved).'</span> of '.$timeline_sources->count().' available sources currently selected.';
+                    $sources_count_saved = '<span>'.count($sources_saved).'</span> of '.$timeline_sources->count().' available sources currently selected.';
                 } else {
-                    $sources_count = 'A total of '.$timeline_sources->count().' source(s) are available.';
+                    $sources_count_saved = '<span>0</span> of '.$timeline_sources->count().' available sources currently selected.';
                 }
-
-            } else {
-
-                $sources_html = null;
-                $sources_count = 'Add a source to get started!';
 
             }
 
@@ -65,6 +65,7 @@ class TimelineSourceController extends Controller
                 'success' => true,
                 'sources_html' => $sources_html,
                 'sources_count' => $sources_count,
+                'sources_count_saved' => $sources_count_saved,
                 'sources_saved' => $sources_saved
             ));
 

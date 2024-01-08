@@ -19,7 +19,7 @@
                 <a href="#event-sources-tab">Sources</a>
             </li>
             <li>
-                <a href="#event-tags-tab">Tags / Filters</a>
+                <a href="#event-tags-tab">Tagging</a>
             </li>
             <li>
                 <a href="#event-comments-tab">Comments</a>

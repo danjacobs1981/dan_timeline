@@ -44,11 +44,9 @@
         @if (auth()->user()->premium)
             <div class="control control--checkbox">
                 <span class="control__label">Adverts</span>
-                <label class="control__label" for="adverts">Show adverts
-                    <input type="hidden" name="adverts" value="0">
-                    <input type="checkbox" name="adverts" id="adverts" value="1" {{ old('adverts', $timeline->adverts) ? 'checked' : '' }}>
-                    <div></div>
-                </label>
+                <span class="premium"><i class="fa-solid fa-crown"></i>Premium</span>
+                <p>No adverts are shown on the timeline!</p>
+                <p>In fact, as a premium member, no adverts are shown anywhere, on any timeline, across the whole website.</p>
             </div>
         @else
             <div class="control control--checkbox control--premium">
@@ -71,7 +69,7 @@
                 <input type="checkbox" name="map" id="map" value="1" {{ old('map', $timeline->map) ? 'checked' : '' }}>
                 <div></div>
             </label>
-            <p>Hiding the map will also hide any event buttons that are referenced to it. If no events utilise the map then it is hidden by default.</p>
+            <p>Hiding the map will also hide any event buttons that are referenced to it. If no events utilise a map marker then it is hidden by default.</p>
         </div>
 
     </div>
@@ -95,17 +93,13 @@
 
         @if (auth()->user()->premium)
             <div class="control control--checkbox">
-                <span class="control__label">Tags / Filters</span>
-                <label class="control__label" for="filter">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
-                    <input type="hidden" name="filter" value="0">
-                    <input type="checkbox" name="filter" id="filter" value="1" {{ old('filter', $timeline->filter) ? 'checked' : '' }}>
-                    <div></div>
-                </label>
-                <p>Group your tags to give your timeline more depth when filtering.</p>
+                <span class="control__label">Advanced Tag Grouping</span>
+                <span class="premium"><i class="fa-solid fa-crown"></i>Premium</span>
+                <p>As a premium member, advanced <a href="#tags-tab" class="tab">tag grouping</a> is enabled!</p>
             </div>    
         @else
             <div class="control control--checkbox control--premium">
-                <span class="control__label">Tags / Filters</span>
+                <span class="control__label">Advanced Tag Grouping</span>
                 <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
                 <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
                     <input type="checkbox" name="filter" id="filter" disabled="disabled">
@@ -148,7 +142,7 @@
             <input type="checkbox" name="profile" id="profile" value="1" {{ old('profile', $timeline->profile) ? 'checked' : '' }}>
             <div></div>
         </label>
-        <p>Feature this timeline on your <a href="{{ route('profile.show', ['username' => auth()->user()->username ]) }}" target="_blank">profile</a> page - requires the timeline visibility to be public.</p>
+        <p>Feature this timeline on your <a href="{{ route('profile.show', ['username' => auth()->user()->username ]) }}" target="_blank">profile</a> page (requires the timeline visibility to be public).</p>
     </div>
 
     <!---
