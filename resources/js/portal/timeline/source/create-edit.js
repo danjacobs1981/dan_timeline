@@ -13,6 +13,8 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function CreateEditSource() {
 
+    setMaxCount('.modal-create-edit-source');
+
     var $input_url = $('#formSourceCreateEdit input[name="url"]');
     var $input_title = $('#formSourceCreateEdit input[name="source"]');
 
@@ -40,7 +42,7 @@ function CreateEditSource() {
             getTitle(url);
         } else {
             // not valid url
-            var $error = $('<p class="control__error">Not a valid URL - please enter a valid URL.</p>');
+            var $error = $('<span class="control__error">Not a valid URL - please enter a valid URL</span>');
             $input_url.after($error);
         }
     }
@@ -57,7 +59,7 @@ function CreateEditSource() {
                 if (response.title) {
                     $input_title.val(response.title);
                 } else {
-                    var $error = $('<p class="control__error">Cannot retrieve the page name - please manually type a title for this source.</p>');
+                    var $error = $('<span class="control__error">Cannot retrieve the page name</span>');
                     $input_title.after($error);
                 }
                 $('#formSourceCreateEdit .control__label[for="source"]>span').remove();
@@ -97,29 +99,11 @@ function CreateEditSource() {
         }).fail(function(jqXHR, textStatus, errorThrown) {
             var errorData = JSON.parse(jqXHR.responseText);
             //console.log(jqXHR.responseText);
-            mapErrorsToForm(errorData.errors);
-            //console.log(errorData);
-            //console.log(textStatus);
-            //console.log(errorThrown);
+            mapErrorsToForm(errorData.errors, $form);
         }).always(function() {
             // Always run after .done() or .fail()
         });
         e.preventDefault();
     });
-
-    function mapErrorsToForm(errorData) {
-        // reset things!
-        $form.find('.control__error').remove();
-        $form.find(':input').each(function() {
-            var fieldName = $(this).attr('name');
-            if (!errorData[fieldName]) {
-                // no error!
-                return;
-            }
-            var $error = $('<p class="control__error"></p>');
-            $error.html(errorData[fieldName]);
-            $(this).after($error);
-        });
-    }
 
 }

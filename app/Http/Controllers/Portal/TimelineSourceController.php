@@ -6,15 +6,12 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 use App\Models\Timeline;
 use App\Models\Event;
 use App\Models\Source;
-use Carbon\Carbon;
-
-use Image;
 
 class TimelineSourceController extends Controller
 {
@@ -29,7 +26,7 @@ class TimelineSourceController extends Controller
 
             // if an event, get sources that are saved to this event
             $sources_saved = [];
-            if($request->event_id) {
+            if($request->event_id && $request->event_id != 1) { // event_id being 1 means it's a new event
                 $sources_saved = Event::where('timeline_id', $timeline->id)->find($request->event_id)->sourcesIDs()->all();
             }
 
@@ -112,7 +109,7 @@ class TimelineSourceController extends Controller
                         'source' => [
                             'required',
                             'string',
-                            'max:255',
+                            'max:250',
                             Rule::unique('sources')->where(function ($query) use ($request){
                                 $query->where('url', $request['url']);
                                 $query->where('source', $request['source']);
@@ -121,7 +118,11 @@ class TimelineSourceController extends Controller
                         'fa_icon' => 'nullable',
                     ],
                     $messages = [
-                        'source.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
+                        'url.required' => 'The source requires a URL',
+                        'url.url' => 'The URL must be valid',
+                        'source.unique' => 'A source already exists with this URL and title',
+                        'source.required' => 'The source requires a title',
+                        'source.max' => 'The title must be 250 characters or less',
                     ]
                 );
 
@@ -173,12 +174,10 @@ class TimelineSourceController extends Controller
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-            $event_count = $source->events()->count();
-
             $modal_title = 'Edit Source';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Update Source', 'form' => 'formSourceCreateEdit');
             $route = 'layouts.portal.pages.timeline.source.create-edit';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'source', 'event_count'));
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'source'));
 
         } else {
 
@@ -218,7 +217,11 @@ class TimelineSourceController extends Controller
                             'fa_icon' => 'nullable',
                         ],
                         $messages = [
-                            'source.unique' => 'A source already exists with this URL and title. You can use the same URL, just give this source a different title.',
+                            'url.required' => 'The source requires a URL',
+                            'url.url' => 'The URL must be valid',
+                            'source.unique' => 'A source already exists with this URL and title',
+                            'source.required' => 'The source requires a title',
+                            'source.max' => 'The title must be 250 characters or less',
                         ]
                     );
     
@@ -229,7 +232,7 @@ class TimelineSourceController extends Controller
                         $data['fa_icon'] = $icon;
                     }
     
-                    // update the event
+                    // update the tag
                     Source::where('timeline_id', $timeline_id)->where('id', $source->id)->update($data);
 
                     return response()->json([
@@ -243,7 +246,6 @@ class TimelineSourceController extends Controller
                     return response()->json([
                         'status'=> 200,
                         'message' => 'Source remains the same',
-                        'source_id' => $source->id
                     ]);
 
                 }

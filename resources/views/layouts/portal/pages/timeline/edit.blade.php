@@ -77,96 +77,43 @@
                             </p>
                         @endif
 
-                        @include('layouts.portal.snippets.edit-settings')
+                        @include('layouts.portal.snippets.timeline-settings')
 
                     </section>
 
                     <section id="about-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineAbout">
-
-                            <div class="control-submit control-submit-sticky">
-                                <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
-                            </div>
-
-                            <p>Give a summary of what your timeline is about.</p>
-
-                            <div class="control control--select">
-                                <label class="control__label" for="select">Test Dropdown</label>
-                                <select name="select" id="select">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                                <p>Helpful line of text goes along here.</p>
-                            </div>
-    
-                            <div class="control control--textarea">
-                                <label class="control__label" for="textarea">Test Textarea</label>
-                                <textarea id="textarea" name="textarea" rows="4" cols="50">Blah blah blah</textarea>
-                                <p>Helpful line of text goes along here.</p>
-                            </div>
-    
-                            <div class="control-submit">
-                                <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update About</button>
-                            </div>
-
-                        </div>
+                        @include('layouts.portal.snippets.timeline-about')
 
                     </section>
 
                     <section id="tags-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineTags">
-
-                            <p>Listing of all tags that can be added to individual events for filtering.</p>
-
-                        </div>
+                        @include('layouts.portal.snippets.timeline-event-tags', [ 'placement' => 'timeline', 'tags' => null ])
 
                     </section>
 
                     <section id="sources-tab" class="edit__tab" style="display:none;">
 
-                        @include('layouts.portal.snippets.edit-sources', [ 'placement' => 'timeline', 'sources' => null ])
+                        @include('layouts.portal.snippets.timeline-event-sources', [ 'placement' => 'timeline', 'sources' => null ])
 
                     </section>
 
                     <section id="comments-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineComments">
-
-                            <p>Moderate comments that have been made on your timeline.</p>
-
-                        </div>
+                        @include('layouts.portal.snippets.timeline-comments')
 
                     </section>
 
                     <section id="collaborators-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineCollaborators">
-
-                            <p>Allow others to collaborate with you in building your timeline.</p>
-
-                        </div>
+                        @include('layouts.portal.snippets.timeline-collaborators')
 
                     </section>
 
                     <section id="delete-tab" class="edit__tab" style="display:none;">
 
-                        <div class="timelineDelete">
-
-                            <p>Delete your timeline.</p>
-
-                            <div class="control">
-                                <span class="control__label">Delete Timeline</span>
-                                <a href="{{ route('timelines.delete.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
-                                    <i class="fa-regular fa-trash-can"></i>Delete
-                                </a>                            
-                                <p>Deleting a timeline cannot be undone.</p>
-                            </div>
-
-                        </div>
+                        @include('layouts.portal.snippets.timeline-delete')
 
                     </section>
 
@@ -176,31 +123,7 @@
 
             <section id="events-tab" class="edit__tab edit__events" style="display:none;">
 
-                <div class="timelineEvents">
-
-                    <div class="loading">
-                        <div class="dots"><div></div><div></div><div></div><div></div></div>
-                    </div>
-    
-                    <header>
-                        <div>
-                            <span>Loading events...</span>
-                            <em><i class="fa-regular fa-square-caret-right"></i>Expand all dates</li></em>
-                        </div>
-                        <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                            <i class="fa-solid fa-circle-plus"></i>Add Event
-                        </a>
-                    </header>
-    
-                    <div class="control-submit">
-                        <a href="{{ route('timelines.events.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
-                            <i class="fa-solid fa-circle-plus"></i>Add Event
-                        </a>
-                    </div>
-                    
-                    <section id="events" class="sortable scrollbar"></section>    
-
-                </div>
+                @include('layouts.portal.snippets.timeline-events')
 
             </section>
 

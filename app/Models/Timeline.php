@@ -68,11 +68,11 @@ class Timeline extends Model
     }
 
     /**
-     * Get all sources for the timeline.
+     * Get all groups for the timeline.
     */
-    public function sources()
+    public function groups()
     {
-        return $this->hasMany(Source::class);
+        return $this->hasMany(Group::class);
     }
 
     /**
@@ -81,6 +81,14 @@ class Timeline extends Model
     public function tags()
     {
         return $this->hasMany(Tag::class);
+    }
+
+    /**
+     * Get all sources for the timeline.
+    */
+    public function sources()
+    {
+        return $this->hasMany(Source::class);
     }
 
     /**

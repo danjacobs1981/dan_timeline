@@ -69,13 +69,31 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // ajax routes for event actions (background saving)
             Route::put('/timelines/{timeline}/events/{event}/delete', 'Portal\TimelineEventEditController@delete');
 
+            // crud of GROUPS
+            Route::resource('timelines.groups', Portal\TimelineGroupController::class);
+
+            // group editing modals
+            Route::get('/timelines/{timeline}/groups/{group}/delete', 'Portal\TimelineGroupEditController@showModalDelete')->name('timelines.groups.delete.showModal');
+
+            // ajax routes for groups actions (background saving)
+            Route::put('/timelines/{timeline}/groups/{group}/delete', 'Portal\TimelineGroupEditController@delete');
+
+            // crud of TAGS
+            Route::resource('timelines.tags', Portal\TimelineTagController::class);
+
+            // tag editing modals
+            Route::get('/timelines/{timeline}/tags/{tag}/delete', 'Portal\TimelineTagEditController@showModalDelete')->name('timelines.tags.delete.showModal');
+
+            // ajax routes for tags actions (background saving)
+            Route::put('/timelines/{timeline}/tags/{tag}/delete', 'Portal\TimelineTagEditController@delete');
+
             // crud of SOURCES
             Route::resource('timelines.sources', Portal\TimelineSourceController::class);
-
+            
             // source editing modals
             Route::get('/timelines/{timeline}/sources/{source}/delete', 'Portal\TimelineSourceEditController@showModalDelete')->name('timelines.sources.delete.showModal');
 
-            // ajax routes for event actions (background saving)
+            // ajax routes for sources actions (background saving)
             Route::put('/timelines/{timeline}/sources/{source}/delete', 'Portal\TimelineSourceEditController@delete');
             
             // crud of PROFILES

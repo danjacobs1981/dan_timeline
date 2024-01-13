@@ -17,11 +17,19 @@ class Group extends Model
     ];
 
     /**
+     * The timeline that the group belongs to.
+     */
+    public function timeline()
+    {
+        return $this->belongsTo(Timeline::class);
+    }
+
+    /**
      * The tags that belong to the group.
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->hasMany(Tag::class);
     }
 
 }

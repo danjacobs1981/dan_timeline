@@ -44,36 +44,13 @@ function EditEventDateLocation() {
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            //console.log(jqXHR.responseText);
-            var errorData = JSON.parse(jqXHR.responseText);
-            console.log(errorData);
-            mapErrorsToForm(errorData.errors);
+            //var errorData = JSON.parse(jqXHR.responseText);
             //console.log(errorData);
-            //console.log(textStatus);
-            //console.log(errorThrown);
+            mapErrorsToForm(errorData.errors, $form);
         }).always(function() {
             // Always run after .done() or .fail()
         });
         e.preventDefault();
-    });
-
-    function mapErrorsToForm(errorData) {
-        // reset things!
-        $form.find('.control__error').remove();
-        $form.find(':input').each(function() {
-            var fieldName = $(this).attr('name');
-            if (!errorData[fieldName]) {
-                // no error!
-                return;
-            }
-            var $error = $('<span class="control__error"></span>');
-            $error.html(errorData[fieldName]);
-            $(this).after($error);
-        });
-    }
-
-    $(document).on('click', '.modal-edit-event-location>.modal-buttons>button', function() {
-        console.log("yo");
     });
 
 }

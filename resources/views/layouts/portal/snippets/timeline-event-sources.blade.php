@@ -1,16 +1,21 @@
 <div class="{{ $placement }}Sources">
 
     @if($placement == 'timeline')
-        <p>Sources that can be added to individual events to give them more clarity and weight.</p>
-        <div class="control control--textbox control--button">
-            <label class="control__label" for="source">Create New Source</label>
-            <div>
-                <input type="text" id="{{ $placement }}SourceURL" placeholder="Enter the URL of the source" />
+        <p>Listing of all sources that can be added to individual events to give them more clarity and weight.</p>
+        <div class="control control--textbox">
+            <label class="control__label" for="timelineSourceURL">Create New Source</label>
+            <div class="control__multiple">
+                <input type="text" id="timelineSourceURL" placeholder="Enter the URL of the source" />
                 <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
                     <i class="fa-solid fa-circle-plus"></i>Create Source
                 </a>
             </div>
-            <p>This can be a URL of a webpage, image, PDF, YouTube video, etc.</p>
+            <p>
+                e.g: https://example.com/article
+            </p>
+            <p>
+                This can be a URL of a webpage, image, PDF, YouTube video, etc.
+            </p>
         </div>
     @elseif($placement == 'event')
         <p>Add sources to the event.</p>

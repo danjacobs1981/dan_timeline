@@ -18,28 +18,10 @@ use Image;
 class TimelineEventController extends Controller
 {
 
-    protected $rules;
-
     public function __construct()
     {
-        $this->rules = [
-            'title' => 'required|string|max:255',
-            'date_year' => 'nullable|integer|digits:4|max:9999',
-            'date_month' => 'nullable|numeric|between:1,12',
-            'date_day' => 'nullable|numeric|between:1,31',
-            'date_time' => 'nullable|date_format:h:i',
-            'date_unix' => 'nullable|date',
-            'location_lat' => 'nullable',
-            'location_lng' => 'nullable',
-            'location_show' => 'integer|between:0,2',
-            'location_geo' => 'nullable|integer|between:1,5',
-            'location_zoom' => 'nullable|integer|between:3,19',
-            'location_tz' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:4096',
-            'image_thumbnail' => 'nullable',
-            'image_large' => 'nullable',
-            'description' => 'nullable|max:1000',
-        ];
+
+
     }
 
     /**
@@ -107,7 +89,32 @@ class TimelineEventController extends Controller
 
                 $date_type = getDateType($request);
 
-                $data = $request->validate($this->rules);
+                $data = $request->validate(
+                    [
+                        'title' => 'required|string|max:250',
+                        'date_year' => 'nullable|integer|digits:4|max:9999',
+                        'date_month' => 'nullable|numeric|between:1,12',
+                        'date_day' => 'nullable|numeric|between:1,31',
+                        'date_time' => 'nullable|date_format:h:i',
+                        'date_unix' => 'nullable|date',
+                        'location_lat' => 'nullable',
+                        'location_lng' => 'nullable',
+                        'location_show' => 'integer|between:0,2',
+                        'location_geo' => 'nullable|integer|between:1,5',
+                        'location_zoom' => 'nullable|integer|between:3,19',
+                        'location_tz' => 'nullable|string',
+                        'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:4096',
+                        'image_thumbnail' => 'nullable',
+                        'image_large' => 'nullable',
+                        'description' => 'nullable|max:1000',
+            
+                    ],
+                    [   
+                        'title.required' => 'The event requires a title',
+                        'title.max' => 'The title must be 250 characters or less',
+                        'date_unix.date' => 'The date must be valid'
+                ]
+                );
 
                 // get time details
                 if ($data['date_unix']) {
@@ -167,6 +174,13 @@ class TimelineEventController extends Controller
                 // add the event
                 $event = new Event;
                 $event->create($data);
+
+                // tags
+                if ($request->tags_changed) {
+                    // add new ones
+                    //$event = new Event;
+                    $event->tags()->attach($request->tags, ['event_id' => $data['id'], 'timeline_id' => $timeline_id]);
+                }
 
                 // sources
                 if ($request->sources_changed) {
@@ -263,7 +277,7 @@ class TimelineEventController extends Controller
                             'location_zoom' => 'nullable|integer|between:3,19',
                             ],
                         [   
-                            'date_unix.date' => 'Please enter a valid date'
+                            'date_unix.date' => 'The date must be valid'
                         ]
                     );
 
@@ -287,9 +301,44 @@ class TimelineEventController extends Controller
 
                 } else { // full event update
 
-                    $data = $request->validate($this->rules);
-                    
+                    //dd($request);
+
+                    $data = $request->validate(
+                        [
+                            'title' => 'required|string|max:250',
+                            'date_year' => 'nullable|integer|digits:4|max:9999',
+                            'date_month' => 'nullable|numeric|between:1,12',
+                            'date_day' => 'nullable|numeric|between:1,31',
+                            'date_time' => 'nullable|date_format:h:i',
+                            'date_unix' => 'nullable|date',
+                            'location_lat' => 'nullable',
+                            'location_lng' => 'nullable',
+                            'location_show' => 'integer|between:0,2',
+                            'location_geo' => 'nullable|integer|between:1,5',
+                            'location_zoom' => 'nullable|integer|between:3,19',
+                            'location_tz' => 'nullable|string',
+                            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:4096',
+                            'image_thumbnail' => 'nullable',
+                            'image_large' => 'nullable',
+                            'description' => 'nullable|max:1000',
+                
+                        ],
+                        [   
+                            'title.required' => 'The event requires a title',
+                            'title.max' => 'The title must be 250 characters or less',
+                            'date_unix.date' => 'The date must be valid'
+                        ]
+                    );
+                        
                     $dateChange = updateDateMap($date_type, $timeline, $data, $event, $request);
+
+                    // tags
+                    if ($request->tags_changed) {
+                        // remove existing tags based on event id
+                        $event->tags()->detach();
+                        // add new ones - 'sync' removes any that aren't in the array
+                        $event->tags()->attach($request->tags, ['timeline_id' => $timeline_id]);
+                    }
 
                     // sources
                     if ($request->sources_changed) {

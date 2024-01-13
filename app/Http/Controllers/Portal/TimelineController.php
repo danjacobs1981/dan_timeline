@@ -46,8 +46,12 @@ class TimelineController extends Controller
         $timeline_id = helperUniqueId('timelines');
 
         $this->validate($request,[
-            'title' => 'required|max:255', // this needs to be decent validation for title
+            'title' => 'required|max:250', // this needs to be decent validation for title
         ]);
+
+        if (auth()->user()->premium) {
+            // MUST SET PREMIUM MEMBERS -  ADVERTS: 0 & TAGGING: 1
+        }
 
         // adds all "request data" plus adds these specific things
         $request->request->add(['id' => $timeline_id, 'user_id' => auth()->user()->id, 'slug' => Str::slug($request->title, "-")]);

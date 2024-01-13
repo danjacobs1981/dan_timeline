@@ -179,6 +179,7 @@ body>main {
                             }
                         }
                     }
+                    &#tags-tab {}
                 }
             }
         }
@@ -361,8 +362,8 @@ body>main {
                         }
                     }
                 }
-                &.sortable,
-                & .sortable {
+                &.sortable-events,
+                & .sortable-events {
                     &>div {
                         & .handle {
                             display: flex;
@@ -710,11 +711,6 @@ body>main {
                     background: var(--dangerDark);
                 }
             }
-        }
-    }
-    &-create-edit-source {
-        & form {
-            margin-bottom: 1.5rem;
         }
     }
 }

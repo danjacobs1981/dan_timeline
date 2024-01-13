@@ -73,7 +73,7 @@
     
                     <div class="control control--textbox">
                         <label class="control__label" for="title">Event Title</label>
-                        <input type="text" name="title" value="{{ old('title', isset($event) ? $event->title : '') }}"/>
+                        <input type="text" name="title" maxlength="250" value="{{ old('title', isset($event) ? $event->title : '') }}"/>
                         <p>The title should reflect this event in just a few words.</p>
                     </div>
                 
@@ -121,7 +121,7 @@
 
                     <div class="control control--textarea">
                         <label class="control__label" for="description">Event Description</label>
-                        <textarea id="description" name="description" rows="4" cols="50">{{ old('description', isset($event) ? $event->description : '') }}</textarea>
+                        <textarea id="description" name="description" maxlength="500" rows="4" cols="50">{{ old('description', isset($event) ? $event->description : '') }}</textarea>
                         <p>This text is revealed once "Read more" is clicked.</p>
                         <p>New lines are converted to paragraphs.</p>
                         <p>HTML tags are not allowed and are automatically removed.</p>
@@ -142,22 +142,17 @@
                 </div>
 
             </section>
-        
-            <section id="event-sources-tab" class="event__tab" style="display:none;">
-
-                @include('layouts.portal.snippets.edit-sources', [ 'placement' => 'event' ])
-
-            </section>
 
             <section id="event-tags-tab" class="event__tab" style="display:none;">
 
-                <div class="eventTags">
+                @include('layouts.portal.snippets.timeline-event-tags', [ 'placement' => 'event' ])
 
-                    <p>Tag the event so it can be easily filtered.</p>
+            </section>
+        
+            <section id="event-sources-tab" class="event__tab" style="display:none;">
 
-                    
+                @include('layouts.portal.snippets.timeline-event-sources', [ 'placement' => 'event' ])
 
-                </div>
             </section>
 
             <section id="event-comments-tab" class="event__tab" style="display:none;">

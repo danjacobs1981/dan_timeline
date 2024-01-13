@@ -25,15 +25,15 @@ class TimelineEditController extends Controller
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
                 $this->validate($request,[
-                    'title' => 'required|max:255', // this needs to be decent validation for title
+                    'title' => 'required|max:250', // this needs to be decent validation for title
                     'map' => 'boolean',
                     'comments' => 'boolean',
                     'comments_event' => 'boolean',
                     'social' => 'boolean',
                     'collab' => 'boolean',
                     'profile' => 'boolean',
-                    'filter' => 'boolean',
-                    'adverts' => 'boolean'
+                    'tagging' => 'nullable',
+                    'adverts' => 'nullable'
                 ]);
 
                 $timeline->title = $request->title;
@@ -45,13 +45,13 @@ class TimelineEditController extends Controller
                 $timeline->collab = $request->collab;
                 $timeline->profile = $request->profile;
 
-                if(auth()->user()->premium) {
+                /*if(auth()->user()->premium) {
                     $timeline->filter = $request->filter;
                     $timeline->adverts = $request->adverts;
                 } else {
                     $timeline->filter = 0;
                     $timeline->adverts = 1;
-                }
+                }*/
                 
                 $timeline->save();
 
@@ -432,12 +432,10 @@ class TimelineEditController extends Controller
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-            $event_count = $timeline->events->count();
-
             $modal_title = 'Delete Timeline';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Timeline', 'form' => 'formDelete');
-            $route = 'layouts.portal.snippets.edit-delete';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event_count'));
+            $route = 'layouts.portal.snippets.modal.timeline-delete';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
 
         } else {
 

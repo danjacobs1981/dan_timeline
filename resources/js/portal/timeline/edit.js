@@ -4,7 +4,8 @@ import Sortable from 'sortablejs';
 var closestLocal;
 var closestLocalAfter;
 
-// needs to be global function as called from a modal
+// need to be global functions as called from a modal
+
 window.loadEvents = function(reload, timeline_id, event_id) {
     $('#events-tab #events').html();
     $('#events-tab .loading').show();
@@ -18,7 +19,7 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                 $('#events-tab .loading').fadeOut();
                 // https://www.codehim.com/demo/jquery-sortable-js/
                 // https://github.com/SortableJS/Sortable
-                $('.sortable').each(function(index, value) {
+                $('.sortable-events').each(function(index, value) {
                     new Sortable(this, {
                         handle: '.handle',
                         animation: 150,
@@ -93,6 +94,100 @@ window.loadEvents = function(reload, timeline_id, event_id) {
     });
 }
 
+window.tagsArray = [];
+
+window.loadTags = function(tag_id, event_id, tagsArrayExists) {
+    $('.tags-list').html();
+    $('.tags-loading').show();
+    var placement = 'timeline';
+    if (event_id) {
+        placement = 'event';
+    }
+    var sort = $('#' + placement + 'TagSort').val();
+    var data = { event_id: event_id, sort: sort };
+    $.ajax({
+        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/tags',
+        type: 'GET',
+        data: data,
+        dataType: 'json',
+        success: function(data) {
+            $('.tags-list').html(data['tags_html']).promise().done(function() {
+                $('.timelineTags .tags-intro').text(data['tags_count']);
+                if (event_id) {
+                    $('.eventTags .tags-intro').html(data['tags_count_saved']);
+                    if ($.isEmptyObject(tagsArrayExists) && $('input[name="tags_changed"]').val() == 0) {
+                        tagsArray = data.tags_saved;
+                    } else {
+                        tagsArray = tagsArrayExists;
+                    }
+                    if (tag_id) {
+                        tagsArray.push(tag_id);
+                        $('input[name="tags_changed"]').val(1);
+                    }
+                    tagsArray = tagsArray.filter((item, index) => tagsArray.indexOf(item) === index); // makes array unique
+                    $('.eventTags .tags-intro>span').text(tagsArray.length);
+                    console.log(tagsArray);
+                    $('.eventTags .tags-list li').each(function() {
+                        var tag_id = $(this).data('id');
+                        if ($.inArray(tag_id, tagsArray) !== -1) {
+                            $(this).addClass('active').prepend('<label class="control__label"><input type="checkbox" checked><div></div></label>')
+                        } else {
+                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label>');
+                        }
+                    });
+                    $('#timelineEventCreateEdit').on('change', '.eventTags li input[type="checkbox"]', function(e) {
+                        e.stopImmediatePropagation();
+                        var $tagEl = $(this).closest('li');
+                        var tag_id = $tagEl.data('id');
+                        if (this.checked) {
+                            tagsArray.push(tag_id);
+                            $tagEl.addClass('active');
+                        } else {
+                            var i = $.inArray(tag_id, tagsArray);
+                            if (i >= 0) {
+                                tagsArray.splice(i, 1);
+                            }
+                            $tagEl.removeClass('active');
+                        }
+                        $('input[name="tags_changed"]').val(1);
+                        $('.eventTags .tags-intro>span').text(tagsArray.length);
+                        //console.log(tagsArray);
+                    });
+                }
+                $('.sortable-tags').each(function(index, value) {
+                    new Sortable(this, {
+                        group: 'shared',
+                        sort: false,
+                        animation: 150,
+                        onMove: function(evt) {
+                            $('.tags-group').removeClass('hover');
+                            $(evt.to).closest('.tags-group').addClass('hover');
+                            $(evt.to).children('span').hide();
+                        },
+                        onEnd: function() {
+                            $('.tags-group').removeClass('hover');
+                            $('.tags-group>ul>span').show();
+                            // ajax call
+                        }
+                    })
+                });
+                $('.tags-loading').fadeOut();
+                // highlights new/edited tag
+                if (tag_id) {
+                    var $tag = $('.tags-list').find('.tag[data-id="' + tag_id + '"]');
+                    $tag.addClass('highlight');
+                    setTimeout(function() {
+                        $tag.removeClass('highlight');
+                    }, 3000);
+                }
+            });
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
 window.sourcesArray = [];
 
 window.loadSources = function(source_id, event_id, sourcesArrayExists) {
@@ -121,7 +216,9 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
                     }
                     if (source_id) {
                         sourcesArray.push(source_id);
+                        $('input[name="sources_changed"]').val(1);
                     }
+                    sourcesArray = sourcesArray.filter((item, index) => sourcesArray.indexOf(item) === index); // makes array unique
                     $('.eventSources .sources-intro>span').text(sourcesArray.length);
                     //console.log(sourcesArray);
                     $('.eventSources .sources-list li').each(function() {
@@ -168,10 +265,54 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
     });
 }
 
+window.setMaxCount = function(outerEl = '') {
+    $(outerEl + ' [maxlength]').each(function() {
+        var $el = $(this);
+        var text_max = $el.attr('maxlength');
+        var text_length = $el.val().length;
+        if ($el.closest('div, form').hasClass('control__multiple')) {
+            $el = $(this).closest('div, form');
+        }
+        $('<p><span>' + text_length + '</span> of ' + text_max + ' characters max.</p>').insertAfter($el);
+        var $text_update = $el.next('p').find('span');
+        $(this).on('keyup', function() {
+            text_length = $(this).val().length;
+            if (text_length == text_max) {
+                $text_update.css('color', 'var(--danger)');
+            } else {
+                $text_update.css('color', 'unset');
+            }
+            $text_update.text(text_length);
+        }).on('keyup');
+    });
+}
+
+window.mapErrorsToForm = function(errorData, $form) {
+    $form.find('.control__error').remove();
+    $form.find('.control').removeClass('control--error');
+    $form.find(':input').each(function() {
+        var fieldName = $(this).attr('name');
+        if (!errorData[fieldName]) {
+            // no error!
+            return;
+        }
+        var $error = $('<span class="control__error"></span>');
+        $error.html('<i class="fa-solid fa-circle-exclamation"></i>' + errorData[fieldName]);
+        $(this).after($error);
+        $error.closest('.control').addClass('control--error');
+    });
+}
+
+$(document).on('focus', '.control input', function() {
+    $(this).closest('.control').removeClass('control--error').find('.control__error').remove();
+});
+
 var topHeight = getTopHeight();
 setLayout();
 loadEvents(false, null, null);
+loadTags(null, null, []);
 loadSources(null, null, []);
+setMaxCount();
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();
@@ -203,6 +344,41 @@ $('.timelineSources a[data-modal-class="modal-create-edit-source"]').on('click',
 $('#timelineSourceSort').on('change', function() {
     loadSources(null, null, []);
 });
+
+// tags
+$('#timelineTagSort').on('change', function() {
+    loadTags(null, null, []);
+});
+
+$('.timelineTags button').on('click', function(e) {
+    var timeline_id = $(this).data('id');
+    var $form = $('.timelineTags');
+    // show spinner on button
+    $('.timelineTags button').prop("disabled", true);
+    var data = {
+        'tag': $('input[name="timeline_tag"]').val(),
+        'group_id': $('select[name="timeline_group_id"]').val()
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/timelines/' + timeline_id + '/tags',
+        data: data,
+        dataType: 'json',
+    }).done(function(response) {
+        $('input[name="timeline_tag"]').val('');
+        // reload tags list
+        loadTags(response.tag_id, null, tagsArray);
+        //console.log(response.result);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        var errorData = JSON.parse(jqXHR.responseText);
+        mapErrorsToForm(errorData.errors, $form);
+    }).always(function() {
+        // Always run after .done() or .fail()
+        $('.timelineTags button').prop("disabled", false);
+    });
+    e.preventDefault();
+});
+
 
 // header tabs
 
@@ -247,10 +423,6 @@ $('.visibility-options>span>a').on('click', function(e) {
     e.preventDefault();
     $('.visibility-options').hide();
 });
-
-// resources
-
-
 
 // layout functions
 

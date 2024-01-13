@@ -56,7 +56,7 @@ class TimelineEventEditController extends Controller
 
             $modal_title = 'Delete Event';
             $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Event');
-            $route = 'layouts.portal.snippets.edit-event-delete';
+            $route = 'layouts.portal.snippets.modal.event-delete';
             return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
 
         } else {

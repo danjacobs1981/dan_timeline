@@ -1,7 +1,7 @@
-<div id="timelineSettings">
+<div class="timelineSettings">
 
     <div class="control-submit control-submit-sticky">
-        <button data-id="{{ $timeline->id }}" type="submit" class="btn" disabled>Update Settings</button>
+        <button data-id="{{ $timeline->id }}" type="button" class="btn" disabled>Update Settings</button>
     </div>
 
     <p>Edit general timeline settings, including which features are shown on your timeline.</p>
@@ -35,7 +35,7 @@
 
     <div class="control control--textbox">
         <label class="control__label" for="title">Timeline Title</label>
-        <input name="title" id="title" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
+        <input name="title" id="title" maxlength="250" data-value="{{ old('title', $timeline->title) }}" value="{{ old('title', $timeline->title) }}">
         <p>The title should reflect your timeline in just a few words. This will also make up your timeline URL.</p>
     </div>
 
@@ -53,7 +53,7 @@
                 <span class="control__label">Adverts</span>
                 <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
                 <label class="control__label">Remove adverts
-                    <input type="checkbox" name="adverts" id="adverts" disabled="disabled">
+                    <input type="checkbox" disabled="disabled">
                     <div></div>
                     <i class="fa-solid fa-lock"></i>
                 </label>
@@ -95,14 +95,14 @@
             <div class="control control--checkbox">
                 <span class="control__label">Advanced Tag Grouping</span>
                 <span class="premium"><i class="fa-solid fa-crown"></i>Premium</span>
-                <p>As a premium member, advanced <a href="#tags-tab" class="tab">tag grouping</a> is enabled!</p>
+                <p>As a premium member, advanced <a href="#tags-tab" class="tab">tag grouping</a> is enabled.</p>
             </div>    
         @else
             <div class="control control--checkbox control--premium">
                 <span class="control__label">Advanced Tag Grouping</span>
                 <a href="#" class="premium"><i class="fa-solid fa-crown"></i>Go Premium</a>
                 <label class="control__label">Use advanced <a href="#tags-tab" class="tab">tagging &amp; filtering</a>
-                    <input type="checkbox" name="filter" id="filter" disabled="disabled">
+                    <input type="checkbox" disabled="disabled">
                     <div></div>
                     <i class="fa-solid fa-lock"></i>
                 </label>

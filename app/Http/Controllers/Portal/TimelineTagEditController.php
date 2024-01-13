@@ -7,20 +7,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Timeline;
-use App\Models\Source;
+use App\Models\Tag;
 
-class TimelineSourceEditController extends Controller
+
+class TimelineTagEditController extends Controller
 {
 
-    public function showModalDelete(Timeline $timeline, Source $source)
+    public function showModalDelete(Timeline $timeline, Tag $tag)
     {
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-            $modal_title = 'Delete Source';
-            $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Source');
-            $route = 'layouts.portal.snippets.modal.source-delete';
-            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'source'));
+            $modal_title = 'Delete Tag';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Delete Tag');
+            $route = 'layouts.portal.snippets.modal.tag-delete';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'tag'));
 
         } else {
 
@@ -30,18 +31,18 @@ class TimelineSourceEditController extends Controller
  
     }
 
-    public function delete(Timeline $timeline, Source $source, Request $request)
+    public function delete(Timeline $timeline, Tag $tag, Request $request)
     {
 
         if($request->ajax()){
         
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-                $source->delete();
+                $tag->delete();
 
                 return response()->json([
                     'status'=> 200,
-                    'message' => 'Source deleted successfully',
+                    'message' => 'Tag deleted successfully',
                     'timeline_id' => $timeline->id
                 ]);
 

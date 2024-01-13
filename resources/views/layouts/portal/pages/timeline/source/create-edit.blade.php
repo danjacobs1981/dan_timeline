@@ -31,7 +31,7 @@
 
         @if(isset($source))
             <p>
-                This source currently features on <strong>{{ $event_count == 1 ? '1 event' : $event_count.' events' }}</strong>.
+                This source currently features on <strong>{{ $source->events()->count() == 1 ? '1 event' : $source->events()->count().' events' }}</strong>.
             </p>
         @endif
 
@@ -41,6 +41,9 @@
             </label>
             <input type="text" name="url" id="url" placeholder="Enter the URL of the source" value="{{ old('url', isset($source) ? $source->url : '') }}"/>
             <p>
+                e.g: https://example.com/article
+            </p>
+            <p>
                 This can be a URL of a webpage, image, PDF, YouTube video, etc.
             </p>
         </div>
@@ -49,9 +52,9 @@
             <label class="control__label" for="source">
                 Title
             </label>
-            <input type="text" name="source" id="source" value="{{ old('source', isset($source) ? $source->source : '') }}"/>
+            <input type="text" name="source" maxlength="250" id="source" value="{{ old('source', isset($source) ? $source->source : '') }}"/>
             <p>
-                <a href="#" class="update-title">Auto-fill the title</a> by getting the page title from the URL above. This may not always work, so you may have to manually enter it!
+                <a href="#" class="update-title">Auto-fill the title</a> by getting the page title from the URL above. This may not always work, so you may have to manually enter it.
             </p>
         </div>
 

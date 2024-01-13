@@ -12,16 +12,56 @@ $(document).on($.modal.OPEN, function(event, modal) {
 
 function CreateEditEvent() {
 
+    setMaxCount('.modal-create-edit-event');
 
-    var event_id = null;
+    var event_id = 1; // this means it's a new event
     if ($('meta[name="event"]').length) {
         event_id = parseInt($('meta[name="event"]').attr('content'));
     }
+
+    // tags
+    loadTags(null, event_id, []);
+    $('#eventTagSort').on('change', function() {
+        loadTags(null, event_id, tagsArray);
+    });
 
     // sources
     loadSources(null, event_id, []);
     $('#eventSourceSort').on('change', function() {
         loadSources(null, event_id, sourcesArray);
+    });
+
+    $('.eventTags button').on('click', function(e) {
+        var timeline_id = $(this).data('id');
+        var $form = $('.eventTags');
+        // show spinner on button
+        $('.eventTags button').prop("disabled", true);
+        var data = {
+            'tag': $('input[name="event_tag"]').val(),
+            'group_id': $('select[name="event_group_id"]').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/timelines/' + timeline_id + '/tags',
+            data: data,
+            dataType: 'json',
+        }).done(function(response) {
+            $('input[name="event_tag"]').val('');
+            // reload tags list
+            loadTags(response.tag_id, event_id, tagsArray);
+            //console.log(response.result);
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            var errorData = JSON.parse(jqXHR.responseText);
+            //console.log(jqXHR.responseText);
+            mapErrorsToForm(errorData.errors, $form);
+            //console.log(errorData);
+            //console.log(textStatus);
+            //console.log(errorThrown);
+        }).always(function() {
+            // Always run after .done() or .fail()
+            $('.eventTags button').prop("disabled", false);
+        });
+        e.preventDefault();
     });
 
     // add image
@@ -98,6 +138,7 @@ function CreateEditEvent() {
         if (document.getElementById('image').files.length != 0) {
             data.append('image', document.getElementById('image').files[0]); // image upload
         }
+        tagsArray.forEach((item) => data.append("tags[]", item))
         sourcesArray.forEach((item) => data.append("sources[]", item))
         $.ajax({
             type: 'POST',
@@ -122,33 +163,13 @@ function CreateEditEvent() {
                     }
                 }
             }
-            //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             var errorData = JSON.parse(jqXHR.responseText);
-            //console.log(jqXHR.responseText);
-            mapErrorsToForm(errorData.errors);
-            //console.log(errorData);
-            //console.log(textStatus);
-            //console.log(errorThrown);
+            mapErrorsToForm(errorData.errors, $form);
         }).always(function() {
             // Always run after .done() or .fail()
         });
         e.preventDefault();
     });
-
-    function mapErrorsToForm(errorData) {
-        // reset things!
-        $form.find('.control__error').remove();
-        $form.find(':input').each(function() {
-            var fieldName = $(this).attr('name');
-            if (!errorData[fieldName]) {
-                // no error!
-                return;
-            }
-            var $error = $('<span class="control__error"></span>');
-            $error.html(errorData[fieldName]);
-            $(this).after($error);
-        });
-    }
 
 }

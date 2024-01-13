@@ -1,9 +1,0 @@
-<div id="timelineEventEditLocation">
-
-    <h6>Event: {{ $event->title }}</h6>
-
-    @include('layouts.portal.snippets.form-location', [ 'date' => true ])
-
-    <p>this will pass location details to the date modal and is using the js from the date modal opening</p>
-
-</div>

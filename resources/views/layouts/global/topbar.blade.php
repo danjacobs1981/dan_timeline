@@ -114,11 +114,12 @@
 			</a>
 		</li>
 		<li>
-			<a href="{{ route('dashboard.show') }}" title="Dashboard">
+			<a href="{{ route('dashboard.show') }}" title="Go to your Dashboard">
 				<span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
 					<i class="fa-regular fa-circle fa-stack-2x"></i>
 					<i class="fa-solid fa-user fa-stack-1x"></i>
+					{!! auth()->user()->premium ? '<i class="fa-solid fa-crown fa-stack-1x" title="Premium Member"></i>' : '' !!}
 				</span><em>{{ auth()->user()->username }}</em>
 			</a>
 		</li>

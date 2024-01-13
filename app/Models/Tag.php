@@ -14,8 +14,18 @@ class Tag extends Model
         'id', 
         'timeline_id', 
         'tag',
+        'image',
+        'icon',
         'group_id'
     ];
+
+    /**
+     * The group that belong to the tag.
+     */
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 
     /**
      * The events that belong to the tag.
