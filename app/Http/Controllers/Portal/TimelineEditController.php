@@ -24,35 +24,40 @@ class TimelineEditController extends Controller
         
             if ($timeline && $timeline->user_id === auth()->user()->id) {
 
-                $this->validate($request,[
-                    'title' => 'required|max:250', // this needs to be decent validation for title
-                    'map' => 'boolean',
-                    'comments' => 'boolean',
-                    'comments_event' => 'boolean',
-                    'social' => 'boolean',
-                    'collab' => 'boolean',
-                    'profile' => 'boolean',
-                    'tagging' => 'nullable',
-                    'adverts' => 'nullable'
-                ]);
+                $data = $request->validate(
+                    [
+                        'title' => [
+                            'required',
+                            'string',
+                            'max:250',
+                            'unique:timelines,title,'.$timeline->id
+                        ],
+                        'map' => 'boolean',
+                        'comments' => 'boolean',
+                        'comments_event' => 'boolean',
+                        'social' => 'boolean',
+                        'collab' => 'boolean',
+                        'profile' => 'boolean',
+                    ],
+                    $messages = [
+                        'title.required' => 'The timeline requires a title',
+                        'title.max' => 'The timline title must be 250 characters or less',
+                        'title.unique' => 'A timeline with this title already exists'
+                    ]
+                );
 
-                $timeline->title = $request->title;
-                $timeline->slug = Str::slug($request->title, "-");
-                $timeline->map = $request->map;
-                $timeline->comments = $request->comments;
-                $timeline->comments_event = $request->comments_event;
-                $timeline->social = $request->social;
-                $timeline->collab = $request->collab;
-                $timeline->profile = $request->profile;
+                $adverts = 1;
+                $tagging = 0;
+        
+                if (auth()->user()->premium) {
+                    $adverts = 0;
+                    $tagging = 1;
+                }
+        
+                $data['slug'] = Str::slug($data['title'], "-");
+                $data['adverts'] = $adverts;
+                $data['tagging'] = $tagging;
 
-                /*if(auth()->user()->premium) {
-                    $timeline->filter = $request->filter;
-                    $timeline->adverts = $request->adverts;
-                } else {
-                    $timeline->filter = 0;
-                    $timeline->adverts = 1;
-                }*/
-                
                 $timeline->save();
 
                 return response()->json([

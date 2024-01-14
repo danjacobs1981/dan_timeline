@@ -13,6 +13,33 @@ use App\Models\Tag;
 class TimelineTagEditController extends Controller
 {
 
+    public function group(Timeline $timeline, Tag $tag, Request $request)
+    {
+
+        if($request->ajax()){
+        
+            if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+                $tag->update(['group_id' => $request->group_id]);
+
+                return response()->json([
+                    'status'=> 200,
+                    'message' => 'Tag moved to group'
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status'=> 401,
+                    'message' => 'Authentication error',
+                ]);
+
+            }
+
+        }
+        
+    }
+
     public function showModalDelete(Timeline $timeline, Tag $tag)
     {
 

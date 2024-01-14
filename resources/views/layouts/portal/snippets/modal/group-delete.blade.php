@@ -1,6 +1,6 @@
 <div id="groupDelete">
     <h6>Are you sure?</h6>
-    <p>This will delete this group: <strong>{{ $group->group }}</strong>.</p>
+    <p>This will delete this group: <strong>{{ $group->group }}</strong></p>
     @if($group->tags()->count())
         <p>This group contains <strong>{{ $group->tags()->count() == 1 ? '1 tag' : $group->tags()->count().' tags' }}</strong>.</p>
         <p>Tags in this group will be moved to the "Other (unassigned)" group once this group is deleted.</p>

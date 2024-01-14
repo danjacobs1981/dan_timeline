@@ -164,10 +164,34 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
                             $(evt.to).closest('.tags-group').addClass('hover');
                             $(evt.to).children('span').hide();
                         },
-                        onEnd: function() {
+                        onEnd: function(evt) {
                             $('.tags-group').removeClass('hover');
-                            $('.tags-group>ul>span').show();
-                            // ajax call
+                            var group_id = $(evt.to).closest('.sortable-tags').data('id');
+                            if (typeof group_id != 'undefined') {
+                                $('.tags-loading').show();
+                                var data = {
+                                        'group_id': group_id
+                                    }
+                                    //console.log(data);
+                                $.ajax({
+                                    url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/tags/' + evt.item.dataset.id + '/group',
+                                    type: 'PUT',
+                                    data: data,
+                                    dataType: 'json',
+                                    encode: true,
+                                    success: function(response) {
+                                        //console.log(response);
+                                        if (event_id) {
+                                            loadTags(null, event_id, tagsArray);
+                                        } else {
+                                            loadTags(null, null, []);
+                                        }
+                                    },
+                                    error: function(xhr) {
+                                        console.log(xhr.responseText);
+                                    }
+                                });
+                            }
                         }
                     })
                 });
@@ -292,6 +316,9 @@ window.mapErrorsToForm = function(errorData, $form) {
     $form.find('.control').removeClass('control--error');
     $form.find(':input').each(function() {
         var fieldName = $(this).attr('name');
+        if (typeof $(this).data('name') != 'undefined') { // use the actual form field name you want to get errors on
+            fieldName = $(this).data('name');
+        }
         if (!errorData[fieldName]) {
             // no error!
             return;

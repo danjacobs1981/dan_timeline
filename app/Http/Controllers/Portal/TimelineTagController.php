@@ -49,7 +49,7 @@ class TimelineTagController extends Controller
             // Group::where('timeline_id', $timeline->id)->with(['tags.groups'])->orderBy('group','asc')->get()
 
             $tags_html = null;
-            $tags_count = 'Add a tag to get started!';
+            $tags_count = 'Create a tag to get started!';
             $tags_count_saved = '<span>0</span> of 0 available tags currently selected.';
 
             if ($timeline_tags->count()) {

@@ -11,8 +11,11 @@
         <label class="control__label" for="{{ $placement }}_tag">
             Create New Tag
         </label>
+        @if (auth()->user()->premium)
+            <span class="premium"><i class="fa-solid fa-crown"></i>Premium Feature</span>
+        @endif
         <div class="control__multiple">
-            <input type="text" name="{{ $placement }}_tag" maxlength="40" id="{{ $placement }}_tag" placeholder="Tag title" />
+            <input type="text" data-name="tag" name="{{ $placement }}_tag" maxlength="40" id="{{ $placement }}_tag" placeholder="Tag title" />
             @if (auth()->user()->premium)
                 <select name="{{ $placement }}_group_id" id="{{ $placement }}_group_id">
                     <option value="">Select group...</option>

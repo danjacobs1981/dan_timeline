@@ -45,18 +45,43 @@ class TimelineController extends Controller
 
         $timeline_id = helperUniqueId('timelines');
 
-        $this->validate($request,[
+        /*$this->validate($request,[
             'title' => 'required|max:250', // this needs to be decent validation for title
-        ]);
+        ]);*/
+
+        $data = $request->validate(
+            [
+                'title' => [
+                    'required',
+                    'string',
+                    'max:250',
+                    'unique:timelines,title'
+                ],
+                'comments' => 'boolean',
+                'comments_event' => 'boolean',
+            ],
+            $messages = [
+                'title.required' => 'The timeline requires a title',
+                'title.max' => 'The timline title must be 250 characters or less',
+                'title.unique' => 'A timeline with this title already exists'
+            ]
+        );
+
+        $adverts = 1;
+        $tagging = 0;
 
         if (auth()->user()->premium) {
-            // MUST SET PREMIUM MEMBERS -  ADVERTS: 0 & TAGGING: 1
+            $adverts = 0;
+            $tagging = 1;
         }
 
-        // adds all "request data" plus adds these specific things
-        $request->request->add(['id' => $timeline_id, 'user_id' => auth()->user()->id, 'slug' => Str::slug($request->title, "-")]);
+        $data['id'] = $timeline_id;
+        $data['user_id'] = auth()->user()->id;
+        $data['slug'] = Str::slug($data['title'], "-");
+        $data['adverts'] = $adverts;
+        $data['tagging'] = $tagging;
         
-        Timeline::create($request->all());
+        Timeline::create($data);
     
         return redirect('/timelines/'.$timeline_id.'/edit')->with('action', 'Timeline created!')->with('helper', true); 
 
@@ -97,28 +122,7 @@ class TimelineController extends Controller
     {
 
         abort(404);
-        // this isn't required now as AJAX is used
-        
-        /*$timeline = Timeline::find($id);
-
-        if ($timeline && $timeline->user_id === auth()->user()->id) {
-
-            $user_id = auth()->user()->id;
-            $timeline->user_id = $user_id;
-            $timeline->privacy = $request->privacy;
-            $timeline->title = $request->title;
-            $timeline->slug = Str::slug($request->title, "-");
-            $timeline->comments = $request->comments;
-            
-            $timeline->save();
-
-            return redirect('/timelines')->with('success', 'Successfully updated the timeline');
-
-        } else {
-
-            return redirect('/timelines')->with('action', 'This timeline cannot be updated')->with('type', 'warning');
-
-        }*/
+        // this isn't required as AJAX is used for saving different sections (TimelineEditController)
 
     }
 

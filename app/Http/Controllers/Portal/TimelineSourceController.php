@@ -41,7 +41,7 @@ class TimelineSourceController extends Controller
             }
 
             $sources_html = null;
-            $sources_count = 'Add a source to get started!';
+            $sources_count = 'Create a source to get started!';
             $sources_count_saved = '<span>0</span> of 0 available sources currently selected.';
 
             if ($timeline_sources->count()) {
@@ -110,9 +110,10 @@ class TimelineSourceController extends Controller
                             'required',
                             'string',
                             'max:250',
-                            Rule::unique('sources')->where(function ($query) use ($request){
+                            Rule::unique('sources')->where(function ($query) use ($request, $timeline_id){
                                 $query->where('url', $request['url']);
                                 $query->where('source', $request['source']);
+                                $query->where('timeline_id', $timeline_id);
                             })
                         ],
                         'fa_icon' => 'nullable',

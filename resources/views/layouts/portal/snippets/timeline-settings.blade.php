@@ -44,7 +44,7 @@
         @if (auth()->user()->premium)
             <div class="control control--checkbox">
                 <span class="control__label">Adverts</span>
-                <span class="premium"><i class="fa-solid fa-crown"></i>Premium</span>
+                <span class="premium"><i class="fa-solid fa-crown"></i>Premium Feature</span>
                 <p>No adverts are shown on the timeline!</p>
                 <p>In fact, as a premium member, no adverts are shown anywhere, on any timeline, across the whole website.</p>
             </div>
@@ -94,7 +94,7 @@
         @if (auth()->user()->premium)
             <div class="control control--checkbox">
                 <span class="control__label">Advanced Tag Grouping</span>
-                <span class="premium"><i class="fa-solid fa-crown"></i>Premium</span>
+                <span class="premium"><i class="fa-solid fa-crown"></i>Premium Feature</span>
                 <p>As a premium member, advanced <a href="#tags-tab" class="tab">tag grouping</a> is enabled.</p>
             </div>    
         @else
