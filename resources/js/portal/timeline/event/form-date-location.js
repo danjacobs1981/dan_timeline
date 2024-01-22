@@ -4,7 +4,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 FormDateLocation();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-event') || modal['options']['modalClass'].includes('modal-edit-event-date')) {
+    if (modal['options']['modalClass'] && (modal['options']['modalClass'].includes('modal-create-edit-event') || modal['options']['modalClass'].includes('modal-edit-event-date'))) {
         //console.log("DATE MODAL");
         FormDateLocation();
         //event.stopImmediatePropagation();

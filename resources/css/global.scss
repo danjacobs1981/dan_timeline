@@ -167,7 +167,7 @@ sup {
     }
 }
 
-.colour-like {
+.color-like {
     color: var(--like)!important;
     background: #fff!important;
     box-shadow: inset 0 0 0 2px var(--like);
@@ -182,7 +182,7 @@ sup {
     }
 }
 
-.colour-liked {
+.color-liked {
     color: #fff!important;
     background: var(--like)!important;
     &>i.fa-solid.fa-heart {
@@ -200,7 +200,7 @@ sup {
     }
 }
 
-.colour-save {
+.color-save {
     color: var(--greyDark)!important;
     background: #fff!important;
     box-shadow: inset 0 0 0 2px var(--greyDark);
@@ -210,7 +210,7 @@ sup {
     }
 }
 
-.colour-saved {
+.color-saved {
     color: #fff!important;
     background: var(--greyDark)!important;
     &>i.fa-solid.fa-bookmark {
@@ -222,10 +222,10 @@ sup {
     }
 }
 
-.colour-like.loading,
-.colour-liked.loading,
-.colour-save.loading,
-.colour-saved.loading {
+.color-like.loading,
+.color-liked.loading,
+.color-save.loading,
+.color-saved.loading {
     &>i {
         display: none;
         &.fa-spin {

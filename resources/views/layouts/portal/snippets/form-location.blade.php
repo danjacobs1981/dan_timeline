@@ -91,7 +91,7 @@
 
         </div>
 
-        <!--<p>To do: add marker choice, marker colour and streetview screenshots</p>-->
+        <!--<p>To do: add marker choice, marker color and streetview screenshots</p>-->
 
     </div>
 

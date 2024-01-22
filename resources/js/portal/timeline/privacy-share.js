@@ -6,7 +6,7 @@ var tags = [];
 PrivacyShare();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-timeline-privacy-share')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-timeline-privacy-share')) {
         //console.log("PRIVACY MODAL");
         PrivacyShare();
         //event.stopImmediatePropagation();

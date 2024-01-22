@@ -29,8 +29,14 @@ class TimelineTagController extends Controller
 
             // if an event, get tags that are saved to this event
             $tags_saved = [];
+            $tags_highlighted_saved = [];
             if($request->event_id && $request->event_id != 1) { // event_id being 1 means it's a new event
-                $tags_saved = Event::where('timeline_id', $timeline->id)->find($request->event_id)->tagsIDs()->all();
+                $event = new Event;
+                $tags_saved = $event->find($request->event_id)->tags()->select('id', 'highlight', 'color')->get()->toArray();
+                //dd($tags_saved);
+                //$tags_saved = $event->find($request->event_id)->tagsIDs()->all();
+                //$tags_highlighted_saved = $event->find($request->event_id)->tagsHighlightedIDs()->get()->keyBy('pivot.tag_id')->toArray();
+                //dd($tags_highlighted_saved);
             }
 
             if ($request->sort == 'za') {
@@ -71,7 +77,8 @@ class TimelineTagController extends Controller
                 'tags_html' => $tags_html,
                 'tags_count' => $tags_count,
                 'tags_count_saved' => $tags_count_saved,
-                'tags_saved' => $tags_saved
+                'tags_saved' => $tags_saved,
+                //'tags_highlighted_saved' => $tags_highlighted_saved
             ));
 
         }

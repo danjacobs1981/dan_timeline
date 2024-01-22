@@ -8,20 +8,15 @@
                     <i class="fa-solid fa-xmark fa-stack-1x"></i>
                 </span>
                 <div class="event-header">
-                    <ul class="event-subheader">
-                        <li>
-                            Verified
-                        </li>
-                        <li>
-                            Another Highlight
-                        </li>
-                        <li>
-                            Important
-                        </li>
-                        <li>
-                            Theory
-                        </li>
-                    </ul>
+                    @if($event->tagsHighlighted->count())
+                        <ul class="event-subheader">
+                            @foreach($event->tagsHighlighted as $highlight) 
+                                <li style="background:{{ $highlight->color }};">
+                                    {{ $highlight->tag }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                     <div>
                         <div>
                             <h3 itemprop="name">

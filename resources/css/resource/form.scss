@@ -319,7 +319,7 @@ input {
                 }
                 &>label {
                     position: absolute!important;
-                    right: 2.5rem;
+                    left: 1rem;
                     top: 50%;
                     transform: translateY(-50%);
                     padding: 0!important;
@@ -328,7 +328,7 @@ input {
                 &>span {
                     display: block;
                     font-size: 0.969rem;
-                    margin-right: 2rem;
+                    margin-left: 2.5rem;
                     &>i {
                         min-width: 1.5rem;
                         font-size: 1.25rem;
@@ -338,6 +338,7 @@ input {
                 }
                 &>div {
                     margin-top: 0.5rem;
+                    margin-left: 2.5rem;
                     &>a {
                         margin-right: 0.5rem;
                         white-space: nowrap;
@@ -413,11 +414,41 @@ input {
                         align-items: center;
                         padding: 0 0 0 0.5rem;
                         min-height: 2.5rem;
-                        &.highlight:not(.active) {
+                        &>label {
+                            position: initial!important;
+                            width: 2rem;
+                            margin-top: 6px;
+                        }
+                        &>em {
+                            margin-right: 0.5rem;
+                            font-size: 1.188rem;
+                            cursor: pointer;
+                            display: none;
+                            font-style: normal;
+                            line-height: 2.5rem;
+                            &>a {
+                                color: var(--greyMedium);
+                                &:hover {
+                                    color: var(--linkHover);
+                                }
+                            }
+                        }
+                        &.active {
+                            &.highlighted {
+                                &>em {
+                                    display: inline-block;
+                                }
+                            }
+                            &>em:not(.highlight-max ul li>em) {
+                                display: inline-block;
+                            }
+                        }
+                        &.highlighted:not(.active) {
                             animation-name: list-highlighter-grey;
                         }
                         &>span {
                             padding: 0;
+                            margin: 0;
                         }
                         &>a {
                             padding: 0 0.75rem;
@@ -433,6 +464,7 @@ input {
                             cursor: move;
                             min-height: 2.5rem;
                             padding: 0 0.75rem;
+                            margin: 0;
                             &:hover {
                                 background: var(--greyMedium);
                                 color: #fff;

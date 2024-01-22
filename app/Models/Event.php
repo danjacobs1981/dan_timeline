@@ -83,10 +83,11 @@ class Event extends Model
         return $this->belongsToMany(Tag::class, 'tag_event');
     }
 
+    
     // just the IDs of the tags
-    public function tagsIDs()
+    public function tagsHighlighted()
     {
-        return $this->tags()->allRelatedIds();
+        return $this->tags()->wherePivot('highlight', 1)->select(['tag', 'color']);
     }
 
 }

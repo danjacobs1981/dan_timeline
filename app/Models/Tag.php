@@ -19,6 +19,8 @@ class Tag extends Model
         'group_id'
     ];
 
+    protected $hidden = ['pivot'];
+
     /**
      * The group that belong to the tag.
      */

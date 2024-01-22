@@ -18,7 +18,7 @@
             </p>
         </div>
     @elseif($placement == 'event')
-        <p>Add sources to the event.</p>
+        <p>Select sources to feature on the event. Useful and relevant sources can give the event more clarity and weight.</p>
         <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
             <i class="fa-solid fa-circle-plus"></i>Create Source
         </a>
@@ -31,7 +31,7 @@
                 @if($placement == 'timeline')
                     <span class="control__label">All Sources</span>
                 @elseif($placement == 'event')
-                    <span class="control__label">Select sources to add them to the event</span>
+                    <span class="control__label">Select sources to add to the event</span>
                 @endif
                 <p class="sources-intro">Loading...</p>        
             </div>

@@ -249,7 +249,7 @@ class TimelineEventController extends Controller
     public function update(Timeline $timeline, Event $event, Request $request)
     {
         
-        //dd($request);
+        //dd($request->tags);
 
         if ($request->ajax()){
             
@@ -336,8 +336,20 @@ class TimelineEventController extends Controller
                     if ($request->tags_changed) {
                         // remove existing tags based on event id
                         $event->tags()->detach();
-                        // add new ones - 'sync' removes any that aren't in the array
-                        $event->tags()->attach($request->tags, ['timeline_id' => $timeline_id]);
+                        //dd(json_decode($request->tags));
+                        $highlight_count = 0;
+                        foreach(json_decode($request->tags) as $tag) {
+                            //dd($tag->id);
+                            if ($highlight_count >= 4) {
+                                $tag->highlight = 0;
+                                $tag->color = null;
+                            }
+                            $event->tags()->attach($tag->id, ['timeline_id' => $timeline_id, 'highlight' => $tag->highlight, 'color' => $tag->color]);
+                            if ($tag->highlight) {
+                                $highlight_count++;
+                            }
+                        }
+
                     }
 
                     // sources

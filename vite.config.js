@@ -41,6 +41,7 @@ export default defineConfig({
                 'resources/js/portal/timeline/group/delete.js',
                 'resources/js/portal/timeline/tag/create-edit.js',
                 'resources/js/portal/timeline/tag/delete.js',
+                'resources/js/portal/timeline/tag/highlight.js',
                 'resources/js/portal/timeline/source/create-edit.js',
                 'resources/js/portal/timeline/source/delete.js',
             ],

@@ -22,10 +22,6 @@ $(document).on('click', '.modal-timeline-group-delete>.modal-buttons>button', fu
             if (response.status === 200) {
                 $.modal.close();
                 $.modal.close();
-                /*var i = $.inArray(tag_id, tagsArray);
-                if (i >= 0) {
-                    tagsArray.splice(i, 1);
-                }*/
                 $('select[name="group_id"]>option[value=' + response.group_id + ']').remove();
                 loadTags(null, null, tagsArray);
             } else {

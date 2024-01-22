@@ -3,7 +3,7 @@ import $ from 'jquery';
 CreateEditTag();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-tag')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-create-edit-tag')) {
         //console.log("CREATE MODAL");
         CreateEditTag();
         //event.stopImmediatePropagation();

@@ -130,7 +130,5 @@
         </section>
 
     </div>
-
-    
     
 @endsection

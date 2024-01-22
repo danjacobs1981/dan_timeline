@@ -3,7 +3,7 @@
     @if($placement == 'timeline')
         <p>Listing of all tags that can be added to individual events for filtering.</p>
     @elseif($placement == 'event')
-        <p>Add tags to the event.</p>
+        <p>Select tags to add to the event. The event can then be filtered by the tags selected.</p>
         <input type="hidden" name="tags_changed" value="0" />
     @endif
 
@@ -52,8 +52,9 @@
                     </span>
                 @elseif($placement == 'event')
                     <span class="control__label">
-                        Select tags to add them to the event
+                        Select tags to add to the event &amp; opionally highlight (up to 4) to give them more prominance
                     </span>
+                    <p>Highlight tags by clicking the star icon (a maxium of 4 tags can be highlighted per event).</p>
                 @endif
                 <p class="tags-intro">Loading...</p>        
             </div>

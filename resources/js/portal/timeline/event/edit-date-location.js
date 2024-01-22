@@ -3,7 +3,7 @@ import $ from 'jquery';
 EditEventDateLocation();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-edit-event-date')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-edit-event-date')) {
         //console.log("DATE MODAL");
         EditEventDateLocation();
         //event.stopImmediatePropagation();

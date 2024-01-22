@@ -40,6 +40,24 @@ class TimelineTagEditController extends Controller
         
     }
 
+    public function showModalHighlight(Timeline $timeline, Tag $tag)
+    {
+
+        if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+            $modal_title = 'Highlight Tag';
+            $modal_buttons = array('close' => 'Cancel');
+            $route = 'layouts.portal.snippets.modal.tag-highlight';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'tag'));
+
+        } else {
+
+            abort(401);
+
+        }
+ 
+    }
+
     public function showModalDelete(Timeline $timeline, Tag $tag)
     {
 

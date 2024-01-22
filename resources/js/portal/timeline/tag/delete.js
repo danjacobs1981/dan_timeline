@@ -22,10 +22,11 @@ $(document).on('click', '.modal-timeline-tag-delete>.modal-buttons>button', func
             if (response.status === 200) {
                 $.modal.close();
                 $.modal.close();
-                var i = $.inArray(tag_id, tagsArray);
+                /*var i = $.inArray(tag_id, tagsArray);
                 if (i >= 0) {
                     tagsArray.splice(i, 1);
-                }
+                }*/
+                tagsArray = tagsArray.filter(({ id }) => id !== tag_id);
                 loadTags(null, event_id, tagsArray);
             } else {
                 // show "error!" for a few seconds

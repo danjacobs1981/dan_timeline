@@ -240,15 +240,15 @@ $('li.header__options-like, li.header__options-save').on('click', function() {
             if (response.success) {
                 if (response.increment) {
                     if (type == 'like') {
-                        $el.addClass('colour-liked').removeClass('colour-like').find('span').html('Liked <em>' + response.count + '</em>');
+                        $el.addClass('color-liked').removeClass('color-like').find('span').html('Liked <em>' + response.count + '</em>');
                     } else {
-                        $el.addClass('colour-saved').removeClass('colour-save').find('span').text('Saved');
+                        $el.addClass('color-saved').removeClass('color-save').find('span').text('Saved');
                     }
                 } else {
                     if (type == 'like') {
-                        $el.addClass('colour-like').removeClass('colour-liked').find('span').html('Like <em>' + response.count + '</em>');
+                        $el.addClass('color-like').removeClass('color-liked').find('span').html('Like <em>' + response.count + '</em>');
                     } else {
-                        $el.addClass('colour-save').removeClass('colour-saved').find('span').text('Save');
+                        $el.addClass('color-save').removeClass('color-saved').find('span').text('Save');
                     }
                 }
             } else {

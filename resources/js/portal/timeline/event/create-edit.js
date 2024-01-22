@@ -3,7 +3,7 @@ import $ from 'jquery';
 CreateEditEvent();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-event')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-create-edit-event')) {
         //console.log("CREATE MODAL");
         CreateEditEvent();
         //event.stopImmediatePropagation();
@@ -138,8 +138,11 @@ function CreateEditEvent() {
         if (document.getElementById('image').files.length != 0) {
             data.append('image', document.getElementById('image').files[0]); // image upload
         }
-        tagsArray.forEach((item) => data.append("tags[]", item))
-        sourcesArray.forEach((item) => data.append("sources[]", item))
+        //tagsArray.forEach((item) => data.append("tags[]", item));
+        //Object.keys(tagsArray).forEach(key => data.append("tags[]", tagsArray[key]));
+        //console.log(JSON.stringify(tagsArray));
+        data.append("tags", JSON.stringify(tagsArray));
+        sourcesArray.forEach((item) => data.append("sources[]", item));
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),

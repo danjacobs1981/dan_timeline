@@ -4,7 +4,7 @@ import $ from 'jquery';
 CreateEditSource();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-source')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-create-edit-source')) {
         //console.log("CREATE MODAL");
         CreateEditSource();
         //event.stopImmediatePropagation();

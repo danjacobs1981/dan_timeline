@@ -3,7 +3,7 @@ import $ from 'jquery';
 CreateEditGroup();
 
 $(document).on($.modal.OPEN, function(event, modal) {
-    if (modal['options']['modalClass'].includes('modal-create-edit-group')) {
+    if (modal['options']['modalClass'] && modal['options']['modalClass'].includes('modal-create-edit-group')) {
         //console.log("CREATE MODAL");
         CreateEditGroup();
         //event.stopImmediatePropagation();

@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 
+var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
+
 var closestLocal;
 var closestLocalAfter;
 
@@ -10,7 +12,7 @@ window.loadEvents = function(reload, timeline_id, event_id) {
     $('#events-tab #events').html();
     $('#events-tab .loading').show();
     $.ajax({
-        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/events',
+        url: '/timelines/' + timeline_id + '/events',
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -44,7 +46,7 @@ window.loadEvents = function(reload, timeline_id, event_id) {
                                     }
                                     //console.log(data);
                                 $.ajax({
-                                    url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/reorder',
+                                    url: '/timelines/' + timeline_id + '/reorder',
                                     type: 'PUT',
                                     data: data,
                                     dataType: 'json',
@@ -106,7 +108,7 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
     var sort = $('#' + placement + 'TagSort').val();
     var data = { event_id: event_id, sort: sort };
     $.ajax({
-        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/tags',
+        url: '/timelines/' + timeline_id + '/tags',
         type: 'GET',
         data: data,
         dataType: 'json',
@@ -114,43 +116,47 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
             $('.tags-list').html(data['tags_html']).promise().done(function() {
                 $('.timelineTags .tags-intro').text(data['tags_count']);
                 if (event_id) {
+                    //console.log(data.tags_saved);
                     $('.eventTags .tags-intro').html(data['tags_count_saved']);
                     if ($.isEmptyObject(tagsArrayExists) && $('input[name="tags_changed"]').val() == 0) {
                         tagsArray = data.tags_saved;
                     } else {
                         tagsArray = tagsArrayExists;
                     }
-                    if (tag_id) {
-                        tagsArray.push(tag_id);
-                        $('input[name="tags_changed"]').val(1);
-                    }
-                    tagsArray = tagsArray.filter((item, index) => tagsArray.indexOf(item) === index); // makes array unique
-                    $('.eventTags .tags-intro>span').text(tagsArray.length);
-                    console.log(tagsArray);
+                    tagsArray = removeDuplicateValue(tagsArray);
+                    //console.log(tagsArray);
+                    $('.eventTags .tags-intro>span').text(Object.keys(tagsArray).length);
                     $('.eventTags .tags-list li').each(function() {
+                        var highlight_class = '';
+                        var highlight_icon = 'regular';
                         var tag_id = $(this).data('id');
-                        if ($.inArray(tag_id, tagsArray) !== -1) {
-                            $(this).addClass('active').prepend('<label class="control__label"><input type="checkbox" checked><div></div></label>')
+                        var tagData = tagsArray.filter(function(tag) {
+                            return tag.id == tag_id;
+                        });
+                        if (tagData.length > 0) {
+                            if (tagData[0].highlight) {
+                                highlight_class = 'highlighted';
+                                highlight_icon = 'solid';
+                            }
+                            $(this).addClass('active').addClass(highlight_class).prepend('<label class="control__label"><input type="checkbox" checked><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><a href="/timelines/' + timeline_id + '/tags/' + tagData[0].id + '/highlight" data-modal data-modal-class="modal-create-edit-highlight" data-modal-size="modal-sm"><i class="fa-' + highlight_icon + ' fa-star" style="color:' + tagData[0].color + ';"></i></a></em>');
                         } else {
-                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label>');
+                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><a href="/timelines/' + timeline_id + '/tags/' + tag_id + '/highlight" data-modal data-modal-class="modal-create-edit-highlight" data-modal-size="modal-sm"><i class="fa-' + highlight_icon + ' fa-star"></i></a></em>');
                         }
                     });
+                    HighlightUpdate();
                     $('#timelineEventCreateEdit').on('change', '.eventTags li input[type="checkbox"]', function(e) {
                         e.stopImmediatePropagation();
                         var $tagEl = $(this).closest('li');
                         var tag_id = $tagEl.data('id');
                         if (this.checked) {
-                            tagsArray.push(tag_id);
+                            tagsArray.push({ 'id': tag_id, 'highlight': 0, 'color': null });
                             $tagEl.addClass('active');
                         } else {
-                            var i = $.inArray(tag_id, tagsArray);
-                            if (i >= 0) {
-                                tagsArray.splice(i, 1);
-                            }
+                            tagsArray = tagsArray.filter(({ id }) => id !== tag_id);
                             $tagEl.removeClass('active');
                         }
                         $('input[name="tags_changed"]').val(1);
-                        $('.eventTags .tags-intro>span').text(tagsArray.length);
+                        $('.eventTags .tags-intro>span').text(Object.keys(tagsArray).length);
                         //console.log(tagsArray);
                     });
                 }
@@ -174,7 +180,7 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
                                     }
                                     //console.log(data);
                                 $.ajax({
-                                    url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/tags/' + evt.item.dataset.id + '/group',
+                                    url: '/timelines/' + timeline_id + '/tags/' + evt.item.dataset.id + '/group',
                                     type: 'PUT',
                                     data: data,
                                     dataType: 'json',
@@ -224,7 +230,7 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
     var sort = $('#' + placement + 'SourceSort').val();
     var data = { event_id: event_id, sort: sort };
     $.ajax({
-        url: '/timelines/' + $('meta[name="timeline"]').attr('content') + '/sources',
+        url: '/timelines/' + timeline_id + '/sources',
         type: 'GET',
         data: data,
         dataType: 'json',
@@ -289,6 +295,20 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
     });
 }
 
+window.HighlightUpdate = function() {
+    var count = 0;
+    for (var i = 0; i < tagsArray.length; i++) {
+        if (tagsArray[i].highlight) {
+            count++;
+        }
+    }
+    if (count >= 4) {
+        $('.eventTags .tags-list').addClass('highlight-max');
+    } else {
+        $('.eventTags .tags-list').removeClass('highlight-max');
+    }
+}
+
 window.setMaxCount = function(outerEl = '') {
     $(outerEl + ' [maxlength]').each(function() {
         var $el = $(this);
@@ -336,7 +356,7 @@ $(document).on('focus', '.control input', function() {
 
 var topHeight = getTopHeight();
 setLayout();
-loadEvents(false, null, null);
+loadEvents(false, timeline_id, null);
 loadTags(null, null, []);
 loadSources(null, null, []);
 setMaxCount();
@@ -378,7 +398,7 @@ $('#timelineTagSort').on('change', function() {
 });
 
 $('.timelineTags button').on('click', function(e) {
-    var timeline_id = $(this).data('id');
+    //var timeline_id = $(this).data('id');
     var $form = $('.timelineTags');
     // show spinner on button
     $('.timelineTags button').prop("disabled", true);
@@ -474,4 +494,18 @@ function setLayout() {
         });
         $('.edit__events').appendTo($('.edit__section>div>section'));
     }
+}
+
+function removeDuplicateValue(myArray) {
+    var newArray = [];
+
+    $.each(myArray, function(key, value) {
+        var exists = false;
+        $.each(newArray, function(k, val2) {
+            if (value.id == val2.id) { exists = true };
+        });
+        if (exists == false && value.id != "") { newArray.push(value); }
+    });
+
+    return newArray;
 }
