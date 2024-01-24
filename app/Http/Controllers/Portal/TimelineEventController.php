@@ -337,19 +337,9 @@ class TimelineEventController extends Controller
                         // remove existing tags based on event id
                         $event->tags()->detach();
                         //dd(json_decode($request->tags));
-                        $highlight_count = 0;
                         foreach(json_decode($request->tags) as $tag) {
-                            //dd($tag->id);
-                            if ($highlight_count >= 4) {
-                                $tag->highlight = 0;
-                                $tag->color = null;
-                            }
-                            $event->tags()->attach($tag->id, ['timeline_id' => $timeline_id, 'highlight' => $tag->highlight, 'color' => $tag->color]);
-                            if ($tag->highlight) {
-                                $highlight_count++;
-                            }
+                            $event->tags()->attach($tag->id, ['timeline_id' => $timeline_id, 'highlight' => $tag->highlight]);
                         }
-
                     }
 
                     // sources

@@ -83,7 +83,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             // tag editing modals
             Route::get('/timelines/{timeline}/tags/{tag}/delete', 'Portal\TimelineTagEditController@showModalDelete')->name('timelines.tags.delete.showModal');
-            Route::get('/timelines/{timeline}/tags/{tag}/highlight', 'Portal\TimelineTagEditController@showModalHighlight')->name('timelines.tags.highlight.showModal');
+            //Route::get('/timelines/{timeline}/tags/{tag}/highlight', 'Portal\TimelineTagEditController@showModalHighlight')->name('timelines.tags.highlight.showModal');
 
             // ajax routes for tags actions (background saving)
             Route::put('/timelines/{timeline}/tags/{tag}/group', 'Portal\TimelineTagEditController@group');

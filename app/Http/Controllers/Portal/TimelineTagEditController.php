@@ -40,7 +40,7 @@ class TimelineTagEditController extends Controller
         
     }
 
-    public function showModalHighlight(Timeline $timeline, Tag $tag)
+    /*public function showModalHighlight(Timeline $timeline, Tag $tag)
     {
 
         if ($timeline && $timeline->user_id === auth()->user()->id) {
@@ -56,7 +56,7 @@ class TimelineTagEditController extends Controller
 
         }
  
-    }
+    }*/
 
     public function showModalDelete(Timeline $timeline, Tag $tag)
     {

@@ -1,6 +1,7 @@
 @extends('layouts.timeline.master')
 
 @push('scripts')
+    @vite('resources/js/timeline/start.js')
     @vite('resources/js/timeline/scripts.js')
 @endpush
 
@@ -11,7 +12,7 @@
             @include('layouts.timeline.elements.header')
         </header>
         <div class="timeline__body">
-            @if($timeline->filter)
+            @if($timeline->tagging)
                 <div id="filters" class="reveal">
                     @include('layouts.timeline.elements.filters')
                 </div>

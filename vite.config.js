@@ -24,6 +24,7 @@ export default defineConfig({
                 'resources/css/plugin/tagify.css',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
                 'resources/js/web/scripts.js',
+                'resources/js/timeline/start.js',
                 'resources/js/timeline/scripts.js',
                 'resources/js/timeline/map.js', /* imports jquery-resizable-dom */
                 'resources/js/timeline/comments.js',
@@ -41,7 +42,6 @@ export default defineConfig({
                 'resources/js/portal/timeline/group/delete.js',
                 'resources/js/portal/timeline/tag/create-edit.js',
                 'resources/js/portal/timeline/tag/delete.js',
-                'resources/js/portal/timeline/tag/highlight.js',
                 'resources/js/portal/timeline/source/create-edit.js',
                 'resources/js/portal/timeline/source/delete.js',
             ],

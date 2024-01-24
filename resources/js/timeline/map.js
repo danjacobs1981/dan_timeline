@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { classEvents } from './../timeline/scripts';
 // import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';

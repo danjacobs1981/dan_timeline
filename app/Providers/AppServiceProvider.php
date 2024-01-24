@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        //
+    public function boot() {
+        Builder::macro('whereRelationIn', function ($relation, $column, $array) {
+            return $this->whereHas(
+                $relation, fn($q) => $q->whereIn($column, $array)
+            );
+        });
     }
 }

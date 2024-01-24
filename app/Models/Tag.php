@@ -14,6 +14,7 @@ class Tag extends Model
         'id', 
         'timeline_id', 
         'tag',
+        'color',
         'image',
         'icon',
         'group_id'

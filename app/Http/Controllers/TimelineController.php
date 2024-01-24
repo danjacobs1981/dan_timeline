@@ -38,7 +38,17 @@ class TimelineController extends Controller
                 // this will also add the class "event-start" if an initial event has been selected
             }
 
-            return view('layouts.timeline.pages.timeline', ['timeline' => $timeline, 'temp_filters' => 1, 'temp_tags' => 1]);
+            //dd($timeline->eventsTaggedIDs->makeHidden('laravel_through_key')->toArray());
+
+            if ($timeline->tagging) {
+                $tags = $timeline->tagsUsedGroups;
+            } else {
+                $tags = $timeline->tagsUsed;
+            }
+            
+            //dd($tags);
+
+            return view('layouts.timeline.pages.timeline', [ 'timeline' => $timeline, 'tags' => $tags ]);
 
         } else {
 
@@ -52,41 +62,15 @@ class TimelineController extends Controller
     public function events(Timeline $timeline, Request $request) 
     {
 
-        /*$selectedTags = array();
-
-        if($request->share) {
-            $share = Share::find($request->share)->where('timeline_id', $timeline->id)->first();
-            if ($share->count()) {
-                if ($share->tags) {
-                    $selectedTags = array($share->tags);
-                }
-                if ($share->start) {
-                    // do event_start thing too
-                }
-            }
-        } else if ($request->tags === 'true') {
-            $selectedTags = array(67890);
-        }
-
-        if ($selectedTags) {
-            $events_ids = array();
-            $tags = Tag::all();
-            foreach ($selectedTags as $selectedTag) {
-                $tag = $tags->find($selectedTag);
-                if($tag) {
-                    foreach ($tag->events as $event) {
-                        array_push($events_ids, $event->id);
-                    }
-                }
-            }
-            $timeline_events = $timeline->events->whereIn('id', $events_ids); 
-        } else {
-            $timeline_events = $timeline->events;
-        }*/
-
         if ($request->ajax()){
-        
-            $timeline_events = $timeline->events;
+
+            if ($request->tags) {
+                
+                $timeline_events = $timeline->eventsByTag($request->tags)->get();
+
+            } else {
+                $timeline_events = $timeline->events;
+            }
 
             if ($timeline_events->count()) {
 

@@ -28,11 +28,16 @@ class Timeline extends Model
     ];
     
     /**
-     * Get all events for the timeline.
+     * Get all events for the timeline (with tags).
     */
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function eventsByTag($tags)
+    {
+        return $this->events()->whereRelationIn('tags', 'tags.id', $tags);
     }
 
     /**
@@ -81,6 +86,36 @@ class Timeline extends Model
     public function tags()
     {
         return $this->hasMany(Tag::class);
+    }
+
+    /**
+     * Get all tags for the timeline that are being used in events.
+    */
+    public function tagsUsed()
+    {
+        return $this->hasManyThrough(
+            Tag::class,
+            'App\Pivots\TagEvent',
+            'timeline_id',
+            'id',
+            'id',
+            'tag_id'
+        );
+    }
+
+    /**
+     * Get all tags for the timeline that are being used in events (and their groups).
+    */
+    public function tagsUsedGroups()
+    {
+        return $this->hasManyThrough(
+            Tag::class,
+            'App\Pivots\TagEvent',
+            'timeline_id',
+            'id',
+            'id',
+            'tag_id', 
+        )->join('groups', 'groups.id', '=', 'tags.group_id')->select('tags.*', 'groups.*', 'groups.id as group_id', 'tags.id as tag_id');
     }
 
     /**

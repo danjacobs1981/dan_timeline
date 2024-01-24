@@ -52,9 +52,9 @@
                     </span>
                 @elseif($placement == 'event')
                     <span class="control__label">
-                        Select tags to add to the event &amp; opionally highlight (up to 4) to give them more prominance
+                        Select tags to add to the event
                     </span>
-                    <p>Highlight tags by clicking the star icon (a maxium of 4 tags can be highlighted per event).</p>
+                    <p>Highlight tags by clicking the star icon.</p>
                 @endif
                 <p class="tags-intro">Loading...</p>        
             </div>

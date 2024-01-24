@@ -423,32 +423,34 @@ input {
                             margin-right: 0.5rem;
                             font-size: 1.188rem;
                             cursor: pointer;
-                            display: none;
                             font-style: normal;
                             line-height: 2.5rem;
-                            &>a {
-                                color: var(--greyMedium);
-                                &:hover {
-                                    color: var(--linkHover);
-                                }
+                            display: none;
+                            color: var(--greyMedium);
+                            &:hover {
+                                color: var(--linkHover);
                             }
                         }
                         &.active {
-                            &.highlighted {
-                                &>em {
-                                    display: inline-block;
-                                }
-                            }
-                            &>em:not(.highlight-max ul li>em) {
+                            &>em {
                                 display: inline-block;
                             }
                         }
-                        &.highlighted:not(.active) {
-                            animation-name: list-highlighter-grey;
+                        &.highlighted {
+                            &>em {
+                                color: var(--link);
+                            }
                         }
+                        /*&.highlighted:not(.active) {
+                            animation-name: list-highlighter-grey;
+                        }*/
                         &>span {
                             padding: 0;
                             margin: 0;
+                            &.tag {
+                                padding: 0.375rem 0.375rem 0.25rem 0.375rem;
+                                font-size: 0.813rem;
+                            }
                         }
                         &>a {
                             padding: 0 0.75rem;

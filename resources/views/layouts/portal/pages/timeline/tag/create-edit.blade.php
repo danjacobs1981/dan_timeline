@@ -38,6 +38,118 @@
             </p>
         </div>
 
+        <div class="control">
+            <span class="control__label">
+                Appearance
+            </span>
+            <ul class="tags-appearance">
+                <li>
+                    <label for="silver">
+                        <input type="radio" name="color" id="silver" value="silver" {{ old('color', $tag->color == 'silver') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-silver">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="green">
+                        <input type="radio" name="color" id="green" value="green" {{ old('color', $tag->color == 'green') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-green">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="red">
+                        <input type="radio" name="color" id="red" value="red" {{ old('color', $tag->color == 'red') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-red">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="orange">
+                        <input type="radio" name="color" id="orange" value="orange" {{ old('color', $tag->color == 'orange') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-orange">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="fuchsia">
+                        <input type="radio" name="color" id="fuchsia" value="fuchsia" {{ old('color', $tag->color == 'fuchsia') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-fuchsia">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="purple">
+                        <input type="radio" name="color" id="purple" value="purple" {{ old('color', $tag->color == 'purple') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-purple">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="maroon">
+                        <input type="radio" name="color" id="maroon" value="maroon" {{ old('color', $tag->color == 'maroon') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-maroon">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="olive">
+                        <input type="radio" name="color" id="olive" value="olive" {{ old('color', $tag->color == 'olive') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-olive">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="blue">
+                        <input type="radio" name="color" id="blue" value="blue" {{ old('color', $tag->color == 'blue') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-blue">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="navy">
+                        <input type="radio" name="color" id="navy" value="navy" {{ old('color', $tag->color == 'navy') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-navy">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="teal">
+                        <input type="radio" name="color" id="teal" value="teal" {{ old('color', $tag->color == 'teal') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-teal">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="gray">
+                        <input type="radio" name="color" id="gray" value="gray" {{ old('color', $tag->color == 'gray') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-gray">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+                <li>
+                    <label for="black">
+                        <input type="radio" name="color" id="black" value="black" {{ old('color', $tag->color == 'black') ? 'checked' : '' }}>
+                        <span>
+                            <span class="tag tag-black">{{ $tag->tag }}</span>
+                        </span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
         @include('layouts.portal.snippets.premium', [ 'title' => 'Tag Groups & Icons/Images', 'message' => 'Become a premium member and categorise your tags into groups to create a better filtering experience. Also, add images or icons to individual tags.' ])
 
         @if (auth()->user()->premium)

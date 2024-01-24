@@ -9,53 +9,40 @@
     </div>
     <div>
         <ul class="header__options">
+
             @if(auth()->check() && $timeline->user_id == auth()->id())
                 <a class="header__options-edit link" href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
                     <i class="fa-solid fa-pencil"></i><span>Edit</span>
                 </a>
             @endif
-            @if($temp_filters)
-                <li class="header__options-filters" data-reveal="filters" data-popover="Filters" data-popover-position="bottom">
-                    <i class="fa-solid fa-filter"></i><span>Filters</span>
-                </li>
-            @elseif(!$temp_filters && $temp_tags)
-                <li class="header__options-tags dropdown-toggle dropdown-toggle-arrow" data-popover="Filters" data-popover-position="bottom">
-                    <i class="fa-solid fa-filter dropdown-close"></i>
-                    <span>Filters</span>
-                    <i class="fa-solid fa-chevron-down dropdown-close"></i>
-                    <!-- tag list -->
-                    <div class="dropdown dropdown-checkboxes" data-backdrop data-position-x="right">
-                        <ul class="filter__wrapper">
-                            <li class="filter__checkbox">
-                                <input type="checkbox" id="f_Car" />
-                                <label for="f_Car">
-                                    <span class="fa-stack">
-                                        <i class="fa-regular fa-square fa-stack-1x"></i>
-                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                                    </span>Car
-                                </label>
-                            </li>
-                            <li class="filter__checkbox">
-                                <input type="checkbox" id="f_Van" />
-                                <label for="f_Van">
-                                    <span class="fa-stack">
-                                        <i class="fa-regular fa-square fa-stack-1x"></i>
-                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                                    </span>Van
-                                </label>
-                            </li>
-                            <li class="filter__checkbox">
-                                <input type="checkbox" id="f_4x4" />
-                                <label for="f_4x4">
-                                    <span class="fa-stack">
-                                        <i class="fa-regular fa-square fa-stack-1x"></i>
-                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                                    </span>4x4
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+
+            @if($tags->count())
+                @if($timeline->tagging)
+                    <li class="header__options-filters" data-reveal="filters" data-popover="Filters" data-popover-position="bottom">
+                        <i class="fa-solid fa-filter"></i><span>Filters</span>
+                    </li>
+                @else
+                    <li class="header__options-tags dropdown-toggle dropdown-toggle-arrow" data-popover="Filters" data-popover-position="bottom">
+                        <i class="fa-solid fa-filter dropdown-close"></i>
+                        <span>Filters</span>
+                        <i class="fa-solid fa-chevron-down dropdown-close"></i>
+                        <div class="dropdown dropdown-checkboxes" data-backdrop data-position-x="right">
+                            <ul class="filter__wrapper">
+                                @foreach($tags->sortBy('tag', SORT_NATURAL|SORT_FLAG_CASE)->unique('id') as $tag) 
+                                    <li class="filter__checkbox">
+                                        <input type="checkbox" id="f_{{ $tag->id }}" name="tag" value="{{ $tag->id }}" />
+                                        <label for="f_{{ $tag->id }}">
+                                            <span class="fa-stack">
+                                                <i class="fa-regular fa-square fa-stack-1x"></i>
+                                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                            </span>{{ $tag->tag }}
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </li>
+                @endif
             @endif
 
             @if(auth()->check() && $timeline->likedByUser())

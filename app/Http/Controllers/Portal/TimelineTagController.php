@@ -32,7 +32,7 @@ class TimelineTagController extends Controller
             $tags_highlighted_saved = [];
             if($request->event_id && $request->event_id != 1) { // event_id being 1 means it's a new event
                 $event = new Event;
-                $tags_saved = $event->find($request->event_id)->tags()->select('id', 'highlight', 'color')->get()->toArray();
+                $tags_saved = $event->find($request->event_id)->tags()->select('id', 'highlight')->get()->toArray();
                 //dd($tags_saved);
                 //$tags_saved = $event->find($request->event_id)->tagsIDs()->all();
                 //$tags_highlighted_saved = $event->find($request->event_id)->tagsHighlightedIDs()->get()->keyBy('pivot.tag_id')->toArray();
@@ -130,6 +130,7 @@ class TimelineTagController extends Controller
                                 $query->where('tag', $request['tag']);
                             })
                         ],
+                        'color' => 'nullable',
                         'image' => 'nullable',
                         'icon' => 'nullable',
                         'group_id' => 'nullable',
@@ -207,7 +208,7 @@ class TimelineTagController extends Controller
 
                 $timeline_id = $timeline->id;
 
-                if ($request->tag != $tag->tag || $request->group_id != $tag->group_id) { // check something has changed - NOTE ADD MORE HERE
+                if ($request->tag != $tag->tag || $request->group_id != $tag->group_id || $request->color != $tag->color) { // check something has changed - NOTE ADD MORE HERE
 
                     $data = $request->validate(
                         [
@@ -222,6 +223,7 @@ class TimelineTagController extends Controller
                                     $query->where('id', '!=', $tag->id);
                                 })
                             ],
+                            'color' => 'required',
                             'image' => 'nullable',
                             'icon' => 'nullable',
                             'group_id' => 'nullable',

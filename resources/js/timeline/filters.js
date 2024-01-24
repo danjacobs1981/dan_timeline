@@ -1,15 +1,20 @@
 import $ from 'jquery';
+import { loadEvents } from './../timeline/scripts';
 
 /* filter */
 $('#filters input[type="checkbox"]').on('change', function() {
-    var f_checked = $('#filters').find('input:checkbox:checked').length;
+    var f_checked = $('#filters input:checkbox[name="tag"]:checked').length;
     if (f_checked > 0) {
         $('.header__options-filters').find('em.count').remove();
         $('.header__options-filters').find('span').after('<em class="count">' + f_checked + '</em>');
-        loadEvents(null, true);
+        let tags = [];
+        $('#filters input:checkbox[name="tag"]:checked').each(function() {
+            tags.push($(this).val());
+        });
+        loadEvents(null, tags);
     } else {
         $('.header__options-filters').find('em.count').remove();
-        loadEvents(null, false);
+        loadEvents(null, []);
     }
 });
 
@@ -17,7 +22,7 @@ $('#filters .filter__clear').on('click', function() {
     $('#filters').removeClass('revealed').find('input:checkbox:checked').prop('checked', false);
     $('.header__options-filters').find('em.count').remove();
     $('body').removeClass('no-scroll').removeClass('no-scrollbar');
-    loadEvents(null, false);
+    loadEvents(null, []);
 });
 
 $('#filters .filter__show').on('click', function() {

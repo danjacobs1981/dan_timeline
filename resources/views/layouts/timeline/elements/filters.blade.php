@@ -14,93 +14,24 @@
     </div>
     <div class="reveal__body filter__wrapper">
         <ul class="filter__group">
-            <li>
-                <h3>Vehicles</h3>
-                <ul class="filter__checkboxes">
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_Car" />
-                        <label for="f_Car">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span>Car
-                        </label>
-                    </li>
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_Van" />
-                        <label for="f_Van">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span>Van
-                        </label>
-                    </li>
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_Lorry" />
-                        <label for="f_Lorry">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span>Lorry
-                        </label>
-                    </li>      
-                </ul>
-            </li>
-            <li>
-                <h3>Sources</h3>
-                <ul class="filter__checkboxes">
-                <li class="filter__checkbox">
-                        <input type="checkbox" id="f_Verified" />
-                        <label for="f_Verified">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span>Verified
-                        </label>
-                    </li>
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_Unverified" />
-                        <label for="f_Unverified">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span>Unverified
-                        </label>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <h3>People</h3>
-                <ul class="filter__checkboxes">
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_p4" />
-                        <label for="f_p4">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span><img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />Bill Spoony
-                        </label>
-                    </li>
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_p5" />
-                        <label for="f_p5">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span><img src="{{ Vite::asset('resources/images/test/person2.jpg') }}" alt="" />Fred Marshall
-                        </label>
-                    </li>
-                    <li class="filter__checkbox">
-                        <input type="checkbox" id="f_p6" />
-                        <label for="f_p6">
-                            <span class="fa-stack">
-                                <i class="fa-regular fa-square fa-stack-1x"></i>
-                                <i class="fa-solid fa-square-check fa-stack-1x"></i>
-                            </span><span>DJ</span>Don Jude
-                        </label>
-                    </li>
-                </ul>     
-            </li>
+            @foreach($tags->sortBy('group', SORT_NATURAL|SORT_FLAG_CASE)->unique('group_id') as $group)
+                <li>
+                    <h3>{{ $group->group }}</h3>
+                    <ul class="filter__checkboxes">
+                        @foreach($tags->where('group_id', $group->id)->sortBy('tag', SORT_NATURAL|SORT_FLAG_CASE)->unique('tag_id') as $tag)
+                            <li class="filter__checkbox">
+                                <input type="checkbox" id="f_{{ $tag->tag_id }}" name="tag" value="{{ $tag->tag_id }}" />
+                                <label for="f_{{ $tag->tag_id }}">
+                                    <span class="fa-stack">
+                                        <i class="fa-regular fa-square fa-stack-1x"></i>
+                                        <i class="fa-solid fa-square-check fa-stack-1x"></i>
+                                    </span>{{ $tag->tag }}
+                                </label>
+                            </li>  
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
         </ul>
     </div>
     <div class="reveal__footer">

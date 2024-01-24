@@ -138,25 +138,44 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
                                 highlight_class = 'highlighted';
                                 highlight_icon = 'solid';
                             }
-                            $(this).addClass('active').addClass(highlight_class).prepend('<label class="control__label"><input type="checkbox" checked><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><a href="/timelines/' + timeline_id + '/tags/' + tagData[0].id + '/highlight" data-modal data-modal-class="modal-create-edit-highlight" data-modal-size="modal-sm"><i class="fa-' + highlight_icon + ' fa-star" style="color:' + tagData[0].color + ';"></i></a></em>');
+                            $(this).addClass('active').addClass(highlight_class).prepend('<label class="control__label"><input type="checkbox" checked><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><i class="fa-' + highlight_icon + ' fa-star"></i></em>');
                         } else {
-                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><a href="/timelines/' + timeline_id + '/tags/' + tag_id + '/highlight" data-modal data-modal-class="modal-create-edit-highlight" data-modal-size="modal-sm"><i class="fa-' + highlight_icon + ' fa-star"></i></a></em>');
+                            $(this).prepend('<label class="control__label"><input type="checkbox"><div></div></label><em data-popover="Highlight tag" data-popover-position="top"><i class="fa-' + highlight_icon + ' fa-star"></i></em>');
                         }
                     });
-                    HighlightUpdate();
                     $('#timelineEventCreateEdit').on('change', '.eventTags li input[type="checkbox"]', function(e) {
                         e.stopImmediatePropagation();
                         var $tagEl = $(this).closest('li');
                         var tag_id = $tagEl.data('id');
                         if (this.checked) {
-                            tagsArray.push({ 'id': tag_id, 'highlight': 0, 'color': null });
+                            tagsArray.push({ 'id': tag_id, 'highlight': 0 });
                             $tagEl.addClass('active');
                         } else {
                             tagsArray = tagsArray.filter(({ id }) => id !== tag_id);
-                            $tagEl.removeClass('active');
+                            $tagEl.removeClass('active').removeClass('highlighted');
+                            $tagEl.find('em>i').removeClass('fa-solid').addClass('fa-regular');
                         }
                         $('input[name="tags_changed"]').val(1);
                         $('.eventTags .tags-intro>span').text(Object.keys(tagsArray).length);
+                        //console.log(tagsArray);
+                    });
+                    $('#timelineEventCreateEdit').on('click', '.eventTags li.active>em', function(e) {
+                        e.stopImmediatePropagation();
+                        var $tagEl = $(this).closest('li');
+                        var tag_id = $tagEl.data('id');
+                        var tagData = tagsArray.filter(function(tag) {
+                            return tag.id == tag_id;
+                        });
+                        if ($tagEl.hasClass('highlighted')) {
+                            tagData[0].highlight = 0;
+                            $tagEl.find('em>i').removeClass('fa-solid').addClass('fa-regular');
+                            $tagEl.removeClass('highlighted');
+                        } else {
+                            tagData[0].highlight = 1;
+                            $tagEl.find('em>i').removeClass('fa-regular').addClass('fa-solid');
+                            $tagEl.addClass('highlighted');
+                        }
+                        $('input[name="tags_changed"]').val(1);
                         //console.log(tagsArray);
                     });
                 }
@@ -164,6 +183,7 @@ window.loadTags = function(tag_id, event_id, tagsArrayExists) {
                     new Sortable(this, {
                         group: 'shared',
                         sort: false,
+                        handle: '.handle',
                         animation: 150,
                         onMove: function(evt) {
                             $('.tags-group').removeClass('hover');
@@ -293,20 +313,6 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
             console.log(xhr.responseText);
         }
     });
-}
-
-window.HighlightUpdate = function() {
-    var count = 0;
-    for (var i = 0; i < tagsArray.length; i++) {
-        if (tagsArray[i].highlight) {
-            count++;
-        }
-    }
-    if (count >= 4) {
-        $('.eventTags .tags-list').addClass('highlight-max');
-    } else {
-        $('.eventTags .tags-list').removeClass('highlight-max');
-    }
 }
 
 window.setMaxCount = function(outerEl = '') {

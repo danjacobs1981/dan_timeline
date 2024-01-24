@@ -2,20 +2,13 @@ import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
 //import { getScreenSize } from './../global.js';
 
-window.classEvents = function() {
-    $('.events').removeClass('events--sm events--md events--lg');
-    if ($('.events').width() > 499) {
-        $('.events').addClass('events--sm');
-    }
-    if ($('.events').width() > 579) {
-        $('.events').addClass('events--md');
-    }
-}
-
 var topHeight = getTopHeight();
-setLayout();
-classEvents();
-loadEvents(null, false);
+
+export function start() {
+    setLayout();
+    classEvents();
+    loadEvents(null, []);
+}
 
 $(window).on('resize', function() {
     topHeight = getTopHeight();
@@ -48,18 +41,27 @@ function setLayout() {
     }
 }
 
-function loadEvents(share, tags) {
+export function classEvents() {
+    $('.events').removeClass('events--sm events--md events--lg');
+    if ($('.events').width() > 499) {
+        $('.events').addClass('events--sm');
+    }
+    if ($('.events').width() > 579) {
+        $('.events').addClass('events--md');
+    }
+}
+
+export function loadEvents(share, tags) {
+    var data = { share: share, tags: tags };
     $.ajax({
         type: 'GET',
         url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
+        data: data,
         dataType: 'json',
         encode: true,
     }).done(function(response) {
         $('.events-wrapper').html(response.events_html).promise().done(function() {
-            //$('.events').css('height', 'calc((100vh - 208px) + ' + $('.events').height() + 'px)');
-            /*$('.timeline--map .timeline__body').css('height', 'auto');*/
             scrollEvents();
-            /*setMap();*/
             setEventElements();
         });
         if (response.events_count === 1) {
