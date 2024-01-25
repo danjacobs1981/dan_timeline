@@ -13,6 +13,7 @@ use App\Models\Event;
 use App\Models\Source;
 use Carbon\Carbon;
 
+use Config;
 use Image;
 
 class TimelineEventController extends Controller
@@ -483,17 +484,18 @@ function getDateType($request) {
 }
 
 function getTimezone(&$data) {
-    $timezone_json = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.env('VITE_GOOGLE_API'));
+    $timezone_json = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.Config::get('app.google_api_key'));
     if ($timezone_json->status == 'OK') {
         $data['date_unix_gmt'] = $data['date_unix'] + (($timezone_json->dstOffset + $timezone_json->rawOffset) * -1);
         $data['location_tz'] = str_replace('_', ' ', $timezone_json->timeZoneId); // and then overrides timezone if successful
+        $data['location_tz_error'] = 0; 
     } else {
         $data['location_tz_error'] = 1; 
     }
 }
 
 function getGeo(&$data) {
-    $geocode_json = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.env('VITE_GOOGLE_API'));
+    $geocode_json = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.Config::get('app.google_api_key'));
     if ($geocode_json->status == 'OK') {
         $building = null;
         $street = null;
@@ -531,9 +533,7 @@ function getGeo(&$data) {
         $data['location_geo_region'] = $region;
         $data['location_geo_country'] = $country;
         // build up $data['location'] based on $data['location_geo'] value
-
         $data['location'] = setLocation($data['location_geo'], $building, $street, $city, $region, $country);
-        
     }
 }
 
@@ -603,7 +603,7 @@ function updateDateMap($date_type, $timeline, &$data, $event, $request) {
             // want geocode details 
             getGeo($data);
         } else if ($data['location_geo'] != $event->location_geo) {
-            // geo/location choice has changed
+            // geo choice has changed, i.e building or street, town etc
             $data['location'] = setLocation($data['location_geo'], $event->location_geo_building, $event->location_geo_street, $event->location_geo_city, $event->location_geo_region, $event->location_geo_country);
             //dd($data['location']);
         }

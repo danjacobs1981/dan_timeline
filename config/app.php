@@ -29,6 +29,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'google_api_key' => env('VITE_GOOGLE_API'),
 
     /*
     |--------------------------------------------------------------------------
