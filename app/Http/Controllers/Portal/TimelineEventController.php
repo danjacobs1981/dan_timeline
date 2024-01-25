@@ -484,7 +484,7 @@ function getDateType($request) {
 }
 
 function getTimezone(&$data) {
-    $timezone_json = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.config('app.google_api_key'));
+    $timezone_json = helperCurl('https://maps.googleapis.com/maps/api/timezone/json?location='.$data['location_lat'].'%2C'.$data['location_lng'].'&timestamp='.$data['date_unix'].'&key='.Config::get('app.google_api_key'));
     if ($timezone_json->status == 'OK') {
         $data['date_unix_gmt'] = $data['date_unix'] + (($timezone_json->dstOffset + $timezone_json->rawOffset) * -1);
         $data['location_tz'] = str_replace('_', ' ', $timezone_json->timeZoneId); // and then overrides timezone if successful
@@ -495,7 +495,7 @@ function getTimezone(&$data) {
 }
 
 function getGeo(&$data) {
-    $geocode_json = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.config('app.google_api_key'));
+    $geocode_json = helperCurl('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$data['location_lat'].'%2C'.$data['location_lng'].'&key='.Config::get('app.google_api_key'));
     if ($geocode_json->status == 'OK') {
         $building = null;
         $street = null;
