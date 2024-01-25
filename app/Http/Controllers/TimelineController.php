@@ -24,8 +24,6 @@ class TimelineController extends Controller
     public function show(Timeline $timeline, Request $request) 
     {
 
-        dd(Config::get('app.google_api_key'));
-
         // Mail::to('success@simulator.amazonses.com')->send(new AmazonSESMail());
 
         if ($timeline->privacy > 1 || checkCanViewTimeline($timeline->user_id, $timeline->id)) { 
