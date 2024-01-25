@@ -569,9 +569,27 @@ body {
 }
 
 .events {
+    $filtered: #{&}--filtered;
     $sm: #{&}--sm;
     $md: #{&}--md;
     $lg: #{&}--lg;
+    position: relative;
+    &>.loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 100;
+        display: none;
+        &>.dots {
+            position: sticky;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, 50%);
+        }
+    }
     &-time {
         position: sticky;
         top: 0;
@@ -674,6 +692,9 @@ body {
                         border-bottom: none;
                         bottom: 0;
                         transform: translate(-50%, 100%)
+                    }
+                    #{$filtered} & {
+                        display: none;
                     }
                 }
                 &>em {

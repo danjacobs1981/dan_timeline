@@ -52,6 +52,8 @@ export function classEvents() {
 }
 
 export function loadEvents(share, tags) {
+    $('.events .events-wrapper').html();
+    $('.events .loading').show();
     var data = { share: share, tags: tags };
     $.ajax({
         type: 'GET',
@@ -63,6 +65,7 @@ export function loadEvents(share, tags) {
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
+            $('.events .loading').fadeOut();
         });
         if (response.events_count === 1) {
             $('.filter__show').text('Show 1 result');
