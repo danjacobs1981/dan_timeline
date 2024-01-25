@@ -574,6 +574,7 @@ body {
     $md: #{&}--md;
     $lg: #{&}--lg;
     position: relative;
+    min-height: 100%;
     &>.loading {
         width: 100%;
         height: 100%;
@@ -582,7 +583,7 @@ body {
         left: 0;
         background: rgba(255, 255, 255, 0.5);
         z-index: 100;
-        display: none;
+        /*display: none;*/
         &>.dots {
             position: sticky;
             left: 50%;
