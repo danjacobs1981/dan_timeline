@@ -4,137 +4,174 @@ import { classEvents } from './../timeline/scripts';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
 
-/* map */
-
 let map;
+var mapLoaded = 0;
+var mapFirstRun = 0;
+let markers = [];
 
-const loader = new Loader({
-    apiKey: import.meta.env.VITE_GOOGLE_API,
-    version: "weekly",
-    libraries: ["places"]
-});
-const mapOptions = {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-    mapId: "53cedd9afde08104",
-    mapTypeId: "roadmap",
-    disableDefaultUI: true,
-    options: {
-        gestureHandling: 'greedy'
-    }
-};
-loader
-    .importLibrary('maps')
-    .then(({ Map }) => {
-        map = new Map(document.getElementById("gmap"), mapOptions);
-    })
-    .catch((e) => {
-        // do something
+export function startMap() {
+
+    const loader = new Loader({
+        apiKey: import.meta.env.VITE_GOOGLE_API,
+        version: "weekly"
     });
 
-/* 
-function initMap() {
-    map = new google.maps.Map(document.getElementById("gmap"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+    const mapOptions = {
+        center: { lat: 0, lng: 0 },
+        zoom: 3,
+        maxZoom: 19,
+        minZoom: 1,
         mapId: "53cedd9afde08104",
-        mapTypeId: "roadmap",
-        disableDefaultUI: true,
+        mapTypeId: "hybrid",
+        //disableDefaultUI: true,
         options: {
             gestureHandling: 'greedy'
+        },
+        restriction: {
+            latLngBounds: {
+                east: 179.9999,
+                north: 85,
+                south: -85,
+                west: -179.9999
+            },
+            strictBounds: true
+        }
+    };
+
+    loader.importLibrary('maps').then(({ Map }) => {
+
+            map = new Map(document.getElementById('gmap'), mapOptions);
+
+            map.addListener('zoom_changed', () => {
+                //console.log('zoom');
+            });
+
+            $('select[name="location_zoom"]').on('change', function() {
+                map.setZoom(parseInt($(this).val()));
+            });
+
+            mapLoaded = 1;
+
+        })
+        .catch((e) => {
+            // do something
+        });
+
+    $('article').resizable({
+        handleSelector: '.splitter',
+        resizeHeight: false,
+        onDrag: function() {
+            /* give article a class dependent of width */
+            classEvents();
+        }
+    });
+
+    $('.events').on('click', '.event-map, .event-location', function() {
+        if (mapLoaded) {
+            var $el = $(this).closest('div.event-item').find('.event-location');
+            var lat = $el.data('lat');
+            var lng = $el.data('lng');
+            var zoom = $el.data('zoom');
+            setMapPosition(lat, lng, zoom);
+        }
+    });
+
+    $('.map-expand').on('click', function() {
+        $('figure').addClass('fullscreen');
+    });
+
+    $('.map-compress').on('click', function() {
+        $('figure').removeClass('fullscreen');
+    });
+
+    $('.map-layer').on('click', function() {
+        var mapType = $(this).data('type');
+        if (mapType == 'terrain') {
+            map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+        } else if (mapType == 'satellite') {
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+        } else if (mapType == 'hybrid') {
+            map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+        } else {
+            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+        }
+    });
+
+    $('.map-close').on('click', function() {
+        $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
+        $('article').css('padding-bottom', '0.5rem');
+        $('.map-open').css('transform', 'translate(-50%, 0)');
+    });
+
+    $('.map-open').on('click', function() {
+        $('figure').css('transform', 'translateY(0)');
+        $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
+        $(this).css('transform', 'translate(-50%, 100px)');
+    });
+
+    $("figure").resizable({
+        handleSelector: ".resizer > span",
+        resizeWidth: false,
+        resizeHeightFrom: 'top',
+        onDragEnd: function() {
+            /* give padding to bottom of events list (+ resizer height + original bottom padding) */
+            $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
         }
     });
 
 }
-window.initMap = initMap;*/
 
-/*window.setMap = function() {
-    if (!isMobile) {
-        new ScrollMagic.Scene({
-                duration: topbarHeight
-            })
-            .triggerHook(0)
-            .on('enter', function(e) { // forward 
-                $('#map').css({
-                    'top': topbarHeight + 'px',
-                    'height': 'calc(100vh - (' + topbarHeight + 'px + ' + headerHeight + 'px))'
+function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+function setMapPosition(lat, lng, zoom) {
+    map.setCenter(new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }));
+    map.setZoom(parseInt(zoom));
+}
+
+export function loadMarkers(markersArray) {
+    let interval = setInterval(function() {
+        if (mapLoaded) {
+            clearInterval(interval);
+
+            setMapOnAll(null);
+            markers = [];
+
+            var bounds = new google.maps.LatLngBounds();
+
+            const label = {
+                fontFamily: 'Fontawesome',
+                fontSize: '40px',
+                color: 'red',
+                text: '\uf3c5'
+            };
+
+            const icon = {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 20,
+                anchor: new google.maps.Point(0, 1), // bottom of circle
+                strokeWeight: 0
+            };
+
+            $.each(JSON.parse(markersArray), function(index, item) {
+                const marker = new google.maps.Marker({
+                    position: { lat: parseFloat(item.location_lat), lng: parseFloat(item.location_lng) },
+                    map: map,
+                    label: label,
+                    icon: icon
                 });
-            })
-            .on('leave', function(e) { // reverse
-                $('#map').css({
-                    'top': headerHeight + 'px',
-                    'height': 'calc(100vh - ' + headerHeight + 'px)'
-                });
-            })
-            .addTo(controller);
-    } else {
-        $('#map').css({
-            'height': 'auto'
-        });
-    }
-}*/
+                markers.push(marker);
+                bounds.extend(marker.getPosition());
+            });
 
-/*window.setMap = function() {
-    if (!isMobile) {
-        $('#map').css({
-            'top': topHeight + 'px',
-            'height': 'calc(100vh - ' + topHeight + 'px)'
-        });
-    } else {
-        $('#map').css({
-            'height': 'auto'
-        });
-    }
-}*/
+            if (!mapFirstRun) {
+                map.fitBounds(bounds);
+            }
+            mapFirstRun = 1;
 
-$('article').resizable({
-    handleSelector: '.splitter',
-    resizeHeight: false,
-    onDrag: function() {
-        /* give article a class dependent of width */
-        classEvents();
-    }
-});
-
-$('.map-expand').on('click', function() {
-    $('figure').addClass('fullscreen');
-});
-
-$('.map-compress').on('click', function() {
-    $('figure').removeClass('fullscreen');
-});
-
-$('.map-layer').on('click', function() {
-    var mapType = $(this).data('type');
-    if (mapType == 'terrain') {
-        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-    } else if (mapType == 'satellite') {
-        map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-    } else if (mapType == 'hybrid') {
-        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    } else {
-        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-    }
-});
-
-$('.map-close').on('click', function() {
-    $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
-    $('article').css('padding-bottom', '0.5rem');
-    $('.map-open').css('transform', 'translate(-50%, 0)');
-});
-
-$('.map-open').on('click', function() {
-    $('figure').css('transform', 'translateY(0)');
-    $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
-    $(this).css('transform', 'translate(-50%, 100px)');
-});
-
-$("figure").resizable({
-    handleSelector: ".resizer > span",
-    resizeWidth: false,
-    resizeHeightFrom: 'top',
-    onDragEnd: function() {
-        /* give padding to bottom of events list (+ resizer height + original bottom padding) */
-        $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
-    }
-});
+        }
+    }, 1000);
+}

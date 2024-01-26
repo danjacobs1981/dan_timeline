@@ -24,14 +24,14 @@
                             <h3 itemprop="name">
                                 {{ $event->title }}
                             </h3>
-                            <div itemprop="location" itemscope itemtype="https://schema.org/Place">
-                                @if($event->location_show == 1 && $event->location)
+                            @if($event->location_show == 1 && $event->location)
+                                <div class="event-location" itemprop="location" itemscope itemtype="https://schema.org/Place" data-zoom="{{ $event->location_zoom }}" data-lat="{{ $event->location_lat }}" data-lng="{{ $event->location_lng }}">
                                     <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                         <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span></span>
                                     </p>
                                     <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
                             @if($event->description)
                             <span class="event-read">
                                 Read more<i class="fas fa-chevron-right"></i>

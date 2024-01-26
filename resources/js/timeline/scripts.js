@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
+import { loadMarkers } from './../timeline/map';
 //import { getScreenSize } from './../global.js';
 
 var topHeight = getTopHeight();
@@ -171,6 +172,7 @@ export function loadEvents(share, tags) {
         dataType: 'json',
         encode: true,
     }).done(function(response) {
+        loadMarkers(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();

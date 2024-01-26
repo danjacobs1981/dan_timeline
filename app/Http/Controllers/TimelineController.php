@@ -64,16 +64,17 @@ class TimelineController extends Controller
 
         if ($request->ajax()){
 
-            if ($request->tags) {
-                
-                $timeline_events = $timeline->eventsByTag($request->tags)->get();
+            $events_markers = [];
 
+            if ($request->tags) {
+                $timeline_events = $timeline->eventsByTag($request->tags)->get();
             } else {
                 $timeline_events = $timeline->events;
             }
 
             if ($timeline_events->count()) {
 
+                $events_markers = $timeline_events->where('location_show', 1)->map->only([ 'location_lat', 'location_lng' ])->toJson();
                 $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
                 $events_count = $timeline_events->count();
 
@@ -86,6 +87,7 @@ class TimelineController extends Controller
 
             return response()->json(array(
                 'success' => true,
+                'events_markers' => $events_markers,
                 'events_html' => $events_html,
                 'events_count' => $events_count
             ));
@@ -171,7 +173,7 @@ class TimelineController extends Controller
 
     }
 
-    public function tags($timeline_id) 
+    /*public function tags($timeline_id) 
     {
 
         $timeline_tags = Timeline::find($timeline_id)->tags;
@@ -179,7 +181,7 @@ class TimelineController extends Controller
 
         return view('layouts.timeline.ajax.tags', ['timeline_tags' => $timeline_tags]);
 
-    }
+    }*/
 
 }
 
