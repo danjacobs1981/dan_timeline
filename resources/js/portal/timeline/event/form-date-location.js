@@ -262,8 +262,8 @@ function FormDateLocation() {
                 const autocomplete = new google.maps.places.Autocomplete(input, options);
 
                 const label = {
-                    fontFamily: 'Fontawesome',
-                    fontSize: '40px',
+                    fontFamily: "'Font Awesome 5 Free'",
+                    fontWeight: '900',
                     color: 'red',
                     text: '\uf3c5'
                 };

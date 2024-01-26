@@ -23,7 +23,7 @@ export function startMap() {
         minZoom: 1,
         mapId: "53cedd9afde08104",
         mapTypeId: "hybrid",
-        //disableDefaultUI: true,
+        disableDefaultUI: true,
         options: {
             gestureHandling: 'greedy'
         },
@@ -143,7 +143,8 @@ export function loadMarkers(markersArray) {
             var bounds = new google.maps.LatLngBounds();
 
             const label = {
-                fontFamily: 'Fontawesome',
+                fontFamily: "'Font Awesome 5 Free'",
+                fontWeight: '900',
                 fontSize: '40px',
                 color: 'red',
                 text: '\uf3c5'
