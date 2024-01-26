@@ -170,6 +170,7 @@ export function loadMarkers(markersArray) {
 
             if (!mapFirstRun) {
                 map.fitBounds(bounds);
+                map.setZoom(map.getZoom() - 1);
             }
             mapFirstRun = 1;
 
