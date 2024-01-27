@@ -5,11 +5,14 @@ import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
 
 let map;
+var mapInit = 0;
 var mapLoaded = 0;
 var mapFirstRun = 0;
 let markers = [];
 
-export function startMap() {
+function startMap() {
+
+    mapInit = 1;
 
     const loader = new Loader({
         apiKey: import.meta.env.VITE_GOOGLE_API,
@@ -52,27 +55,74 @@ export function startMap() {
 
             mapLoaded = 1;
 
+            console.log('map loaded');
+
         })
         .catch((e) => {
             // do something
         });
+}
 
-    $('article').resizable({
-        handleSelector: '.splitter',
-        resizeHeight: false,
-        onDrag: function() {
-            /* give article a class dependent of width */
-            classEvents();
+export function start() {
+
+    $(window).on('resize', function() {
+        if (!mapInit && screenSize > 2) {
+            startMap();
+        }
+    });
+
+    if (!mapInit && screenSize > 2) {
+        startMap();
+    }
+
+    $('.map-layer').on('click', function() {
+        if (mapLoaded) {
+            var mapType = $(this).data('type');
+            if (mapType == 'terrain') {
+                map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+            } else if (mapType == 'satellite') {
+                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            } else if (mapType == 'hybrid') {
+                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+            } else {
+                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+            }
         }
     });
 
     $('.events').on('click', '.event-map, .event-location', function() {
+        var $el = $(this).closest('div.event-item').find('.event-location');
+        if (screenSize <= 2) {
+            $('.map-open').trigger('click');
+        }
+        if (!mapInit) {
+            startMap();
+        }
         if (mapLoaded) {
-            var $el = $(this).closest('div.event-item').find('.event-location');
-            var lat = $el.data('lat');
-            var lng = $el.data('lng');
-            var zoom = $el.data('zoom');
-            setMapPosition(lat, lng, zoom);
+            targetMap($el);
+        } else {
+            let interval = setInterval(function() {
+                if (mapLoaded) {
+                    clearInterval(interval);
+                    targetMap($el);
+                }
+            }, 1000);
+        }
+    });
+
+    function targetMap($el) {
+        var lat = $el.data('lat');
+        var lng = $el.data('lng');
+        var zoom = $el.data('zoom');
+        setMapPosition(lat, lng, zoom);
+    }
+
+    $('article').resizable({
+        handleSelector: '.splitter',
+        resizeHeight: false,
+        onDragEnd: function() { // changed from onDrag to onDragEnd for performance
+            /* give article a class dependent of width */
+            classEvents();
         }
     });
 
@@ -84,26 +134,16 @@ export function startMap() {
         $('figure').removeClass('fullscreen');
     });
 
-    $('.map-layer').on('click', function() {
-        var mapType = $(this).data('type');
-        if (mapType == 'terrain') {
-            map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-        } else if (mapType == 'satellite') {
-            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-        } else if (mapType == 'hybrid') {
-            map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-        } else {
-            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-        }
-    });
-
     $('.map-close').on('click', function() {
         $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
-        $('article').css('padding-bottom', '0.5rem');
+        $('article').css('padding-bottom', '76px');
         $('.map-open').css('transform', 'translate(-50%, 0)');
     });
 
     $('.map-open').on('click', function() {
+        if (!mapInit) {
+            startMap();
+        }
         $('figure').css('transform', 'translateY(0)');
         $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
         $(this).css('transform', 'translate(-50%, 100px)');
@@ -171,6 +211,7 @@ export function loadMarkers(markersArray) {
             if (!mapFirstRun) {
                 map.fitBounds(bounds);
                 map.setZoom(map.getZoom() - 1);
+                $('#map>figure>.loading').fadeOut();
             }
             mapFirstRun = 1;
 

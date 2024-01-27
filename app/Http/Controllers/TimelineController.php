@@ -74,7 +74,7 @@ class TimelineController extends Controller
 
             if ($timeline_events->count()) {
 
-                $events_markers = $timeline_events->where('location_show', 1)->map->only([ 'location_lat', 'location_lng' ])->toJson();
+                $events_markers = $timeline_events->where('location_show', 1)->map->only([ 'id', 'location_lat', 'location_lng' ])->toJson();
                 $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
                 $events_count = $timeline_events->count();
 

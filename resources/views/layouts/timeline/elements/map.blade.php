@@ -2,8 +2,11 @@
     @vite('resources/css/map.scss')
 @endpush
 @push('scripts')
-    @vite('resources/js/timeline/map.js')
+    @vite('resources/js/timeline/map-start.js')
 @endpush
+<div class="loading">
+    <div class="dots"><div></div><div></div><div></div><div></div></div>
+</div>
 <span class="map-open fa-stack fa-2x">
     <i class="fa-solid fa-circle fa-stack-2x"></i>
     <i class="fa-solid fa-map-marker-alt fa-stack-1x"></i>

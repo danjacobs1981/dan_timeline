@@ -24,8 +24,9 @@ export default defineConfig({
                 'resources/css/plugin/tagify.css',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
                 'resources/js/web/scripts.js',
-                'resources/js/timeline/start.js',
+                'resources/js/timeline/scripts-start.js',
                 'resources/js/timeline/scripts.js',
+                'resources/js/timeline/map-start.js', /* imports jquery-resizable-dom */
                 'resources/js/timeline/map.js', /* imports jquery-resizable-dom */
                 'resources/js/timeline/comments.js',
                 'resources/js/timeline/filters.js',

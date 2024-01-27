@@ -140,11 +140,12 @@ body {
             /*padding: 0.5rem;*/
             min-width: 100%;
             max-width: 100%;
+            padding-bottom: 76px;
         }
         #{$map} & {
-            &>article {
+            /*&>article {
                 padding-bottom: calc(32vh + 46px);
-            }
+            }*/
             &>#map {
                 &>.splitter {
                     display: none;
@@ -159,6 +160,7 @@ body {
                     width: 100%;
                     z-index: 50;
                     transition: transform 0.5s ease;
+                    transform: translateY(calc(32vh + 46px));
                     &>div {
                         height: 100%;
                     }
@@ -171,7 +173,7 @@ body {
                             &>div {
                                 &>i {
                                     transition: transform 0.5s ease;
-                                    z-index: 1;
+                                    z-index: 11;
                                     position: relative;
                                     transform: translateY(52px);
                                     &.map-expand {
@@ -187,9 +189,9 @@ body {
                     }
                     &>.map-open {
                         position: absolute;
-                        top: -78px;
+                        top: -80px;
                         left: 50%;
-                        transform: translate(-50%, 100px);
+                        transform: translate(-50%, 0);
                         cursor: pointer;
                         z-index: -1;
                         transition: transform 0.5s ease;
@@ -377,7 +379,8 @@ body {
         }
         &__body {
             margin-top: 60px;
-            /*height: calc(100vh - 137.391px);*/
+            /* below height just helps with initial rendering */
+            height: calc(100vh - 137.391px);
             #{$map} & {
                 display: flex;
                 &>article {
@@ -577,13 +580,12 @@ body {
     min-height: 100%;
     &>.loading {
         width: 100%;
-        height: 100%;
+        min-height: 100vh;
         position: absolute;
         top: 0;
         left: 0;
         background: rgba(255, 255, 255, 0.5);
         z-index: 100;
-        /*display: none;*/
         &>.dots {
             position: sticky;
             left: 50%;
@@ -651,6 +653,8 @@ body {
         }
     }
     &-wrapper {
+        /*height: 100vh;*/
+        padding-bottom: 1rem;
         #{$sm} & {
             padding: 1rem;
         }
@@ -665,6 +669,9 @@ body {
             /*position: relative;*/
             &:first-child {
                 margin-top: 2rem!important;
+            }
+            &:last-child {
+                margin-bottom: 0!important;
             }
             &>div {
                 &>span,
@@ -773,9 +780,9 @@ body {
             }
             &.year {
                 /*padding-left: 1rem;*/
-                margin-top: 3rem;
+                margin-top: 2rem;
                 /*position: relative;*/
-                margin-bottom: 5rem;
+                margin-bottom: 4rem;
                 &>em:last-child {
                     border-bottom: 1px solid var(--grey);
                     text-align: center;
@@ -977,6 +984,13 @@ body {
                 &-header {
                     &>ul {
                         margin-right: 136px;
+                        &>li {
+                            &>span {
+                                /* tag */
+                                font-size: 0.688rem;
+                                padding: 0.188rem 0.313rem 0.063rem 0.313rem;
+                            }
+                        }
                     }
                     &>div {
                         &>div {
@@ -1033,6 +1047,12 @@ body {
         }
     }
     @media (min-width: 768px) {
+        &>.loading {
+            min-height: 100%;
+        }
+        &-wrapper {
+            height: auto;
+        }
         &-wrapper,
         &-time {
             width: calc(100% - 1px);
@@ -1092,6 +1112,12 @@ body {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            &>li {
+                &>span {
+                    font-size: 0.625rem;
+                    padding: 0.188rem 0.25rem 0.063rem 0.25rem;
+                }
+            }
         }
         &>div {
             display: flex;

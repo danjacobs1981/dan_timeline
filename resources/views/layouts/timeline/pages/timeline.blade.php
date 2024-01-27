@@ -1,8 +1,7 @@
 @extends('layouts.timeline.master')
 
 @push('scripts')
-    @vite('resources/js/timeline/start.js')
-    @vite('resources/js/timeline/scripts.js')
+    @vite('resources/js/timeline/scripts-start.js')
 @endpush
 
 @section('content')

@@ -173,6 +173,7 @@ export function loadEvents(share, tags) {
         encode: true,
     }).done(function(response) {
         loadMarkers(response.events_markers);
+        console.log(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
