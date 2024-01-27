@@ -767,9 +767,9 @@ body {
                 }
             }
             &.none {
-                margin-top: 3rem;
+                margin-top: 2rem;
                 background: none;
-                margin-bottom: 5rem;
+                margin-bottom: 4rem;
                 & .event::before,
                 & .event::after {
                     content: none;
@@ -804,7 +804,7 @@ body {
             }
             &.month {
                 /*padding-left: 1rem;*/
-                margin-top: 2.5rem;
+                margin-top: 2rem;
                 & .event {
                     &::before {
                         background: var(--month);
@@ -816,7 +816,7 @@ body {
             }
             &.day {
                 /*padding-left: 1rem;*/
-                margin-top: 2rem;
+                margin-top: 1.5rem;
                 & .event {
                     &::before {
                         background: var(--day);
@@ -827,7 +827,7 @@ body {
                 }
             }
             &.time {
-                margin-top: 1.5rem;
+                margin-top: 1rem;
                 & .event {
                     &::before {
                         background: var(--time);
@@ -984,6 +984,7 @@ body {
                 &-header {
                     &>ul {
                         margin-right: 136px;
+                        gap: 0.5rem;
                         &>li {
                             &>span {
                                 /* tag */
@@ -1111,11 +1112,11 @@ body {
             padding: 0;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.25rem;
             &>li {
                 &>span {
                     font-size: 0.625rem;
-                    padding: 0.188rem 0.25rem 0.063rem 0.25rem;
+                    padding: 0.188rem 0.25rem 0.125rem 0.25rem;
                 }
             }
         }

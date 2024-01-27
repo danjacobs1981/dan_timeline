@@ -36,7 +36,7 @@ export function start() {
             }
             var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
             if ($goElement.length) {
-                var diff = topHeight + 85;
+                var diff = 30;
                 if (screenSize > 2) {
                     diff = 85;
                 }
@@ -46,7 +46,7 @@ export function start() {
                     //scrollTop = $('.event-first').offset().top - topHeight;
                 }
             }
-            var el = 'html, body';
+            var el = 'html';
             if (screenSize > 2) {
                 el = 'article';
             }
@@ -173,7 +173,7 @@ export function loadEvents(share, tags) {
         encode: true,
     }).done(function(response) {
         loadMarkers(response.events_markers);
-        console.log(response.events_markers);
+        //console.log(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
