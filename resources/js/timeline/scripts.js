@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
-import { loadMarkers } from './../timeline/map';
+import { loadMarkers, targetMap } from './../timeline/map';
 //import { getScreenSize } from './../global.js';
 
 var topHeight = getTopHeight();
@@ -36,9 +36,9 @@ export function start() {
             }
             var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
             if ($goElement.length) {
-                var diff = 30;
+                var diff = 15;
                 if (screenSize > 2) {
-                    diff = 85;
+                    diff = 67;
                 }
                 scrollTop = $goElement[0].offsetTop - diff;
             } else {
@@ -173,7 +173,7 @@ export function loadEvents(share, tags) {
         encode: true,
     }).done(function(response) {
         loadMarkers(response.events_markers);
-        //console.log(response.events_markers);
+        console.log(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
@@ -232,34 +232,41 @@ function scrollOnPageLoad() {
 /* timeline scroll indicator */
 function scrollEvents() {
     var controller = new ScrollMagic.Controller();
-    $('.events-wrapper .event-title').each(function() {
+    $('.events-wrapper .event-item').each(function() {
         new ScrollMagic.Scene({
-                offset: (-topHeight) - 86,
+                offset: (-topHeight) - 156,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
             .on('enter', function(e) { // forward
                 var $element = $(e.target.triggerElement());
+                var $element_location = $element.find('.event-location');
+                var $element_title = $element.closest('section.event-group').find('.event-title');
                 var period = "period";
-                if (screenSize <= 2 && (typeof $element.attr('data-periodshort') !== typeof undefined && $element.attr('data-periodshort') !== false)) {
+                if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
                     period = "periodshort";
                 }
-                $('.events-time span').text($element.data(period));
+                $('.events-time span').text($element_title.data(period));
                 $('.event-title').removeClass('active');
-                $element.addClass('active');
-                if ($element.hasClass('event-last')) {
+                $element_title.addClass('active');
+                if ($element_title.hasClass('event-last')) {
                     $('i.events-down').css('color', '#9b9b9b');
                 }
                 $('i.events-up').css('color', '#ffffff');
+                if ($element_location.length) {
+                    targetMap($element_location);
+                }
             })
             .on('leave', function(e) { // reverse
                 var $element = $(e.target.triggerElement());
-                var order = $element.data('order') - 1;
+                var $element_location = $element.find('.event-location');
+                var $element_title = $element.closest('section.event-group').find('.event-title');
+                var order = $element_title.data('order') - 1;
                 $('.event-title').removeClass('active');
                 if ($('.event-item[data-order="' + order + '"]').length) {
                     $('.event-title[data-order="' + order + '"]').addClass('active');
                     var period = "period";
-                    if (screenSize <= 2 && (typeof $element.attr('data-periodshort') !== typeof undefined && $element.attr('data-periodshort') !== false)) {
+                    if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
                         period = "periodshort";
                     }
                     $('.events-time span').text($('.event-title[data-order="' + order + '"]').data(period));
@@ -267,6 +274,9 @@ function scrollEvents() {
                 } else {
                     $('.events-time span').html('Start of timeline');
                     $('i.events-up').css('color', '#9b9b9b');
+                }
+                if ($element_location.length) {
+                    targetMap($element_location);
                 }
             })
             .addTo(controller);

@@ -61,6 +61,19 @@ function startMap() {
         .catch((e) => {
             // do something
         });
+
+    $('.map-in').on('click', function() {
+        map.setZoom(map.getZoom() + 1);
+    });
+
+    $('.map-out').on('click', function() {
+        map.setZoom(map.getZoom() - 1);
+    });
+
+    $('.map-fullscreen').on('click', function() {
+        $('#map').toggleClass('fullscreen');
+    });
+
 }
 
 export function start() {
@@ -110,13 +123,6 @@ export function start() {
         }
     });
 
-    function targetMap($el) {
-        var lat = $el.data('lat');
-        var lng = $el.data('lng');
-        var zoom = $el.data('zoom');
-        setMapPosition(lat, lng, zoom);
-    }
-
     $('article').resizable({
         handleSelector: '.splitter',
         resizeHeight: false,
@@ -159,6 +165,13 @@ export function start() {
         }
     });
 
+}
+
+export function targetMap($el) {
+    var lat = $el.data('lat');
+    var lng = $el.data('lng');
+    var zoom = $el.data('zoom');
+    setMapPosition(lat, lng, zoom);
 }
 
 function setMapOnAll(map) {

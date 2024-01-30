@@ -58,7 +58,11 @@ class TimelineEditController extends Controller
                 $data['adverts'] = $adverts;
                 $data['tagging'] = $tagging;
 
-                $timeline->save();
+                //$timeline->title = $data['title'];
+
+                //dd($data);
+
+                $timeline->update($data);
 
                 return response()->json([
                     'status'=> 200,
@@ -88,7 +92,7 @@ class TimelineEditController extends Controller
 
                 $timeline->privacy = $request->privacy;
                 
-                $timeline->save();
+                $timeline->update();
 
                 return response()->json([
                     'status'=> 200,

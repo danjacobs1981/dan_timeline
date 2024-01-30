@@ -6,7 +6,7 @@
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  
     @foreach ($events->unique('order_ny') as $event)
         @if($event->date_year === null)
-            <section class="none">
+            <section class="event-group none">
                 @if($loop->first && $eventNone)
                     <div class="event-title" data-period="{{ $event->period }}" data-order="{{ $periodCount++ }}">
                         <h2>
@@ -20,7 +20,7 @@
             @php($eventNone = null)
         @else
             @php($eventNone = 1)
-            <section class="year">
+            <section class="event-group year">
                 @foreach ($events->where('date_year', $event->date_year)->sortBy('order_ym')->unique('order_ym') as $event)
                     @if($loop->first && $event->date_month === null)
                         <div class="{{ $event->date_month === null ? 'event-title' : ''}}" data-period="{{ $event->period }}" data-order="{{ $periodCount++ }}">
@@ -45,7 +45,7 @@
                             @php($eventType = 1)
                         </section>
                     @else
-                    <section class="month">
+                    <section class="event-group month">
                         @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->sortBy('order_md')->unique('order_md') as $event)
                             @if($loop->first && $event->date_day === null)
                                 <?php $dt = $carbon::create()->year($event->date_year)->month($event->date_month) ?>
@@ -72,7 +72,7 @@
                                     @php($eventType = 2)
                                 </section>
                             @else
-                            <section class="day">
+                            <section class="event-group day">
                                 @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->sortBy('order_dt')->unique('order_dt') as $event)
                                     @if($loop->first && $event->date_time === null)
                                         <?php $dt = $carbon::create()->year($event->date_year)->month($event->date_month)->day($event->date_day) ?>
@@ -100,7 +100,7 @@
                                             @php($eventType = 3)
                                         </section>
                                     @else
-                                        <section class="time">
+                                        <section class="event-group time">
                                             @foreach ($events->where('date_year', $event->date_year)->where('date_month', $event->date_month)->where('date_day', $event->date_day)->where('date_unix', $event->date_unix)->where('date_unix_gmt', $event->date_unix_gmt)->sortBy('order_t')->unique('order_t') as $event)
                                                 @if($loop->first)
                                                     <?php $dt = $carbon::createFromTimestamp($event->date_unix) ?>

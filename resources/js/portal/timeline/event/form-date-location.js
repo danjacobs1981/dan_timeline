@@ -261,11 +261,14 @@ function FormDateLocation() {
                 const input = document.getElementById('autocomplete');
                 const autocomplete = new google.maps.places.Autocomplete(input, options);
 
+                const label_text = '\uf3c5'; // pin \uf08d
+
                 const label = {
                     fontFamily: "'Font Awesome 5 Free'",
                     fontWeight: '900',
+                    fontSize: '40px',
                     color: 'red',
-                    text: '\uf3c5'
+                    text: label_text
                 };
 
                 const icon = {

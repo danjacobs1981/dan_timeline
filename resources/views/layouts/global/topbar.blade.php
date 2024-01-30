@@ -90,7 +90,7 @@
 				</span>
 			</label>
 			<div>
-				<input type="text" name="search" placeholder="Search for timelines..." autocomplete="off" />
+				<input type="text" name="search1" placeholder="Search for timelines..." autocomplete="off" value="" />
 				<button>
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>

@@ -108,7 +108,7 @@ body {
     -webkit-font-smoothing: antialiased;
     font-family: 'Rubik', sans-serif;
     color: var(--greyDark);
-    font-size: 0.938rem;
+    font-size: 0.875rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -865,7 +865,7 @@ h6 {
                 display: flex;
                 align-items: center;
                 color: var(--greyDark);
-                line-height: 1.2;
+                /*line-height: 1.2;*/
                 &:hover {
                     text-decoration: none;
                     color: var(--greyVeryDark);
@@ -1078,6 +1078,7 @@ h6 {
 .fa-stack {
     width: 2em;
     min-width: 2em;
+    font-size: 0.938rem;
     &>i {
         &.fa-solid.fa-circle {
             /* circle bg */
