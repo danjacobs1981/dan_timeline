@@ -29,7 +29,7 @@
                         <div class="dropdown dropdown-checkboxes" data-backdrop data-position-x="right">
                             <ul class="filter__wrapper">
                                 @foreach($tags->sortBy('tag', SORT_NATURAL|SORT_FLAG_CASE)->unique('id') as $tag) 
-                                    <li class="filter__checkbox">
+                                    <li class="filter__checkbox fa_checkbox">
                                         <input type="checkbox" id="f_{{ $tag->id }}" name="tag" value="{{ $tag->id }}" />
                                         <label for="f_{{ $tag->id }}">
                                             <span class="fa-stack">

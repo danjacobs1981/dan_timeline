@@ -199,11 +199,11 @@
                     & i {
                         font-size: 1.25rem;
                         position: relative;
-                        top: 1px
+                        top: 1px;
                     }
                     &.map-auto {
                         top: 1rem;
-                        left: 1rem;
+                        left: 72px;
                         padding: 0 1rem;
                         &>input {
                             display: none;
@@ -216,9 +216,9 @@
                     }
                     &.map-fullscreen {
                         top: 1rem;
-                        right: 1rem;
+                        left: 1rem;
                         width: 40px;
-                        & .fa-compress {
+                        &>span {
                             display: none;
                         }
                     }
@@ -227,14 +227,21 @@
                         position: relative;
                         width: 40px;
                     }
+                    &.map-in {
+                        border-radius: 0.25rem 0.25rem 0 0;
+                        border-bottom: 1px solid var(--grey);
+                    }
+                    &.map-out {
+                        border-radius: 0 0 0.25rem 0.25rem;
+                    }
                 }
                 &>div {
                     position: absolute;
                     display: flex;
-                    gap: 0.75rem;
                     &.map-options {
+                        gap: 0.75rem;
                         top: 1rem;
-                        right: 88px;
+                        right: 1rem;
                     }
                     &.map-zoom {
                         bottom: 2rem;
@@ -250,11 +257,19 @@
             &>.splitter {
                 display: none;
             }
+            & .map-auto {
+                left: 182px!important;
+            }
             & .map-fullscreen {
-                & .fa-compress {
+                width: 150px!important;
+                &>span {
                     display: block!important;
+                    line-height: 40px;
+                    &>i {
+                        margin-right: 0.5rem;
+                    }
                 }
-                & .fa-expand {
+                & .fa-chevron-left {
                     display: none;
                 }
             }

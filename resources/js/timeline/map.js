@@ -25,7 +25,7 @@ function startMap() {
         maxZoom: 19,
         minZoom: 1,
         mapId: "53cedd9afde08104",
-        mapTypeId: "hybrid",
+        //mapTypeId: "hybrid",
         disableDefaultUI: true,
         options: {
             gestureHandling: 'greedy'
@@ -181,7 +181,7 @@ function setMapOnAll(map) {
 }
 
 function setMapPosition(lat, lng, zoom) {
-    map.setCenter(new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }));
+    map.panTo(new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }));
     map.setZoom(parseInt(zoom));
 }
 

@@ -12,8 +12,8 @@
     <i class="fa-solid fa-map-marker-alt fa-stack-1x"></i>
 </span>
 <div class="map-overlay">
-    <span class="map-auto">
-        <input type="checkbox" id="map_auto" name="map_auto" value="1" />
+    <span class="map-auto fa_checkbox">
+        <input type="checkbox" id="map_auto" name="map_auto" checked />
         <label for="map_auto">
             <span class="fa-stack">
                 <i class="fa-regular fa-square fa-stack-1x"></i>
@@ -22,8 +22,10 @@
         </label>
     </span>
     <span class="map-fullscreen">
-        <i class="fa-solid fa-expand"></i>
-        <i class="fa-solid fa-compress"></i>
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>
+            <i class="fa-solid fa-chevron-right"></i>Show Timeline
+        </span>
     </span>
     <div class="map-options">
         <span class="map-map">

@@ -19,7 +19,7 @@
                     <h3>{{ $group->group }}</h3>
                     <ul class="filter__checkboxes">
                         @foreach($tags->where('group_id', $group->id)->sortBy('tag', SORT_NATURAL|SORT_FLAG_CASE)->unique('tag_id') as $tag)
-                            <li class="filter__checkbox">
+                            <li class="filter__checkbox fa_checkbox">
                                 <input type="checkbox" id="f_{{ $tag->tag_id }}" name="tag" value="{{ $tag->tag_id }}" />
                                 <label for="f_{{ $tag->tag_id }}">
                                     <span class="fa-stack">
