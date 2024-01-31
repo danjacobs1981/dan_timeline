@@ -549,15 +549,15 @@ body {
                 }
             }
             &.none {
-                margin-top: 1.5rem;
+                /*margin-top: 1.5rem;*/
                 background: none;
-                margin-bottom: 3rem;
+                /*margin-bottom: 3rem;*/
                 & .event::before,
                 & .event::after {
                     content: none;
                 }
                 &+.none {
-                    margin-top: -1.5rem;
+                    margin-top: -0.75rem;
                 }
             }
             &.year {

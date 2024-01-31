@@ -55,24 +55,12 @@ function startMap() {
 
             mapLoaded = 1;
 
-            console.log('map loaded');
+            console.log('map loaded ' + map.getZoom());
 
         })
         .catch((e) => {
             // do something
         });
-
-    $('.map-in').on('click', function() {
-        map.setZoom(map.getZoom() + 1);
-    });
-
-    $('.map-out').on('click', function() {
-        map.setZoom(map.getZoom() - 1);
-    });
-
-    $('.map-fullscreen').on('click', function() {
-        $('#map').toggleClass('fullscreen');
-    });
 
 }
 
@@ -87,21 +75,6 @@ export function start() {
     if (!mapInit && screenSize > 2) {
         startMap();
     }
-
-    $('.map-layer').on('click', function() {
-        if (mapLoaded) {
-            var mapType = $(this).data('type');
-            if (mapType == 'terrain') {
-                map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-            } else if (mapType == 'satellite') {
-                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-            } else if (mapType == 'hybrid') {
-                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-            } else {
-                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-            }
-        }
-    });
 
     $('.events').on('click', '.event-map, .event-location', function() {
         var $el = $(this).closest('div.event-item').find('.event-location');
@@ -132,12 +105,52 @@ export function start() {
         }
     });
 
+    // desktop controls
+
+    $('.map-in').on('click', function() {
+        map.setZoom(map.getZoom() + 1);
+    });
+
+    $('.map-out').on('click', function() {
+        map.setZoom(map.getZoom() - 1);
+    });
+
+    $('.map-fullscreen').on('click', function() {
+        $('#map').toggleClass('fullscreen');
+    });
+
+    $('.map-map').on('click', function() {
+        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    });
+
+    $('.map-satellite').on('click', function() {
+        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+    });
+
+
+    // mobile controls 
+
     $('.map-expand').on('click', function() {
         $('figure').addClass('fullscreen');
     });
 
     $('.map-compress').on('click', function() {
         $('figure').removeClass('fullscreen');
+    });
+
+    $('.map-layer').on('click', function() {
+        if (mapLoaded) {
+            var mapType = $(this).data('type');
+            if (mapType == 'terrain') {
+                map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+            } else if (mapType == 'satellite') {
+                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+            } else if (mapType == 'hybrid') {
+                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+            } else {
+                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+            }
+        }
     });
 
     $('.map-close').on('click', function() {
@@ -167,11 +180,20 @@ export function start() {
 
 }
 
+export function panMap($el) {
+    var lat = $el.data('lat');
+    var lng = $el.data('lng');
+    smoothlyAnimatePanTo(map, new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }), 8);
+}
+
 export function targetMap($el) {
     var lat = $el.data('lat');
     var lng = $el.data('lng');
     var zoom = $el.data('zoom');
-    setMapPosition(lat, lng, zoom);
+
+    smoothlyAnimatePanTo(map, new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }), zoom);
+
+    //setMapPosition(lat, lng, zoom);
 }
 
 function setMapOnAll(map) {
@@ -184,6 +206,108 @@ function setMapPosition(lat, lng, zoom) {
     map.panTo(new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }));
     map.setZoom(parseInt(zoom));
 }
+
+
+function project(latLng) {
+    var TILE_SIZE = 256
+    var siny = Math.sin(latLng.lat() * Math.PI / 180)
+    siny = Math.min(Math.max(siny, -0.9999), 0.9999)
+    return new google.maps.Point(
+        TILE_SIZE * (0.5 + latLng.lng() / 360),
+        TILE_SIZE * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI)))
+}
+
+function getPixel(latLng, zoom) {
+    var scale = 1 << zoom
+    var worldCoordinate = project(latLng)
+    return new google.maps.Point(
+        Math.floor(worldCoordinate.x * scale),
+        Math.floor(worldCoordinate.y * scale))
+}
+
+function getMapDimenInPixels(map) {
+    var zoom = map.getZoom()
+    var bounds = map.getBounds()
+    var southWestPixel = getPixel(bounds.getSouthWest(), zoom)
+    var northEastPixel = getPixel(bounds.getNorthEast(), zoom)
+    return {
+        width: Math.abs(southWestPixel.x - northEastPixel.x),
+        height: Math.abs(southWestPixel.y - northEastPixel.y)
+    }
+}
+
+function willAnimatePanTo(map, destLatLng, optionalZoomLevel) {
+    var dimen = getMapDimenInPixels(map)
+
+    var mapCenter = map.getCenter()
+    optionalZoomLevel = !!optionalZoomLevel ? optionalZoomLevel : map.getZoom()
+
+    var destPixel = getPixel(destLatLng, optionalZoomLevel)
+    var mapPixel = getPixel(mapCenter, optionalZoomLevel)
+    var diffX = Math.abs(destPixel.x - mapPixel.x)
+    var diffY = Math.abs(destPixel.y - mapPixel.y)
+
+    return diffX < dimen.width && diffY < dimen.height
+}
+
+function getOptimalZoomOut(latLng, currentZoom) {
+    if (willAnimatePanTo(map, latLng, currentZoom - 1)) {
+        return currentZoom - 1
+    } else if (willAnimatePanTo(map, latLng, currentZoom - 2)) {
+        return currentZoom - 2
+    } else {
+        return currentZoom - 3
+    }
+}
+
+function smoothlyAnimatePanToWorkaround(map, destLatLng, optionalAnimationEndCallback) {
+    var initialZoom = map.getZoom(),
+        listener
+
+    function zoomIn() {
+        if (map.getZoom() < initialZoom) {
+            map.setZoom(Math.min(map.getZoom() + 3, initialZoom))
+        } else {
+            google.maps.event.removeListener(listener)
+
+            //here you should (re?)enable only the ui controls that make sense to your app 
+            map.setOptions({ draggable: true, zoomControl: false, scrollwheel: true, disableDoubleClickZoom: false })
+
+            /*if (!!optionalAnimationEndCallback) {
+                optionalAnimationEndCallback()
+            }*/
+        }
+    }
+
+    function zoomOut() {
+        if (willAnimatePanTo(map, destLatLng)) {
+            google.maps.event.removeListener(listener)
+            listener = google.maps.event.addListener(map, 'idle', zoomIn)
+            map.panTo(destLatLng)
+        } else {
+            map.setZoom(getOptimalZoomOut(destLatLng, map.getZoom()))
+        }
+    }
+
+    //here you should disable all the ui controls that your app uses
+    map.setOptions({ draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true })
+    map.setZoom(getOptimalZoomOut(destLatLng, initialZoom))
+    listener = google.maps.event.addListener(map, 'idle', zoomOut)
+}
+
+function smoothlyAnimatePanTo(map, destLatLng, zoom) {
+
+    console.log(map.getZoom() + ' complex pan ' + zoom);
+    smoothlyAnimatePanToWorkaround(map, destLatLng, zoom)
+
+}
+
+
+
+
+
+
+
 
 export function loadMarkers(markersArray) {
     let interval = setInterval(function() {

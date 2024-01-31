@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
-import { loadMarkers, targetMap } from './../timeline/map';
+import { loadMarkers, panMap } from './../timeline/map';
 //import { getScreenSize } from './../global.js';
 
 var topHeight = getTopHeight();
@@ -25,22 +25,24 @@ export function start() {
     /* timeline scroll increment up/down */
     $('i.events-increment').on('click', function() {
         var scrollTop = 0;
-        if ($(this).hasClass('events-up') || ($(this).hasClass('events-down') && !$('.event-title').hasClass('event-last'))) {
+        if ($(this).hasClass('events-up') || ($(this).hasClass('events-down') && !$('.event-item').hasClass('event-last'))) {
             var increment = -1;
             if ($(this).hasClass('events-down')) {
                 increment = 1;
             }
             var order = 0;
-            if ($('.event-title.active').length) {
-                order = $('.event-title.active').data('order');
+            if ($('.event-item.active').length) {
+                order = $('.event-item.active').data('order');
             }
-            var $goElement = $('.event-title[data-order="' + (order + increment) + '"]');
+            var $goElement = $('.event-item[data-order="' + (order + increment) + '"]');
+            console.log(order + ' ' + (order + increment));
             if ($goElement.length) {
-                var diff = 15;
+                var diff = 31;
                 if (screenSize > 2) {
-                    diff = 67;
+                    diff = 83;
                 }
                 scrollTop = $goElement[0].offsetTop - diff;
+                console.log(scrollTop);
             } else {
                 if ($(this).hasClass('events-down')) {
                     //scrollTop = $('.event-first').offset().top - topHeight;
@@ -234,51 +236,50 @@ function scrollEvents() {
     var controller = new ScrollMagic.Controller();
     $('.events-wrapper .event-item').each(function() {
         new ScrollMagic.Scene({
-                offset: (-topHeight) - 156,
+                offset: (-topHeight) - 84,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
             .on('enter', function(e) { // forward
+
                 var $element = $(e.target.triggerElement());
-                var $element_location = $element.find('.event-location');
-                var $element_title = $element.closest('section.event-group').find('.event-title');
-                var period = "period";
-                if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
-                    period = "periodshort";
-                }
-                $('.events-time span').text($element_title.data(period));
-                $('.event-title').removeClass('active');
-                $element_title.addClass('active');
-                if ($element_title.hasClass('event-last')) {
-                    $('i.events-down').css('color', '#9b9b9b');
-                }
-                $('i.events-up').css('color', '#ffffff');
-                if ($element_location.length) {
-                    targetMap($element_location);
-                }
+                updateTimeline('forward', $element);
+
             })
             .on('leave', function(e) { // reverse
-                var $element = $(e.target.triggerElement());
-                var $element_location = $element.find('.event-location');
-                var $element_title = $element.closest('section.event-group').find('.event-title');
-                var order = $element_title.data('order') - 1;
-                $('.event-title').removeClass('active');
-                if ($('.event-item[data-order="' + order + '"]').length) {
-                    $('.event-title[data-order="' + order + '"]').addClass('active');
-                    var period = "period";
-                    if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
-                        period = "periodshort";
-                    }
-                    $('.events-time span').text($('.event-title[data-order="' + order + '"]').data(period));
-                    $('i.events-down').css('color', '#ffffff');
-                } else {
-                    $('.events-time span').html('Start of timeline');
-                    $('i.events-up').css('color', '#9b9b9b');
-                }
-                if ($element_location.length) {
-                    targetMap($element_location);
-                }
+
+                var $element = $('.event-item[data-order="' + ($(e.target.triggerElement()).data('order') - 1) + '"]'); // prev event
+                updateTimeline('reverse', $element);
+
             })
             .addTo(controller);
     });
+}
+
+function updateTimeline(direction, $element) {
+    $('.event-item').removeClass('active');
+    $element.addClass('active');
+    var $element_location = $element.find('.event-location');
+    /*if ($element_location.length) {
+        panMap($element_location);
+    }*/
+    var $element_title = $element.closest('section.event-group').find('.event-title');
+    if ($element_title.hasClass('event-title')) {
+        var period = "period";
+        if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
+            period = "periodshort";
+        }
+        $('.events-time span').text($element_title.data(period));
+    } else {
+        if (direction == 'reverse') {
+            $('.events-time span').html('Start of timeline');
+            $('i.events-up').css('color', '#9b9b9b');
+        }
+    }
+    if (direction == 'forward') {
+        $('i.events-up').css('color', '#ffffff');
+    } else {
+        $('i.events-down').css('color', '#ffffff');
+    }
+
 }
