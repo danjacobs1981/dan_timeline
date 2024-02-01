@@ -65,13 +65,17 @@
                 </li>
             @endif
 
-            <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="top">
-                <i class="fa-solid fa-comment"></i><span>8 comments</span>
-            </li>
+            @if($timeline->comments)
+                <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="top">
+                    <i class="fa-solid fa-comment"></i><span>8 comments</span>
+                </li>
+            @endif
+
             <li class="header__options-share" data-popover="Share" data-popover-position="top">
                 <i class="fa-solid fa-share-nodes"></i><span>Share</span>
                 @include('layouts.timeline.snippets.social',['more'=>true])
             </li>
+
             <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="top">
                 <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>
                 <div class="dropdown" data-backdrop data-position-x="right">
@@ -86,11 +90,13 @@
                                 <i class="fa-solid fa-pencil"></i>Suggest an edit
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa-solid fa-user-group"></i>Request to collaborate
-                            </a>
-                        </li>
+                        @if($timeline->collab)
+                            <li>
+                                <a href="#">
+                                    <i class="fa-solid fa-user-group"></i>Request to collaborate
+                                </a>
+                            </li>
+                        @endif
                         <span></span>
                         <li>
                             <a href="#">
@@ -100,6 +106,7 @@
                     </ul>
                 </div>
             </li>
+
         </ul>
     </div>
 </div>

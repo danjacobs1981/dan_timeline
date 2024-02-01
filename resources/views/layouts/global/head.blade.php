@@ -11,7 +11,7 @@
     <meta name="description" content="{{ config('constants.head.meta_description') }}">
     <meta name="keywords" content="{{ config('constants.head.meta_keywords') }}">
 
-    <link rel="canonical" href="{{ env('APP_URL').$_SERVER['REQUEST_URI'] }}" />
+    <link rel="canonical" href="{{ config('constants.head.link_canonical') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

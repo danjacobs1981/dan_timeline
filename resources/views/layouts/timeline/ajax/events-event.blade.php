@@ -81,9 +81,11 @@
                     @endif
                 </ul>
                 <ul class="event-options">
-                    <li class="event-comments" data-reveal="comments">
-                        <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
-                    </li>
+                    @if($event->timeline->comments && $event->timeline->comments_event)
+                        <li class="event-comments" data-reveal="comments">
+                            <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
+                        </li>
+                    @endif
                     <li class="event-share">
                         <i class="fa-solid fa-share-nodes"></i>
                     </li>
@@ -94,9 +96,11 @@
                                 <li>
                                     <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
                                 </li>
-                                <li>
-                                    <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
-                                </li>
+                                @if($event->timeline->collab)
+                                    <li>
+                                        <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                                    </li>
+                                @endif
                                 <span></span>
                                 <li>
                                     <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>

@@ -30,7 +30,7 @@ class TimelineController extends Controller
 
             // set head items
             Config::set('constants.head.title', 'Timeline: '.$timeline->title);
-            Config::set('constants.head.link_canonical', '/'.$timeline->id.'/'.$timeline->slug);
+            Config::set('constants.head.link_canonical', config('constants.website.url_full').'/'.$timeline->id);
 
             if ($request->query('share')) {
                 // dd($request->query('share'));

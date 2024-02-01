@@ -39,7 +39,7 @@ body {
                 }
                 &>em {
                     font-style: normal;
-                    padding: 0.25rem 0.5rem 0;
+                    padding: 0.25rem 0.5rem 0 1rem;
                     font-size: 0.813rem;
                     display: inline-block;
                     &>span {
@@ -487,12 +487,12 @@ body {
                 &>em {
                     font-size: 0.75rem;
                     line-height: 1.25rem;
-                    border-radius: 0 0 0.5rem 0.5rem;
+                    border-radius: 0.5rem;
                     background: #fff;
                     color: var(--greyDark);
                     border: 1px solid var(--grey);
                     position: absolute;
-                    top: 27px;
+                    top: 30px;
                     font-style: normal;
                     left: 50%;
                     transform: translateX(-50%);
@@ -883,13 +883,13 @@ body {
     }
     &::after {
         content: "";
-        height: 10px;
-        width: 10px;
+        height: 8px;
+        width: 8px;
         border-radius: 50%;
         background: #aaa;
         position: absolute;
         left: calc(50% - 1px);
-        top: -5px;
+        top: -3px;
         transform: translateX(-50%);
     }
     /* event wrapper */
@@ -909,19 +909,15 @@ body {
     &-header {
         #{$open} & {
             margin-top: -48px;
-            padding-right: 1rem!important;
-            margin-bottom: 1rem;
-            &.event-image {
-                margin-bottom: 1rem;
-            }
+            padding: 0 1rem 0!important;
+            margin-bottom: 0;
+            &.event-image {}
         }
         width: 100%;
-        padding: 0 1rem 0;
-        margin-bottom: 1rem;
+        padding: 0 1rem 1rem;
         &.event-image {
             padding-right: 120px;
             min-height: 104px;
-            margin-bottom: 0;
         }
         &>ul {
             list-style: none;
@@ -1012,7 +1008,7 @@ body {
         #{$open} & {
             display: block;
         }
-        padding: 0 1rem;
+        padding: 1rem 1rem 0;
         & p {
             font-size: 0.813rem;
             margin: 0 0 0.5rem;

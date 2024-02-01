@@ -80,13 +80,17 @@ export function start() {
     });
 
     /* events */
-    $('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .event-subheader > li, .event img', function() {
+    $('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .event:not(.event--open) img', function() {
         var $event = $(this).closest('.event');
         if ($event.hasClass('event--open')) {
             $event.removeClass('event--open');
         } else {
             $event.addClass('event--open');
         }
+    });
+
+    $('.events-wrapper').on('click', '.event--open img', function() {
+        console.log('view img');
     });
 
     /* like */
@@ -263,8 +267,17 @@ function updateTimeline(direction, $element) {
     /*if ($element_location.length) {
         panMap($element_location);
     }*/
-    var $element_title = $element.closest('section.event-group').find('.event-title');
-    if ($element_title.hasClass('event-title')) {
+
+    // if parent section finds an event-title then use it, else find the closest section.event-group that does
+
+
+    var $element_title = $element.closest('section').find('.event-title');
+
+    if (!$element_title.length) {
+        $element_title = $element.closest('section.event-group').find('.event-title');
+    }
+
+    if ($element_title.length) {
         var period = "period";
         if (screenSize <= 2 && (typeof $element_title.attr('data-periodshort') !== typeof undefined && $element_title.attr('data-periodshort') !== false)) {
             period = "periodshort";
