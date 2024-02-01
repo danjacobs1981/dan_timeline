@@ -583,7 +583,7 @@ body {
                     padding: 0.75rem 0 0.5rem;
                     font-size: 0.813rem;
                     display: block;
-                    background: var(--greyVeryLight);
+                    background: #fff;
                     border-radius: 0.5rem;
                     position: relative;
                     &::before {
@@ -593,7 +593,7 @@ body {
                         background-color: var(--grey);
                         position: absolute;
                         top: 0;
-                        left: calc(50% - 1px);
+                        left: 50%;
                         transform: translateX(-50%);
                         display: inline-block;
                     }
@@ -911,7 +911,7 @@ body {
         border-radius: 50%;
         background: #aaa;
         position: absolute;
-        left: calc(50% - 1px);
+        left: 50%;
         top: -3px;
         transform: translateX(-50%);
     }
@@ -1102,7 +1102,7 @@ body {
         width: 100%;
         display: flex;
         padding: 1rem;
-        border-top: 1px solid var(--greyLight);
+        border-top: 1px solid var(--grey);
     }
     &-resources {
         #{$open} & {
