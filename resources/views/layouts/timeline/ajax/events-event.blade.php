@@ -8,7 +8,7 @@
                     <i class="fa-solid fa-xmark fa-stack-1x"></i>
                 </span>
                 <div class="event-header{{ $event->image ? ' event-image' : ''}}">
-                    @if($event->tagsHighlighted->count())
+                    <!--@if($event->tagsHighlighted->count())
                         <ul class="event-subheader">
                             @foreach($event->tagsHighlighted as $highlight) 
                                 <li>
@@ -18,7 +18,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                    @endif
+                    @endif-->
                     <div>
                         <div>
                             <h3 itemprop="name">

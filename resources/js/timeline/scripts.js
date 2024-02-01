@@ -286,13 +286,13 @@ function updateTimeline(direction, $element) {
     } else {
         if (direction == 'reverse') {
             $('.events-time span').html('Start of timeline');
-            $('i.events-up').css('color', '#9b9b9b');
+            $('i.events-up').css('color', 'var(--grey)');
         }
     }
     if (direction == 'forward') {
-        $('i.events-up').css('color', '#ffffff');
+        $('i.events-up').css('color', 'var(--greyDark)');
     } else {
-        $('i.events-down').css('color', '#ffffff');
+        $('i.events-down').css('color', 'var(--greyDark)');
     }
 
 }

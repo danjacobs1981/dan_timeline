@@ -7,7 +7,7 @@
             by <strong><a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">{{ $timeline->user->username }}</a></strong> <span>&plus; <span>2 collaborators</span></span>
         </em>
     </div>
-    <div>
+    <!--<div>
         <ul class="header__options">
 
             @if(auth()->check() && $timeline->user_id == auth()->id())
@@ -108,5 +108,5 @@
             </li>
 
         </ul>
-    </div>
+    </div>-->
 </div>

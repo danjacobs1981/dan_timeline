@@ -109,14 +109,14 @@
                                                             <span>{{ $event->difference }}</span>
                                                         @endif
                                                         <h2>
-                                                            <span class="time">{{ $dt->format('g:ia') }}</span>
+                                                            <span class="time">{{ $dt->format('g:ia') }}{!! $event->location_tz ? '<i class="fa-solid fa-globe"></i>' : '' !!}</span>
                                                             <span class="day">{{ $dt->format('l jS') }}</span>
                                                             <span class="month">{{ $dt->format('F') }}</span>
                                                             <span class="year">{{ $event->date_year }}</span>
                                                         </h2>
-                                                        @if($event->location_tz && $event->location_tz != $eventTZ)
+                                                        <!--@if($event->location_tz && $event->location_tz != $eventTZ)
                                                             <em>Timezone: {{ str_replace('_', ' ', $event->location_tz) }}</em>
-                                                        @endif
+                                                        @endif-->
                                                     </div>
                                                 @endif
                                                 <section>
