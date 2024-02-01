@@ -72,7 +72,7 @@
                                             @if($loop->first)
                                                 <summary>
                                                     <i class="fa-regular fa-square-caret-right"></i>
-                                                    <span>{{ $carbon::parse($event->date_time)->format('h:ia') }} <em>({{ $event->location_tz }})</em></span>
+                                                    <span>{{ $carbon::parse($event->date_unix)->format('g:ia') }} <em>({{ $event->location_tz }})</em></span>
                                                     <em>({{ $total > 1 ? $total.' entries' : $total.' entry' }})</em>
                                                     <a href="{{ route('timelines.events.create', [ 'timeline' => $event->timeline_id, 'predate' => $carbon::parse($event->date_unix)->format('Y|n|j|h|i|a') ]) }}" data-popover="Add Event" data-modal data-modal-full data-modal-scroll data-modal-class="modal-create-edit-event" data-modal-size="modal-xl" data-modal-showclose="false" data-modal-clickclose="false">
                                                         <i class="fa-solid fa-circle-plus"></i>

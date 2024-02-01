@@ -81,7 +81,7 @@
 
                     <div class="control control--image control--select {{ isset($event->image) ? 'control--image-exists' : '' }}">
                         <label class="control__label" for="image">Event Image</label>
-                        <input type="file" id="image" name="image" accept=".jpeg, .png, .jpg, .gif">
+                        <input type="file" id="image" name="image" accept=".jpeg, .png, .jpg, .gif, .webp">
                         <input type="hidden" name="image_delete" value="0">
                         <div class="image-preview">
                             <a href="#" class="btn btn-danger">

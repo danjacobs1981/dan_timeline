@@ -109,7 +109,7 @@
                                                             <span>{{ $event->difference }}</span>
                                                         @endif
                                                         <h2>
-                                                            <span class="time">{{ $dt->format('h:ia') }}</span>
+                                                            <span class="time">{{ $dt->format('g:ia') }}</span>
                                                             <span class="day">{{ $dt->format('l jS') }}</span>
                                                             <span class="month">{{ $dt->format('F') }}</span>
                                                             <span class="year">{{ $event->date_year }}</span>

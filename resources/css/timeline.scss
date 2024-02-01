@@ -700,6 +700,10 @@ body {
                 border-radius: 0.5rem;
                 border: 1px solid var(--grey);
                 &-header {
+                    &.event-image {
+                        padding-right: 132px;
+                        min-height: 116px;
+                    }
                     &>ul {
                         margin-bottom: 0.5rem;
                     }
@@ -722,7 +726,6 @@ body {
                             min-width: 100px;
                             width: 100px;
                             height: 100px;
-                            background: var(--greyLight);
                         }
                     }
                 }
@@ -775,8 +778,11 @@ body {
             }
             & .event {
                 &-header {
+                    &.event-image {
+                        padding-right: 152px;
+                        min-height: 136px;
+                    }
                     &>ul {
-                        margin-right: 136px;
                         gap: 0.5rem;
                         &>li {
                             &>span {
@@ -806,9 +812,6 @@ body {
                             min-width: 120px;
                             width: 120px;
                             height: 120px;
-                            position: absolute;
-                            top: 1rem;
-                            right: 1rem;
                         }
                     }
                 }
@@ -842,17 +845,6 @@ body {
                 &-options {
                     &>li {
                         font-size: 0.906rem;
-                    }
-                }
-            }
-            & .event--open {
-                & .event-header {
-                    &>div {
-                        &>img {
-                            position: relative;
-                            top: inherit;
-                            right: inherit;
-                        }
                     }
                 }
             }
@@ -917,12 +909,23 @@ body {
     &-header {
         #{$open} & {
             margin-top: -48px;
+            padding-right: 1rem!important;
+            margin-bottom: 1rem;
+            &.event-image {
+                margin-bottom: 1rem;
+            }
         }
         width: 100%;
-        padding: 0 1rem 1rem;
+        padding: 0 1rem 0;
+        margin-bottom: 1rem;
+        &.event-image {
+            padding-right: 120px;
+            min-height: 104px;
+            margin-bottom: 0;
+        }
         &>ul {
             list-style: none;
-            margin: 0 0 0.25rem;
+            margin: 0 0 0.25rem 0;
             padding: 0;
             display: flex;
             flex-wrap: wrap;
@@ -938,6 +941,7 @@ body {
             display: flex;
             #{$open} & {
                 flex-direction: column;
+                gap: 1rem;
                 &>div {
                     &>span {
                         display: none;
@@ -946,7 +950,8 @@ body {
                 &>img {
                     width: auto!important;
                     height: 180px!important;
-                    margin: 1rem 0 0;
+                    margin: 0;
+                    position: initial;
                 }
             }
             &>div {
@@ -986,6 +991,9 @@ body {
                 }
             }
             &>img {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
                 border-radius: 3px;
                 display: block;
                 min-width: 88px;
@@ -995,6 +1003,7 @@ body {
                 object-fit: cover;
                 margin: 0 0 0 auto;
                 cursor: pointer;
+                background: var(--greyLight);
             }
         }
     }

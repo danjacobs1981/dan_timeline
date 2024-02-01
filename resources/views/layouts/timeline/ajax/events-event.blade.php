@@ -7,7 +7,7 @@
                     <i class="fa-solid fa-circle fa-stack-2x"></i>
                     <i class="fa-solid fa-xmark fa-stack-1x"></i>
                 </span>
-                <div class="event-header">
+                <div class="event-header{{ $event->image ? ' event-image' : ''}}">
                     @if($event->tagsHighlighted->count())
                         <ul class="event-subheader">
                             @foreach($event->tagsHighlighted as $highlight) 
@@ -39,7 +39,7 @@
                             @endif                                 
                         </div>
                         @if($event->image)
-                            <style>.events--md .event-item[data-id="{{ $event->id }}"] .event-header{min-height: 136px;} .event-item[data-id="{{ $event->id }}"] img{object-position:{{ $event->image_thumbnail }};}.event--open .event-item[data-id="{{ $event->id }}"] img{object-position: {{ $event->image_large }};}</style>
+                            <style>.event-item[data-id="{{ $event->id }}"] img{object-position:{{ $event->image_thumbnail }};} .event-item[data-id="{{ $event->id }}"] .event--open img{object-position: {{ $event->image_large }};}</style>
                             <img itemprop="image" src="{{ asset('storage/images/timeline/'.$event->timeline_id.'/'.$event->id.'/'.$event->image) }}" alt="{{ html_entity_decode($event->title) }}" />
                         @endif
                     </div>

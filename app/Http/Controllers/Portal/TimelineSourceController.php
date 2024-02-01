@@ -128,12 +128,8 @@ class TimelineSourceController extends Controller
                 );
 
                 // set the icon
-                $icon = setFAIcon($data['url']);
+                $data['fa_icon'] = setFAIcon($data['url']);
                 
-                if ($icon) {
-                    $data['fa_icon'] = $icon;
-                }
-
                 //$data['id'] = helperUniqueId('sources');
                 $data['timeline_id'] = $timeline_id;
 
@@ -227,11 +223,7 @@ class TimelineSourceController extends Controller
                     );
     
                     // set the icon
-                    $icon = setFAIcon($data['url']);
-                    
-                    if ($icon) {
-                        $data['fa_icon'] = $icon;
-                    }
+                    $data['fa_icon'] = setFAIcon($data['url']);
     
                     // update the tag
                     Source::where('timeline_id', $timeline_id)->where('id', $source->id)->update($data);
@@ -303,6 +295,9 @@ function setFAIcon($url) {
                 $icon = 'fa-brands fa-'.$domain;
             }
         }
+    }
+    if ($icon == null) {
+        $icon = 'fa-regular fa-file-lines';
     }
     return $icon;
 }
