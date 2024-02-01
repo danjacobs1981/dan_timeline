@@ -11,6 +11,6 @@
             'meta_title' => 'Timeline Events | Discover...',
             'meta_description' => 'default desc',
             'meta_keywords' => 'default keywords',
-            'link_canonical' => url()->current()
+            'link_canonical' => 'https://timelined.net'
         ],
     ];
