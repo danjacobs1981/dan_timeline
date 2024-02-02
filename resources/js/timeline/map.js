@@ -115,8 +115,16 @@ export function start() {
         map.setZoom(map.getZoom() - 1);
     });
 
+    $('.map-more').on('click', function() {
+        $('.timeline').toggleClass('timeline--mapmore');
+    });
+
     $('.map-fullscreen').on('click', function() {
-        $('#map').toggleClass('fullscreen');
+        $('.timeline').toggleClass('timeline--mapfullscreen');
+    });
+
+    $('.map-close').on('click', function() {
+        $('.header__options-map').trigger('click');
     });
 
     $('.map-map').on('click', function() {
@@ -130,7 +138,7 @@ export function start() {
 
     // mobile controls 
 
-    $('.map-expand').on('click', function() {
+    /*$('.map-expand').on('click', function() {
         $('figure').addClass('fullscreen');
     });
 
@@ -151,7 +159,7 @@ export function start() {
                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
             }
         }
-    });
+    });*/
 
     /*$('.map-close').on('click', function() {
         $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
@@ -167,10 +175,12 @@ export function start() {
             $('.timeline').addClass('timeline--mapopen');
             $('figure').css('transform', 'translateY(0)');
             $("article").css('padding-bottom', ($("figure").height() + 96) + 'px');
+            $(this).addClass('active');
         } else {
             $('.timeline').removeClass('timeline--mapopen');
             $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
             $('article').css('padding-bottom', '4.5rem');
+            $(this).removeClass('active');
         }
     });
 

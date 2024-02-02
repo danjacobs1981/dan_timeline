@@ -18,14 +18,21 @@
             <span class="fa-stack">
                 <i class="fa-regular fa-square fa-stack-1x"></i>
                 <i class="fa-solid fa-square-check fa-stack-1x"></i>
-            </span>Auto Move Map
+            </span><em>Auto Move <em>Map</em></em>
         </label>
     </span>
-    <span class="map-fullscreen">
+    <span class="map-close">
+        <i class="fa-solid fa-chevron-down"></i>
+    </span>
+    <span class="map-more">
         <i class="fa-solid fa-chevron-left"></i>
         <span>
             <i class="fa-solid fa-chevron-right"></i>Show Timeline
         </span>
+    </span>
+    <span class="map-fullscreen">
+        <i class="fa-solid fa-expand"></i>
+        <i class="fa-solid fa-compress"></i>
     </span>
     <div class="map-options">
         <span class="map-map">

@@ -102,6 +102,9 @@
                         &>span {
                             font-size: 0.75rem;
                         }
+                        &.active {
+                            color: var(--link);
+                        }
                     }
                 }
                 &-secondary {}
