@@ -51,11 +51,20 @@
             height: 100%!important;
             bottom: 0;
             &>.map-overlay {
-                &>span,
-                &>div {
-                    top: 0!important;
+                @media (max-width: 767px) {
+                    &>span, &>div {
+                        top: 0!important;
+                    }
                 }
-                & .map-fullscreen {
+                @media (min-width: 768px) {
+                    &>.map-more {
+                        display: none;
+                    }
+                    &>.map-auto {
+                        left: 1rem;
+                    }
+                }
+                &>.map-fullscreen {
                     & .fa-expand {
                         display: none;
                     }

@@ -125,6 +125,7 @@ export function start() {
 
     $('.map-close').on('click', function() {
         $('.header__options-map').trigger('click');
+        $('.timeline').removeClass('timeline--mapfullscreen');
     });
 
     $('.map-map').on('click', function() {
