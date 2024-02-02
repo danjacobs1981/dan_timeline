@@ -14,14 +14,14 @@
     &>figure {
         margin: 0;
         height: 32vh;
-        max-height: calc(100% - 96px);
+        max-height: calc(100% - 6rem);
         position: fixed;
-        bottom: 2.5rem;
+        bottom: 6rem;
         left: 0;
         width: 100%;
-        z-index: 50;
+        z-index: 30;
         transition: transform 0.5s ease;
-        transform: translateY(calc(32vh + 46px));
+        transform: translateY(calc(32vh + 6rem));
         &>.loading {
             position: absolute;
             background: var(--greyMedium);
@@ -66,7 +66,7 @@
                 }
             }
         }
-        &>.map-open {
+        /*&>.map-open {
             font-size: 2rem;
             position: absolute;
             top: -80px;
@@ -83,20 +83,18 @@
             &>i.fa-map-marker-alt {
                 color: var(--link);
             }
-        }
+        }*/
         &>.resizer {
             cursor: ns-resize;
-            height: 2.5rem;
+            height: 1.5rem;
             background: #ffff;
             text-align: center;
             border-radius: 0.5rem 0.5rem 0 0;
-            box-shadow: rgb(0 0 0 / 20%) 0 -1px 4px;
-            border-bottom: 1px solid #d3d3d3;
+            box-shadow: rgb(0 0 0 / 0.1) 0 -2px 3px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 0 1rem;
-            &>div {
+            /*&>div {
                 min-width: 75px;
                 &>i {
                     font-size: 18px;
@@ -120,17 +118,12 @@
                 &:last-child {
                     text-align: right;
                 }
-            }
+            }*/
             &>span {
-                height: 100%;
-                width: 100%;
-                &>div {
-                    width: 38px;
-                    height: 3px;
-                    border-radius: 2px;
-                    background: var(--grey);
-                    margin: 18.5px auto;
-                }
+                width: 3rem;
+                height: 3px;
+                border-radius: 2px;
+                background: var(--grey);
             }
         }
         &>.map-overlay {

@@ -220,42 +220,43 @@ sup {
 }
 
 .color-like {
-    color: var(--like)!important;
-    background: #fff!important;
-    box-shadow: inset 0 0 0 2px var(--like);
+    /*color: var(--like);*/
+    /*background: #fff!important;
+    box-shadow: inset 0 0 0 2px var(--like);*/
     &>i.fa-solid.fa-heart,
     &>i.fa-spin {
         display: none;
     }
-    &>span {
+    /*&>span {
         &>em {
             border-left: 1px solid var(--like)!important;
         }
-    }
+    }*/
 }
 
 .color-liked {
-    color: #fff!important;
-    background: var(--like)!important;
+    /*color: #fff!important;
+    background: var(--like)!important;*/
     &>i.fa-solid.fa-heart {
         animation-iteration-count: 1;
+        color: var(--like);
     }
     &>i.fa-regular.fa-heart,
     &>i.fa-spin {
         display: none;
     }
-    &>span {
+    /*&>span {
         &>em {
             border-left: 1px solid #fff!important;
             line-height: 31px!important;
         }
-    }
+    }*/
 }
 
 .color-save {
-    color: var(--greyDark)!important;
-    background: #fff!important;
-    box-shadow: inset 0 0 0 2px var(--greyDark);
+    color: var(--greyDark);
+    /*background: #fff!important;
+    box-shadow: inset 0 0 0 2px var(--greyDark);*/
     &>i.fa-solid.fa-bookmark,
     &>i.fa-spin {
         display: none;
@@ -263,8 +264,8 @@ sup {
 }
 
 .color-saved {
-    color: #fff!important;
-    background: var(--greyDark)!important;
+    /*color: #fff!important;
+    background: var(--greyDark)!important;*/
     &>i.fa-solid.fa-bookmark {
         animation-iteration-count: 1;
     }

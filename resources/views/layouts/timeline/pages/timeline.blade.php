@@ -7,15 +7,13 @@
 @section('content')
 
     <section class="timeline {{ $timeline->map ? 'timeline--map' : '' }}">
-        <header>
+        <header class="timeline__header">
             @include('layouts.timeline.elements.header')
         </header>
         <div class="timeline__body">
-            @if($timeline->tagging)
-                <div id="filters" class="reveal">
-                    @include('layouts.timeline.elements.filters')
-                </div>
-            @endif
+            <div id="filters" class="reveal">
+                @include('layouts.timeline.elements.filters')
+            </div>
             <article class="scrollbar">
                 @include('layouts.timeline.elements.events')
             </article>

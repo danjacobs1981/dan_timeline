@@ -79,7 +79,7 @@ export function start() {
     $('.events').on('click', '.event-map, .event-location', function() {
         var $el = $(this).closest('div.event-item').find('.event-location');
         if (screenSize <= 2) {
-            $('.map-open').trigger('click');
+            $('.header__options-map').trigger('click');
         }
         if (!mapInit) {
             startMap();
@@ -156,25 +156,31 @@ export function start() {
     $('.map-close').on('click', function() {
         $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
         $('article').css('padding-bottom', '76px');
-        $('.map-open').css('transform', 'translate(-50%, 0)');
+        $('.header__options-map').css('transform', 'translate(-50%, 0)');
     });
 
-    $('.map-open').on('click', function() {
-        if (!mapInit) {
-            startMap();
+    $('.header__options-map').on('click', function() {
+        if (!$('.timeline').hasClass('timeline--mapopen')) {
+            if (!mapInit) {
+                startMap();
+            }
+            $('.timeline').addClass('timeline--mapopen');
+            $('figure').css('transform', 'translateY(0)');
+            $("article").css('padding-bottom', ($("figure").height() + 96) + 'px');
+        } else {
+            $('.timeline').removeClass('timeline--mapopen');
+            $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
         }
-        $('figure').css('transform', 'translateY(0)');
-        $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
-        $(this).css('transform', 'translate(-50%, 100px)');
+
     });
 
     $("figure").resizable({
-        handleSelector: ".resizer > span",
+        handleSelector: '.resizer',
         resizeWidth: false,
         resizeHeightFrom: 'top',
         onDragEnd: function() {
             /* give padding to bottom of events list (+ resizer height + original bottom padding) */
-            $("article").css('padding-bottom', ($("figure").height() + 46) + 'px');
+            $("article").css('padding-bottom', ($("figure").height() + 96) + 'px');
         }
     });
 
