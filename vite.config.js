@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/global.scss', /* imports modal.css */
                 'resources/css/web.scss',
                 'resources/css/timeline.scss',
+                'resources/css/about.scss',
                 'resources/css/map.scss',
                 'resources/css/comments.scss',
                 'resources/css/filters.scss',

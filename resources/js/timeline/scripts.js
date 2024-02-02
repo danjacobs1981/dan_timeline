@@ -154,6 +154,9 @@ function setLayout() {
         $('.timeline--map .timeline__body').css({
             'height': 'auto'
         });
+        $('.timeline--map #map>figure').css({
+            'max-height': 'calc(100vh - ' + (topHeight + 154) + 'px)'
+        });
     }
 }
 

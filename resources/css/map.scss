@@ -14,7 +14,7 @@
     &>figure {
         margin: 0;
         height: 32vh;
-        max-height: calc(100% - 6rem);
+        max-height: calc(100vh - 10rem);
         position: fixed;
         bottom: 6rem;
         left: 0;
@@ -28,12 +28,12 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            top: 40px;
+            top: 24px;
             left: 0;
             border-left: 1px solid var(--grey);
             &>.dots {
                 left: 50%;
-                top: 50%;
+                top: calc(50% - 13px);
                 transform: translate(-50%, 50%);
                 &>div {
                     background: white;
@@ -66,24 +66,6 @@
                 }
             }
         }
-        /*&>.map-open {
-            font-size: 2rem;
-            position: absolute;
-            top: -80px;
-            left: 50%;
-            transform: translate(-50%, 0);
-            cursor: pointer;
-            z-index: -1;
-            transition: transform 0.5s ease;
-            box-shadow: rgb(0 0 0 / 25%) 0 0 8px;
-            border-radius: 100%;
-            &>i.fa-solid.fa-circle {
-                color: #fff;
-            }
-            &>i.fa-map-marker-alt {
-                color: var(--link);
-            }
-        }*/
         &>.resizer {
             cursor: ns-resize;
             height: 1.5rem;
@@ -94,31 +76,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /*&>div {
-                min-width: 75px;
-                &>i {
-                    font-size: 18px;
-                    height: 30px;
-                    width: 30px;
-                    line-height: 30px;
-                    text-align: center;
-                    cursor: pointer;
-                    background: #fff;
-                    border-radius: 100%;
-                    &.map-expand {
-                        margin-left: 0.5rem
-                    }
-                    &.map-compress {
-                        display: none;
-                    }
-                }
-                &:first-child {
-                    text-align: left;
-                }
-                &:last-child {
-                    text-align: right;
-                }
-            }*/
             &>span {
                 width: 3rem;
                 height: 3px;
@@ -161,8 +118,10 @@
             transform: translateY(0) !important;
             &>.loading {
                 top: 0;
+                &>.dots {
+                    top: 50%;
+                }
             }
-            &>.map-open,
             &>.resizer {
                 display: none!important;
             }

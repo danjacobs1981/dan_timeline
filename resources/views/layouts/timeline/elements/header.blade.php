@@ -9,6 +9,9 @@
     </div>
     <div>
         <ul class="header__options-primary">
+            <li class="header__options-info" data-reveal="about">
+                <i class="fa-solid fa-circle-info"></i><span>About</span>
+            </li>
             @if($timeline->map)
                 <li class="header__options-map">
                     <i class="fa-regular fa-map"></i><span>Map</span>

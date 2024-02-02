@@ -11,9 +11,14 @@
             @include('layouts.timeline.elements.header')
         </header>
         <div class="timeline__body">
-            <div id="filters" class="reveal">
-                @include('layouts.timeline.elements.filters')
+            <div id="about" class="reveal">
+                @include('layouts.timeline.elements.about')
             </div>
+            @if($tags->count())
+                <div id="filters" class="reveal">
+                    @include('layouts.timeline.elements.filters')
+                </div>
+            @endif
             <article class="scrollbar">
                 @include('layouts.timeline.elements.events')
             </article>

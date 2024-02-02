@@ -153,11 +153,11 @@ export function start() {
         }
     });
 
-    $('.map-close').on('click', function() {
+    /*$('.map-close').on('click', function() {
         $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
         $('article').css('padding-bottom', '76px');
         $('.header__options-map').css('transform', 'translate(-50%, 0)');
-    });
+    });*/
 
     $('.header__options-map').on('click', function() {
         if (!$('.timeline').hasClass('timeline--mapopen')) {
@@ -170,8 +170,8 @@ export function start() {
         } else {
             $('.timeline').removeClass('timeline--mapopen');
             $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
+            $('article').css('padding-bottom', '4.5rem');
         }
-
     });
 
     $("figure").resizable({
