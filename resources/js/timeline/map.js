@@ -179,7 +179,7 @@ export function start() {
             $(this).addClass('active');
         } else {
             $('.timeline').removeClass('timeline--mapopen');
-            $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
+            $('figure').css('transform', 'translateY(' + ($("figure").height() + 108) + 'px)'); //6.75rem
             $('article').css('padding-bottom', '4.5rem');
             $(this).removeClass('active');
         }

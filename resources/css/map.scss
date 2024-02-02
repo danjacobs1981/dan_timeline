@@ -89,21 +89,21 @@
         height: 32vh;
         max-height: calc(100vh - 10rem);
         position: fixed;
-        bottom: 6rem;
+        bottom: 6.75rem;
         left: 0;
         width: 100%;
         z-index: 30;
         transition: transform 0.5s ease;
-        transform: translateY(calc(32vh + 6rem));
+        transform: translateY(calc(32vh + 6.75rem)); // 108px
         &>.loading {
             position: absolute;
             background: var(--greyMedium);
             width: 100%;
             height: 100%;
             z-index: 10;
-            top: 24px;
+            top: 36px;
             left: 0;
-            border-left: 1px solid var(--grey);
+            /*border-left: 1px solid var(--grey);*/
             &>.dots {
                 left: 50%;
                 top: calc(50% - 13px);
@@ -118,40 +118,35 @@
             position: absolute;
             z-index: 1;
             width: 100%;
-            height: 100%;
+            /*height: 100%;*/
             pointer-events: none;
+            display: flex;
+            min-height: 36px;
+            &>span,
+            &>div {
+                top: 1px;
+            }
             &>span,
             &>div>span {
-                background: white;
-                position: absolute;
+                /*background: white;*/
+                /*position: absolute;*/
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 30px;
-                /*height: 40px;*/
-                border-radius: 0 0 0.25rem 0.25rem;
-                /*border-radius: 0.25rem;*/
-                box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
-                font-weight: 500;
-                /*font-size: 0.938rem;*/
-                font-size: 0.813rem;
+                /*height: 30px;*/
+                /*border-radius: 0 0 0.25rem 0.25rem;*/
+                /*box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);*/
+                /*font-weight: 500;*/
+                /*font-size: 0.813rem;*/
+                font-size: 0.75rem;
                 pointer-events: all;
                 cursor: pointer;
-                /*&:hover {
-                    background: var(--greyVeryLight);
-                }*/
                 & i {
-                    font-size: 0.75rem;
-                    /*font-size: 1.25rem;*/
+                    font-size: 1rem;
                     position: relative;
                     top: 1px;
                 }
                 &.map-auto {
-                    /*top: 1rem;
-                    left: 72px;
-                    padding: 0 1rem;*/
-                    left: 54px;
-                    top: 1.5rem;
                     padding: 0 0.5rem;
                     &>input {
                         display: none;
@@ -170,22 +165,19 @@
                 }
                 &.map-map,
                 &.map-satellite {
-                    /*padding: 0 1rem;*/
                     padding: 0 0.5rem;
                     position: relative;
                 }
                 &.map-close {
-                    top: 1.5rem;
-                    left: 1rem;
-                    width: 30px;
+                    border-right: 1px solid var(--grey);
+                    min-width: 2.5rem;
                 }
                 &.map-more {
                     display: none;
                 }
                 &.map-fullscreen {
-                    top: 1.5rem;
-                    right: 1rem;
-                    width: 30px;
+                    border-left: 1px solid var(--grey);
+                    min-width: 2.5rem;
                     &>i {
                         &.fa-compress {
                             display: none;
@@ -194,53 +186,23 @@
                 }
             }
             &>div {
-                position: absolute;
+                /*position: absolute;*/
+                margin-left: auto;
                 display: flex;
                 &.map-options {
-                    /*gap: 0.75rem;
-                    top: 1rem;
-                    right: 1rem;*/
                     gap: 0.5rem;
-                    top: 1.5rem;
-                    right: 54px;
                 }
                 &.map-zoom {
-                    /*bottom: 2rem;
-                    right: 1rem;
-                    flex-direction: column;*/
                     display: none;
                 }
             }
         }
-        &>div {
+        /*&>div {
             height: 100%;
-        }
-        /*&.fullscreen {
-            height: 100%!important;
-            max-height: none;
-            transition: height 0.5s ease;
-            z-index: 200;
-            &>.resizer {
-                &>div {
-                    &>i {
-                        transition: transform 0.5s ease;
-                        z-index: 11;
-                        position: relative;
-                        transform: translateY(52px);
-                        &.map-expand {
-                            display: none;
-                        }
-                        &.map-compress {
-                            display: inline-block;
-                            margin-left: 0.5rem;
-                        }
-                    }
-                }
-            }
         }*/
         &>.resizer {
             cursor: ns-resize;
-            height: 1.5rem;
+            height: 36px;
             background: #ffff;
             text-align: center;
             border-radius: 0.5rem 0.5rem 0 0;
@@ -248,7 +210,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid var(--grey);
+            border-top: 1px solid var(--grey);
             &>span {
                 width: 3rem;
                 height: 3px;
@@ -294,6 +256,10 @@
             }
             &>.map-overlay {
                 &>span,
+                &>div {
+                    top: 1rem;
+                }
+                &>span,
                 &>div>span {
                     height: 40px;
                     border-radius: 0.25rem;
@@ -305,7 +271,6 @@
                         font-size: 1.25rem;
                     }
                     &.map-auto {
-                        top: 1rem;
                         left: 72px;
                         padding: 0 1rem;
                         & em {
@@ -323,7 +288,6 @@
                     }
                     &.map-more {
                         display: flex;
-                        top: 1rem;
                         left: 1rem;
                         width: 40px;
                         &>span {
@@ -331,7 +295,6 @@
                         }
                     }
                     &.map-fullscreen {
-                        top: 1rem;
                         right: 1rem;
                         width: 40px;
                         &>i {
@@ -360,6 +323,7 @@
                         right: 68px;
                     }
                     &.map-zoom {
+                        top: unset;
                         bottom: 2rem;
                         right: 1rem;
                         flex-direction: column;
