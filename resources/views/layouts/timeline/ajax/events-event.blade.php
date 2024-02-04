@@ -76,14 +76,14 @@
                     @endif
                     @if($event->location_show == 1 && $event->location)
                         <li class="event-map">
-                            <i class="fas fa-map-marker-alt"></i>View <span>on</span> map
+                            <i class="fas fa-map-marker-alt"></i><span>View on&nbsp;</span> Map
                         </li>
                     @endif
                 </ul>
                 <ul class="event-options">
                     @if($event->timeline->comments && $event->timeline->comments_event)
                         <li class="event-comments" data-reveal="comments">
-                            <i class="fa-solid fa-comment"></i><span>2 <span>comments</span></span>
+                            <i class="fa-solid fa-comment"></i><span>2&nbsp;<span> comments</span></span>
                         </li>
                     @endif
                     <li class="event-share">

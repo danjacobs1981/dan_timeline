@@ -29,11 +29,11 @@
             @endif
             @if(auth()->check() && $timeline->likedByUser())
                 <li class="header__options-like color-liked">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart fa-bounce"></i><span>{{ $timeline->likesCount() }} Stars</span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart fa-bounce"></i><span>{{ $timeline->likesCount() }} Likes</span>
                 </li>
             @else
                 <li class="header__options-like color-like">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>{{ $timeline->likesCount() }} Stars</span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>{{ $timeline->likesCount() }} Likes</span>
                 </li>
             @endif
             @if(auth()->check() && $timeline->savedByUser())
