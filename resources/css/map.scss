@@ -9,6 +9,9 @@
 
 @media (min-width: 768px) {
     .timeline--mapmore {
+        &>header {
+            box-shadow: 0 4px 1px rgba(0, 0, 0, 0.1);
+        }
         & #map {
             position: absolute;
             z-index: 11;
@@ -16,7 +19,7 @@
                 display: none;
             }
             & .map-auto {
-                left: 182px!important;
+                display: none;
             }
             & .map-more {
                 width: 150px!important;
@@ -50,29 +53,31 @@
             max-height: none!important;
             height: 100%!important;
             bottom: 0;
+            transform: none!important;
             &>.map-overlay {
                 &>.map-more,
                 &>.map-auto {
                     display: none;
                 }
-                &>span,
-                &>div>span {
-                    background: #fff;
-                    border-bottom: 1px solid var(--grey);
-                    & i {
-                        top: 0;
+                @media (max-width: 767px) {
+                    &>span,
+                    &>div>span {
+                        background: #fff;
+                        border-bottom: 1px solid var(--grey);
+                        & i {
+                            top: 0;
+                        }
                     }
-                }
-                &>div {
-                    &.map-options {
+                    &>div {
+                        &.map-options {
+                            border-left: 1px solid var(--grey);
+                            margin-right: 1rem;
+                        }
+                    }
+                    &>.map-fullscreen {
                         border-left: 1px solid var(--grey);
-                        margin-right: 1rem;
                     }
                 }
-                &>.map-fullscreen {
-                    border-left: 1px solid var(--grey);
-                }
-                @media (max-width: 767px) {}
                 &>.map-fullscreen {
                     & .fa-expand {
                         display: none;
@@ -127,7 +132,6 @@
             position: absolute;
             z-index: 1;
             width: 100%;
-            /*height: 100%;*/
             pointer-events: none;
             display: flex;
             min-height: 36px;
@@ -137,16 +141,9 @@
             }
             &>span,
             &>div>span {
-                /*background: white;*/
-                /*position: absolute;*/
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                /*height: 30px;*/
-                /*border-radius: 0 0 0.25rem 0.25rem;*/
-                /*box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);*/
-                /*font-weight: 500;*/
-                /*font-size: 0.813rem;*/
                 font-size: 0.75rem;
                 line-height: 1;
                 pointer-events: all;
@@ -197,11 +194,9 @@
                 }
             }
             &>div {
-                /*position: absolute;*/
                 margin-left: auto;
                 display: flex;
                 &.map-options {
-                    /*gap: 0.5rem;*/
                     border-left: 1px solid var(--grey);
                 }
                 &.map-zoom {
@@ -267,6 +262,7 @@
                 }
             }
             &>.map-overlay {
+                height: 100%;
                 &>span,
                 &>div {
                     top: 1rem;
@@ -276,6 +272,11 @@
                     height: 40px;
                     border-radius: 0.25rem;
                     font-size: 0.938rem;
+                    background: white;
+                    position: absolute;
+                    box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
+                    font-weight: 500;
+                    border: none;
                     &:hover {
                         background: var(--greyVeryLight);
                     }
@@ -329,7 +330,9 @@
                     }
                 }
                 &>div {
+                    position: absolute;
                     &.map-options {
+                        border: none;
                         gap: 0.75rem;
                         top: 1rem;
                         right: 68px;
