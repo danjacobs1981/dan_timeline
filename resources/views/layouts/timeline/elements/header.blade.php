@@ -18,22 +18,22 @@
                 </li>
             @endif
             @if($tags->count())
-                <li class="header__options-filters" data-reveal="filters" data-popover="Filter" data-popover-position="top">
-                    <i class="fa-solid fa-sliders"></i><span>Filter</span>
+                <li class="header__options-filters" data-reveal="filters">
+                    <i class="fa-solid fa-sliders"></i><em>0</em><span>Filter</span>
                 </li>
             @endif
             @if($timeline->comments)
-                <li class="header__options-comments" data-reveal="comments" data-popover="Comments" data-popover-position="top">
-                    <i class="fa-regular fa-comment"></i><span>8 Remarks</span>
+                <li class="header__options-comments" data-reveal="comments">
+                    <i class="fa-regular fa-comment"></i><span>8</span>
                 </li>
             @endif
             @if(auth()->check() && $timeline->likedByUser())
                 <li class="header__options-like color-liked">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart fa-bounce"></i><span>{{ $timeline->likesCount() }} Likes</span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart fa-bounce"></i><span>{{ $timeline->likesCount() }}</span>
                 </li>
             @else
                 <li class="header__options-like color-like">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>{{ $timeline->likesCount() }} Likes</span>
+                    <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-heart"></i><i class="fa-solid fa-heart"></i><span>{{ $timeline->likesCount() }}</span>
                 </li>
             @endif
             @if(auth()->check() && $timeline->savedByUser())

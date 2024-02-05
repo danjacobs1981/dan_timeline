@@ -4,10 +4,10 @@ import { loadEvents } from './../timeline/scripts';
 /* filter */
 $('#filters input[type="checkbox"]').on('change', function() {
     var f_checked = $('#filters input:checkbox[name="tag"]:checked').length;
+    $('#filters .filter__show').addClass('loading');
     if (f_checked > 0) {
         $('.events').addClass('events--filtered');
-        $('.header__options-filters').find('em.count').remove();
-        $('.header__options-filters').find('span').after('<em class="count">' + f_checked + '</em>');
+        $('.header__options-filters').addClass('active').find('em').text(f_checked);
         let tags = [];
         $('#filters input:checkbox[name="tag"]:checked').each(function() {
             tags.push($(this).val());
@@ -15,7 +15,7 @@ $('#filters input[type="checkbox"]').on('change', function() {
         loadEvents(null, tags);
     } else {
         $('.events').removeClass('events--filtered');
-        $('.header__options-filters').find('em.count').remove();
+        $('.header__options-filters').removeClass('active').find('em').text(0);
         loadEvents(null, []);
     }
 });
@@ -23,7 +23,7 @@ $('#filters input[type="checkbox"]').on('change', function() {
 $('#filters .filter__clear').on('click', function() {
     $('.events').removeClass('events--filtered');
     $('#filters').removeClass('revealed').find('input:checkbox:checked').prop('checked', false);
-    $('.header__options-filters').find('em.count').remove();
+    $('.header__options-filters').removeClass('active').find('em').text(0);
     $('body').removeClass('no-scroll').removeClass('no-scrollbar');
     loadEvents(null, []);
 });

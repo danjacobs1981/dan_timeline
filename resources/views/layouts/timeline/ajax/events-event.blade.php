@@ -8,17 +8,6 @@
                     <i class="fa-solid fa-xmark fa-stack-1x"></i>
                 </span>
                 <div class="event-header{{ $event->image ? ' event-image' : ''}}">
-                    <!--@if($event->tagsHighlighted->count())
-                        <ul class="event-subheader">
-                            @foreach($event->tagsHighlighted as $highlight) 
-                                <li>
-                                    <span class="tag tag-{{ $highlight->color }}">
-                                        {{ $highlight->tag }}
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif-->
                     <div>
                         <div>
                             <h3 itemprop="name">
@@ -53,6 +42,17 @@
                             </span> 
                         </div> 
                     @endif
+                    @if($event->tagsHighlighted->count())
+                        <ul class="event-tags">
+                            @foreach($event->tagsHighlighted as $highlight) 
+                                <li>
+                                    <span class="tag tag-{{ $highlight->color }}">
+                                        {{ $highlight->tag }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                     @if($event->sources->count())
                         <div class="event-sources">
                             <h4>Sources</h4>
@@ -71,7 +71,7 @@
                 <ul class="event-resources">
                     @if($event->sources->count())
                         <li class="event-source">
-                            <i class="far fa-file-alt"></i>{{ $event->sources->count() > 1 ? $event->sources->count().' sources' : '1 source' }}
+                            <i class="far fa-file-alt"></i>Sources ({{ $event->sources->count() }})
                         </li>
                     @endif
                     @if($event->location_show == 1 && $event->location)
@@ -83,7 +83,7 @@
                 <ul class="event-options">
                     @if($event->timeline->comments && $event->timeline->comments_event)
                         <li class="event-comments" data-reveal="comments">
-                            <i class="fa-solid fa-comment"></i><span>2&nbsp;<span> comments</span></span>
+                            <i class="fa-regular fa-comment"></i><span>2&nbsp;<span> comments</span></span>
                         </li>
                     @endif
                     <li class="event-share">

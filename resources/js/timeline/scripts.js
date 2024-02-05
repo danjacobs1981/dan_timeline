@@ -3,7 +3,7 @@ import ScrollMagic from 'scrollmagic';
 import { loadMarkers, panMap } from './../timeline/map';
 //import { getScreenSize } from './../global.js';
 
-var topHeight = getTopHeight();
+var topHeight = getTopHeight()
 
 export function start() {
 
@@ -35,11 +35,11 @@ export function start() {
                 order = $('.event-item.active').data('order');
             }
             var $goElement = $('.event-item[data-order="' + (order + increment) + '"]');
-            console.log(order + ' ' + (order + increment));
+            //console.log(order + ' ' + (order + increment));
             if ($goElement.length) {
-                var diff = 31;
+                var diff = 13;
                 if (screenSize > 2) {
-                    diff = 83;
+                    diff = 64;
                 }
                 scrollTop = $goElement[0].offsetTop - diff;
                 console.log(scrollTop);
@@ -93,7 +93,7 @@ export function start() {
         console.log('view img');
     });
 
-    /* like */
+    /* like & save */
     $('li.header__options-like, li.header__options-save').on('click', function() {
         var $el = $(this);
         $el.addClass('loading');
@@ -111,13 +111,13 @@ export function start() {
                 if (response.success) {
                     if (response.increment) {
                         if (type == 'like') {
-                            $el.addClass('color-liked').removeClass('color-like').find('span').html('Liked <em>' + response.count + '</em>');
+                            $el.addClass('color-liked').removeClass('color-like').find('span').text(response.count);
                         } else {
                             $el.addClass('color-saved').removeClass('color-save').find('span').text('Saved');
                         }
                     } else {
                         if (type == 'like') {
-                            $el.addClass('color-like').removeClass('color-liked').find('span').html('Like <em>' + response.count + '</em>');
+                            $el.addClass('color-like').removeClass('color-liked').find('span').text(response.count);
                         } else {
                             $el.addClass('color-save').removeClass('color-saved').find('span').text('Save');
                         }
@@ -170,19 +170,25 @@ export function classEvents() {
     }
 }
 
+var xhr_events; // to abort requests
+
 export function loadEvents(share, tags) {
+    if (xhr_events && xhr_events.readyState != 4) {
+        xhr_events.abort();
+    }
     $('.events .events-wrapper').html();
     $('.events .loading').show();
     var data = { share: share, tags: tags };
-    $.ajax({
+    xhr_events = $.ajax({
         type: 'GET',
         url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
         data: data,
         dataType: 'json',
         encode: true,
     }).done(function(response) {
+        $('#filters .filter__show').removeClass('loading');
         loadMarkers(response.events_markers);
-        console.log(response.events_markers);
+        //console.log(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
