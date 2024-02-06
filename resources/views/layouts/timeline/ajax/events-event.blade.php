@@ -42,16 +42,19 @@
                             </span> 
                         </div> 
                     @endif
-                    @if($event->tagsHighlighted->count())
-                        <ul class="event-tags">
-                            @foreach($event->tagsHighlighted as $highlight) 
-                                <li>
-                                    <span class="tag tag-{{ $highlight->color }}">
-                                        {{ $highlight->tag }}
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
+                    @if($event->tags->count())
+                        <div class="event-tags">
+                            <h4>Tags</h4>
+                            <ul>
+                                @foreach($event->tags as $tag) 
+                                    <li>
+                                        <span class="tag tag-{{ $tag->color }}">
+                                            {{ $tag->tag }}
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                     @if($event->sources->count())
                         <div class="event-sources">

@@ -919,7 +919,7 @@
                         }
                     }
                     &-footer {
-                        padding: 0.5rem 1rem;
+                        padding: 0.75rem 1rem;
                     }
                     &-resources {
                         &>li {
@@ -1112,16 +1112,23 @@
                 }
             }
             &>.event-tags {
-                list-style: none;
-                margin: 0 0 1rem 0;
-                padding: 0;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.25rem;
-                &>li {
-                    &>span {
-                        font-size: 0.625rem;
-                        padding: 0.188rem 0.25rem 0.125rem 0.25rem;
+                border-top: 1px solid var(--grey);
+                padding-top: 1rem;
+                &>h4 {
+                    font-size: 0.938rem;
+                }
+                &>ul {
+                    list-style: none;
+                    margin: 0.5rem 0 1rem;
+                    padding: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+                    &>li {
+                        &>span {
+                            font-size: 0.625rem;
+                            padding: 0.188rem 0.25rem 0.125rem 0.25rem;
+                        }
                     }
                 }
             }
