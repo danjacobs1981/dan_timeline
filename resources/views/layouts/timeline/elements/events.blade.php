@@ -12,8 +12,5 @@
             <i class="events-increment events-down fa-solid fa-arrow-down" title="Next time period"></i>
         </div>
     </div>
-    <!---<div style="border:1px solid lightslategray;height:200px;margin:1rem;padding:1rem;">
-        content
-    </div>--->
     <div class="events-wrapper"></div>
 </div>

@@ -345,8 +345,8 @@ class TimelineEditController extends Controller
                                                     
                                                     // DURING YEAR, IN MONTH, ON DAY, AT TIME
         
-                                                    $period = 'At '.$dt->format('h:ia \o\n l jS \o\f F, Y');
-                                                    $period_short = 'At '.$dt->format('h:ia \o\n D jS \o\f M, Y');
+                                                    $period = 'At '.$dt->format('g:ia \o\n l jS \o\f F, Y');
+                                                    $period_short = 'At '.$dt->format('g:ia \o\n D jS \o\f M, Y');
         
                                                     if ($prevDate && $dt_gmt > $prevDate && $eventCurrent >= $event->date_type) {
         

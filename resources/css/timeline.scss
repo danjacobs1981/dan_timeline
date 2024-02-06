@@ -532,8 +532,21 @@
         &-wrapper {
             /*height: 100vh;*/
             padding: 0 1rem 1rem 1rem;
+            &>p {
+                /* end */
+                margin: 0;
+                text-align: center;
+                font-size: 0.813rem;
+                color: var(--greyMedium);
+                font-weight: 700;
+                border-top: 1px dashed var(--grey);
+                padding-top: 0.75rem;
+            }
             #{$sm} & {
-                /*padding: 1rem;*/
+                &>p {
+                    /* end */
+                    font-size: 0.875rem;
+                }
             }
             #{$md} & {
                 padding-top: 1.5rem;
@@ -880,6 +893,7 @@
                                     /* tag */
                                     font-size: 0.688rem;
                                     padding: 0.188rem 0.313rem 0.063rem 0.313rem;
+                                    cursor: pointer;
                                 }
                             }
                         }
@@ -1148,6 +1162,7 @@
                         &>span {
                             font-size: 0.625rem;
                             padding: 0.188rem 0.25rem 0.125rem 0.25rem;
+                            cursor: pointer;
                         }
                     }
                 }

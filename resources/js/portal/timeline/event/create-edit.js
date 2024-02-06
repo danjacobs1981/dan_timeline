@@ -143,6 +143,7 @@ function CreateEditEvent() {
         //console.log(JSON.stringify(tagsArray));
         data.append("tags", JSON.stringify(tagsArray));
         sourcesArray.forEach((item) => data.append("sources[]", item));
+        $('.btn[form="formEventCreateEdit"]').addClass('loading');
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -171,6 +172,7 @@ function CreateEditEvent() {
             mapErrorsToForm(errorData.errors, $form);
         }).always(function() {
             // Always run after .done() or .fail()
+            $('.btn[form="formEventCreateEdit"]').removeClass('loading');
         });
         e.preventDefault();
     });

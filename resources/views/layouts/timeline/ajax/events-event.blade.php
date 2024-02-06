@@ -11,7 +11,7 @@
                     @if($event->tagsHighlighted->count())
                         <ul class="event-subheader">
                             @foreach($event->tagsHighlighted as $highlight) 
-                                <li>
+                                <li data-reveal="filters">
                                     <span class="tag tag-{{ $highlight->color }}">
                                         {{ $highlight->tag }}
                                     </span>
@@ -58,7 +58,7 @@
                             <h4>Tags</h4>
                             <ul>
                                 @foreach($event->tags as $tag) 
-                                    <li>
+                                    <li data-reveal="filters">
                                         <span class="tag tag-{{ $tag->color }}">
                                             {{ $tag->tag }}
                                         </span>
