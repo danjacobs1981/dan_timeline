@@ -535,6 +535,9 @@
             #{$sm} & {
                 /*padding: 1rem;*/
             }
+            #{$md} & {
+                padding-top: 1.5rem;
+            }
             &>* {
                 &:last-child {
                     border-bottom: none!important;
@@ -732,8 +735,11 @@
                     padding: 0 0.5rem;
                     border-left: 1px solid var(--greyDark);
                     white-space: nowrap;
-                    &>i {
+                    &>em {
                         margin-left: 0.375rem;
+                        line-height: 1.75rem;
+                        display: inline-block;
+                        cursor: help;
                     }
                     &:first-child {
                         border-left: none;
@@ -1007,6 +1013,20 @@
             &.event-image {
                 padding-right: 120px;
                 min-height: 104px;
+            }
+            &>ul {
+                list-style: none;
+                margin: 0 0 0.25rem 0;
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                &>li {
+                    &>span {
+                        font-size: 0.625rem;
+                        padding: 0.188rem 0.25rem 0.125rem 0.25rem;
+                    }
+                }
             }
             &>div {
                 display: flex;

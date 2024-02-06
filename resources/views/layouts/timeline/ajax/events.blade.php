@@ -1,6 +1,6 @@
 @inject('carbon', 'Carbon\Carbon')
 @php
-    $eventNone = $eventType = $eventTZ = null;
+    $eventNone = $eventType = null;
     $periodCount = 1;
 @endphp
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  
@@ -109,20 +109,16 @@
                                                             <span>{{ $event->difference }}</span>
                                                         @endif
                                                         <h2>
-                                                            <span class="time">{{ $dt->format('g:ia') }}{!! $event->location_tz ? '<i class="fa-solid fa-globe"></i>' : '' !!}</span>
+                                                            <span class="time">{{ $dt->format('g:ia') }}{!! $event->location_tz ? '<em data-popover="Timezone: '.str_replace('_', ' ', $event->location_tz).'" data-popover-position="top"><i class="fa-solid fa-globe"></i></em>' : '' !!}</span>
                                                             <span class="day">{{ $dt->format('l jS') }}</span>
                                                             <span class="month">{{ $dt->format('F') }}</span>
                                                             <span class="year">{{ $event->date_year }}</span>
                                                         </h2>
-                                                        <!--@if($event->location_tz && $event->location_tz != $eventTZ)
-                                                            <em>Timezone: {{ str_replace('_', ' ', $event->location_tz) }}</em>
-                                                        @endif-->
                                                     </div>
                                                 @endif
                                                 <section>
                                                     @include('layouts.timeline.ajax.events-event')
                                                     @php($eventType = 4)
-                                                    @php($eventTZ = $event->location_tz)
                                                 </section>
                                             @endforeach
                                         </section>
@@ -133,7 +129,7 @@
                         @endforeach
                     </section>
                     @endif
-                    @if($loop->last)
+                    @if($loop->last && $timeline_events->where('date_year', '>', $event->date_year)->count())
                         <em>
                             <span>
                                 End of {{ $event->date_year }}
@@ -145,3 +141,4 @@
         @endif
     @endforeach
 @endforeach
+<p>End of Timeline</p>

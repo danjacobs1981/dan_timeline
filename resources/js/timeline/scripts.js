@@ -80,7 +80,7 @@ export function start() {
     });
 
     /* events */
-    $('.events-wrapper').on('click', '.event-close, .event-read, .event-source, .event:not(.event--open) img', function() {
+    $('.events-wrapper').on('click', '.event h3, .event-close, .event-read, .event-source, .event:not(.event--open) img', function() {
         var $event = $(this).closest('.event');
         if ($event.hasClass('event--open')) {
             $event.removeClass('event--open');

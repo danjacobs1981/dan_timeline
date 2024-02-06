@@ -8,6 +8,17 @@
                     <i class="fa-solid fa-xmark fa-stack-1x"></i>
                 </span>
                 <div class="event-header{{ $event->image ? ' event-image' : ''}}">
+                    @if($event->tagsHighlighted->count())
+                        <ul class="event-subheader">
+                            @foreach($event->tagsHighlighted as $highlight) 
+                                <li>
+                                    <span class="tag tag-{{ $highlight->color }}">
+                                        {{ $highlight->tag }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                     <div>
                         <div>
                             <h3 itemprop="name">
