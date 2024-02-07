@@ -44,19 +44,16 @@
 
         <ul class="header__options-secondary">
             @if(auth()->check() && $timeline->user_id == auth()->id())
-                <li class="header__options-edit" data-popover="Edit" data-popover-position="top">
+                <li class="header__options-edit">
                     <a href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
                         <i class="fa-solid fa-pencil"></i><span>Edit</span>
                     </a>
                 </li>
             @endif
-            <li class="header__options-share" data-popover="Share" data-popover-position="top">
-                <a href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
-                    <i class="fa-solid fa-share-nodes"></i><span>Share</span>
-                </a>
-                <!--@include('layouts.timeline.snippets.social',['more'=>true])-->
+            <li class="header__options-share">
+                <i class="fa-solid fa-share-nodes"></i><span>Share</span>
             </li>
-            <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="top">
+            <li class="header__options-info dropdown-toggle">
                 <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>
                 <div class="dropdown" data-backdrop data-position-x="left">
                     <ul>

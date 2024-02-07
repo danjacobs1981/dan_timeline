@@ -3,3 +3,117 @@
         min-width: 140px;
     }
 }
+
+.filter {
+    &__wrapper {
+        & input[type=checkbox] {
+            display: none;
+        }
+    }
+    &__group {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        &>li {
+            border-top: 1px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            &:first-child {
+                border-top: none;
+                padding: 0;
+                margin: 0;
+            }
+            &>h3 {
+                margin-top: 0.25rem;
+                font-size: 0.938rem;
+            }
+            &>ul {
+                list-style: none;
+                padding: 0;
+                margin: 0.5rem 0 0;
+                display: flex;
+                flex-wrap: wrap;
+                &>li {
+                    margin-right: 1.5rem;
+                    &>label {
+                        font-size: 0.813rem;
+                    }
+                }
+            }
+        }
+    }
+    &__clear {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    /*&-image {
+    &>label {
+        margin-right: 0.125rem;
+        border-radius: 50%;
+        width: 37px;
+        height: 37px;
+        border: 2px solid #fff;
+        background: #fff;
+        cursor: pointer;
+        transition: transform 0.25s ease;
+        display: block;
+        &:hover {
+            transform: translateY(-0.25rem);
+        }
+        &>span,
+        &>img {
+            border-radius: 50%;
+            display: block;
+            width: 33px;
+            height: 33px;
+            line-height: 33px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            background: var(--greyLight);
+            color: var(--greyDark);
+        }
+        &[for] {
+            &>span {
+                background: var(--primary);
+                color: #fff;
+            }
+        }
+    }
+    &>input[type=checkbox] {
+        &:checked {
+            &~label {
+                border-color: var(--primary);
+                &>span,
+                &>img {
+                    border: 2px solid #fff;
+                }
+            }
+        }
+    }
+    &:last-child {
+        &>label {
+            margin-right: 0;
+        }
+    }
+}*/
+    @media (min-width: 768px) {
+        &__group {
+            &>li {
+                &>h3 {
+                    margin-top: 0.25rem;
+                    font-size: 1rem;
+                }
+                &>ul {
+                    &>li {
+                        margin-right: 2rem;
+                        &>label {
+                            font-size: 0.875rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
