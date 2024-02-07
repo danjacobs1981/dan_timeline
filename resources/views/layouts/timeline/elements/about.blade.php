@@ -10,6 +10,9 @@
         </span>
     </div>
     <div class="reveal__body">
-        About text
+        <p>Timeline: {{ $timeline->title }}</p>
+        <em>
+            by <strong><a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">{{ $timeline->user->username }}</a></strong> <span>&plus; <span>2 collaborators</span></span>
+        </em>
     </div>
 </div>

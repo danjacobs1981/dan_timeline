@@ -1,12 +1,7 @@
 <div>
-    <div>
-        <h1>
-            {{ $timeline->title }}
-        </h1>
-        <em>
-            by <strong><a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">{{ $timeline->user->username }}</a></strong> <span>&plus; <span>2 collaborators</span></span>
-        </em>
-    </div>
+    <h1>
+        {{ $timeline->title }}
+    </h1>
     <div>
         <ul class="header__options-primary">
             <li class="header__options-info" data-reveal="about">
@@ -47,19 +42,23 @@
             @endif
         </ul>
 
-        <!--<ul class="header__options-secondary">
+        <ul class="header__options-secondary">
             @if(auth()->check() && $timeline->user_id == auth()->id())
-                <a class="header__options-edit link" href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
-                    <i class="fa-solid fa-pencil"></i><span>Edit</span>
-                </a>
+                <li class="header__options-edit" data-popover="Edit" data-popover-position="top">
+                    <a href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
+                        <i class="fa-solid fa-pencil"></i><span>Edit</span>
+                    </a>
+                </li>
             @endif
             <li class="header__options-share" data-popover="Share" data-popover-position="top">
-                <i class="fa-solid fa-share-nodes"></i><span>Share</span>
-                @include('layouts.timeline.snippets.social',['more'=>true])
+                <a href="{{ route('timelines.edit', ['timeline' => $timeline->id ]) }}">
+                    <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+                </a>
+                <!--@include('layouts.timeline.snippets.social',['more'=>true])-->
             </li>
             <li class="header__options-info dropdown-toggle" data-popover="More" data-popover-position="top">
                 <i class="fa-solid fa-ellipsis dropdown-close"></i><span>More</span>
-                <div class="dropdown" data-backdrop data-position-x="right">
+                <div class="dropdown" data-backdrop data-position-x="left">
                     <ul>
                         <li>
                             <a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">
@@ -87,6 +86,6 @@
                     </ul>
                 </div>
             </li>
-        </ul>-->
+        </ul>
     </div>
 </div>

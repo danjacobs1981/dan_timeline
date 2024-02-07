@@ -34,6 +34,8 @@
     --infoDark: #1a7d9e;
     /* like */
     --like: #eb637e;
+    /* save */
+    --save: #6726a3;
     /* backdrop */
     --faded: rgba(0, 0, 0, 0.35);
     --fadedDark: rgba(0, 0, 0, 0.75);
@@ -268,6 +270,7 @@ sup {
     background: var(--greyDark)!important;*/
     &>i.fa-solid.fa-bookmark {
         animation-iteration-count: 1;
+        color: var(--save);
     }
     &>i.fa-regular.fa-bookmark,
     i.fa-spin {
@@ -388,7 +391,7 @@ sup {
         cursor: pointer;
         background: var(--greyVeryLight);
         border-radius: 0.5rem;
-        margin-right: 0.5rem;
+        /*margin-right: 0.5rem;*/
         height: 29px;
         display: flex;
         align-items: center;
