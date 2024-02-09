@@ -336,6 +336,8 @@ export function loadMarkers(markersArray) {
 
             var bounds = new google.maps.LatLngBounds();
 
+            var infowindow = new google.maps.InfoWindow();
+
             /*const label = {
                 fontFamily: "'Font Awesome 5 Free'",
                 fontWeight: '900',
@@ -352,18 +354,43 @@ export function loadMarkers(markersArray) {
             };*/
 
             $.each(JSON.parse(markersArray), function(index, item) {
+
                 let icon = '/images/map/pin.png';
+                let fa_icon = 'fa-map-pin';
+                let extra_options = '';
                 if (item.location_zoom > 16) {
                     icon = '/images/map/marker.png';
+                    fa_icon = 'fa-map-marker-alt';
+                    extra_options = '<li><a href="#" data-action="zoom"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom</a></li><li><a href="#" data-action="street"><i class="fa-solid fa-street-view"></i>Street View</a></li>'
                 }
+
                 const marker = new google.maps.Marker({
                     position: { lat: parseFloat(item.location_lat), lng: parseFloat(item.location_lng) },
                     map: map,
                     //label: label,
                     icon: icon
                 });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, index) {
+                    return function() {
+                        infowindow.setContent(
+                            '<div class="infowindow" data-id="' + item.id + '">' +
+                            '<em><i class="fa-solid fa-calendar-day"></i>' + item.period + '</em>' +
+                            '<strong>' + item.title + '</strong>' +
+                            '<span><i class="fas ' + fa_icon + '"></i>' + item.location + '</span>' +
+                            '<ul>' +
+                            '<li><a href="#" data-action="details"><i class="fa-regular fa-note-sticky"></i>Scroll to details</a></li>' +
+                            extra_options +
+                            '</ul>' +
+                            '</div>'
+                        );
+                        infowindow.open(map, marker);
+                    }
+                })(marker, index));
+
                 markers.push(marker);
                 bounds.extend(marker.getPosition());
+
             });
 
             if (!mapFirstRun) {

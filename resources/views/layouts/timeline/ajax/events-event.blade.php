@@ -30,7 +30,7 @@
                                         @if($event->location_zoom > 16)
                                             <i class="fas fa-map-marker-alt"></i>
                                         @else
-                                            <i class="fa-solid fa-map-pin"></i>
+                                            <i class="fas fa-map-pin"></i>
                                         @endif
                                         <span itemprop="addressLocality">{{ $event->location }}</span></span>
                                     </p>
