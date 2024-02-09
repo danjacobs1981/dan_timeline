@@ -336,26 +336,30 @@ export function loadMarkers(markersArray) {
 
             var bounds = new google.maps.LatLngBounds();
 
-            const label = {
+            /*const label = {
                 fontFamily: "'Font Awesome 5 Free'",
                 fontWeight: '900',
                 fontSize: '40px',
                 color: 'red',
                 text: '\uf3c5'
-            };
+            };*/
 
-            const icon = {
+            /*const icon = {
                 path: google.maps.SymbolPath.CIRCLE,
                 scale: 20,
                 anchor: new google.maps.Point(0, 1), // bottom of circle
                 strokeWeight: 0
-            };
+            };*/
 
             $.each(JSON.parse(markersArray), function(index, item) {
+                let icon = '/images/map/pin.png';
+                if (item.location_zoom > 16) {
+                    icon = '/images/map/marker.png';
+                }
                 const marker = new google.maps.Marker({
                     position: { lat: parseFloat(item.location_lat), lng: parseFloat(item.location_lng) },
                     map: map,
-                    label: label,
+                    //label: label,
                     icon: icon
                 });
                 markers.push(marker);

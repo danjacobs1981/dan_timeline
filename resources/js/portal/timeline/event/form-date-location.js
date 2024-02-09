@@ -186,7 +186,7 @@ function FormDateLocation() {
             value = 4;
         }
         $('input:radio[name="location_geo"][value="' + value + '"]').prop('checked', true);
-        $('select[name="location_zoom"]').val(Math.round(zoom));
+        $('input[name="location_zoom"]').val(Math.round(zoom));
     }
 
     function setInfoTimezone(info) {
@@ -218,7 +218,7 @@ function FormDateLocation() {
 
         if (hasInputValue('location_lat')) {
             mapCenter = { lat: parseFloat($('input[name="location_lat"]').val()), lng: parseFloat($('input[name="location_lng"]').val()) };
-            mapZoom = parseInt($('select[name="location_zoom"]').val());
+            mapZoom = parseInt($('input[name="location_zoom"]').val());
         }
 
         const loader = new Loader({
@@ -292,9 +292,9 @@ function FormDateLocation() {
                     marker.setVisible(true);
                 }
 
-                map.addListener('zoom_changed', () => {
-                    $('select[name="location_zoom"]').val(Math.round(map.getZoom()));
-                });
+                /*map.addListener('zoom_changed', () => {
+                    $('input[name="location_zoom"]').val(Math.round(map.getZoom()));
+                });*/
 
                 google.maps.event.addListener(marker, 'dragend', function() {
                     setLatLng(marker);
@@ -340,12 +340,18 @@ function FormDateLocation() {
 
                 });
 
-                $('select[name="location_zoom"]').on('change', function() {
+                /*$('input[name="location_zoom"]').on('change', function() {
                     map.setZoom(parseInt($(this).val()));
-                });
+                });*/
 
                 $('.drop_marker').on('click', function() {
                     dropMarker();
+                });
+
+                $('input:radio[name="location_geo"]').on('change', function() {
+                    $('input[name="location_zoom"]').val($(this).data('zoom'));
+                    map.setCenter({ lat: parseFloat($('input[name="location_lat"]').val()), lng: parseFloat($('input[name="location_lng"]').val()) });
+                    map.setZoom($(this).data('zoom'));
                 });
 
                 function dropMarker() {
@@ -362,7 +368,7 @@ function FormDateLocation() {
                     setLatLng(marker);
                     if (getLocationShow() == 1) {
                         if (!$('input:radio[name="location_geo"]').is(":checked")) {
-                            setZoomLevel(parseInt($('select[name="location_zoom"]').val()));
+                            setZoomLevel(parseInt($('input[name="location_zoom"]').val()));
                         }
                         $('.eventMap-map-options').show();
                     }

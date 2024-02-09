@@ -7,7 +7,7 @@
             <i class="events-increment events-up fa-solid fa-arrow-up" title="Previous time period"></i>
             <div>
                 <i class="fa-regular fa-calendar"></i>
-                <span>Start of timeline</span>                
+                <span>Timeline Start</span>                
             </div>
             <i class="events-increment events-down fa-solid fa-arrow-down" title="Next time period"></i>
         </div>

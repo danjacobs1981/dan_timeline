@@ -27,7 +27,12 @@
                             @if($event->location_show == 1 && $event->location)
                                 <div class="event-location" itemprop="location" itemscope itemtype="https://schema.org/Place" data-zoom="{{ $event->location_zoom }}" data-lat="{{ $event->location_lat }}" data-lng="{{ $event->location_lng }}">
                                     <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                                        <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span></span>
+                                        @if($event->location_zoom > 16)
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        @else
+                                            <i class="fa-solid fa-map-pin"></i>
+                                        @endif
+                                        <span itemprop="addressLocality">{{ $event->location }}</span></span>
                                     </p>
                                     <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>
                                 </div>
@@ -83,14 +88,14 @@
             </div>
             <div class="event-footer">
                 <ul class="event-resources">
+                    @if($event->location_show == 1 && $event->location)
+                        <li class="event-map">
+                            <i class="fa-regular fa-map"></i><span>View on&nbsp;</span> Map
+                        </li>
+                    @endif
                     @if($event->sources->count())
                         <li class="event-source">
                             <i class="far fa-file-alt"></i>Sources ({{ $event->sources->count() }})
-                        </li>
-                    @endif
-                    @if($event->location_show == 1 && $event->location)
-                        <li class="event-map">
-                            <i class="fas fa-map-marker-alt"></i><span>View on&nbsp;</span> Map
                         </li>
                     @endif
                 </ul>

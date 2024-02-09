@@ -19,21 +19,17 @@
 
                 <header>
                     <div>
-                        <div>
-                            <h1>
-                                {{ $timeline->title }}
-                            </h1>
-                        </div>
-                        <div>
-                            <ul class="header__options">
-                                <a href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}" target="_blank">
-                                    <i class="fa-regular fa-window-restore"></i> <span>View Timeline</span>
-                                </a>
-                                <a href="{{ route('timelines.index') }}">
-                                    <i class="fa-solid fa-chevron-left"></i> <span>Exit Editing</span><!-- (gives a warning if something isn't saved) -->
-                                </a>
-                            </ul>
-                        </div>
+                        <h1>
+                            {{ $timeline->title }}
+                        </h1>     
+                        <ul class="header__options">
+                            <a href="{{ route('timeline.show', ['timeline' => $timeline->id]) }}" target="_blank">
+                                <i class="fa-regular fa-window-restore"></i> <span>View Timeline</span>
+                            </a>
+                            <a href="{{ route('timelines.index') }}">
+                                <i class="fa-solid fa-chevron-left"></i> <span>Exit Editing</span><!-- (gives a warning if something isn't saved) -->
+                            </a>
+                        </ul>
                     </div>
                     
                     <ul class="tabs tabs--timeline">

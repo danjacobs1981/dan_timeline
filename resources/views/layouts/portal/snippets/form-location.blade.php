@@ -42,57 +42,26 @@
             <div class="control control--radio">
                 <span class="control__label">What address level does this marker best represent?</span>
                 <label class="control__label">Building / Premise
-                    <input type="radio" value="1" name="location_geo" {{ old('location_geo') == '1' || ($location_geo == '1') ? 'checked' : '' }}/>
+                    <input type="radio" value="1" data-zoom="19" name="location_geo" {{ old('location_geo') == '1' || ($location_geo == '1') ? 'checked' : '' }}/>
                     <div></div>
                 </label>
                 <label class="control__label">Street / Road
-                    <input type="radio" value="2" name="location_geo" {{ old('location_geo') == '2' || ($location_geo == '2') ? 'checked' : '' }}/>
+                    <input type="radio" value="2" data-zoom="18" name="location_geo" {{ old('location_geo') == '2' || ($location_geo == '2') ? 'checked' : '' }}/>
                     <div></div>
                 </label>
                 <label class="control__label">Town / City
-                    <input type="radio" value="3" name="location_geo" {{ old('location_geo') == '3' || ($location_geo == '3') ? 'checked' : '' }}/>
+                    <input type="radio" value="3" data-zoom="11" name="location_geo" {{ old('location_geo') == '3' || ($location_geo == '3') ? 'checked' : '' }}/>
                     <div></div>
                 </label>
                 <label class="control__label">Region / County / State
-                    <input type="radio" value="4" name="location_geo" {{ old('location_geo') == '4' || ($location_geo == '4') ? 'checked' : '' }}/>
+                    <input type="radio" value="4" data-zoom="8" name="location_geo" {{ old('location_geo') == '4' || ($location_geo == '4') ? 'checked' : '' }}/>
                     <div></div>
                 </label>
                 <label class="control__label">Country
-                    <input type="radio" value="5" name="location_geo" {{ old('location_geo') == '5' || ($location_geo == '5') ? 'checked' : '' }}/>
+                    <input type="radio" value="5" data-zoom="4" name="location_geo" {{ old('location_geo') == '5' || ($location_geo == '5') ? 'checked' : '' }}/>
                     <div></div>
                 </label>
-                <p>Address information will be sourced from the marker position and level set. Buildings and roads display a marker, whereas anything further out displays a pin.</p>
-            </div>
-
-            <div class="control control--select">
-                <label class="control__label" for="location_zoom">Zoom</label>
-                <select name="location_zoom" id="location_zoom">
-                    <!--<option value="1" {{ old('location_zoom') == '1' || ($location_zoom == '1') ? 'selected' : '' }}>1</option>
-                    <option value="2" {{ old('location_zoom') == '2' || ($location_zoom == '2') ? 'selected' : '' }}>2</option>-->
-
-                    <option value="3" {{ old('location_zoom') == '3' || ($location_zoom == '3') ? 'selected' : '' }}>3</option>
-                    <option value="4" {{ old('location_zoom') == '4' || ($location_zoom == '4') ? 'selected' : '' }}>4</option>
-                    <option value="5" {{ old('location_zoom') == '5' || ($location_zoom == '5') ? 'selected' : '' }}>5</option>
-                    <option value="6" {{ old('location_zoom') == '6' || ($location_zoom == '6') ? 'selected' : '' }}>6</option>
-
-                    <option value="7" {{ old('location_zoom') == '7' || ($location_zoom == '7') ? 'selected' : '' }}>7</option>
-                    <option value="8" {{ old('location_zoom') == '8' || ($location_zoom == '8') ? 'selected' : '' }}>8</option>
-                    <option value="9" {{ old('location_zoom') == '9' || ($location_zoom == '9') ? 'selected' : '' }}>9</option>
-                    <option value="10" {{ old('location_zoom') == '10' || ($location_zoom == '10') ? 'selected' : '' }}>10</option>
-                    <option value="11" {{ old('location_zoom') == '11' || ($location_zoom == '11') ? 'selected' : '' }}>11</option>
-
-                    <option value="12" {{ old('location_zoom') == '12' || ($location_zoom == '12') ? 'selected' : '' }}>12</option>
-                    <option value="13" {{ old('location_zoom') == '13' || ($location_zoom == '13') ? 'selected' : '' }}>13</option>
-                    <option value="14" {{ old('location_zoom') == '14' || ($location_zoom == '14') ? 'selected' : '' }}>14</option>
-                    <option value="15" {{ old('location_zoom') == '15' || ($location_zoom == '15') ? 'selected' : '' }}>15</option>
-                    <option value="16" {{ old('location_zoom') == '16' || ($location_zoom == '16') ? 'selected' : '' }}>16</option>
-
-                    <option value="17" {{ old('location_zoom') == '17' || ($location_zoom == '17') ? 'selected' : '' }}>17</option>
-                    <option value="18" {{ old('location_zoom') == '18' || ($location_zoom == '18') ? 'selected' : '' }}>18</option>
-                    <option value="19" {{ old('location_zoom') == '19' || ($location_zoom == '19') ? 'selected' : '' }}>19</option>
-                </select>
-                <p>this needs to be a dynamically updating + / -</p>
-                <p>Zoom level parameters are restricted based upon the address level set for the marker.</p>
+                <p>Address information will be sourced from the marker position and level set. Buildings, streets and roads display a marker, whereas anything further out displays a pin.</p>
             </div>
 
         </div>
@@ -102,7 +71,7 @@
     </div>
 
     <input type="hidden" name="location_tz" value="{{ old('location_tz', isset($event) ? $event->location_tz : '') }}" />
-
+    <input type="hidden" name="location_zoom" value="{{ old('location_zoom', isset($event) ? $event->location_zoom : '') }}" />
     <input type="hidden" name="location_lat" value="{{ old('location_lat', isset($event) ? $event->location_lat : '') }}" />
     <input type="hidden" name="location_lng" value="{{ old('location_lng', isset($event) ? $event->location_lng : '') }}" />
 

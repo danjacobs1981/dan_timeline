@@ -5,7 +5,7 @@
             <i class="events-increment events-up fa-solid fa-circle-up" title="Previous event"></i>
             <div>
                 <i class="fa-regular fa-calendar"></i>
-                <span>Start of timeline</span>                
+                <span>Timeline Start</span>                
             </div>
             <i class="events-increment events-down fa-solid fa-circle-down" title="Next event"></i>
         </div>

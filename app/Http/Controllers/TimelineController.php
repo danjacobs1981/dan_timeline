@@ -29,7 +29,10 @@ class TimelineController extends Controller
         if ($timeline->privacy > 1 || checkCanViewTimeline($timeline->user_id, $timeline->id)) { 
 
             // set head items
-            Config::set('constants.head.title', 'Timeline: '.$timeline->title);
+            Config::set('constants.head.title', 'Visual timeline of events: '.$timeline->title);
+            // desc: A visual timeline of events spanning from 2002 to 2004.
+            // desc: A visual timeline of events that happend on January 31st 2024.
+            // desc: A visual timeline of events that happend during January 2024.
             Config::set('constants.head.link_canonical', config('constants.website.url_full').'/'.$timeline->id);
 
             if ($request->query('share')) {
@@ -74,7 +77,7 @@ class TimelineController extends Controller
 
             if ($timeline_events->count()) {
 
-                $events_markers = $timeline_events->where('location_show', 1)->map->only([ 'id', 'location_lat', 'location_lng' ])->toJson();
+                $events_markers = $timeline_events->where('location_show', 1)->map->only([ 'id', 'title', 'location_lat', 'location_lng', 'location_zoom' ])->toJson();
                 $events_html = view('layouts.timeline.ajax.events', ['timeline_events' => $timeline_events])->render();
                 $events_count = $timeline_events->count();
 

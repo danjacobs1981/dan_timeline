@@ -188,7 +188,7 @@ export function loadEvents(share, tags) {
     }).done(function(response) {
         $('#filters .filter__show').removeClass('loading');
         loadMarkers(response.events_markers);
-        //console.log(response.events_markers);
+        console.log(response.events_markers);
         $('.events-wrapper').html(response.events_html).promise().done(function() {
             scrollEvents();
             setEventElements();
@@ -294,7 +294,7 @@ function updateTimeline(direction, $element) {
         $('.events-time span').text($element_title.data(period));
     } else {
         if (direction == 'reverse') {
-            $('.events-time span').html('Start of timeline');
+            $('.events-time span').html('Timeline Start');
             $('i.events-up').css('color', 'var(--grey)');
         }
     }
