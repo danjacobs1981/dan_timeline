@@ -9,6 +9,7 @@ var mapInit = 0;
 var mapLoaded = 0;
 var mapFirstRun = 0;
 let markers = [];
+let infoWindow;
 
 function startMap() {
 
@@ -28,7 +29,8 @@ function startMap() {
         //mapTypeId: "hybrid",
         disableDefaultUI: true,
         options: {
-            gestureHandling: 'greedy'
+            gestureHandling: 'greedy',
+            clickableIcons: false
         },
         restriction: {
             latLngBounds: {
@@ -47,6 +49,10 @@ function startMap() {
 
             map.addListener('zoom_changed', () => {
                 //console.log('zoom');
+            });
+
+            map.addListener('click', function() {
+                if (infoWindow) infoWindow.close();
             });
 
             $('select[name="location_zoom"]').on('change', function() {
@@ -336,7 +342,7 @@ export function loadMarkers(markersArray) {
 
             var bounds = new google.maps.LatLngBounds();
 
-            var infowindow = new google.maps.InfoWindow();
+            infoWindow = new google.maps.InfoWindow();
 
             /*const label = {
                 fontFamily: "'Font Awesome 5 Free'",
@@ -373,18 +379,19 @@ export function loadMarkers(markersArray) {
 
                 google.maps.event.addListener(marker, 'click', (function(marker, index) {
                     return function() {
-                        infowindow.setContent(
+                        infoWindow.setContent(
                             '<div class="infowindow" data-id="' + item.id + '">' +
-                            '<em><i class="fa-solid fa-calendar-day"></i>' + item.period + '</em>' +
-                            '<strong>' + item.title + '</strong>' +
                             '<span><i class="fas ' + fa_icon + '"></i>' + item.location + '</span>' +
+                            '<em><i class="fa-regular fa-calendar"></i>' + item.period + '</em>' +
+                            '<strong>' + item.title + '</strong>' +
                             '<ul>' +
-                            '<li><a href="#" data-action="details"><i class="fa-regular fa-note-sticky"></i>Scroll to details</a></li>' +
+                            '<li><a href="#" data-action="details"><i class="fa-regular fa-note-sticky"></i>Show event details</li>' +
                             extra_options +
                             '</ul>' +
+                            '<ul class="infowindow-action"><li><a href="#" data-action="previous"><i class="fa-solid fa-arrow-left"></i>Previous event</a></li><li><a href="#" data-action="next">Next event<i class="fa-solid fa-arrow-right"></i></a></li></ul>' +
                             '</div>'
                         );
-                        infowindow.open(map, marker);
+                        infoWindow.open(map, marker);
                     }
                 })(marker, index));
 
