@@ -58,6 +58,13 @@
         list-style: none;
         display: flex;
         gap: 1rem;
+        &>li {
+            &>a {
+                &>i {
+                    top: 0;
+                }
+            }
+        }
         &.infowindow-action {
             border-top: 1px solid var(--grey);
             padding-top: 0.375rem;
@@ -65,7 +72,6 @@
             &>li {
                 &>a {
                     &>i {
-                        top: 0;
                         &.fa-arrow-right {
                             margin: 0 0 0 0.25rem;
                         }
@@ -109,6 +115,9 @@
                     display: none;
                 }
             }
+        }
+        & li[data-action="details"] {
+            display: none;
         }
     }
 }
@@ -166,6 +175,9 @@
                 display: none;
             }
         }
+    }
+    & li[data-action="details"] {
+        display: none;
     }
 }
 

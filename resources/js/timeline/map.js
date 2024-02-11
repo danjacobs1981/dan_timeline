@@ -61,7 +61,7 @@ function startMap() {
 
             mapLoaded = 1;
 
-            console.log('map loaded ' + map.getZoom());
+            //console.log('map loaded ' + map.getZoom());
 
         })
         .catch((e) => {
@@ -126,7 +126,7 @@ export function start() {
     });
 
     $('.map-fullscreen').on('click', function() {
-        $('.timeline').toggleClass('timeline--mapfullscreen');
+        $('.timeline').toggleClass('timeline--mapfullscreen').removeClass('timeline--mapmore');
     });
 
     $('.map-close').on('click', function() {
@@ -142,37 +142,33 @@ export function start() {
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
     });
 
+    // infowindow controls
 
-    // mobile controls 
 
-    /*$('.map-expand').on('click', function() {
-        $('figure').addClass('fullscreen');
-    });
-
-    $('.map-compress').on('click', function() {
-        $('figure').removeClass('fullscreen');
-    });
-
-    $('.map-layer').on('click', function() {
-        if (mapLoaded) {
-            var mapType = $(this).data('type');
-            if (mapType == 'terrain') {
-                map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-            } else if (mapType == 'satellite') {
-                map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-            } else if (mapType == 'hybrid') {
-                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-            } else {
-                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    $('#gmap').on('click', '.infowindow>ul>li>a', function(e) {
+        e.preventDefault();
+        var id = $(this).closest('.infowindow').data('id');
+        var marker = $(this).closest('.infowindow').data('marker');
+        var action = $(this).closest('li').data('action');
+        if (action == 'zoom') {
+            map.setCenter(markers[marker].getPosition());
+            map.setZoom(19);
+        } else if (action == 'details') {
+            var $goElement = $('.event-item[data-id="' + id + '"]');
+            var diff = 13;
+            if (screenSize > 2) {
+                diff = 64;
             }
+            var scrollTop = $goElement[0].offsetTop - diff;
+            var el = 'html';
+            if (screenSize > 2) {
+                el = 'article';
+            }
+            $(el).stop(true).animate({
+                scrollTop: scrollTop
+            }, 500);
         }
-    });*/
-
-    /*$('.map-close').on('click', function() {
-        $('figure').css('transform', 'translateY(' + ($("figure").height() + 46) + 'px)');
-        $('article').css('padding-bottom', '76px');
-        $('.header__options-map').css('transform', 'translate(-50%, 0)');
-    });*/
+    });
 
     $('.header__options-map').on('click', function() {
         if (!$('.timeline').hasClass('timeline--mapopen')) {
@@ -359,7 +355,9 @@ export function loadMarkers(markersArray) {
                 strokeWeight: 0
             };*/
 
-            $.each(JSON.parse(markersArray), function(index, item) {
+            var prev = null;
+
+            $.each(markersArray, function(index, item) {
 
                 let icon = '/images/map/pin.png';
                 let fa_icon = 'fa-map-pin';
@@ -367,7 +365,7 @@ export function loadMarkers(markersArray) {
                 if (item.location_zoom > 16) {
                     icon = '/images/map/marker.png';
                     fa_icon = 'fa-map-marker-alt';
-                    extra_options = '<li><a href="#" data-action="zoom"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom</a></li><li><a href="#" data-action="street"><i class="fa-solid fa-street-view"></i>Street View</a></li>'
+                    extra_options = '<li data-action="zoom"><a href="#"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom</a></li><li data-action="street"><a href="#"><i class="fa-solid fa-street-view"></i>Street View</a></li>'
                 }
 
                 const marker = new google.maps.Marker({
@@ -380,15 +378,15 @@ export function loadMarkers(markersArray) {
                 google.maps.event.addListener(marker, 'click', (function(marker, index) {
                     return function() {
                         infoWindow.setContent(
-                            '<div class="infowindow" data-id="' + item.id + '">' +
+                            '<div class="infowindow" data-marker="' + index + '" data-id="' + item.id + '">' +
                             '<span><i class="fas ' + fa_icon + '"></i>' + item.location + '</span>' +
                             '<em><i class="fa-regular fa-calendar"></i>' + item.period + '</em>' +
                             '<strong>' + item.title + '</strong>' +
                             '<ul>' +
-                            '<li><a href="#" data-action="details"><i class="fa-regular fa-note-sticky"></i>Show event details</li>' +
+                            '<li data-action="details"><a href="#"><i class="fa-regular fa-note-sticky"></i>Show event details</li>' +
                             extra_options +
                             '</ul>' +
-                            '<ul class="infowindow-action"><li><a href="#" data-action="previous"><i class="fa-solid fa-arrow-left"></i>Previous event</a></li><li><a href="#" data-action="next">Next event<i class="fa-solid fa-arrow-right"></i></a></li></ul>' +
+                            '<ul class="infowindow-action"><li data-action="previous"><a href="#" data-id="' + (index - 1) + '"><i class="fa-solid fa-arrow-left"></i>Previous event</a></li><li data-action="next"><a href="#" data-id="' + (index + 1) + '">Next event<i class="fa-solid fa-arrow-right"></i></a></li></ul>' +
                             '</div>'
                         );
                         infoWindow.open(map, marker);
@@ -397,6 +395,8 @@ export function loadMarkers(markersArray) {
 
                 markers.push(marker);
                 bounds.extend(marker.getPosition());
+
+                prev = item.id;
 
             });
 

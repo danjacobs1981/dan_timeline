@@ -42,7 +42,7 @@ export function start() {
                     diff = 64;
                 }
                 scrollTop = $goElement[0].offsetTop - diff;
-                console.log(scrollTop);
+                //console.log(scrollTop);
             } else {
                 if ($(this).hasClass('events-down')) {
                     //scrollTop = $('.event-first').offset().top - topHeight;
