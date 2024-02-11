@@ -82,21 +82,27 @@ export function start() {
         startMap();
     }
 
+    // event - view on map button
+
     $('.events').on('click', '.event-map, .event-location', function() {
+
         var $el = $(this).closest('div.event-item').find('.event-location');
-        if (screenSize <= 2) {
+        var latlng = { lat: parseFloat($el.data('lat')), lng: parseFloat($el.data('lng')) };
+        var zoom = $el.data('zoom');
+
+        if (screenSize <= 2 && !$('.timeline').hasClass('timeline--mapopen')) {
             $('.header__options-map').trigger('click');
         }
         if (!mapInit) {
             startMap();
         }
         if (mapLoaded) {
-            targetMap($el);
+            targetMap(latlng, zoom, null);
         } else {
             let interval = setInterval(function() {
                 if (mapLoaded) {
                     clearInterval(interval);
-                    targetMap($el);
+                    targetMap(latlng, zoom, null);
                 }
             }, 1000);
         }
@@ -144,16 +150,15 @@ export function start() {
 
     // infowindow controls
 
-
     $('#gmap').on('click', '.infowindow>ul>li>a', function(e) {
         e.preventDefault();
-        var id = $(this).closest('.infowindow').data('id');
-        var marker = $(this).closest('.infowindow').data('marker');
         var action = $(this).closest('li').data('action');
         if (action == 'zoom') {
+            var marker = $(this).closest('.infowindow').data('marker');
             map.setCenter(markers[marker].getPosition());
             map.setZoom(19);
         } else if (action == 'details') {
+            var id = $(this).closest('.infowindow').data('id');
             var $goElement = $('.event-item[data-id="' + id + '"]');
             var diff = 13;
             if (screenSize > 2) {
@@ -167,8 +172,17 @@ export function start() {
             $(el).stop(true).animate({
                 scrollTop: scrollTop
             }, 500);
+            $('.event-item').removeClass('highlight');
+            $('.event-item[data-id="' + id + '"]').addClass('highlight');
+        } else if (action == 'event') {
+            var marker = $(this).data('marker');
+            var latlng = markers[marker].getPosition();
+            var zoom = map.getZoom();
+            targetMap(latlng, zoom, marker);
         }
     });
+
+    // mobile open map button
 
     $('.header__options-map').on('click', function() {
         if (!$('.timeline').hasClass('timeline--mapopen')) {
@@ -199,18 +213,21 @@ export function start() {
 
 }
 
-export function panMap($el) {
-    var lat = $el.data('lat');
-    var lng = $el.data('lng');
-    smoothlyAnimatePanTo(map, new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }), 8);
+export function panMap(test) { // unused right now
+    //var lat = $el.data('lat');
+    //var lng = $el.data('lng');
+    smoothlyAnimatePanTo(map, new google.maps.LatLng(test), 8);
 }
 
-export function targetMap($el) {
-    var lat = $el.data('lat');
-    var lng = $el.data('lng');
-    var zoom = $el.data('zoom');
+export function targetMap(latlng, zoom, marker) {
 
-    smoothlyAnimatePanTo(map, new google.maps.LatLng({ lat: parseFloat(lat), lng: parseFloat(lng) }), zoom);
+    infoWindow.close();
+
+    if (marker) {
+        google.maps.event.trigger(markers[marker], 'click');
+    }
+
+    smoothlyAnimatePanTo(map, new google.maps.LatLng(latlng), zoom);
 
     //setMapPosition(lat, lng, zoom);
 }
@@ -355,13 +372,22 @@ export function loadMarkers(markersArray) {
                 strokeWeight: 0
             };*/
 
-            var prev = null;
-
             $.each(markersArray, function(index, item) {
 
                 let icon = '/images/map/pin.png';
                 let fa_icon = 'fa-map-pin';
                 let extra_options = '';
+                let prev = '';
+                let next = '';
+
+                if (index > 0) {
+                    prev = '<a href="#" data-marker="' + (index - 1) + '"><i class="fa-solid fa-arrow-left"></i>Previous event</a>';
+                }
+
+                if (index != (markersArray.length - 1)) {
+                    next = '<a href="#" data-marker="' + (index + 1) + '">Next event<i class="fa-solid fa-arrow-right"></i></a>';
+                }
+
                 if (item.location_zoom > 16) {
                     icon = '/images/map/marker.png';
                     fa_icon = 'fa-map-marker-alt';
@@ -386,7 +412,7 @@ export function loadMarkers(markersArray) {
                             '<li data-action="details"><a href="#"><i class="fa-regular fa-note-sticky"></i>Show event details</li>' +
                             extra_options +
                             '</ul>' +
-                            '<ul class="infowindow-action"><li data-action="previous"><a href="#" data-id="' + (index - 1) + '"><i class="fa-solid fa-arrow-left"></i>Previous event</a></li><li data-action="next"><a href="#" data-id="' + (index + 1) + '">Next event<i class="fa-solid fa-arrow-right"></i></a></li></ul>' +
+                            '<ul class="infowindow-action"><li data-action="event">' + prev + '</li><li data-action="event">' + next + '</li></ul>' +
                             '</div>'
                         );
                         infoWindow.open(map, marker);
@@ -395,8 +421,6 @@ export function loadMarkers(markersArray) {
 
                 markers.push(marker);
                 bounds.extend(marker.getPosition());
-
-                prev = item.id;
 
             });
 

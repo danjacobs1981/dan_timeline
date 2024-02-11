@@ -946,7 +946,13 @@
         }
         /* event wrapper */
         &-item {
-            position: relative;
+            /*position: relative;*/
+            &.highlight {
+                &>div {
+                    animation-duration: 3s;
+                    animation-name: event-highlighter;
+                }
+            }
         }
         /* event styling */
         &-wrapper {
@@ -1331,5 +1337,17 @@
                     }
                 }
             }
+        }
+    }
+    
+    @keyframes event-highlighter {
+        0% {
+            background-color: var(--highlight);
+        }
+        50% {
+            background-color: var(--highlight);
+        }
+        100% {
+            background-color: #fff;
         }
     }
