@@ -27,7 +27,7 @@
             <span class="fa-stack">
                 <i class="fa-regular fa-square fa-stack-1x"></i>
                 <i class="fa-solid fa-square-check fa-stack-1x"></i>
-            </span><em>Auto Move <em>Map</em></em>
+            </span><em>Sync Timeline<em>/Map</em></em>
         </label>
     </span>
     <div class="map-options">

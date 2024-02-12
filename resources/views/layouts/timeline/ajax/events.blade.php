@@ -1,6 +1,7 @@
 @inject('carbon', 'Carbon\Carbon')
 @php
     $eventNone = $eventType = null;
+    $order = $marker = 0;
 @endphp
 @foreach($timeline_events->sortBy('order_ny')->groupBy('order_ny') as $events)  
     @foreach ($events->unique('order_ny') as $event)
@@ -13,7 +14,7 @@
                         </h2>
                     </div>
                 @endif
-                @include('layouts.timeline.ajax.events-event')
+                @include('layouts.timeline.ajax.events-event', [ 'order' => $order++, 'marker' => $event->location_show == 1 && $event->location ? $marker++ : null ])
                 @php($eventType = null)
             </section>
             @php($eventNone = null)
@@ -40,7 +41,7 @@
                                     </h2>
                                 </div>
                             @endif
-                            @include('layouts.timeline.ajax.events-event')
+                            @include('layouts.timeline.ajax.events-event', [ 'order' => $order++, 'marker' => $event->location_show == 1 && $event->location ? $marker++ : null ])
                             @php($eventType = 1)
                         </section>
                     @else
@@ -67,7 +68,7 @@
                                             </h2>
                                         </div>
                                     @endif
-                                    @include('layouts.timeline.ajax.events-event')
+                                    @include('layouts.timeline.ajax.events-event', [ 'order' => $order++, 'marker' => $event->location_show == 1 && $event->location ? $marker++ : null ])
                                     @php($eventType = 2)
                                 </section>
                             @else
@@ -95,7 +96,7 @@
                                                     </h2>
                                                 </div>
                                             @endif
-                                            @include('layouts.timeline.ajax.events-event')
+                                            @include('layouts.timeline.ajax.events-event', [ 'order' => $order++, 'marker' => $event->location_show == 1 && $event->location ? $marker++ : null ])
                                             @php($eventType = 3)
                                         </section>
                                     @else
@@ -116,7 +117,7 @@
                                                     </div>
                                                 @endif
                                                 <section>
-                                                    @include('layouts.timeline.ajax.events-event')
+                                                    @include('layouts.timeline.ajax.events-event', [ 'order' => $order++, 'marker' => $event->location_show == 1 && $event->location ? $marker++ : null ])
                                                     @php($eventType = 4)
                                                 </section>
                                             @endforeach

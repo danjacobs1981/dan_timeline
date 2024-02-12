@@ -217,7 +217,7 @@ class TimelineEditController extends Controller
 
             //dd($timeline->events); // collection
 
-            $order_overall = 1;
+            $order_overall = 0;
         
             $prevDate = $eventNone = $eventCurrent = null;
         

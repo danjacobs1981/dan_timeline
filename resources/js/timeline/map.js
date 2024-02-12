@@ -1,15 +1,16 @@
 import $ from 'jquery';
-import { classEvents } from './../timeline/scripts';
+import { classEvents, timelineScrollTo } from './../timeline/scripts';
 // import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
 
 let map;
-var mapInit = 0;
-var mapLoaded = 0;
-var mapFirstRun = 0;
-let markers = [];
+let mapInit = 0;
+export let mapLoaded = 0;
+let mapFirstRun = 0;
 let infoWindow;
+export let markers = [];
+export let mapSync = 1;
 
 function startMap() {
 
@@ -47,17 +48,17 @@ function startMap() {
 
             map = new Map(document.getElementById('gmap'), mapOptions);
 
-            map.addListener('zoom_changed', () => {
-                //console.log('zoom');
-            });
+            /*map.addListener('zoom_changed', () => {
+                 //console.log('zoom');
+             });*/
 
             map.addListener('click', function() {
                 if (infoWindow) infoWindow.close();
             });
 
-            $('select[name="location_zoom"]').on('change', function() {
+            /*$('select[name="location_zoom"]').on('change', function() {
                 map.setZoom(parseInt($(this).val()));
-            });
+            });*/
 
             mapLoaded = 1;
 
@@ -85,10 +86,10 @@ export function start() {
     // event - view on map button
 
     $('.events').on('click', '.event-map, .event-location', function() {
-
-        var $el = $(this).closest('div.event-item').find('.event-location');
-        var latlng = { lat: parseFloat($el.data('lat')), lng: parseFloat($el.data('lng')) };
+        var $el = $(this).closest('.event-item').find('.event-location');
         var zoom = $el.data('zoom');
+        var marker = $el.data('marker');
+        var latlng = markers[marker].getPosition();
 
         if (screenSize <= 2 && !$('.timeline').hasClass('timeline--mapopen')) {
             $('.header__options-map').trigger('click');
@@ -97,12 +98,12 @@ export function start() {
             startMap();
         }
         if (mapLoaded) {
-            targetMap(latlng, zoom, null);
+            targetMap(latlng, zoom, marker);
         } else {
             let interval = setInterval(function() {
                 if (mapLoaded) {
                     clearInterval(interval);
-                    targetMap(latlng, zoom, null);
+                    targetMap(latlng, zoom, marker);
                 }
             }, 1000);
         }
@@ -148,37 +149,42 @@ export function start() {
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
     });
 
+    $('input[type="checkbox"]#map_auto').on('change', function() {
+        if (this.checked) {
+            mapSync = 1;
+        } else {
+            mapSync = 0;
+        }
+    });
+
     // infowindow controls
 
     $('#gmap').on('click', '.infowindow>ul>li>a', function(e) {
         e.preventDefault();
         var action = $(this).closest('li').data('action');
+        var marker = $(this).closest('.infowindow').data('marker');
         if (action == 'zoom') {
-            var marker = $(this).closest('.infowindow').data('marker');
+            $('.event-item').removeClass('highlight');
             map.setCenter(markers[marker].getPosition());
             map.setZoom(19);
+            $('.event-item[data-marker="' + marker + '"]').addClass('highlight');
         } else if (action == 'details') {
-            var id = $(this).closest('.infowindow').data('id');
-            var $goElement = $('.event-item[data-id="' + id + '"]');
-            var diff = 13;
-            if (screenSize > 2) {
-                diff = 64;
-            }
-            var scrollTop = $goElement[0].offsetTop - diff;
-            var el = 'html';
-            if (screenSize > 2) {
-                el = 'article';
-            }
-            $(el).stop(true).animate({
-                scrollTop: scrollTop
-            }, 500);
-            $('.event-item').removeClass('highlight');
-            $('.event-item[data-id="' + id + '"]').addClass('highlight');
+            var $targetEl = $('.event-item[data-marker="' + marker + '"]');
+            timelineScrollTo($targetEl);
         } else if (action == 'event') {
-            var marker = $(this).data('marker');
+            if ($(this).data('direction') == 'previous') {
+                marker = marker - 1;
+            } else {
+                marker = marker + 1;
+            }
             var latlng = markers[marker].getPosition();
             var zoom = map.getZoom();
             targetMap(latlng, zoom, marker);
+            if (mapSync) {
+                var $targetEl = $('.event-item[data-marker="' + marker + '"]');
+                timelineScrollTo($targetEl);
+            }
+
         }
     });
 
@@ -223,11 +229,11 @@ export function targetMap(latlng, zoom, marker) {
 
     infoWindow.close();
 
-    if (marker) {
+    smoothlyAnimatePanTo(map, new google.maps.LatLng(latlng), zoom);
+
+    if (marker != null) {
         google.maps.event.trigger(markers[marker], 'click');
     }
-
-    smoothlyAnimatePanTo(map, new google.maps.LatLng(latlng), zoom);
 
     //setMapPosition(lat, lng, zoom);
 }
@@ -381,11 +387,11 @@ export function loadMarkers(markersArray) {
                 let next = '';
 
                 if (index > 0) {
-                    prev = '<a href="#" data-marker="' + (index - 1) + '"><i class="fa-solid fa-arrow-left"></i>Previous event</a>';
+                    prev = '<a href="#" data-direction="previous"><i class="fa-solid fa-arrow-left"></i>Previous event</a>';
                 }
 
                 if (index != (markersArray.length - 1)) {
-                    next = '<a href="#" data-marker="' + (index + 1) + '">Next event<i class="fa-solid fa-arrow-right"></i></a>';
+                    next = '<a href="#" data-direction="next">Next event<i class="fa-solid fa-arrow-right"></i></a>';
                 }
 
                 if (item.location_zoom > 16) {
@@ -404,7 +410,7 @@ export function loadMarkers(markersArray) {
                 google.maps.event.addListener(marker, 'click', (function(marker, index) {
                     return function() {
                         infoWindow.setContent(
-                            '<div class="infowindow" data-marker="' + index + '" data-id="' + item.id + '">' +
+                            '<div class="infowindow" data-marker="' + index + '">' +
                             '<span><i class="fas ' + fa_icon + '"></i>' + item.location + '</span>' +
                             '<em><i class="fa-regular fa-calendar"></i>' + item.period + '</em>' +
                             '<strong>' + item.title + '</strong>' +

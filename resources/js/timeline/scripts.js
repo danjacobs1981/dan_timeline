@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
-import { loadMarkers, panMap } from './../timeline/map';
+import { loadMarkers, mapLoaded, mapSync, targetMap, markers } from './../timeline/map';
 //import { getScreenSize } from './../global.js';
 
 var topHeight = getTopHeight()
@@ -24,39 +24,19 @@ export function start() {
 
     /* timeline scroll increment up/down */
     $('i.events-increment').on('click', function() {
-        var scrollTop = 0;
         if ($(this).hasClass('events-up') || ($(this).hasClass('events-down') && !$('.event-item').hasClass('event-last'))) {
             var increment = -1;
             if ($(this).hasClass('events-down')) {
                 increment = 1;
             }
-            var order = 0;
+            var order = -1;
             if ($('.event-item.active').length) {
                 order = $('.event-item.active').data('order');
             }
-            var $goElement = $('.event-item[data-order="' + (order + increment) + '"]');
-            //console.log(order + ' ' + (order + increment));
-            if ($goElement.length) {
-                var diff = 13;
-                if (screenSize > 2) {
-                    diff = 64;
-                }
-                scrollTop = $goElement[0].offsetTop - diff;
-                //console.log(scrollTop);
-            } else {
-                if ($(this).hasClass('events-down')) {
-                    //scrollTop = $('.event-first').offset().top - topHeight;
-                }
-            }
-            var el = 'html';
-            if (screenSize > 2) {
-                el = 'article';
-            }
-            $(el).stop(true).animate({
-                scrollTop: scrollTop
-            }, 500);
+            var $targetEl = $('.event-item[data-order="' + (order + increment) + '"]');
+            timelineScrollTo($targetEl);
         }
-        return false;
+        //return false;
     });
 
     /* header buttons */
@@ -135,6 +115,28 @@ export function start() {
         });
     });
 
+}
+
+export function timelineScrollTo($targetEl) {
+    var scrollTop = 0;
+    if ($targetEl.length) {
+        var diff = 13;
+        if (screenSize > 2) {
+            diff = 64;
+        }
+        scrollTop = $targetEl[0].offsetTop - diff;
+    }
+    var el = 'html';
+    if (screenSize > 2) {
+        el = 'article';
+    }
+    $(el).stop(true).animate({
+        scrollTop: scrollTop
+    }, 500);
+    $targetEl.addClass('highlight');
+    setTimeout(function() {
+        $targetEl.removeClass('highlight');
+    }, 3000);
 }
 
 function getTopHeight() {
@@ -249,41 +251,41 @@ function scrollEvents() {
     var controller = new ScrollMagic.Controller();
     $('.events-wrapper .event-item').each(function() {
         new ScrollMagic.Scene({
-                offset: (-topHeight) - 84,
+                offset: (-topHeight) - 124,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
             .on('enter', function(e) { // forward
 
-                var $element = $(e.target.triggerElement());
-                updateTimeline('forward', $element);
+                var $targetEl = $(e.target.triggerElement());
+                updateTimeline('forward', $targetEl);
 
             })
             .on('leave', function(e) { // reverse
 
-                var $element = $('.event-item[data-order="' + ($(e.target.triggerElement()).data('order') - 1) + '"]'); // prev event
-                updateTimeline('reverse', $element);
+                var $targetEl = $('.event-item[data-order="' + ($(e.target.triggerElement()).data('order') - 1) + '"]'); // prev event
+                updateTimeline('reverse', $targetEl);
 
             })
             .addTo(controller);
     });
 }
 
-function updateTimeline(direction, $element) {
+function updateTimeline(direction, $targetEl) {
     $('.event-item').removeClass('active');
-    $element.addClass('active');
-    var $element_location = $element.find('.event-location');
-    /*if ($element_location.length) {
-        panMap($element_location);
-    }*/
+    $targetEl.addClass('active');
 
-    // if parent section finds an event-title then use it, else find the closest section.event-group that does
+    if (mapLoaded && mapSync && $targetEl.find('.event-location').length) {
+        var zoom = $targetEl.find('.event-location').data('zoom');
+        var marker = $targetEl.find('.event-location').data('marker');
+        var latlng = markers[marker].getPosition();
+        targetMap(latlng, zoom, marker);
+    }
 
-
-    var $element_title = $element.closest('section').find('.event-title');
+    var $element_title = $targetEl.closest('section').find('.event-title');
 
     if (!$element_title.length) {
-        $element_title = $element.closest('section.event-group').find('.event-title');
+        $element_title = $targetEl.closest('section.event-group').find('.event-title');
     }
 
     if ($element_title.length) {
