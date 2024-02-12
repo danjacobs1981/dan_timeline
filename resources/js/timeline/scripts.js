@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
-import { screenSize, urlParams } from './../global.js';
-import { loadMarkers, mapLoaded, mapSync, targetMap, markers } from './../timeline/map.js';
+import { screenSize, urlParams } from './../global';
+import { loadMarkers, mapLoaded, mapSync, targetMap, markers } from './../timeline/map';
 
 var topHeight = getTopHeight()
 
