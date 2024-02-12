@@ -222,6 +222,7 @@
             pointer-events: none;
             display: flex;
             min-height: 36px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0 3px 2px 1px;
             &>span,
             &>div {
                 top: 1px;

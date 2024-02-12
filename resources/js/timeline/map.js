@@ -3,6 +3,7 @@ import { classEvents, timelineScrollTo } from './../timeline/scripts';
 // import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
+import { screenSize } from './../global';
 
 let map;
 let mapInit = 0;
@@ -166,7 +167,11 @@ export function start() {
         if (action == 'zoom') {
             $('.event-item').removeClass('highlight');
             map.setCenter(markers[marker].getPosition());
-            map.setZoom(19);
+            if ($(this).data('zoom') != null) {
+                map.setZoom(parseInt($(this).data('zoom')));
+            } else {
+                map.setZoom(19);
+            }
             $('.event-item[data-marker="' + marker + '"]').addClass('highlight');
         } else if (action == 'details') {
             var $targetEl = $('.event-item[data-marker="' + marker + '"]');
@@ -231,7 +236,7 @@ export function targetMap(latlng, zoom, marker) {
 
     smoothlyAnimatePanTo(map, new google.maps.LatLng(latlng), zoom);
 
-    if (marker != null) {
+    if (screenSize > 2 && marker != null) {
         google.maps.event.trigger(markers[marker], 'click');
     }
 
@@ -397,7 +402,9 @@ export function loadMarkers(markersArray) {
                 if (item.location_zoom > 16) {
                     icon = '/images/map/marker.png';
                     fa_icon = 'fa-map-marker-alt';
-                    extra_options = '<li data-action="zoom"><a href="#"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom</a></li><li data-action="street"><a href="#"><i class="fa-solid fa-street-view"></i>Street View</a></li>'
+                    extra_options = '<li data-action="zoom"><a href="#"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom in</a></li><li data-action="street"><a href="#"><i class="fa-solid fa-street-view"></i>Street view</a></li>'
+                } else {
+                    extra_options = '<li data-action="zoom"><a href="#" data-zoom="' + item.location_zoom + '"><i class="fa-solid fa-magnifying-glass-plus"></i>Zoom to area</a></li>'
                 }
 
                 const marker = new google.maps.Marker({
@@ -415,7 +422,7 @@ export function loadMarkers(markersArray) {
                             '<em><i class="fa-regular fa-calendar"></i>' + item.period + '</em>' +
                             '<strong>' + item.title + '</strong>' +
                             '<ul>' +
-                            '<li data-action="details"><a href="#"><i class="fa-regular fa-note-sticky"></i>Show event details</li>' +
+                            '<li data-action="details"><a href="#"><i class="fa-regular fa-note-sticky"></i>Event details</li>' +
                             extra_options +
                             '</ul>' +
                             '<ul class="infowindow-action"><li data-action="event">' + prev + '</li><li data-action="event">' + next + '</li></ul>' +

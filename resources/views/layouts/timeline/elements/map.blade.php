@@ -7,10 +7,6 @@
 <div class="loading">
     <div class="dots"><div></div><div></div><div></div><div></div></div>
 </div>
-<!--<span class="map-open fa-stack fa-2x">
-    <i class="fa-solid fa-circle fa-stack-2x"></i>
-    <i class="fa-solid fa-map-marker-alt fa-stack-1x"></i>
-</span>-->
 <div class="map-overlay">
     <span class="map-more">
         <i class="fa-solid fa-chevron-left"></i>
@@ -27,7 +23,7 @@
             <span class="fa-stack">
                 <i class="fa-regular fa-square fa-stack-1x"></i>
                 <i class="fa-solid fa-square-check fa-stack-1x"></i>
-            </span><em>Sync Timeline<em>/Map</em></em>
+            </span><em>Sync Map<em>/Timeline</em></em>
         </label>
     </span>
     <div class="map-options">

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
+import { screenSize } from './../global';
 
 var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
 

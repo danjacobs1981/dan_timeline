@@ -23,11 +23,12 @@ export default defineConfig({
                 'resources/css/portal/timeline/source/create-edit.scss',
                 'resources/css/resource/form.scss',
                 'resources/css/plugin/tagify.css',
+                'resources/js/start.js',
                 'resources/js/global.js', /* imports jquery & jquery-modal */
                 'resources/js/web/scripts.js',
                 'resources/js/timeline/scripts-start.js',
                 'resources/js/timeline/scripts.js',
-                'resources/js/timeline/map-start.js', /* imports jquery-resizable-dom */
+                'resources/js/timeline/map-start.js',
                 'resources/js/timeline/map.js', /* imports jquery-resizable-dom */
                 'resources/js/timeline/comments.js',
                 'resources/js/timeline/filters.js',
