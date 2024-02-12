@@ -87,16 +87,17 @@ export function start() {
     // event - view on map button
 
     $('.events').on('click', '.event-map, .event-location', function() {
-        var $el = $(this).closest('.event-item').find('.event-location');
-        var zoom = $el.data('zoom');
-        var marker = $el.data('marker');
-        var latlng = markers[marker].getPosition();
-
         if (screenSize <= 2 && !$('.timeline').hasClass('timeline--mapopen')) {
             $('.header__options-map').trigger('click');
         }
         if (!mapInit) {
             startMap();
+        }
+        if (mapLoaded) {
+            var $el = $(this).closest('.event-item').find('.event-location');
+            var zoom = $el.data('zoom');
+            var marker = $el.data('marker');
+            var latlng = markers[marker].getPosition();
         }
         if (mapLoaded) {
             targetMap(latlng, zoom, marker);
