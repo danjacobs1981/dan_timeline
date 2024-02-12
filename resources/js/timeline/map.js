@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import { classEvents, timelineScrollTo } from './../timeline/scripts';
+import { classEvents, timelineScrollTo } from './../timeline/scripts.js';
 // import ScrollMagic from 'scrollmagic';
 import * as resizable from 'jquery-resizable-dom';
 import { Loader } from '@googlemaps/js-api-loader';
-import { screenSize } from './../global';
+import { screenSize } from './../global.js';
 
 let map;
 let mapInit = 0;
