@@ -187,7 +187,7 @@
     }
     &>figure {
         margin: 0;
-        height: 32vh;
+        height: 47.5vh;
         max-height: calc(100vh - 10rem);
         position: fixed;
         bottom: 6.75rem;
@@ -195,7 +195,7 @@
         width: 100%;
         z-index: 30;
         transition: transform 0.5s ease;
-        transform: translateY(calc(32vh + 6.75rem)); // 108px
+        transform: translateY(calc(47.5vh + 6.75rem)); // 108px
         &>.loading {
             position: absolute;
             background: var(--greyMedium);
