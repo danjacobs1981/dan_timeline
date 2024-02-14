@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import ScrollMagic from 'scrollmagic';
 import { screenSize, urlParams } from './../global';
-import { loadMarkers, mapLoaded, mapSync, targetMap, markers } from './../timeline/map';
+import { loadMarkers, mapLoaded, mapSync, getMapClick, setMapClick, targetMap, markers } from './../timeline/map';
 
 var topHeight = getTopHeight()
 
@@ -251,7 +251,7 @@ function scrollEvents() {
     var controller = new ScrollMagic.Controller();
     $('.events-wrapper .event-item').each(function() {
         new ScrollMagic.Scene({
-                offset: (-topHeight) - 124,
+                offset: (-topHeight) - 140,
                 triggerElement: $(this)[0],
             })
             .triggerHook(0)
@@ -271,15 +271,27 @@ function scrollEvents() {
     });
 }
 
+var timer;
+
 function updateTimeline(direction, $targetEl) {
+
     $('.event-item').removeClass('active');
     $targetEl.addClass('active');
 
+    clearTimeout(timer);
+
     if (mapLoaded && mapSync && $targetEl.find('.event-location').length) {
-        var zoom = $targetEl.find('.event-location').data('zoom');
-        var marker = $targetEl.find('.event-location').data('marker');
-        var latlng = markers[marker].getPosition();
-        targetMap(latlng, zoom, marker);
+        if (!getMapClick()) {
+            timer = setTimeout(function() {
+                var zoom = $targetEl.find('.event-location').data('zoom');
+                var marker = $targetEl.find('.event-location').data('marker');
+                var latlng = markers[marker].getPosition();
+                targetMap(latlng, zoom, marker);
+            }, 1000);
+        } else {
+            setMapClick(0);
+        }
+
     }
 
     var $element_title = $targetEl.closest('section').find('.event-title');

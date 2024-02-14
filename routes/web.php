@@ -50,6 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
             // ajax routes for timeline actions (background saving)
             Route::put('/timelines/{timeline}/settings', 'Portal\TimelineEditController@settings');
+            Route::post('/timelines/{timeline}/about', 'Portal\TimelineEditController@about');
             Route::put('/timelines/{timeline}/privacy', 'Portal\TimelineEditController@privacy');
             Route::put('/timelines/{timeline}/privacy/share', 'Portal\TimelineEditController@privacyShare');
 

@@ -28,9 +28,9 @@
                                 <div class="event-location" itemprop="location" itemscope itemtype="https://schema.org/Place" data-marker="{{ $marker }}" data-zoom="{{ $event->location_zoom }}" data-lat="{{ $event->location_lat }}" data-lng="{{ $event->location_lng }}">
                                     <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                                         @if($event->location_zoom > 16)
-                                            <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">At {{ $event->location }}</span>
+                                            <i class="fas fa-map-marker-alt"></i><span itemprop="addressLocality">{{ $event->location }}</span>
                                         @else
-                                            <i class="fas fa-map-pin"></i><span itemprop="addressLocality">In {{ $event->location }}</span>
+                                            <i class="fas fa-map-pin"></i><span itemprop="addressLocality">{{ $event->location }}</span>
                                         @endif
                                     </p>
                                     <a itemprop="hasMap" itemtype="https://schema.org/Map" href="this url to this event loc on map">Map</a>

@@ -35,6 +35,7 @@ export default defineConfig({
                 'resources/js/portal/scripts.js',
                 'resources/js/portal/timeline/edit.js',
                 'resources/js/portal/timeline/settings.js',
+                'resources/js/portal/timeline/about.js',
                 'resources/js/portal/timeline/privacy.js',
                 'resources/js/portal/timeline/privacy-share.js',
                 'resources/js/portal/timeline/event/create-edit.js',

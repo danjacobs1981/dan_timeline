@@ -4,11 +4,11 @@ import $ from 'jquery';
 $(document).on('click', '.timelineSettings button', function(e) {
     var timeline_id = $(this).data('id');
     var $form = $('.timelineSettings');
-    // show spinner on button
-    $('.timelineSettings button').prop("disabled", true);
+    $('.timelineSettings button').addClass('loading').prop("disabled", true);
     var data = {
         'title': $('.timelineSettings #title').val(),
         'map': +$('.timelineSettings #map').prop('checked'), // boolean (checkbox) - the + makes integers
+        'map_satellite': +$('.timelineSettings #map_satellite').prop('checked'),
         'comments': +$('.timelineSettings #comments').prop('checked'),
         'comments_event': +$('.timelineSettings #comments_event').prop('checked'),
         'filter': +$('.timelineSettings #filter').prop('checked'),
@@ -23,14 +23,14 @@ $(document).on('click', '.timelineSettings button', function(e) {
         data: data,
         dataType: 'json',
     }).done(function(response) {
-        $('.timelineSettings button').text('Saved!');
+        $('.timelineSettings button').removeClass('loading').text('Saved!');
         if ($('.edit__section h1').length) {
             $('.edit__section h1').text(data['title']);
         }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         var errorData = JSON.parse(jqXHR.responseText);
         mapErrorsToForm(errorData.errors, $form);
-        $('.timelineSettings button').prop("disabled", false);
+        $('.timelineSettings button').removeClass('loading').prop("disabled", false);
     }).always(function() {
 
     });

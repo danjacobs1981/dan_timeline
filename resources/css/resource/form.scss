@@ -522,11 +522,17 @@ input {
                         margin-bottom: 0.5rem;
                         display: block;
                     }
+                    &>img {
+                        border-radius: 0.188rem;
+                        display: block;
+                    }
                     &>div {
-                        border-radius: 3px;
+                        border-radius: 0.188rem;
                         background: var(--greyLight);
                         background-size: cover;
                         background-repeat: no-repeat;
+                        width: 100%;
+                        height: auto;
                     }
                     &.thumbnail {
                         &>div {

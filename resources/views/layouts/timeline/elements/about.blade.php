@@ -10,9 +10,30 @@
         </span>
     </div>
     <div class="reveal__body">
-        <p>Timeline: {{ $timeline->title }}</p>
-        <em>
-            by <strong><a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">{{ $timeline->user->username }}</a></strong> <span>&plus; <span>2 collaborators</span></span>
-        </em>
+        <div>
+            @if($timeline->image)
+                <img src="{{ asset('storage/images/timeline/'.$timeline->id.'/'.$timeline->image) }}" alt="{{ html_entity_decode($timeline->title) }}">
+            @endif
+            <div>
+                <h2>
+                    {{ $timeline->map ? 'Visual Timeline:' : 'Timeline:' }} {{ $timeline->title }}
+                </h2>
+                <em>
+                    by <strong><a href="{{ route('profile.show', ['username' => $timeline->user->username ]) }}">{{ $timeline->user->username }}</a></strong> <span>&plus; <span>2 collaborators</span></span>
+                </em>
+                <span>
+                    Last updated: XXX
+                </span>
+                <div>
+                    @if($timeline->description)
+                        {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $timeline->description))).'</p>') !!}
+                    @else
+                        <p>
+                            Generated summary...
+                        </p>
+                    @endif
+                </div>
+            </div>    
+        </div>
     </div>
 </div>

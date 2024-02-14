@@ -65,24 +65,24 @@ function CreateEditEvent() {
     });
 
     // add image
-    $('input[type=file]').on('change', function() {
+    $('.eventDetails input[type=file]').on('change', function() {
         $(this).hide();
         $(this).next().filter('.control__error').remove();
-        $('input[name="image_delete"]').val(0);
+        $('.eventDetails input[name="image_delete"]').val(0);
         var file = this.files[0];
         displayPreview(file);
     });
 
     // remove image
-    $('.image-preview>a').on('click', function(e) {
+    $('.eventDetails .image-preview>a').on('click', function(e) {
         e.preventDefault();
-        $('input[type="file"]').val('').show();
-        $('input[name="image_delete"]').val(1);
-        $('.image-preview').hide();
+        $('.eventDetails input[type="file"]').val('').show();
+        $('.eventDetails input[name="image_delete"]').val(1);
+        $('.eventDetails .image-preview').hide();
     });
 
     // position bg image
-    $('.image-preview select').on('change', function() {
+    $('.eventDetails .image-preview select').on('change', function() {
         $('.' + $(this).data('image') + ' .input-event-image').css('background-position', $(this).val());
     });
 
@@ -94,22 +94,22 @@ function CreateEditEvent() {
             // file size in kb
             var fileSize = Math.round(files.size / 1024);
             if (fileSize > 4096) {
-                $('input[type="file"]').val('').show();
-                $('input[name="image_delete"]').val(1);
-                $('input[type=file]').after('<span class="control__error">The file size is too large (' + fileSize + 'kb) - please use a different image.</span>');
+                $('.eventDetails input[type="file"]').val('').show();
+                $('.eventDetails input[name="image_delete"]').val(1);
+                $('.eventDetails input[type=file]').after('<span class="control__error">The file size is too large (' + fileSize + 'kb) - please use a different image.</span>');
             } else {
                 img.onload = function() {
-                    $('.input-event-image').css('background-image', 'url(' + img.src + ')');
-                    $('.image-preview select, .image-preview select>option').show();
-                    $('.image-preview select').val('50% 50%').trigger('change');
+                    $('.eventDetails .input-event-image').css('background-image', 'url(' + img.src + ')');
+                    $('.eventDetails .image-preview select, .image-preview select>option').show();
+                    $('.eventDetails .image-preview select').val('50% 50%').trigger('change');
                     if (this.width == this.height) { // square
-                        $('select[name="image_thumbnail"]').val('50% 50%').trigger('change').hide();
+                        $('.eventDetails select[name="image_thumbnail"]').val('50% 50%').trigger('change').hide();
                     } else if (this.width > this.height) { // wide
-                        $('select[name="image_thumbnail"]>option[data-type="tall"]').hide();
+                        $('.eventDetails select[name="image_thumbnail"]>option[data-type="tall"]').hide();
                     } else { // tall
-                        $('select[name="image_thumbnail"]>option[data-type="wide"]').hide();
+                        $('.eventDetails select[name="image_thumbnail"]>option[data-type="wide"]').hide();
                     }
-                    $('.image-preview').show();
+                    $('.eventDetails .image-preview').show();
                 };
 
             }

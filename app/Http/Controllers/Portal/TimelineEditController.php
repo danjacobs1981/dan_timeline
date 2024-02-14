@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Portal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Models\Timeline;
@@ -12,6 +13,8 @@ use App\Models\Select;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+
+use Image;
 
 class TimelineEditController extends Controller
 {
@@ -33,6 +36,7 @@ class TimelineEditController extends Controller
                             'unique:timelines,title,'.$timeline->id
                         ],
                         'map' => 'boolean',
+                        'map_satellite' => 'boolean',
                         'comments' => 'boolean',
                         'comments_event' => 'boolean',
                         'social' => 'boolean',
@@ -67,6 +71,74 @@ class TimelineEditController extends Controller
                 return response()->json([
                     'status'=> 200,
                     'message' => 'Settings updated successfully',
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status'=> 401,
+                    'message' => 'Authentication error',
+                ]);
+
+            }
+
+        }
+        
+    }
+
+    public function about(Timeline $timeline, Request $request)
+    {
+
+        //dd($request->all());
+
+        // ajax for timeline settings
+        if($request->ajax()){
+        
+            if ($timeline && $timeline->user_id === auth()->user()->id) {
+
+                $data = $request->validate(
+                    [
+                        'description' => 'nullable|max:1000',
+                        'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:4096',
+                    ],
+                    $messages = [
+                        //'title.required' => 'The timeline requires a title',
+                    ]
+                );
+
+                // image
+                $image_delete = 0;
+                $data['image'] = $timeline->image;
+                if ($timeline->image && $request->image_delete) {
+                    $image_delete = 1;
+                    $data['image'] = null;
+                }
+                if ($request->hasFile('image')) {
+                    $image = $request->image;
+                    $data['image'] = time().'_'.$image->getClientOriginalName();
+                    $path = 'public/images/timeline/'.$timeline->id.'/';
+                    $file_extension = $image->getClientOriginalExtension();
+                    $image_file = Image::make($image)->resize(380, 380, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->encode($file_extension);
+                    Storage::put($path.$data['image'], (string)$image_file, 'public');
+                    $image_delete = 1;
+                }
+                // delete old image
+                if ($image_delete) {
+                    $old_image_path = 'public/images/timeline/'.$timeline->id.'/'.$timeline->image;
+                    if (Storage::exists($old_image_path)) {
+                        Storage::delete($old_image_path);
+                    }
+                }
+
+                $data['description'] = strip_tags($data['description']);
+
+                $timeline->update($data);
+
+                return response()->json([
+                    'status'=> 200,
+                    'message' => 'About updated successfully',
                 ]);
 
             } else {

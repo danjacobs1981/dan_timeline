@@ -69,6 +69,11 @@
                 <input type="checkbox" name="map" id="map" value="1" {{ old('map', $timeline->map) ? 'checked' : '' }}>
                 <div></div>
             </label>
+            <label class="control__label" for="map_satellite">Default to satellite view
+                <input type="hidden" name="map_satellite" value="0">
+                <input type="checkbox" name="map_satellite" id="map_satellite" value="1" {{ old('map_satellite', $timeline->map_satellite) ? 'checked' : '' }}>
+                <div></div>
+            </label>
             <p>Hiding the map will also hide any event buttons that are referenced to it. If no events utilise a map marker then it is hidden by default.</p>
         </div>
 

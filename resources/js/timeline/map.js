@@ -12,10 +12,19 @@ let mapFirstRun = 0;
 let infoWindow;
 export let markers = [];
 export let mapSync = 1;
+let mapClick = 0;
+export const getMapClick = () => mapClick;
+export const setMapClick = (val) => (mapClick = val);
 
 function startMap() {
 
     mapInit = 1;
+
+    let mapType = 'roadmap';
+
+    if ($('#map').data('satellite') == 1) {
+        mapType = 'hybrid';
+    }
 
     const loader = new Loader({
         apiKey: import.meta.env.VITE_GOOGLE_API,
@@ -28,7 +37,7 @@ function startMap() {
         maxZoom: 19,
         minZoom: 1,
         mapId: "53cedd9afde08104",
-        //mapTypeId: "hybrid",
+        mapTypeId: mapType,
         disableDefaultUI: true,
         options: {
             gestureHandling: 'greedy',
@@ -175,9 +184,11 @@ export function start() {
             }
             $('.event-item[data-marker="' + marker + '"]').addClass('highlight');
         } else if (action == 'details') {
+            mapClick = 1;
             var $targetEl = $('.event-item[data-marker="' + marker + '"]');
             timelineScrollTo($targetEl);
         } else if (action == 'event') {
+            mapClick = 1;
             if ($(this).data('direction') == 'previous') {
                 marker = marker - 1;
             } else {
