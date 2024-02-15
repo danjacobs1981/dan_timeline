@@ -106,11 +106,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get('/retrieve/title', 'Portal\RetrieveController@title');
 
             Route::group(['middleware' => 'god'], function () {
-                
                 Route::get('/god', 'Portal\GodController@index')->name('god.show');
                 Route::put('/god/users/{action}', 'Portal\GodController@users')->name('god.users');
                 Route::put('/god/timelines/{action}', 'Portal\GodController@timelines')->name('god.timelines');
-
             });
 
         });
@@ -125,11 +123,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     // ajax routes for timeline content
     Route::get('/timeline/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
-    //Route::get('/timeline/{timeline}/markers', 'TimelineController@markers')->name('timeline.markers.ajax');
-    //Route::get('/timeline/{timeline}/tags', 'TimelineController@tags')->name('timeline.tags.ajax');
     Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
     
     Route::post('/timeline/{timeline}/like', 'TimelineController@like')->name('timeline.like.ajax');
     Route::post('/timeline/{timeline}/save', 'TimelineController@save')->name('timeline.save.ajax');
+    
+    Route::get('/timeline/{timeline}/suggest-edit/{event?}', 'TimelineController@showModalEdit')->name('timeline.edit.showModal');
+    Route::get('/timeline/{timeline}/report/{event?}', 'TimelineController@showModalReport')->name('timeline.report.showModal');
 
 });

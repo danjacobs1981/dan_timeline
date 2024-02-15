@@ -112,7 +112,9 @@
                         <div class="dropdown" data-backdrop data-position-x="right" data-position-y="top">
                             <ul>
                                 <li>
-                                    <a href="#"><i class="fa-solid fa-pencil"></i>Suggest an edit</a>
+                                    <a data-modal data-modal-class="modal-suggest-edit" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.edit.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                        <i class="fa-solid fa-pencil"></i>Suggest an edit
+                                    </a>
                                 </li>
                                 @if($event->timeline->collab)
                                     <li>
@@ -121,7 +123,9 @@
                                 @endif
                                 <span></span>
                                 <li>
-                                    <a href="#"><i class="fa-solid fa-circle-exclamation"></i>Report</a>
+                                    <a data-modal data-modal-class="modal-suggest-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                        <i class="fa-solid fa-circle-exclamation"></i>Report
+                                    </a>
                                 </li>
                             </ul>
                         </div>

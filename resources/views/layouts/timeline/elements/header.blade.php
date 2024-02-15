@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a data-modal data-modal-class="modal-suggest-edit" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.edit.showModal', [ 'timeline' => $timeline->id ]) }}">
                                 <i class="fa-solid fa-pencil"></i>Suggest an edit
                             </a>
                         </li>
@@ -76,7 +76,7 @@
                         @endif
                         <span></span>
                         <li>
-                            <a href="#">
+                            <a data-modal data-modal-class="modal-suggest-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}">
                                 <i class="fa-solid fa-circle-exclamation"></i>Report
                             </a>
                         </li>

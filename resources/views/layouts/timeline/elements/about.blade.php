@@ -1,12 +1,7 @@
-@inject('carbon', 'Carbon\Carbon')
 @push('stylesheets')
     @vite('resources/css/about.scss')
 @endpush
-@php
-    $date = $timeline->events->sortBy('order_overall')->value('date_unix');
-    $start_date = $carbon::createFromTimestamp($timeline->events->sortBy('order_overall')->value('date_unix'))->format('jS F Y');
-    $end_date = $carbon::createFromTimestamp($timeline->events->sortByDesc('order_overall')->value('date_unix'))->format('jS F Y');
-@endphp
+
 <div class="reveal__wrapper">
     <div class="reveal__header">
         <strong>About</strong>
@@ -35,22 +30,16 @@
                         {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $timeline->description))).'</p>') !!}
                     @else
                         <p>
-                            @if($date)
-                                @if($start_date === $end_date)
-                                    The timeline of events that happened on the {{ $start_date }}.
-                                @else
-                                    The timeline of events that spanned between the {{ $start_date }} and the {{ $end_date }}.
-                                @endif
-                            @else
-                                A timeline of events.
-                            @endif
+                            {{ $summary }}.
                         </p>
                     @endif
                 </div>
                 <!-- this is all sources - should only be used sources -->
                 @if($timeline->sources->count())
                     <div>
-                        <strong>Timeline Sources</strong>
+                        <strong>
+                            Sources
+                        </strong>
                         <ul>
                             @foreach($timeline->sources as $source) 
                                 <li>
@@ -60,6 +49,31 @@
                         </ul>
                     </div>
                 @endif
+                <div>
+                    <strong>
+                        Editing
+                    </strong>
+                    <div>
+                        <a data-modal data-modal-class="modal-suggest-edit" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.edit.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
+                            <i class="fa-solid fa-pencil"></i>Suggest an edit
+                        </a>
+                        @if($timeline->collab)
+                            <a href="#" class="btn btn-outline">
+                                <i class="fa-solid fa-user-group"></i>Request to collaborate
+                            </a>
+                        @endif                  
+                    </div>
+                </div>
+                <div>
+                    <strong>
+                        Report Timeline
+                    </strong>
+                    <div>
+                        <a data-modal data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
+                            <i class="fa-solid fa-circle-exclamation"></i>Report
+                        </a>
+                    </div>
+                </div>
             </div>    
         </div>
     </div>

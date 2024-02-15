@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 
 use App\Models\Timeline;
@@ -13,9 +12,10 @@ use App\Models\Share;
 use App\Models\Like;
 use App\Models\Save;
 
-use App\Mail\AmazonSESMail;
-use Illuminate\Support\Facades\Mail;
+//use App\Mail\AmazonSESMail;
+//use Illuminate\Support\Facades\Mail;
 
+use Carbon\Carbon;
 use Config;
 
 class TimelineController extends Controller
@@ -28,12 +28,25 @@ class TimelineController extends Controller
 
         if ($timeline->privacy > 1 || checkCanViewTimeline($timeline->user_id, $timeline->id)) { 
 
+            $date = $timeline->events->sortBy('order_overall')->value('date_unix');
+            $start_date = Carbon::createFromTimestamp($timeline->events->sortBy('order_overall')->value('date_unix'))->format('jS F Y');
+            $end_date = Carbon::createFromTimestamp($timeline->events->sortByDesc('order_overall')->value('date_unix'))->format('jS F Y');
+
+            $summary = 'A visual timeline of events';
+
+            if ($date) {
+                if($start_date === $end_date) {
+                    $summary = 'A visual timeline of events that happened on the '.$start_date;
+                } else {
+                    $summary = 'A visual timeline of events that spanned between the '.$start_date.' and the '.$end_date;
+                }
+            }
+
             // set head items
-            Config::set('constants.head.title', 'Visual timeline of events: '.$timeline->title);
-            // desc: A visual timeline of events spanning from 2002 to 2004.
-            // desc: A visual timeline of events that happend on January 31st 2024.
-            // desc: A visual timeline of events that happend during January 2024.
-            Config::set('constants.head.link_canonical', config('constants.website.url_full').'/'.$timeline->id);
+            Config::set('constants.head.title', 'Timeline: '.$timeline->title.' | A Visual Timeline of Events');
+            Config::set('constants.head.meta_title', 'Timeline: '.$timeline->title.' | A Visual Timeline of Events');
+            Config::set('constants.head.meta_description', $summary.' - '.$timeline->title.'.');
+            Config::set('constants.head.link_canonical', config('constants.website.url_full').'/'.$timeline->id.'/'.$timeline->slug);
 
             if ($request->query('share')) {
                 // dd($request->query('share'));
@@ -51,7 +64,7 @@ class TimelineController extends Controller
             
             //dd($tags);
 
-            return view('layouts.timeline.pages.timeline', [ 'timeline' => $timeline, 'tags' => $tags ]);
+            return view('layouts.timeline.pages.timeline', [ 'timeline' => $timeline, 'tags' => $tags, 'summary' => $summary ]);
 
         } else {
 
@@ -98,6 +111,26 @@ class TimelineController extends Controller
             ));
 
         }
+
+    }
+
+    public function showModalEdit(Timeline $timeline)
+    {
+
+        $modal_title = 'Suggest an edit';
+        $modal_buttons = array('close' => 'Cancel', 'action' => 'Suggest Edit', 'form' => 'formEdit');
+        $route = 'layouts.timeline.snippets.modal.edit';
+        return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
+
+    }
+
+    public function showModalReport(Timeline $timeline)
+    {
+
+        $modal_title = 'Report Timeline';
+        $modal_buttons = array('close' => 'Cancel', 'action' => 'Report', 'form' => 'formReport');
+        $route = 'layouts.timeline.snippets.modal.report';
+        return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
 
     }
 
