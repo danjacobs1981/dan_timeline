@@ -1054,8 +1054,9 @@ h6 {
         top: 0;
         background: #fff;
         border-bottom: 1px solid #d3d3d3;
-        padding: 10.5px 1rem;
+        padding: 0 1rem;
         z-index: 2;
+        min-height: 50px;
         &>strong {
             font-size: 1.094rem;
         }
@@ -1110,7 +1111,8 @@ h6 {
             }
         }
         &__header {
-            padding: 11.5px 1rem;
+            padding: 0 1rem;
+            min-height: 60px;
             &>strong {
                 font-size: 1.125rem;
             }
@@ -1124,7 +1126,7 @@ h6 {
     }
     @media (min-width: 992px) {
         &__header {
-            padding: 11.5px 1.25rem;
+            padding: 0 1.25rem;
         }
         &__body {
             padding: 1.25rem;

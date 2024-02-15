@@ -459,6 +459,8 @@ class TimelineEditController extends Controller
             
             }
 
+            $timeline->touch(); // updates updated_at
+
             return response()->json([
                 'status'=> 200,
                 'message' => 'Timeline events reordered'

@@ -383,7 +383,10 @@ class TimelineEventController extends Controller
 
                     // update the event
                     $event->update($data);
-                    //Event::where('timeline_id', $timeline_id)->where('id', $event->id)->update($data);
+
+                    if (!$dateChange) {
+                        $timeline->touch(); // updates updated_at (no processing happens here, so update timeline date)
+                    }
 
                     return response()->json([
                         'status'=> 200,
