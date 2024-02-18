@@ -6,6 +6,11 @@
 </div>
 @endisset
 <div class="modal-body scrollbar">
+    @if(isset($incentive))
+        <p>
+            {{ $incentive }}
+        </p>
+    @endif
     @include($route, isset($routeParams) ? $routeParams : array('modal' => true))
 </div>
 @isset($modal_buttons)

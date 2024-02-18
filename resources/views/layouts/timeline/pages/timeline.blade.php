@@ -46,7 +46,7 @@
     
     @guest
         <div class="modal" id="modal-signup">
-            @include('layouts.modal.master', [ 'route' => 'layouts.global.snippets.modal.login-register', 'modal_title' => 'Log In or Register', 'show' => 'login', 'incentive' => true ])
+            @include('layouts.modal.master', [ 'route' => 'layouts.global.snippets.modal.login-register', 'modal_title' => 'Log In or Register', 'show' => 'login', 'incentive' => 'You must log in to like or save...' ])
         </div>
     @endguest
 

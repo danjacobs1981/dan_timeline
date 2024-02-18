@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 @push('stylesheets')
-    @vite('resources/css/portal.scss')
+    @vite('resources/css/portal/styles.scss')
     @vite('resources/css/resource/form.scss')
     @vite('resources/css/plugin/tagify.css')
 @endpush

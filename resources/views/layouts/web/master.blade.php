@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 @push('stylesheets')
-    @vite('resources/css/web.scss')
+    @vite('resources/css/web/styles.scss')
 @endpush
 
 @include('layouts.global.head')

@@ -61,7 +61,6 @@
             </div>
         @endif
 
-
         <div class="control control--checkbox">
             <span class="control__label">Map</span>
             <label class="control__label" for="map">Show map

@@ -1,7 +1,3 @@
-@if(isset($incentive))
-<p>LOGIN / REGISTER TO LIKE OR SAVE</p>
-@endif
-
 <div class="" style="{{ $show == 'register' ? 'display:none;' : '' }}">
     @include('layouts.global.snippets.login')
     <p>

@@ -1,5 +1,5 @@
 @push('stylesheets')
-    @vite('resources/css/comments.scss')
+    @vite('resources/css/timeline/comments.scss')
 @endpush
 @push('scripts')
     @vite('resources/js/timeline/comments.js')

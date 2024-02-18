@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 @push('stylesheets')
-    @vite('resources/css/timeline.scss')
+    @vite('resources/css/timeline/styles.scss')
 @endpush
 
 @include('layouts.global.head')

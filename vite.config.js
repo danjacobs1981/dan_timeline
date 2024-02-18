@@ -9,13 +9,13 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/global.scss', /* imports modal.css */
-                'resources/css/web.scss',
-                'resources/css/timeline.scss',
-                'resources/css/about.scss',
-                'resources/css/map.scss',
-                'resources/css/comments.scss',
-                'resources/css/filters.scss',
-                'resources/css/portal.scss',
+                'resources/css/web/styles.scss',
+                'resources/css/timeline/styles/.scss',
+                'resources/css/timeline/about.scss',
+                'resources/css/timeline/map.scss',
+                'resources/css/timeline/comments.scss',
+                'resources/css/timeline/filters.scss',
+                'resources/css/portal/styles.scss',
                 'resources/css/portal/timeline/edit.scss',
                 'resources/css/portal/timeline/event/create-edit.scss',
                 'resources/css/portal/timeline/group/create-edit.scss',
@@ -32,6 +32,8 @@ export default defineConfig({
                 'resources/js/timeline/map.js', /* imports jquery-resizable-dom */
                 'resources/js/timeline/comments.js',
                 'resources/js/timeline/filters.js',
+                'resources/js/timeline/suggestion.js',
+                'resources/js/timeline/report.js',
                 'resources/js/portal/scripts.js',
                 'resources/js/portal/timeline/edit.js',
                 'resources/js/portal/timeline/settings.js',

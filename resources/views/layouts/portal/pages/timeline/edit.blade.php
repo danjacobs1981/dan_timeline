@@ -52,6 +52,9 @@
                             <a href="#comments-tab">Comments</a>
                         </li>
                         <li>
+                            <a href="#suggestions-tab">Suggestions</a>
+                        </li>
+                        <li>
                             <a href="#collaborators-tab">Collaborators</a>
                         </li>
                         <li>
@@ -98,6 +101,12 @@
                     <section id="comments-tab" class="edit__tab" style="display:none;">
 
                         @include('layouts.portal.snippets.timeline-comments')
+
+                    </section>
+
+                    <section id="suggestions-tab" class="edit__tab" style="display:none;">
+
+                        @include('layouts.portal.snippets.timeline-suggestions')
 
                     </section>
 

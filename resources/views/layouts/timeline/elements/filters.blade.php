@@ -1,5 +1,5 @@
 @push('stylesheets')
-    @vite('resources/css/filters.scss')
+    @vite('resources/css/timeline/filters.scss')
 @endpush
 @push('scripts')
     @vite('resources/js/timeline/filters.js')

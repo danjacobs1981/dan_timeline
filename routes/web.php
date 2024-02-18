@@ -125,10 +125,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/timeline/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
     Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
     
-    Route::post('/timeline/{timeline}/like', 'TimelineController@like')->name('timeline.like.ajax');
-    Route::post('/timeline/{timeline}/save', 'TimelineController@save')->name('timeline.save.ajax');
+    Route::post('/timeline/{timeline}/like', 'TimelineController@like');
+    Route::post('/timeline/{timeline}/save', 'TimelineController@save');
     
-    Route::get('/timeline/{timeline}/suggest-edit/{event?}', 'TimelineController@showModalEdit')->name('timeline.edit.showModal');
+    Route::post('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@suggestion');
+    Route::post('/timeline/{timeline}/report/{event?}', 'TimelineController@report');
+    
+    Route::get('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@showModalSuggestion')->name('timeline.suggestion.showModal');
     Route::get('/timeline/{timeline}/report/{event?}', 'TimelineController@showModalReport')->name('timeline.report.showModal');
 
 });

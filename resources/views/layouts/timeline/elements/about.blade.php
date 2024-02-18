@@ -1,5 +1,5 @@
 @push('stylesheets')
-    @vite('resources/css/about.scss')
+    @vite('resources/css/timeline/about.scss')
 @endpush
 
 <div class="reveal__wrapper">
@@ -54,7 +54,7 @@
                         Editing
                     </strong>
                     <div>
-                        <a data-modal data-modal-class="modal-suggest-edit" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.edit.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
+                        <a data-modal data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
                             <i class="fa-solid fa-pencil"></i>Suggest an edit
                         </a>
                         @if($timeline->collab)

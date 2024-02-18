@@ -1,5 +1,5 @@
 @push('stylesheets')
-    @vite('resources/css/map.scss')
+    @vite('resources/css/timeline/map.scss')
 @endpush
 @push('scripts')
     @vite('resources/js/timeline/map-start.js')

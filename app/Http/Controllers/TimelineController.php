@@ -9,6 +9,8 @@ use App\Models\Event;
 use App\Models\Source;
 use App\Models\Tag;
 use App\Models\Share;
+use App\Models\Suggestion;
+use App\Models\Report;
 use App\Models\Like;
 use App\Models\Save;
 
@@ -114,23 +116,124 @@ class TimelineController extends Controller
 
     }
 
-    public function showModalEdit(Timeline $timeline)
+    public function showModalSuggestion(Timeline $timeline, Event $event)
     {
 
-        $modal_title = 'Suggest an edit';
-        $modal_buttons = array('close' => 'Cancel', 'action' => 'Suggest Edit', 'form' => 'formEdit');
-        $route = 'layouts.timeline.snippets.modal.edit';
-        return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
+        if (auth()->check()) {
+
+            $modal_title = 'Suggest Edit';
+            $modal_buttons = array('close' => 'Cancel', 'action' => 'Submit Suggestion');
+            $route = 'layouts.timeline.snippets.modal.suggestion';
+            return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
+
+        } else {
+
+            $show = 'login';
+            $modal_title = 'Log In or Register';
+            $incentive = 'You must log in to suggest edits...';
+            $route = 'layouts.global.snippets.modal.login-register';
+            return view('layouts.modal.master', compact('show', 'modal_title', 'incentive', 'route'));
+
+        }
 
     }
 
-    public function showModalReport(Timeline $timeline)
+    public function showModalReport(Timeline $timeline, Event $event)
     {
 
         $modal_title = 'Report Timeline';
-        $modal_buttons = array('close' => 'Cancel', 'action' => 'Report', 'form' => 'formReport');
+        $modal_buttons = array('close' => 'Cancel', 'action' => 'Report');
         $route = 'layouts.timeline.snippets.modal.report';
-        return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline'));
+        return view('layouts.modal.master', compact('modal_title', 'modal_buttons', 'route', 'timeline', 'event'));
+
+    }
+
+    public function suggestion(Timeline $timeline, Event $event, Request $request) 
+    {
+
+        if ($request->ajax()){
+
+            if (auth()->check()) {
+
+                if ($timeline) {
+
+                    $data = $request->validate(
+                        [
+                            'anonymous' => 'boolean',
+                            'comments' => [
+                                'required',
+                                'string',
+                                'max:1000'
+                            ]
+                        ],
+                        $messages = [
+                            'comments.max' => 'Your suggestion must be 1000 characters or less',
+                        ]
+                    );
+
+                    $data['timeline_id'] = $timeline->id;
+                    $data['event_id'] = $event->id;
+                    $data['user_id'] = auth()->user()->id;
+
+                    Suggestion::create($data);
+
+                    return response()->json(array(
+                        'success' => true
+                    ));
+
+                }
+
+            } else {
+
+                // show modal
+                return response()->json(array(
+                    'success' => false
+                ));
+
+            }
+
+        }
+
+    }
+
+    public function report(Timeline $timeline, Event $event, Request $request) 
+    {
+
+        if ($request->ajax()){
+
+            if ($timeline) {
+
+                $data = $request->validate(
+                    [
+                        'category' => 'string',
+                        'comments' => [
+                            'nullable',
+                            'string',
+                            'max:250'
+                        ]
+                    ],
+                    $messages = [
+                        'comments.max' => 'Your comments must be 1000 characters or less',
+                    ]
+                );
+
+                $data['timeline_id'] = $timeline->id;
+                $data['event_id'] = $event->id;
+
+                if (auth()->check()) {
+                    $data['user_id'] = auth()->user()->id;
+                }
+
+                Report::create($data);
+
+                return response()->json(array(
+                    'success' => true,
+                    'message' => 'Report submitted'
+                ));
+
+            }
+
+        }
 
     }
 
@@ -210,16 +313,6 @@ class TimelineController extends Controller
         }
 
     }
-
-    /*public function tags($timeline_id) 
-    {
-
-        $timeline_tags = Timeline::find($timeline_id)->tags;
-        //dd($timeline_tags);
-
-        return view('layouts.timeline.ajax.tags', ['timeline_tags' => $timeline_tags]);
-
-    }*/
 
 }
 
