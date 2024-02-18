@@ -10,7 +10,7 @@ export default defineConfig({
             input: [
                 'resources/css/global.scss', /* imports modal.css */
                 'resources/css/web/styles.scss',
-                'resources/css/timeline/styles/.scss',
+                'resources/css/timeline/styles.scss',
                 'resources/css/timeline/about.scss',
                 'resources/css/timeline/map.scss',
                 'resources/css/timeline/comments.scss',
