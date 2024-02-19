@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
-import { screenSize } from './../../global.js';
+import { screenSize, setMaxCount, mapErrorsToForm } from './../../global.js';
 
 var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
 
@@ -316,7 +316,7 @@ window.loadSources = function(source_id, event_id, sourcesArrayExists) {
     });
 }
 
-window.setMaxCount = function(outerEl = '') {
+/*window.setMaxCount = function(outerEl = '') {
     $(outerEl + ' [maxlength]').each(function() {
         var $el = $(this);
         var text_max = $el.attr('maxlength');
@@ -336,9 +336,9 @@ window.setMaxCount = function(outerEl = '') {
             $text_update.text(text_length);
         }).on('keyup');
     });
-}
+}*/
 
-window.mapErrorsToForm = function(errorData, $form) {
+/*window.mapErrorsToForm = function(errorData, $form) {
     $form.find('.control__error').remove();
     $form.find('.control').removeClass('control--error');
     $form.find(':input').each(function() {
@@ -355,11 +355,7 @@ window.mapErrorsToForm = function(errorData, $form) {
         $(this).after($error);
         $error.closest('.control').addClass('control--error');
     });
-}
-
-$(document).on('focus', '.control input', function() {
-    $(this).closest('.control').removeClass('control--error').find('.control__error').remove();
-});
+}*/
 
 var topHeight = getTopHeight();
 setLayout();

@@ -112,7 +112,7 @@
                         <div class="dropdown" data-backdrop data-position-x="right" data-position-y="top">
                             <ul>
                                 <li>
-                                    <a data-modal data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                    <a data-modal data-modal-scroll data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
                                         <i class="fa-solid fa-pencil"></i>Suggest an edit
                                     </a>
                                 </li>
@@ -123,7 +123,7 @@
                                 @endif
                                 <span></span>
                                 <li>
-                                    <a data-modal data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                    <a data-modal data-modal-scroll data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.report.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
                                         <i class="fa-solid fa-circle-exclamation"></i>Report
                                     </a>
                                 </li>

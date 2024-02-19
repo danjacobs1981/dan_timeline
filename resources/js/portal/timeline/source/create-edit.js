@@ -1,5 +1,5 @@
 import $ from 'jquery';
-
+import { setMaxCount, mapErrorsToForm } from '../../../global';
 
 CreateEditSource();
 
@@ -85,6 +85,7 @@ function CreateEditSource() {
     var $form = $('#formSourceCreateEdit');
 
     $form.on('submit', function(e) {
+        $('.btn[form="formSourceCreateEdit"]').addClass('loading').prop("disabled", true);
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -98,8 +99,8 @@ function CreateEditSource() {
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             var errorData = JSON.parse(jqXHR.responseText);
-            //console.log(jqXHR.responseText);
             mapErrorsToForm(errorData.errors, $form);
+            $('.btn[form="formSourceCreateEdit"]').removeClass('loading').prop("disabled", false);
         }).always(function() {
             // Always run after .done() or .fail()
         });

@@ -54,7 +54,7 @@
                         Editing
                     </strong>
                     <div>
-                        <a data-modal data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
+                        <a data-modal data-modal-scroll data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
                             <i class="fa-solid fa-pencil"></i>Suggest an edit
                         </a>
                         @if($timeline->collab)
@@ -69,7 +69,7 @@
                         Report Timeline
                     </strong>
                     <div>
-                        <a data-modal data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
+                        <a data-modal data-modal-scroll data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline">
                             <i class="fa-solid fa-circle-exclamation"></i>Report
                         </a>
                     </div>

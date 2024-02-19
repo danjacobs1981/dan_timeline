@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { mapErrorsToForm } from '../../global';
 
 // update settings ajax
 $(document).on('click', '.timelineSettings button', function(e) {

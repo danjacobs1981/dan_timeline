@@ -34,7 +34,7 @@
         </p>
         @if (auth()->user()->premium)
             <p>
-                <a href="{{ route('timelines.groups.create', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
+                <a href="{{ route('timelines.groups.create', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-scroll data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
                     Create New Group
                 </a>
             </p>

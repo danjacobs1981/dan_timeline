@@ -177,7 +177,7 @@
 
                         <div class="control control--textbox">
                             <label class="control__label" for="title">Delete Event</label>
-                            <a href="{{ route('timelines.events.delete.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-event-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+                            <a href="{{ route('timelines.events.delete.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}" class="btn btn-danger" data-modal data-modal-scroll data-modal-class="modal-timeline-event-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                                 <i class="fa-regular fa-trash-can"></i>Delete
                             </a>                            
                             <p>Deleting an event cannot be undone.</p>

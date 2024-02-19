@@ -46,7 +46,7 @@
             <span class="control__label">
                 Delete Group
             </span>
-            <a href="{{ route('timelines.groups.delete.showModal', [ 'timeline' => $timeline->id, 'group' => $group->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-group-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+            <a href="{{ route('timelines.groups.delete.showModal', [ 'timeline' => $timeline->id, 'group' => $group->id ]) }}" class="btn btn-danger" data-modal data-modal-scroll data-modal-class="modal-timeline-group-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                 <i class="fa-regular fa-trash-can"></i>Delete
             </a>                            
         </div>

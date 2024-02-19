@@ -83,7 +83,6 @@ export function start() {
     $(document).on('click', function(e) {
         e.stopPropagation();
         if (!$(e.target).is('.dropdown-toggle') && !$('.dropdown-toggle').has(e.target).length) { /* target not .dropdown-toggle & target not within .dropdown-toggle */
-            //console.log('doc not ddtog');
             closeDropdowns();
         }
     });
@@ -91,7 +90,6 @@ export function start() {
     $(document).on('click', '.dropdown', function(e) {
         e.stopPropagation();
         if ($(e.target).is('a') || $(e.target).closest('a').length) { /* target is 'a' or target within 'a' */
-            //console.log('doc a in dd');
             closeDropdowns();
         }
     });
@@ -166,6 +164,51 @@ export function start() {
         $('.action').removeClass('show');
     });
 
+    $(document).on('focus', '.control :input', function() {
+        $(this).closest('.control').removeClass('control--error').find('.control__error').remove();
+    });
+
+}
+
+export function setMaxCount(outerEl = '') {
+    $(outerEl + ' [maxlength]').each(function() {
+        var $el = $(this);
+        var text_max = $el.attr('maxlength');
+        var text_length = $el.val().length;
+        if ($el.closest('div, form').hasClass('control__multiple')) {
+            $el = $(this).closest('div, form');
+        }
+        $('<p><span>' + text_length + '</span> of ' + text_max + ' characters max.</p>').insertAfter($el);
+        var $text_update = $el.next('p').find('span');
+        $(this).on('keyup', function() {
+            text_length = $(this).val().length;
+            if (text_length == text_max) {
+                $text_update.css('color', 'var(--danger)');
+            } else {
+                $text_update.css('color', 'unset');
+            }
+            $text_update.text(text_length);
+        }).on('keyup');
+    });
+}
+
+export function mapErrorsToForm(errorData, $form) {
+    $form.find('.control__error').remove();
+    $form.find('.control').removeClass('control--error');
+    $form.find(':input').each(function() {
+        var fieldName = $(this).attr('name');
+        if (typeof $(this).data('name') != 'undefined') { // use the actual form field name you want to get errors on
+            fieldName = $(this).data('name');
+        }
+        if (!errorData[fieldName]) {
+            // no error!
+            return;
+        }
+        var $error = $('<span class="control__error"></span>');
+        $error.html('<i class="fa-solid fa-circle-exclamation"></i>' + errorData[fieldName]);
+        $(this).after($error);
+        $error.closest('.control').addClass('control--error');
+    });
 }
 
 function getScreenSize() {

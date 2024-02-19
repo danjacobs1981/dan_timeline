@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li>
-                            <a data-modal data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id ]) }}">
+                            <a data-modal data-modal-scroll data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id ]) }}">
                                 <i class="fa-solid fa-pencil"></i>Suggest an edit
                             </a>
                         </li>
@@ -76,7 +76,7 @@
                         @endif
                         <span></span>
                         <li>
-                            <a data-modal data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}">
+                            <a data-modal data-modal-scroll data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.report.showModal', [ 'timeline' => $timeline->id ]) }}">
                                 <i class="fa-solid fa-circle-exclamation"></i>Report
                             </a>
                         </li>

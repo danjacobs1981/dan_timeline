@@ -82,7 +82,7 @@
             <span class="control__label">
                 Delete Source
             </span>
-            <a href="{{ route('timelines.sources.delete.showModal', [ 'timeline' => $timeline->id, 'source' => $source->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-source-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+            <a href="{{ route('timelines.sources.delete.showModal', [ 'timeline' => $timeline->id, 'source' => $source->id ]) }}" class="btn btn-danger" data-modal data-modal-scroll data-modal-class="modal-timeline-source-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                 <i class="fa-regular fa-trash-can"></i>Delete
             </a>                            
         </div>

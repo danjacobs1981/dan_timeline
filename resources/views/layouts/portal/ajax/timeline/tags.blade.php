@@ -2,7 +2,7 @@
     @foreach($timeline_groups->sortBy('group', SORT_NATURAL|SORT_FLAG_CASE) as $group)
     <div class="tags-group">
         <strong>
-            {{ $group->group }} <a href="{{ route('timelines.groups.edit', [ 'timeline' => $group->timeline_id, 'group' => $group->id ]) }}" data-modal data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false" data-popover="Edit group" data-popover-position="top"><i class="fa-solid fa-pencil"></i></a>
+            {{ $group->group }} <a href="{{ route('timelines.groups.edit', [ 'timeline' => $group->timeline_id, 'group' => $group->id ]) }}" data-modal data-modal-scroll data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false" data-popover="Edit group" data-popover-position="top"><i class="fa-solid fa-pencil"></i></a>
         </strong>
         <ul class="sortable-tags" data-id="{{ $group->id }}">
             @forelse($timeline_tags->where('group_id', $group->id) as $tag)  

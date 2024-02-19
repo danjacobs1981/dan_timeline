@@ -163,7 +163,7 @@
                     <option value="">Other (unassigned)</option>
                 </select>
                 <p>
-                    <a href="{{ route('timelines.groups.create', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
+                    <a href="{{ route('timelines.groups.create', [ 'timeline' => $timeline->id ]) }}" data-modal data-modal-scroll data-modal-class="modal-create-edit-group" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
                         Create New Group
                     </a>
                 </p>
@@ -177,7 +177,7 @@
             <span class="control__label">
                 Delete Tag
             </span>
-            <a href="{{ route('timelines.tags.delete.showModal', [ 'timeline' => $timeline->id, 'tag' => $tag->id ]) }}" class="btn btn-danger" data-modal data-modal-class="modal-timeline-tag-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
+            <a href="{{ route('timelines.tags.delete.showModal', [ 'timeline' => $timeline->id, 'tag' => $tag->id ]) }}" class="btn btn-danger" data-modal data-modal-scroll data-modal-class="modal-timeline-tag-delete modal-delete" data-modal-size="modal-sm" data-modal-showclose="false" data-modal-clickclose="false">
                 <i class="fa-regular fa-trash-can"></i>Delete
             </a>                            
         </div>

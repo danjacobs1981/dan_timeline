@@ -6,7 +6,7 @@
             <label class="control__label" for="timelineSourceURL">Create New Source</label>
             <div class="control__multiple">
                 <input type="text" id="timelineSourceURL" placeholder="Enter the URL of the source" />
-                <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
+                <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-scroll data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
                     <i class="fa-solid fa-circle-plus"></i>Create Source
                 </a>
             </div>
@@ -19,7 +19,7 @@
         </div>
     @elseif($placement == 'event')
         <p>Select sources to feature on the event. Useful and relevant sources can give the event more clarity and weight.</p>
-        <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
+        <a href="{{ route('timelines.sources.create', [ 'timeline' => $timeline->id ]) }}" class="btn btn-outline" data-modal data-modal-scroll data-modal-class="modal-create-edit-source" data-modal-size="modal-md" data-modal-showclose="false" data-modal-clickclose="false">
             <i class="fa-solid fa-circle-plus"></i>Create Source
         </a>
         <input type="hidden" name="sources_changed" value="0" />

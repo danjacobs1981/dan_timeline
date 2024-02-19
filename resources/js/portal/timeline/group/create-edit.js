@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { setMaxCount, mapErrorsToForm } from '../../../global';
 
 CreateEditGroup();
 
@@ -23,6 +24,7 @@ function CreateEditGroup() {
     var $form = $('#formGroupCreateEdit');
 
     $form.on('submit', function(e) {
+        $('.btn[form="formGroupCreateEdit"]').addClass('loading').prop("disabled", true);
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -40,8 +42,8 @@ function CreateEditGroup() {
             loadTags(null, null, tagsArray);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             var errorData = JSON.parse(jqXHR.responseText);
-            //console.log(jqXHR.responseText);
             mapErrorsToForm(errorData.errors, $form);
+            $('.btn[form="formGroupCreateEdit"]').removeClass('loading').prop("disabled", false);
         }).always(function() {
             // Always run after .done() or .fail()
         });

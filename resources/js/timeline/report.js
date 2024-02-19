@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { setMaxCount, mapErrorsToForm } from '../global';
 
 Report();
 
@@ -9,6 +10,8 @@ $(document).on($.modal.OPEN, function(event, modal) {
 });
 
 function Report() {
+
+    setMaxCount('.timelineReport');
 
     $('[data-modal-class="modal-suggestion"]').on('click', function() {
         $.modal.close();
@@ -27,21 +30,25 @@ $(document).on('click', '.modal-report>.modal-buttons>button', function() {
         'category': $('.modal-report input[name="category"]:checked').val(),
         'comments': $('.modal-report textarea[name="comments"]').val()
     }
+    $('.modal-report>.modal-buttons>button').addClass('loading').prop("disabled", true);
     $.ajax({
         type: 'POST',
         url: url,
         data: data,
         dataType: 'json',
         encode: true,
-        success: function(response) {
-            if (response.success) {
-                $.modal.close();
-            } else {
-                // show "error!" for a few seconds
-            }
-        },
-        error: function(xhr) {
-            console.log(xhr.responseText);
+    }).done(function(response) {
+        $('.modal-report>.modal-buttons').hide();
+        if (response.success) {
+            $('.timelineReport').html('<p>Your report has been submitted. You may now <a href="#" rel="modal:close">close this window</a>.</p>');
+        } else {
+            $('.timelineReport').html('<p>Sorry, there has been an error. Please try again later.</p>');
         }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        var errorData = JSON.parse(jqXHR.responseText);
+        mapErrorsToForm(errorData.errors, $('.timelineReport'));
+        $('.modal-report>.modal-buttons>button').removeClass('loading').prop("disabled", false);
+    }).always(function() {
+        // Always run after .done() or .fail()
     });
 });

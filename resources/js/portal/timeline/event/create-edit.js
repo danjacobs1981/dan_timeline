@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { setMaxCount, mapErrorsToForm } from '../../../global';
 
 CreateEditEvent();
 
@@ -143,7 +144,7 @@ function CreateEditEvent() {
         //console.log(JSON.stringify(tagsArray));
         data.append("tags", JSON.stringify(tagsArray));
         sourcesArray.forEach((item) => data.append("sources[]", item));
-        $('.btn[form="formEventCreateEdit"]').addClass('loading');
+        $('.btn[form="formEventCreateEdit"]').addClass('loading').prop("disabled", true);
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -170,9 +171,9 @@ function CreateEditEvent() {
         }).fail(function(jqXHR, textStatus, errorThrown) {
             var errorData = JSON.parse(jqXHR.responseText);
             mapErrorsToForm(errorData.errors, $form);
+            $('.btn[form="formEventCreateEdit"]').removeClass('loading').prop("disabled", false);
         }).always(function() {
             // Always run after .done() or .fail()
-            $('.btn[form="formEventCreateEdit"]').removeClass('loading');
         });
         e.preventDefault();
     });

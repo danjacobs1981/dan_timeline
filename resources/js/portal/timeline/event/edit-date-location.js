@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { mapErrorsToForm } from '../../../global';
 
 EditEventDateLocation();
 
@@ -29,6 +30,7 @@ function EditEventDateLocation() {
     var $form = $('#formEventEditDate');
 
     $form.on('submit', function(e) {
+        $('.btn[form="formEventEditDate"]').addClass('loading').prop("disabled", true);
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
@@ -44,9 +46,9 @@ function EditEventDateLocation() {
             }
             //console.log(response.result);
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            //var errorData = JSON.parse(jqXHR.responseText);
-            //console.log(errorData);
+            var errorData = JSON.parse(jqXHR.responseText);
             mapErrorsToForm(errorData.errors, $form);
+            $('.btn[form="formEventEditDate"]').removeClass('loading').prop("disabled", false);
         }).always(function() {
             // Always run after .done() or .fail()
         });
