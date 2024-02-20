@@ -13,7 +13,8 @@ function Report() {
 
     setMaxCount('.timelineReport');
 
-    $('[data-modal-class="modal-suggestion"]').on('click', function() {
+    // suggestion click
+    $('.modal-report [data-modal]').on('click', function() {
         $.modal.close();
     });
 

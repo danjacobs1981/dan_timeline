@@ -13,11 +13,11 @@
         </span>
     </div>
     <div class="reveal__body">
-        top comments<br/>
-        comments AJAXed<br/>
-        comments<br/>
-        comments<br/>
-        comments<br/>
-        bottom
+        <div class="comments">
+            <div class="loading">
+                <div class="dots"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="comments-wrapper"></div>
+        </div>
     </div>
 </div>

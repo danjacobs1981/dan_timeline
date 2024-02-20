@@ -62,6 +62,19 @@ class Event extends Model
     }
 
     /**
+     * Get all comments for the event.
+    */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function commentsCount()
+    {
+        return $this->comments()->count();
+    }
+
+    /**
      * The sources that belong to the event.
      */
     public function sources()

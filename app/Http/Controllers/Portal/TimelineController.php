@@ -57,8 +57,8 @@ class TimelineController extends Controller
                     'max:250',
                     'unique:timelines,title'
                 ],
-                'comments' => 'boolean',
-                'comments_event' => 'boolean',
+                'comment' => 'boolean',
+                'comment_event' => 'boolean',
             ],
             $messages = [
                 'title.required' => 'The timeline requires a title',

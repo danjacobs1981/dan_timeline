@@ -3,7 +3,9 @@ import ScrollMagic from 'scrollmagic';
 import { screenSize, urlParams } from './../global';
 import { loadMarkers, mapLoaded, mapSync, getMapClick, setMapClick, targetMap, markers } from './../timeline/map';
 
-var topHeight = getTopHeight()
+var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
+
+var topHeight = getTopHeight();
 
 export function start() {
 
@@ -73,6 +75,15 @@ export function start() {
         console.log('view img');
     });
 
+    $('.events').on('click', '[data-reveal="comments"]', function() {
+        var event_id = $(this).closest('.event-item').data('id');
+        loadComments(event_id);
+    });
+
+    $('li.header__options-comments').on('click', function() {
+        loadComments(null);
+    });
+
     /* like & save */
     $('li.header__options-like, li.header__options-save').on('click', function() {
         var $el = $(this);
@@ -83,7 +94,7 @@ export function start() {
         }
         $.ajax({
             type: 'POST',
-            url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/' + type,
+            url: '/timeline/' + timeline_id + '/' + type,
             dataType: 'json',
         }).done(function(response) {
             window.setTimeout(function() {
@@ -183,7 +194,7 @@ export function loadEvents(share, tags) {
     var data = { share: share, tags: tags };
     xhr_events = $.ajax({
         type: 'GET',
-        url: '/timeline/' + $('meta[name="timeline"]').attr('content') + '/events',
+        url: '/timeline/' + timeline_id + '/events',
         data: data,
         dataType: 'json',
         encode: true,
@@ -201,6 +212,29 @@ export function loadEvents(share, tags) {
         } else {
             $('.filter__show').text('Show ' + response.events_count + ' results');
         }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseText);
+    }).always(function() {
+        // Always run after .done() or .fail()
+    });
+}
+
+export function loadComments(event) {
+    $('.comments .comments-wrapper').html('');
+    $('.comments .loading').show();
+    var url = '/timeline/' + timeline_id + '/comments';
+    if (event) {
+        url = '/timeline/' + timeline_id + '/comments/' + event;
+    }
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'json',
+        encode: true,
+    }).done(function(response) {
+        $('.comments-wrapper').html(response.comments_html).promise().done(function() {
+            $('.comments .loading').fadeOut();
+        });
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
     }).always(function() {

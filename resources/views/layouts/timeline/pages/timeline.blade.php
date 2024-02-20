@@ -32,7 +32,7 @@
                     @include('layouts.timeline.elements.filters')
                 </div>
             @endif
-            @if($timeline->comments)
+            @if($timeline->comment)
                 <div id="comments" class="reveal">
                     @include('layouts.timeline.elements.comments')
                 </div>

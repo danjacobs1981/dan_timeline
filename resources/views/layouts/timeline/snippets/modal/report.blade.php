@@ -5,7 +5,7 @@
     </p>
 
     <p>
-        There is also the option to suggest to the timeline creator to make an edit. This may be a good first-port-of-call to get any issues you may have resolved. <a data-modal data-modal-scroll data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}">Click here to suggest an edit</a>.
+        There is also the option to suggest to the timeline creator to make an edit. This may be a good first-port-of-call to get any issues you may have resolved. <a data-modal data-modal-scroll data-modal-class="{{ $event->id ? 'modal-suggestion modal-suggestion-event' : 'modal-suggestion'}}" data-modal-size="modal-md" data-modal-showclose="true" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $timeline->id, 'event' => $event->id ]) }}">Click here to suggest an edit</a>.
     </p>
 
     <input type="hidden" name="timeline_id" value="{{ $timeline->id }}" />

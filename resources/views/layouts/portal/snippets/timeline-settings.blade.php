@@ -82,14 +82,14 @@
 
         <div class="control control--checkbox">    
             <span class="control__label">Comments</span>
-            <label class="control__label" for="comments">Show comments
-                <input type="hidden" name="comments" value="0">
-                <input type="checkbox" name="comments" id="comments" value="1" {{ old('comments', $timeline->comments) ? 'checked' : '' }}>
+            <label class="control__label" for="comment">Show comments
+                <input type="hidden" name="comment" value="0">
+                <input type="checkbox" name="comment" id="comment" value="1" {{ old('comment', $timeline->comment) ? 'checked' : '' }}>
                 <div></div>
             </label>
-            <label class="control__label" for="comments_event">Show comments per event
-                <input type="hidden" name="comments_event" value="0">
-                <input type="checkbox" name="comments_event" id="comments_event" value="1" {{ old('comments_event', $timeline->comments_event) ? 'checked' : '' }}>
+            <label class="control__label" for="comment_event">Show comments per event
+                <input type="hidden" name="comment_event" value="0">
+                <input type="checkbox" name="comment_event" id="comment_event" value="1" {{ old('comment_event', $timeline->comment_event) ? 'checked' : '' }}>
                 <div></div>
             </label>
             <p>Turning this off has no affect on any <a href="#comments-tab" class="tab">existing comments</a>, it simply removes any access to view them from your timeline.</p>

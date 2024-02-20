@@ -116,6 +116,30 @@ class TimelineController extends Controller
 
     }
 
+    public function comments(Timeline $timeline, Event $event, Request $request) 
+    {
+
+        if ($request->ajax()){
+
+            if ($event->id) {
+                $comments = $event->comments;
+            } else {
+                $comments = $timeline->comments;
+            }
+
+            $comments_html = view('layouts.timeline.ajax.comments', ['comments' => $comments])->render();
+            $comments_count = $comments->count();
+
+            return response()->json(array(
+                'success' => true,
+                'comments_html' => $comments_html,
+                'comments_count' => $comments_count
+            ));
+
+        }
+
+    }
+
     public function showModalSuggestion(Timeline $timeline, Event $event)
     {
 
@@ -148,7 +172,7 @@ class TimelineController extends Controller
 
     }
 
-    public function suggestion(Timeline $timeline, Event $event, Request $request) 
+    public function submitSuggestion(Timeline $timeline, Event $event, Request $request) 
     {
 
         if ($request->ajax()){
@@ -196,7 +220,7 @@ class TimelineController extends Controller
 
     }
 
-    public function report(Timeline $timeline, Event $event, Request $request) 
+    public function submitReport(Timeline $timeline, Event $event, Request $request) 
     {
 
         if ($request->ajax()){

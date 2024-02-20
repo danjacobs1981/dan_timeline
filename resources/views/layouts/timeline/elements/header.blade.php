@@ -17,9 +17,9 @@
                     <i class="fa-solid fa-sliders"></i><em>0</em><span>Filter</span>
                 </li>
             @endif
-            @if($timeline->comments)
+            @if($timeline->comment)
                 <li class="header__options-comments" data-reveal="comments">
-                    <i class="fa-regular fa-comment"></i><span>8</span>
+                    <i class="fa-regular fa-comment"></i><span>{{ $timeline->commentsCount() }}</span>
                 </li>
             @endif
             @if(auth()->check() && $timeline->likedByUser())

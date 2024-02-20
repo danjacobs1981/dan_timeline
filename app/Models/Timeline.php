@@ -20,8 +20,8 @@ class Timeline extends Model
         'description',
         'map',
         'map_satellite',
-        'comments',
-        'comments_event',
+        'comment',
+        'comment_event',
         'tagging',
         'social',
         'collab',
@@ -41,6 +41,19 @@ class Timeline extends Model
     public function eventsByTag($tags)
     {
         return $this->events()->whereRelationIn('tags', 'tags.id', $tags);
+    }
+
+    /**
+     * Get all comments for the timeline.
+    */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function commentsCount()
+    {
+        return $this->comments()->count();
     }
 
     /**

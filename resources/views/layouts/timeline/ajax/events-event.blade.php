@@ -99,9 +99,9 @@
                     @endif
                 </ul>
                 <ul class="event-options">
-                    @if($event->timeline->comments && $event->timeline->comments_event)
+                    @if($event->timeline->comment && $event->timeline->comment_event)
                         <li class="event-comments" data-reveal="comments">
-                            <i class="fa-regular fa-comment"></i><span>2&nbsp;<span> comments</span></span>
+                            <i class="fa-regular fa-comment"></i><span>{{ $event->commentsCount() }}&nbsp;<span> {{ $event->commentsCount() == 1 ? 'comment' : 'comments' }}</span></span>
                         </li>
                     @endif
                     <li class="event-share">
@@ -112,7 +112,7 @@
                         <div class="dropdown" data-backdrop data-position-x="right" data-position-y="top">
                             <ul>
                                 <li>
-                                    <a data-modal data-modal-scroll data-modal-class="modal-suggestion" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                    <a data-modal data-modal-scroll data-modal-class="modal-suggestion modal-suggestion-event" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.suggestion.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
                                         <i class="fa-solid fa-pencil"></i>Suggest an edit
                                     </a>
                                 </li>
@@ -123,7 +123,7 @@
                                 @endif
                                 <span></span>
                                 <li>
-                                    <a data-modal data-modal-scroll data-modal-class="modal-report" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.report.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
+                                    <a data-modal data-modal-scroll data-modal-class="modal-report modal-report-event" data-modal-size="modal-md" data-modal-showclose="true" data-modal-clickclose="false" href="{{ route('timeline.report.showModal', [ 'timeline' => $event->timeline->id, 'event' => $event->id ]) }}">
                                         <i class="fa-solid fa-circle-exclamation"></i>Report
                                     </a>
                                 </li>

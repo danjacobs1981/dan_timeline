@@ -121,17 +121,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // timeline
     Route::get('/{timeline}/{slug?}', 'TimelineController@show')->name('timeline.show');
 
-    // ajax routes for timeline content
-    Route::get('/timeline/{timeline}/events', 'TimelineController@events')->name('timeline.events.ajax');
-    Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments')->name('timeline.comments.ajax');
-    
-    Route::post('/timeline/{timeline}/like', 'TimelineController@like');
-    Route::post('/timeline/{timeline}/save', 'TimelineController@save');
-    
-    Route::post('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@suggestion');
-    Route::post('/timeline/{timeline}/report/{event?}', 'TimelineController@report');
-    
+    // timeline modals
     Route::get('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@showModalSuggestion')->name('timeline.suggestion.showModal');
     Route::get('/timeline/{timeline}/report/{event?}', 'TimelineController@showModalReport')->name('timeline.report.showModal');
+
+    // ajax routes for timeline content
+    Route::get('/timeline/{timeline}/events', 'TimelineController@events');
+    Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments');
+    
+    // ajax routes for timeline posting
+    Route::post('/timeline/{timeline}/comments/{event?}', 'TimelineController@submitComment');
+    Route::post('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@submitSuggestion');
+    Route::post('/timeline/{timeline}/report/{event?}', 'TimelineController@submitReport');
+    Route::post('/timeline/{timeline}/like', 'TimelineController@like');
+    Route::post('/timeline/{timeline}/save', 'TimelineController@save');   
 
 });

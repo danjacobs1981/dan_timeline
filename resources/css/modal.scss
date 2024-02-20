@@ -71,16 +71,18 @@
     /* close */
     &>a {
         position: absolute;
-        top: 9px;
-        right: 9px;
+        top: 11px;
+        right: 11px;
         display: block;
-        width: 36px;
-        height: 36px;
-        & .fa-circle {
-            color: var(--greyLight)!important;
-        }
-        &:hover .fa-circle {
-            color: var(--link)!important;
+        width: 30px;
+        height: 30px;
+        &>span {
+            & .fa-circle {
+                color: var(--greyLight)!important;
+            }
+            &:hover .fa-circle {
+                color: var(--link)!important;
+            }
         }
     }
     &-body {
@@ -144,7 +146,12 @@
             }
         }
     }
-    @media (min-width: 768px) {}
+    @media (min-width: 768px) {
+        &>a {
+            width: 34px;
+            height: 34px;
+        }
+    }
     @media (min-width: 992px) {
         &-header {
             &>h5 {
@@ -153,4 +160,28 @@
         }
     }
     @media (min-width: 1200px) {}
+}
+
+
+/* modal heights */
+
+.modal {
+    &-login>.modal-body {
+        max-height: 612px;
+    }
+    &-register>.modal-body {
+        max-height: 612px;
+    }
+    &-report>.modal-body {
+        max-height: 612px;
+    }
+    &-suggestion>.modal-body {
+        max-height: 423px;
+    }
+    &-report-event>.modal-body {
+        max-height: 756px;
+    }
+    &-suggestion-event>.modal-body {
+        max-height: 566px;
+    }
 }
