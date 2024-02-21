@@ -5,17 +5,14 @@
             <div>
                 <span class="fa-stack">
 					<i class="fa-solid fa-circle fa-stack-2x"></i>
-					<i class="fa-regular fa-circle fa-stack-2x"></i>
 					<i class="fa-solid fa-user fa-stack-1x"></i>
 				</span>
             </div>
             <div>
-                <strong>
-                    <a href="{{ route('profile.show', ['username' => $comment->author->username ]) }}" target="_blank">
-                        {{ $comment->author->username }}
-                    </a>
-                </strong>
-                <em>
+                <a href="{{ route('profile.show', ['username' => $comment->author->username ]) }}" target="_blank">
+                    {{ $comment->author->username }} {!! $comment->timeline->user_id == $comment->user_id ? '<span>Author</span>' : '' !!} 
+                </a>
+                <em data-popover="{{ $comment->created_at->format('jS F Y g:ia') }}" data-popover-position="bottom">
                     {{ $carbon::parse($comment->created_at)->diffForHumans() }}
                 </em>
             </div>
@@ -26,13 +23,13 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <i class="fa-solid fa-reply"></i>Reply
+                            <i class="fa-solid fa-reply"></i>Reply to comment
                         </a>
                     </li>
                     <span></span>
                     <li>
                         <a href="#">
-                            <i class="fa-solid fa-circle-exclamation"></i>Report
+                            <i class="fa-solid fa-circle-exclamation"></i>Report comment
                         </a>
                     </li>
                 </ul>
@@ -44,11 +41,13 @@
     </div>
     <footer>
         <div>
-            <div>
-                like
-            </div>
+            @if(auth()->check() && $comment->likes->where('user_id', auth()->id())->first())
+                <i class="fa-solid fa-thumbs-up"></i>
+            @else
+                <i class="fa-regular fa-thumbs-up"></i>
+            @endif
             <span>
-                #
+                {{ $comment->likesCount() }}
             </span>
         </div>
         <a href="#">

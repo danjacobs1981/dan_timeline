@@ -18,6 +18,8 @@ class Comment extends Model
         'comment'
     ];
 
+    protected $hidden = ['pivot'];
+
     /**
      * Get the timeline that owns the comment.
      */
@@ -47,7 +49,20 @@ class Comment extends Model
      */
     public function replies() 
     {
-        return $this->hasMany('App\Comment', 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    /**
+     * Get the likes of the comment.
+     */
+    public function likes() 
+    {
+        return $this->belongsToMany(Comment::class, 'comment_like')->select(['comment_like.user_id']);
+    }
+
+    public function likesCount()
+    {
+        return $this->likes()->count();
     }
 
 }
