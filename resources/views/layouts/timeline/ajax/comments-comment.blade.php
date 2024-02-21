@@ -40,16 +40,15 @@
         {!! preg_replace("#<p>(\s|&nbsp;|</?\s?br\s?/?>)*</?p>#", '', '<p>'.implode('</p><p>', array_filter(explode("\n", $comment->comment))).'</p>') !!}
     </div>
     <footer>
-        <div>
-            @if(auth()->check() && $comment->likes->where('user_id', auth()->id())->first())
-                <i class="fa-solid fa-thumbs-up"></i>
-            @else
-                <i class="fa-regular fa-thumbs-up"></i>
-            @endif
-            <span>
-                {{ $comment->likesCount() }}
-            </span>
-        </div>
+        @if(auth()->check() && $comment->likedByUser())
+            <div class="comment-liked">
+                <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-thumbs-up"></i><i class="fa-solid fa-thumbs-up fa-bounce"></i><span>{{ $comment->likesCount() }}</span>
+            </div>
+        @else
+            <div class="comment-like">
+                <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-thumbs-up"></i><i class="fa-solid fa-thumbs-up"></i><span>{{ $comment->likesCount() }}</span>
+            </div>
+        @endif
         <a href="#">
             Reply
         </a>

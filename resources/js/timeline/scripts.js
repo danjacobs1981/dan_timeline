@@ -3,7 +3,7 @@ import ScrollMagic from 'scrollmagic';
 import { screenSize, urlParams } from './../global';
 import { loadMarkers, mapLoaded, mapSync, getMapClick, setMapClick, targetMap, markers } from './../timeline/map';
 
-var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
+export var timeline_id = parseInt($('meta[name="timeline"]').attr('content'));
 
 var topHeight = getTopHeight();
 

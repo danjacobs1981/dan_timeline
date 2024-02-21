@@ -127,13 +127,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     // ajax routes for timeline content
     Route::get('/timeline/{timeline}/events', 'TimelineController@events');
-    Route::get('/timeline/{timeline}/comments/{event?}', 'TimelineController@comments');
-    
-    // ajax routes for timeline posting
-    Route::post('/timeline/{timeline}/comments/{event?}', 'TimelineController@submitComment');
     Route::post('/timeline/{timeline}/suggestion/{event?}', 'TimelineController@submitSuggestion');
     Route::post('/timeline/{timeline}/report/{event?}', 'TimelineController@submitReport');
     Route::post('/timeline/{timeline}/like', 'TimelineController@like');
-    Route::post('/timeline/{timeline}/save', 'TimelineController@save');   
+    Route::post('/timeline/{timeline}/save', 'TimelineController@save');
+
+    // ajax routes for timeline comments
+    Route::get('/timeline/{timeline}/comments/{event?}', 'CommentController@comments');
+    Route::post('/timeline/{timeline}/comments/{event?}', 'CommentController@submitComment');
+    Route::post('/timeline/{timeline}/{comment}/like', 'CommentController@like');
 
 });

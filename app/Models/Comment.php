@@ -57,12 +57,17 @@ class Comment extends Model
      */
     public function likes() 
     {
-        return $this->belongsToMany(Comment::class, 'comment_like')->select(['comment_like.user_id']);
+        return $this->hasMany(CommentsLike::class);
     }
 
     public function likesCount()
     {
         return $this->likes()->count();
+    }
+
+    public function likedByUser()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
     }
 
 }
