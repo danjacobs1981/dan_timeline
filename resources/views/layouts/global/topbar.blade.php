@@ -104,41 +104,41 @@
 			</a>
 		</li>
 		@auth
-		<li class="nav-notifications">
-			<a href="#" title="Notifications">
-				<span class="fa-stack">
-					<i class="fa-solid fa-circle fa-stack-2x"></i>
-					<i class="fa-regular fa-circle fa-stack-2x"></i>
-					<i class="fa-solid fa-bell fa-stack-1x"></i>
-				</span>
-			</a>
-		</li>
-		<li>
-			<a href="{{ route('dashboard.show') }}" title="Go to your Dashboard">
-				<span class="fa-stack">
-					<i class="fa-solid fa-circle fa-stack-2x"></i>
-					<i class="fa-regular fa-circle fa-stack-2x"></i>
-					<i class="fa-solid fa-user fa-stack-1x"></i>
-					{!! auth()->user()->premium ? '<i class="fa-solid fa-crown fa-stack-1x" title="Premium Member"></i>' : '' !!}
-				</span><em>{{ auth()->user()->username }}</em>
-			</a>
-		</li>
+			<li class="nav-notifications">
+				<a href="#" title="Notifications">
+					<span class="fa-stack">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-regular fa-circle fa-stack-2x"></i>
+						<i class="fa-solid fa-bell fa-stack-1x"></i>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ route('dashboard.show') }}" title="Go to your Dashboard">
+					<span class="fa-stack">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-regular fa-circle fa-stack-2x"></i>
+						<i class="fa-solid fa-user fa-stack-1x"></i>
+						{!! auth()->user()->premium ? '<i class="fa-solid fa-crown fa-stack-1x" title="Premium Member"></i>' : '' !!}
+					</span><em>{{ auth()->user()->username }}</em>
+				</a>
+			</li>
 		@endauth
 		@guest
-		<li class="nav-register">
-			<a href="{{ route('register.show') }}" title="">
-				<em>Sign Up</em>
-			</a>
-		</li>
-		<li class="nav-login">
-			<a href="{{ route('login.showModal') }}" data-modal data-modal-scroll data-modal-class="modal-login" data-modal-size="modal-md" data-modal-clickclose="false">
-				<span class="fa-stack">
-					<i class="fa-solid fa-circle fa-stack-2x"></i>
-					<i class="fa-regular fa-circle fa-stack-2x"></i>
-					<i class="fa-solid fa-user fa-stack-1x"></i>
-				</span><em>Log In</em>
-			</a>
-		</li>
+			<li class="nav-register">
+				<a href="{{ route('register.show') }}" title="">
+					<em>Sign Up</em>
+				</a>
+			</li>
+			<li class="nav-login">
+				<a href="{{ route('login.showModal') }}" data-modal data-modal-scroll data-modal-class="modal-login" data-modal-size="modal-md" data-modal-clickclose="true">
+					<span class="fa-stack">
+						<i class="fa-solid fa-circle fa-stack-2x"></i>
+						<i class="fa-regular fa-circle fa-stack-2x"></i>
+						<i class="fa-solid fa-user fa-stack-1x"></i>
+					</span><em>Log In</em>
+				</a>
+			</li>
 		@endguest
     </ul>
 </div>

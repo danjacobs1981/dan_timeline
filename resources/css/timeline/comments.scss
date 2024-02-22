@@ -1,3 +1,9 @@
+#comments {
+    & .reveal__body {
+        padding: 0;
+    }
+}
+
 .comments {
     &>.loading {
         background: rgba(255, 255, 255, 0.5);
@@ -6,11 +12,103 @@
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 400;
         &>.dots {
             position: sticky;
             left: 50%;
             top: 50%;
             transform: translate(-50%, 50%);
+        }
+    }
+    &-add {
+        margin-bottom: 1rem;
+        padding: 0.75rem 1rem;
+        position: sticky;
+        top: 50px;
+        z-index: 20;
+        border-bottom: 1px solid var(--grey);
+        background: var(--greyLight);
+        box-shadow: rgba(0, 0, 0, 0.05) 0 0 2px 3px;
+        &>header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            &>div {
+                margin-right: 0.5rem;
+                &>span {
+                    font-size: 1rem;
+                    &>.fa-circle {
+                        color: var(--greyMedium)!important;
+                    }
+                    &>.fa-user {
+                        color: #fff;
+                    }
+                }
+            }
+            &>strong {
+                color: var(--link);
+                font-weight: 500;
+            }
+        }
+        &>.grow-wrap {
+            display: grid;
+            text-decoration: none;
+            &::after {
+                /* Note the weird space! Needed to preventy jumpy behavior */
+                content: attr(data-replicated-value) " ";
+                /* This is how textarea text behaves */
+                white-space: pre-wrap;
+                /* Hidden from view, clicks, and screen readers */
+                visibility: hidden;
+            }
+            &>textarea {
+                cursor: pointer;
+                resize: none;
+                width: 100%;
+                border: none;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+            }
+            &>textarea,
+            &::after {
+                padding: 0.5rem;
+                font: inherit;
+                grid-area: 1 / 1 / 2 / 2;
+            }
+        }
+        &>footer {
+            margin: 0.5rem 0.5rem 0;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            &>a {
+                color: var(--greyDark);
+                font-size: 0.844rem;
+            }
+        }
+        &.open {
+            &>.grow-wrap {
+                &>textarea {
+                    min-height: 3.5rem;
+                    cursor: text;
+                }
+            }
+            &>footer {
+                display: flex;
+            }
+        }
+    }
+    &-options {
+        padding: 0 1rem;
+    }
+    &-wrapper {
+        padding: 0 1rem 1rem;
+    }
+    @media (min-width: 768px) {
+        &-add {
+            top: 60px;
         }
     }
 }
@@ -19,7 +117,7 @@
     background: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 2.5px 0 rgba(0, 0, 0, 0.15);
-    font-size: 0.813rem;
+    font-size: 0.844rem;
     margin-top: 1rem;
     &>header {
         display: flex;
@@ -44,6 +142,7 @@
                     }
                 }
                 &>a {
+                    font-size: 0.813rem;
                     font-weight: 500;
                     display: flex;
                     align-items: center;
@@ -129,13 +228,10 @@
                 min-width: 28px;
                 display: block;
             }
-            &:hover {
-                &>i {
-                    color: var(--link);
-                }
-            }
         }
-        &>a {}
+        &>a {
+            font-size: 0.813rem;
+        }
     }
 }
 

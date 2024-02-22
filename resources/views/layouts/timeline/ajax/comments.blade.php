@@ -1,7 +1,4 @@
 @inject('carbon', 'Carbon\Carbon')
-<textarea>
-
-</textarea>
 
 @forelse($comments->where('parent_id', null)->sortBy('created_at') as $comment)  
     @include('layouts.timeline.ajax.comments-comment', [ 'reply' => false ])

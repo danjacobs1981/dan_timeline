@@ -11,7 +11,7 @@ export function start() {
 
     setLayout();
     classEvents();
-    loadEvents(null, []);
+    //loadEvents(null, []);
 
     $(window).on('resize', function() {
         topHeight = getTopHeight();
@@ -77,10 +77,12 @@ export function start() {
 
     $('.events').on('click', '[data-reveal="comments"]', function() {
         var event_id = $(this).closest('.event-item').data('id');
+        $('.comments-add textarea').focus();
         loadComments(event_id);
     });
 
     $('li.header__options-comments').on('click', function() {
+        $('.comments-add textarea').focus();
         loadComments(null);
     });
 

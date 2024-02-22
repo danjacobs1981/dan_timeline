@@ -6,6 +6,19 @@ $(function() {
 
 });
 
+// begin comment
+$('.comments-add div.grow-wrap').on('click', function() {
+    $('.comments-add').addClass('open');
+});
+
+// cancel comment
+$('.comments-add>footer>a').on('click', function(e) {
+    e.preventDefault();
+    $('.comments-add').removeClass('open');
+    $('.comments-add>.grow-wrap').attr('data-replicated-value', '');
+    $('.comments-add textarea').val('');
+});
+
 /* like comment */
 $('#comments').on('click', '.comment>footer>div', function() {
     var $el = $(this);

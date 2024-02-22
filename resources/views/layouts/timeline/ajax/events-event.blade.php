@@ -118,7 +118,9 @@
                                 </li>
                                 @if($event->timeline->collab)
                                     <li>
-                                        <a href="#"><i class="fa-solid fa-user-group"></i>Request to collaborate</a>
+                                        <a href="#">
+                                            <i class="fa-solid fa-user-group"></i>Request to collaborate
+                                        </a>
                                     </li>
                                 @endif
                                 <span></span>

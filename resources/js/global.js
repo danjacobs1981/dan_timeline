@@ -90,12 +90,15 @@ export function start() {
     $(document).on('click', '.dropdown', function(e) {
         e.stopPropagation();
         if ($(e.target).is('a') || $(e.target).closest('a').length) { /* target is 'a' or target within 'a' */
+            if (typeof $(this).data('select') !== 'undefined') {
+                $(this).closest('.dropdown-toggle').find('.dropdown-title').text($(e.target).text());
+            }
             closeDropdowns();
         }
     });
 
     $('body').on('click', '.dropdown-toggle', function(e) {
-        if ($(this).hasClass('open') && $(e.target).is('i.dropdown-close')) {
+        if ($(this).hasClass('open') && ($(e.target).is('i.dropdown-close') || $(e.target).is('span.dropdown-title'))) {
             closeDropdowns();
         } else {
             closeDropdowns();

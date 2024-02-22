@@ -23,13 +23,14 @@ class LoginController extends Controller
     }
 
 
-    public function showModal()
+    public function showModal(Request $request)
     {
 
-        $modal_title = 'Log in';
+        $modal_title = 'Log In';
+        $incentive = $request->incentive;
         $route = 'layouts.global.snippets.modal.login-register';
         $routeParams = array('modal' => true, 'show' => 'login');
-        return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title'));
+        return view('layouts.modal.master', compact('route', 'routeParams', 'modal_title', 'incentive'));
 
     }
 

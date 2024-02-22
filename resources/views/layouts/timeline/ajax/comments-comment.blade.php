@@ -1,4 +1,3 @@
-
 <div class="comment" data-id="{{ $comment->id }}">
     <header>
         <div>
@@ -49,8 +48,14 @@
                 <i class="fa-solid fa-circle-notch fa-spin"></i><i class="fa-regular fa-thumbs-up"></i><i class="fa-solid fa-thumbs-up"></i><span>{{ $comment->likesCount() }}</span>
             </div>
         @endif
-        <a href="#">
-            Reply
-        </a>
+        @auth
+            <a href="#">
+                Reply
+            </a>
+        @else
+            <a href="{{ route('login.showModal', [ 'incentive' => 'Log in or register to reply...' ]) }}" data-modal data-modal-scroll data-modal-class="modal-login" data-modal-size="modal-md" data-modal-clickclose="true">
+                Reply
+            </a>
+        @endauth
     </footer> 
 </div>
