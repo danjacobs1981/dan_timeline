@@ -11,7 +11,7 @@ export function start() {
 
     setLayout();
     classEvents();
-    //loadEvents(null, []);
+    loadEvents(null, []);
 
     $(window).on('resize', function() {
         topHeight = getTopHeight();
