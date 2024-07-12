@@ -14,14 +14,23 @@
         max-height: none!important;
         overflow: auto!important;
     }
-    &>button {
-        background: var(--greyVeryDark)!important;
-        opacity: 1;
-        top: 0!important;
-        right: 0!important;
-        border-radius: 0 0 0 50%;
-        &>span {
-            background-color: #fff;
+    &>.gm-style-iw-chr {
+        padding: 0;
+        height: 0;
+        &>button {
+            background: var(--greyVeryDark) !important;
+            opacity: 1;
+            top: 0 !important;
+            right: 0 !important;
+            border-radius: 0 0 0 50%;
+            height: 32px !important;
+            width: 32px !important;
+            &>span {
+                background-color: #fff;
+                margin: 7px!important;
+                height: 18px!important;
+                width: 18px!important;
+            }
         }
     }
 }
